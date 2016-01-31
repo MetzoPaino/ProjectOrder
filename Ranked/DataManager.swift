@@ -12,6 +12,8 @@ class DataManager {
     
     var collections = [CollectionModel]()
     
+    let preMadeCollectionsArray = [createDavidBowieCollection(), createStarWarsCollection(), createHarryPotterCollection(), createFinalFantasyCollection(), createInternetBrowserCollection(), createDesktopOSCollection(), createMobileOSCollection(), createDoctorWhoCollection()]
+    
     init() {
         
         loadData()
@@ -53,14 +55,17 @@ class DataManager {
             print("No file path")
             collections = [CollectionModel]()
             
-            collections.append(createDavidBowieCollection())
-            collections.append(createStarWarsCollection())
-            collections.append(createHarryPotterCollection())
-            collections.append(createFinalFantasyCollection())
-            collections.append(createInternetBrowserCollection())
-            collections.append(createDesktopOSCollection())
-            collections.append(createMobileOSCollection())
-            collections.append(createDoctorWhoCollection())
+            var temp = preMadeCollectionsArray
+            
+            while collections.count < preMadeCollectionsArray.count {
+                
+                let random = Int(arc4random_uniform(UInt32(temp.count - 1)))
+                
+                collections.append(temp[random])
+                temp.removeAtIndex(random)
+                
+                
+            }
         }
     }
     
