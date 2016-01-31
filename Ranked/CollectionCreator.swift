@@ -167,6 +167,20 @@ func createDoctorWhoCollection() -> CollectionModel {
     return collection
 }
 
+func createMarioCharactersCollection() -> CollectionModel {
+    
+    let collection = CollectionModel(name: "Mario Characters", description: "?", category: .games, dateCreated: NSDate())
+    
+    let mario = ItemModel(string: "Mario")
+    let luigi = ItemModel(string: "Lugi")
+    let peach = ItemModel(string: "Peach")
+    let bowser = ItemModel(string: "Bowser")
+    let toad = ItemModel(string: "Toad")
+    
+    collection.items = [mario, luigi, peach, bowser, toad]
+    
+    return collection
+}
 
 
           
