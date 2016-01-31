@@ -121,6 +121,11 @@ class AddCollectionViewController: UIViewController {
 
     }
     
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+    
     // MARK: - Style View
     
     func styleView() {
