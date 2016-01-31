@@ -88,6 +88,7 @@ class CollectionsTableViewController: UITableViewController {
         case .games:
             cell.descriptionLabel.text = "🎮"
         case .none:
+            cell.descriptionLabel.text = ""
             break
         }
         

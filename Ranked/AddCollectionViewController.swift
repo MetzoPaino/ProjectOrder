@@ -135,7 +135,16 @@ class AddCollectionViewController: UIViewController {
     @IBAction func saveButtonPressed(sender: AnyObject) {
         resignFirstResponder()
         dismissViewControllerAnimated(true) { () -> Void in
-            self.delegate?.addCollectionViewControllerCreatedNewCollectionWithName(self.titleTextView.text, description: self.descriptionTextView.text, category: .none)
+            
+            let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! CollectionTitleCell
+            let text = cell.textView.text
+            
+            if self.selectedCategory == nil {
+                
+                self.selectedCategory = .none
+            }
+            
+            self.delegate?.addCollectionViewControllerCreatedNewCollectionWithName(text, description: "", category: self.selectedCategory!)
         }
     }
     
@@ -193,10 +202,10 @@ extension AddCollectionViewController: UITableViewDataSource {
 
         } else if cellType == "TitleCell" {
             let cell = tableView.dequeueReusableCellWithIdentifier(cellType, forIndexPath: indexPath) as! CollectionTitleCell
-            cell.delegate = self
-            cell.configureCell()
             
             if initialLoad {
+                cell.delegate = self
+                cell.configureCell()
                 cell.textView.becomeFirstResponder()
                 initialLoad = false
             }
