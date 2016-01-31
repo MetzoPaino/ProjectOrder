@@ -78,18 +78,27 @@ class CollectionsTableViewController: UITableViewController {
         switch collection.category {
             
         case .music:
-            cell.descriptionLabel.text = "🎵"
+            cell.descriptionLabel.text = "🎵 "
             
         case .films:
-            cell.descriptionLabel.text = "📽"
+            cell.descriptionLabel.text = "📽 "
             
         case .books:
-            cell.descriptionLabel.text = "📚"
+            cell.descriptionLabel.text = "📚 "
         case .games:
-            cell.descriptionLabel.text = "🎮"
+            cell.descriptionLabel.text = "🎮 "
         case .none:
             cell.descriptionLabel.text = ""
             break
+        }
+        
+        if collection.sorted {
+            
+            collection.items = collection.items.sort({ $0.points > $1.points })
+            cell.descriptionLabel.text! += "1. \(collection.items.first!.text)"
+        } else {
+            cell.descriptionLabel.text! += "unsorted"
+
         }
         
 //        var visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .Light))
