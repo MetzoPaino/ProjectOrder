@@ -110,10 +110,15 @@ class AddCollectionViewController: UIViewController {
     let cellArray = ["TitleCell", "CategoryCell"]
     
     var initialLoad = true
+    var waitingToDismiss = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
         styleView()
+        
+        let notificationCenter = NSNotificationCenter.defaultCenter()
+        notificationCenter.addObserver(self, selector: "keyboardDidHide:", name: UIKeyboardDidHideNotification, object: nil)
+
     }
     
     // MARK: - Style View
@@ -133,19 +138,38 @@ class AddCollectionViewController: UIViewController {
     }
 
     @IBAction func saveButtonPressed(sender: AnyObject) {
-        resignFirstResponder()
-        dismissViewControllerAnimated(true) { () -> Void in
+        
+        let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! CollectionTitleCell
+        let text = cell.textView.text
+        
+        if self.selectedCategory == nil {
             
-            let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! CollectionTitleCell
-            let text = cell.textView.text
-            
-            if self.selectedCategory == nil {
-                
-                self.selectedCategory = .none
-            }
-            
-            self.delegate?.addCollectionViewControllerCreatedNewCollectionWithName(text, description: "", category: self.selectedCategory!)
+            self.selectedCategory = .none
         }
+        
+        self.delegate?.addCollectionViewControllerCreatedNewCollectionWithName(text, description: "", category: self.selectedCategory!)
+        
+        waitingToDismiss = true
+        view.endEditing(true)
+        
+
+        
+        
+        
+        
+        
+//        dismissViewControllerAnimated(true) { () -> Void in
+//            
+//            let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! CollectionTitleCell
+//            let text = cell.textView.text
+//            
+//            if self.selectedCategory == nil {
+//                
+//                self.selectedCategory = .none
+//            }
+//            
+//            self.delegate?.addCollectionViewControllerCreatedNewCollectionWithName(text, description: "", category: self.selectedCategory!)
+//        }
     }
     
     // MARK: - Navigation
@@ -159,7 +183,15 @@ class AddCollectionViewController: UIViewController {
         }
     
     }
-    
+
+    // MARK: - NSNotification
+
+    func keyboardDidHide(notification: NSNotification) {
+        
+        if waitingToDismiss {
+            dismissViewControllerAnimated(true, completion: nil)
+        }
+    }
     
 }
 
