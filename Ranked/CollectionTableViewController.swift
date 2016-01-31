@@ -10,14 +10,46 @@ import UIKit
 
 class ItemTableViewCell: UITableViewCell {
 
-
-    
     @IBOutlet weak var numberLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
     
     @IBOutlet weak var numberLabelWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var numberLabelTrailingConstraint: NSLayoutConstraint!
     @IBOutlet weak var titleLabelLeadingConstraint: NSLayoutConstraint!
+}
+
+protocol AddItemTableViewCellDelegate: class {
+    func createdNewItemWithText(text: String)
+}
+
+
+class AddItemTableViewCell: UITableViewCell {
+    
+    @IBOutlet weak var textField: UITextField!
+    
+    weak var delegate: AddItemTableViewCellDelegate?
+
+    func configureCell() {
+        
+        textField.delegate = self
+    }
+
+}
+
+extension AddItemTableViewCell: UITextFieldDelegate {
+    
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        
+        textField.resignFirstResponder()
+        
+        let string = textField.text! as NSString
+        
+        if string.length > 0 {
+            self.delegate?.createdNewItemWithText(textField.text!)
+            textField.text = ""
+        }
+        return true
+    }
 }
 
 class CollectionTableViewController: UITableViewController {
@@ -56,23 +88,35 @@ class CollectionTableViewController: UITableViewController {
 
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! ItemTableViewCell
         
-        let item = collection.items[indexPath.row]
-        
-        cell.numberLabel.text = "\(indexPath.row + 1)"
-        cell.titleLabel.text = item.text
-        
-        if collection.sorted {
+        if indexPath.row < collection.items.count {
             
-            cell.numberLabelWidthConstraint.constant = 40
-            cell.numberLabel.hidden = false
+            let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! ItemTableViewCell
             
+            let item = collection.items[indexPath.row]
+            
+            cell.numberLabel.text = "\(indexPath.row + 1)"
+            cell.titleLabel.text = item.text
+            
+            if collection.sorted {
+                
+                cell.numberLabelWidthConstraint.constant = 40
+                cell.numberLabel.hidden = false
+                
+            } else {
+                cell.numberLabelWidthConstraint.constant = 0
+                cell.numberLabel.hidden = true
+            }
+            return cell
         } else {
-            cell.numberLabelWidthConstraint.constant = 0
-            cell.numberLabel.hidden = true
+            
+            let cell = tableView.dequeueReusableCellWithIdentifier("Add Cell", forIndexPath: indexPath) as! AddItemTableViewCell
+            cell.delegate = self
+            cell.configureCell()
+            return cell
         }
-        return cell
+        
+
     }
     
     override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
@@ -106,7 +150,18 @@ class CollectionTableViewController: UITableViewController {
         return proposedDestinationIndexPath;
 
     }
+    
+    override func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        
+        let cell = tableView.dequeueReusableCellWithIdentifier("Add Cell") as! AddItemTableViewCell
+        cell.delegate = self
+        cell.configureCell()
+        return cell
+    }
 
+    override func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 48 + 32
+    }
     /*
     // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
@@ -160,6 +215,23 @@ extension CollectionTableViewController: SortingViewControllerDelegate {
         
         collection.sorted = true
         collection.items = items.sort({ $0.points > $1.points })
+        tableView.reloadData()
+    }
+}
+
+extension CollectionTableViewController: AddItemTableViewCellDelegate {
+    
+    func createdNewItemWithText(text: String) {
+        let item = ItemModel(string: text)
+        collection.items.append(item)
+//        tableView.beginUpdates()
+//        tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: collection.items.count, inSection: 0)], withRowAnimation: UITableViewRowAnimation.Bottom)
+//        tableView.endUpdates()
+        
+//        [tableView beginUpdates];
+//        [tableView insertRowsAtIndexPaths:(NSArray *)indexPaths withRowAnimation:(UITableViewRowAnimation)animation];
+//        [tableView endUpdates];
+        
         tableView.reloadData()
     }
 }
