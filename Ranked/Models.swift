@@ -13,6 +13,7 @@ enum CollectionType: Int {
     case films
     case books
     case games
+    case computers
     case none
 }
 

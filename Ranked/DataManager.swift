@@ -57,7 +57,10 @@ class DataManager {
             collections.append(createStarWarsCollection())
             collections.append(createHarryPotterCollection())
             collections.append(createFinalFantasyCollection())
-
+            collections.append(createInternetBrowserCollection())
+            collections.append(createDesktopOSCollection())
+            collections.append(createMobileOSCollection())
+            collections.append(createDoctorWhoCollection())
         }
     }
     

@@ -87,6 +87,8 @@ class CollectionsTableViewController: UITableViewController {
             cell.descriptionLabel.text = "📚 "
         case .games:
             cell.descriptionLabel.text = "🎮 "
+        case .computers:
+            cell.descriptionLabel.text = "🖥 "
         case .none:
             cell.descriptionLabel.text = ""
             break

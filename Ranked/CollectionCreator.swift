@@ -101,3 +101,72 @@ func createFinalFantasyCollection() -> CollectionModel {
     
     return collection
 }
+
+func createInternetBrowserCollection() -> CollectionModel {
+    
+    let collection = CollectionModel(name: "Browsers", description: "?", category: .computers, dateCreated: NSDate())
+    
+    let internetExplorer = ItemModel(string: "Internet Explorer")
+    let chrome = ItemModel(string: "Chrome")
+    let safari = ItemModel(string: "Safari")
+    let firefox = ItemModel(string: "Firefox")
+    let opera = ItemModel(string: "Opera")
+    let edge = ItemModel(string: "Edge")
+    
+    collection.items = [internetExplorer, chrome, safari, firefox, opera, edge]
+    
+    return collection
+}
+
+func createDesktopOSCollection() -> CollectionModel {
+    
+    let collection = CollectionModel(name: "Desktop OS", description: "?", category: .computers, dateCreated: NSDate())
+    
+    let mac = ItemModel(string: "Mac")
+    let windows = ItemModel(string: "Windows")
+    let linux = ItemModel(string: "Linux")
+    
+    collection.items = [mac, windows, linux]
+    
+    return collection
+}
+
+func createMobileOSCollection() -> CollectionModel {
+    
+    let collection = CollectionModel(name: "Mobile OS", description: "?", category: .computers, dateCreated: NSDate())
+    
+    let ios = ItemModel(string: "iOS")
+    let android = ItemModel(string: "Android")
+    let blackberry = ItemModel(string: "Blackberry")
+    let windows = ItemModel(string: "Windows Mobile")
+
+    collection.items = [ios, android, blackberry, windows]
+    
+    return collection
+}
+
+func createDoctorWhoCollection() -> CollectionModel {
+    
+    let collection = CollectionModel(name: "Doctor Who", description: "?", category: .films, dateCreated: NSDate())
+    
+    let hartnell = ItemModel(string: "First William Hartnell")
+    let troughton = ItemModel(string: "Second Patrick Troughton")
+    let pertwee = ItemModel(string: "Third Jon Pertwee")
+    let tomBaker = ItemModel(string: "Fourth Tom Baker")
+    let davison = ItemModel(string: "Fifth Peter Davison")
+    let colinBaker = ItemModel(string: "Sixth Colin Baker")
+    let mcCoy = ItemModel(string: "Seventh Sylvester McCoy")
+    let mcGann = ItemModel(string: "Eighth Paul McGann")
+    let eccleston = ItemModel(string: "Ninth Christopher Eccleston")
+    let tennant = ItemModel(string: "Tenth David Tennant")
+    let smith = ItemModel(string: "Eleventh Matt Smith")
+    let capaldi = ItemModel(string: "Twelfth Peter Capaldi")
+
+    collection.items = [hartnell, troughton, pertwee, tomBaker, davison, colinBaker, mcCoy, mcGann, eccleston, tennant, smith, capaldi]
+    
+    return collection
+}
+
+
+
+          
