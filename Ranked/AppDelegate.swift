@@ -12,10 +12,35 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    let dataManager = DataManager()
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        let splitViewController =  window!.rootViewController as! UISplitViewController
+        
+        if splitViewController.isKindOfClass(UISplitViewController) {
+            
+            splitViewController.delegate = self
+            let navigationController = splitViewController.viewControllers[0] as! UINavigationController
+            let masterController = navigationController.topViewController as! CollectionsTableViewController
+            masterController.dataManager = dataManager
+            
+            if UIDevice.currentDevice().userInterfaceIdiom == .Pad {
+                splitViewController.preferredDisplayMode = .AllVisible
+                
+                if splitViewController.viewControllers.count > 1 && dataManager.collections.count > 0 {
+                    
+                    let detailNavigationController = splitViewController.viewControllers[1] as! UINavigationController
+                    let detailController = detailNavigationController.topViewController as! CollectionTableViewController
+                    detailController.collection = dataManager.collections[0]
+                }
+            }
+        }
+        
+//
+//
+//        
+
         return true
     }
 
@@ -25,8 +50,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationDidEnterBackground(application: UIApplication) {
-        // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-        // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+        saveData()
     }
 
     func applicationWillEnterForeground(application: UIApplication) {
@@ -38,9 +62,53 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationWillTerminate(application: UIApplication) {
-        // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+        saveData()
     }
 
-
+    func saveData() {
+        dataManager.saveData()
+    }
 }
 
+extension AppDelegate: UISplitViewControllerDelegate {
+    func splitViewController(splitViewController: UISplitViewController, collapseSecondaryViewController secondaryViewController:UIViewController, ontoPrimaryViewController primaryViewController:UIViewController) -> Bool {
+        
+        print("collapseSecondaryViewController")
+
+        if window!.rootViewController!.traitCollection.horizontalSizeClass == UIUserInterfaceSizeClass.Compact {
+            
+            return true
+        }
+        
+        
+        if let secondaryNavController = secondaryViewController as? UINavigationController, detailController = secondaryNavController.topViewController as? CollectionTableViewController {
+            
+            detailController.collection = dataManager.collections[0]
+        }
+        
+//        if let secondaryAsNavController = secondaryViewController as? UINavigationController, topAsDetailController = secondaryAsNavController.topViewController as? SessionViewController where topAsDetailController.session == nil {
+//            return true
+//        }
+        return false
+    }
+    
+    func splitViewController(splitViewController: UISplitViewController, showDetailViewController vc: UIViewController, sender: AnyObject?) -> Bool {
+        print("showDetailViewController")
+        return false
+    }
+    
+    func splitViewController(splitViewController: UISplitViewController, showViewController vc: UIViewController, sender: AnyObject?) -> Bool {
+        print("showMasterViewController")
+        return true
+    }
+    
+//    func splitViewController(svc: UISplitViewController, willShowViewController aViewController: UIViewController, invalidatingBarButtonItem barButtonItem: UIBarButtonItem) {
+//        print("willShowViewController invalidatingBarButtonItem")
+//
+//    }
+//    
+//    func splitViewController(splitViewController: UISplitViewController, separateSecondaryViewControllerFromPrimaryViewController primaryViewController: UIViewController) -> UIViewController? {
+//        print("separateSecondaryViewControllerFromPrimaryViewController")
+//return primaryViewController
+//    }
+}
