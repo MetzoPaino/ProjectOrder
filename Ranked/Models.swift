@@ -43,18 +43,22 @@ class CollectionModel: NSObject, NSCoding {
     let descriptionKey = "description"
     let itemsKey = "items"
     let categoryKey = "category"
-    
+    let dateCreatedKey = "dateCreated"
+    let sortedKey = "sorted"
+
     var name = ""
     var descriptionString = ""
     var category: CollectionType
     var sorted = false
+    var dateCreated: NSDate
 
     var items = [ItemModel]()
     
-    init(name: String, description: String, category: CollectionType) {
+    init(name: String, description: String, category: CollectionType, dateCreated: NSDate) {
         self.name = name
         self.descriptionString = description
         self.category = category
+        self.dateCreated = dateCreated
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -96,6 +100,20 @@ class CollectionModel: NSObject, NSCoding {
             category = .none
         }
         
+        if let decodedDateCreated = aDecoder.decodeObjectForKey(dateCreatedKey) as? NSDate {
+            
+            dateCreated = decodedDateCreated
+        } else {
+            dateCreated = NSDate()
+        }
+        
+        if let decodedSorted = aDecoder.decodeObjectForKey(sortedKey) as? Bool {
+            
+            sorted = decodedSorted
+        } else {
+            sorted = false
+        }
+        
         super.init()
     }
     
@@ -106,6 +124,8 @@ class CollectionModel: NSObject, NSCoding {
         aCoder.encodeObject(descriptionString, forKey: descriptionKey)
         aCoder.encodeObject(items, forKey: itemsKey)
         aCoder.encodeObject(category.hashValue, forKey: categoryKey)
+        aCoder.encodeObject(dateCreated, forKey: dateCreatedKey)
+        aCoder.encodeObject(sorted, forKey: sortedKey)
     }
 }
 

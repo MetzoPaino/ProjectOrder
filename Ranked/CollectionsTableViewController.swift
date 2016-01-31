@@ -165,8 +165,10 @@ extension CollectionsTableViewController: AddCollectionViewControllerDelegate {
     
     func addCollectionViewControllerCreatedNewCollectionWithName(name: String, description: String, category: CollectionType) {
         
-        let collection = CollectionModel(name: name, description: description, category: category)
+        let collection = CollectionModel(name: name, description: description, category: category, dateCreated: NSDate())
         collectionsArray.append(collection)
+        
+        collectionsArray = collectionsArray.sort({ $0.dateCreated.compare($1.dateCreated) == NSComparisonResult.OrderedDescending})
         tableView.reloadData()
     }
 }

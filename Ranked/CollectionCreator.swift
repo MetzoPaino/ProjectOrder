@@ -10,7 +10,7 @@ import Foundation
 
 func createDavidBowieCollection() -> CollectionModel {
     
-    let collection = CollectionModel(name: "David Bowie Discography", description: "From Glam to Jazztronica, few have had so many hits in so many different genres. Take an out of this world trip from 1967 to 2016.", category: .music)
+    let collection = CollectionModel(name: "David Bowie Discography", description: "From Glam to Jazztronica, few have had so many hits in so many different genres. Take an out of this world trip from 1967 to 2016.", category: .music, dateCreated: NSDate())
 
     let davidBowie1967 = ItemModel(string: "David Bowie (1967)")
     let davidBowie1969 = ItemModel(string: "David Bowie (1969)")
@@ -45,7 +45,7 @@ func createDavidBowieCollection() -> CollectionModel {
 
 func createStarWarsCollection() -> CollectionModel {
     
-    let collection = CollectionModel(name: "Star Wars", description: "?", category: .films)
+    let collection = CollectionModel(name: "Star Wars", description: "?", category: .films, dateCreated: NSDate())
     
     let phantomMenace = ItemModel(string: "The Phantom Menace")
     let theCloneWars = ItemModel(string: "The Clone Wars")
@@ -62,7 +62,7 @@ func createStarWarsCollection() -> CollectionModel {
 
 func createHarryPotterCollection() -> CollectionModel {
     
-    let collection = CollectionModel(name: "Harry Potter", description: "?", category: .books)
+    let collection = CollectionModel(name: "Harry Potter", description: "?", category: .books, dateCreated: NSDate())
     
     let stone = ItemModel(string: "Philosopher's Stone")
     let chamber = ItemModel(string: "Chamber of Secrets")
@@ -79,7 +79,7 @@ func createHarryPotterCollection() -> CollectionModel {
 
 func createFinalFantasyCollection() -> CollectionModel {
     
-    let collection = CollectionModel(name: "Final Fantasy", description: "?", category: .games)
+    let collection = CollectionModel(name: "Final Fantasy", description: "?", category: .games, dateCreated: NSDate())
     
     let I = ItemModel(string: "Final Fantasy I")
     let II = ItemModel(string: "Final Fantasy II")

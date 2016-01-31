@@ -16,7 +16,7 @@ class ItemTableViewCell: UITableViewCell {
 
 class CollectionTableViewController: UITableViewController {
 
-    var collection = CollectionModel(name: "", description: "", category: .none)
+    var collection = CollectionModel(name: "", description: "", category: .none, dateCreated: NSDate())
     
     override func viewDidLoad() {
         super.viewDidLoad()
