@@ -4,8 +4,8 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
-        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
     </dependencies>
     <scenes>
         <!--Collections-->
@@ -335,34 +335,43 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ajq-BE-z5m">
-                                            <rect key="frame" x="0.0" y="0.0" width="40" height="87.5"/>
+                                            <rect key="frame" x="8" y="16" width="40" height="55.5"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="40" id="tBW-uv-uJM"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dao-NQ-yNL">
-                                            <rect key="frame" x="40" y="0.0" width="560" height="87.5"/>
-                                            <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
+                                            <rect key="frame" x="56" y="16" width="528" height="55.5"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="Dao-NQ-yNL" firstAttribute="top" secondItem="a9Q-3o-S8F" secondAttribute="top" id="1Ht-BB-dij"/>
-                                        <constraint firstAttribute="trailing" secondItem="Dao-NQ-yNL" secondAttribute="trailing" id="Ch3-wS-3XQ"/>
-                                        <constraint firstItem="Dao-NQ-yNL" firstAttribute="leading" secondItem="ajq-BE-z5m" secondAttribute="trailing" id="LLQ-4l-9hX"/>
-                                        <constraint firstItem="ajq-BE-z5m" firstAttribute="leading" secondItem="a9Q-3o-S8F" secondAttribute="leading" id="Rpm-Pd-0QE"/>
-                                        <constraint firstAttribute="bottom" secondItem="Dao-NQ-yNL" secondAttribute="bottom" id="cqM-XE-pTp"/>
-                                        <constraint firstItem="ajq-BE-z5m" firstAttribute="top" secondItem="a9Q-3o-S8F" secondAttribute="top" id="oiS-dI-tZC"/>
-                                        <constraint firstAttribute="bottom" secondItem="ajq-BE-z5m" secondAttribute="bottom" id="uov-27-4eJ"/>
+                                        <constraint firstItem="Dao-NQ-yNL" firstAttribute="top" secondItem="a9Q-3o-S8F" secondAttribute="top" constant="16" id="1Ht-BB-dij"/>
+                                        <constraint firstAttribute="trailing" secondItem="Dao-NQ-yNL" secondAttribute="trailing" constant="16" id="Ch3-wS-3XQ"/>
+                                        <constraint firstItem="Dao-NQ-yNL" firstAttribute="leading" secondItem="ajq-BE-z5m" secondAttribute="trailing" constant="8" id="LLQ-4l-9hX"/>
+                                        <constraint firstItem="ajq-BE-z5m" firstAttribute="leading" secondItem="a9Q-3o-S8F" secondAttribute="leading" constant="8" id="Rpm-Pd-0QE"/>
+                                        <constraint firstAttribute="bottom" secondItem="Dao-NQ-yNL" secondAttribute="bottom" constant="16" id="cqM-XE-pTp"/>
+                                        <constraint firstItem="Dao-NQ-yNL" firstAttribute="leading" secondItem="a9Q-3o-S8F" secondAttribute="leadingMargin" constant="16" id="d7w-JC-Gpz"/>
+                                        <constraint firstItem="ajq-BE-z5m" firstAttribute="top" secondItem="a9Q-3o-S8F" secondAttribute="top" constant="16" id="oiS-dI-tZC"/>
+                                        <constraint firstAttribute="bottom" secondItem="ajq-BE-z5m" secondAttribute="bottom" constant="16" id="uov-27-4eJ"/>
                                     </constraints>
+                                    <variation key="default">
+                                        <mask key="constraints">
+                                            <exclude reference="d7w-JC-Gpz"/>
+                                        </mask>
+                                    </variation>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="numberLabel" destination="ajq-BE-z5m" id="zsj-qd-YJs"/>
+                                    <outlet property="numberLabelTrailingConstraint" destination="LLQ-4l-9hX" id="eJj-3l-RqH"/>
+                                    <outlet property="numberLabelWidthConstraint" destination="tBW-uv-uJM" id="g3f-tO-lO5"/>
                                     <outlet property="titleLabel" destination="Dao-NQ-yNL" id="geN-be-uNe"/>
+                                    <outlet property="titleLabelLeadingConstraint" destination="d7w-JC-Gpz" id="SId-MR-qtK"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -372,18 +381,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Title" id="DT6-GN-qCn">
-                        <rightBarButtonItems>
-                            <barButtonItem title="Sort" id="c4N-0l-hCZ">
-                                <connections>
-                                    <segue destination="ku8-om-PyQ" kind="presentation" id="IAK-ET-e2r"/>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem systemItem="edit" id="xT3-Ui-Gro">
-                                <connections>
-                                    <action selector="editButtonPressed:" destination="uqc-Wp-MJN" id="ceR-PP-Eie"/>
-                                </connections>
-                            </barButtonItem>
-                        </rightBarButtonItems>
+                        <barButtonItem key="rightBarButtonItem" title="Sort" id="c4N-0l-hCZ">
+                            <connections>
+                                <segue destination="ku8-om-PyQ" kind="presentation" id="IAK-ET-e2r"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GgG-YU-HRB" userLabel="First Responder" sceneMemberID="firstResponder"/>

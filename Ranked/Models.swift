@@ -39,12 +39,12 @@ struct Category {
 
 class CollectionModel: NSObject, NSCoding {
     
-    let nameKey = "name"
-    let descriptionKey = "description"
-    let itemsKey = "items"
-    let categoryKey = "category"
-    let dateCreatedKey = "dateCreated"
-    let sortedKey = "sorted"
+    private let nameKey = "name"
+    private let descriptionKey = "description"
+    private let itemsKey = "items"
+    private let categoryKey = "category"
+    private let dateCreatedKey = "dateCreated"
+    private let sortedKey = "sorted"
 
     var name = ""
     var descriptionString = ""
@@ -131,8 +131,9 @@ class CollectionModel: NSObject, NSCoding {
 
 class ItemModel: NSObject, NSCoding {
     
-    let textKey = "text"
-    
+    private let textKey = "text"
+    private let pointsKey = "points"
+
     var text: String
     var tag = Int()
     var points = 0
@@ -151,12 +152,20 @@ class ItemModel: NSObject, NSCoding {
             text = "Unable to decode Item text"
         }
         
+        if let decodedPoints = aDecoder.decodeObjectForKey(pointsKey) as? Int {
+            
+            points = decodedPoints
+            
+        } else {
+            points = 0
+        }
+        
         super.init()
     }
     
     func encodeWithCoder(aCoder: NSCoder) {
         
-        print("Saving Motif")
         aCoder.encodeObject(text, forKey: textKey)
+        aCoder.encodeObject(points, forKey: pointsKey)
     }
 }

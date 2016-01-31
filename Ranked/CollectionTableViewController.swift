@@ -9,9 +9,15 @@
 import UIKit
 
 class ItemTableViewCell: UITableViewCell {
+
+
     
     @IBOutlet weak var numberLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
+    
+    @IBOutlet weak var numberLabelWidthConstraint: NSLayoutConstraint!
+    @IBOutlet weak var numberLabelTrailingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var titleLabelLeadingConstraint: NSLayoutConstraint!
 }
 
 class CollectionTableViewController: UITableViewController {
@@ -53,9 +59,19 @@ class CollectionTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! ItemTableViewCell
         
         let item = collection.items[indexPath.row]
+        
         cell.numberLabel.text = "\(indexPath.row + 1)"
         cell.titleLabel.text = item.text
-
+        
+        if collection.sorted {
+            
+            cell.numberLabelWidthConstraint.constant = 40
+            cell.numberLabel.hidden = false
+            
+        } else {
+            cell.numberLabelWidthConstraint.constant = 0
+            cell.numberLabel.hidden = true
+        }
         return cell
     }
     
@@ -142,6 +158,7 @@ extension CollectionTableViewController: SortingViewControllerDelegate {
     
     func sortingFinished(items: [ItemModel]) {
         
+        collection.sorted = true
         collection.items = items.sort({ $0.points > $1.points })
         tableView.reloadData()
     }

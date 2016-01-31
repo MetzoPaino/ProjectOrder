@@ -46,6 +46,7 @@ class TournamentManager {
         for (index, participant) in participants.enumerate() {
             
             participant.tag = index
+            participant.points = 0
         }
         
         var itterator = 0
