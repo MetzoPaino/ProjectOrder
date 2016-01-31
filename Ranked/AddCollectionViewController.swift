@@ -38,13 +38,7 @@ extension CollectionTitleCell: UITextViewDelegate {
         let oldText = textView.text
         let newText: NSString = (oldText as NSString).stringByReplacingCharactersInRange(range, withString: text)
         
-        if newText.length > 0 {
-            self.delegate?.toggleSaveButtonOn(true)
-        } else {
-            self.delegate?.toggleSaveButtonOn(false)
-        }
-        
-//        saveButton.enabled = newText.length > 0
+        self.delegate?.toggleSaveButtonOn(newText.length > 0)
         
         // Combine the textView text and the replacement text to
         // create the updated text string
@@ -114,11 +108,12 @@ class AddCollectionViewController: UIViewController {
     var selectedCategory: CollectionType?
     
     let cellArray = ["TitleCell", "CategoryCell"]
+    
+    var initialLoad = true
 
     override func viewDidLoad() {
         super.viewDidLoad()
         styleView()
-        // Do any additional setup after loading the view.
     }
     
     // MARK: - Style View
@@ -128,18 +123,6 @@ class AddCollectionViewController: UIViewController {
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 88
         tableView.tableFooterView = UIView()
-        
-        titleTextView.text = titlePlaceholderValues.text
-        descriptionTextView.text = descriptionPlaceholderValues.text
-        
-        titleTextView.becomeFirstResponder()
-
-        for textView in textViewCollection {
-            
-            textView.textColor = placeholderValues.color
-            textView.selectedTextRange = textView.textRangeFromPosition(textView.beginningOfDocument, toPosition: textView.beginningOfDocument)
-
-        }
     }
     
     // MARK: - IBActions
@@ -156,6 +139,8 @@ class AddCollectionViewController: UIViewController {
         }
     }
     
+    // MARK: - Navigation
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
         if segue.destinationViewController.isKindOfClass(CategoriesViewController) {
@@ -167,54 +152,6 @@ class AddCollectionViewController: UIViewController {
     }
     
     
-}
-
-extension AddCollectionViewController: UITextViewDelegate {
-    
-    // MARK: - TextView Delegate
-    
-    func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
-        
-        let oldText = textView.text
-        let newText: NSString = (oldText as NSString).stringByReplacingCharactersInRange(range, withString: text)
-        saveButton.enabled = newText.length > 0
-        
-        // Combine the textView text and the replacement text to
-        // create the updated text string
-        let currentText:NSString = textView.text
-        let updatedText = currentText.stringByReplacingCharactersInRange(range, withString:text)
-        
-        // If updated text view will be empty, add the placeholder
-        // and set the cursor to the beginning of the text view
-        if updatedText.isEmpty {
-            
-            textView.text = placeholderValues.text
-            textView.textColor = placeholderValues.color
-            
-            textView.selectedTextRange = textView.textRangeFromPosition(textView.beginningOfDocument, toPosition: textView.beginningOfDocument)
-            
-            return false
-        }
-            
-            // Else if the text view's placeholder is showing and the
-            // length of the replacement string is greater than 0, clear
-            // the text view and set its color to black to prepare for
-            // the user's entry
-        else if textView.textColor == UIColor.lightGrayColor() && !text.isEmpty {
-            textView.text = nil
-            textView.textColor = UIColor.blackColor()
-        }
-        
-        return true
-    }
-    
-    func textViewDidChangeSelection(textView: UITextView) {
-        if self.view.window != nil {
-            if textView.textColor == UIColor.lightGrayColor() {
-                textView.selectedTextRange = textView.textRangeFromPosition(textView.beginningOfDocument, toPosition: textView.beginningOfDocument)
-            }
-        }
-    }
 }
 
 extension AddCollectionViewController: UITableViewDelegate {
@@ -258,6 +195,11 @@ extension AddCollectionViewController: UITableViewDataSource {
             let cell = tableView.dequeueReusableCellWithIdentifier(cellType, forIndexPath: indexPath) as! CollectionTitleCell
             cell.delegate = self
             cell.configureCell()
+            
+            if initialLoad {
+                cell.textView.becomeFirstResponder()
+                initialLoad = false
+            }
             return cell
 
         } else {
@@ -265,13 +207,6 @@ extension AddCollectionViewController: UITableViewDataSource {
             return cell
 
         }
-        
-        
-        
-//        if cellType == "CategoryCell" {
-//        }
-        
-        
     }
 }
 

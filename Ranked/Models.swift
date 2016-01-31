@@ -8,7 +8,7 @@
 
 import UIKit
 
-enum CollectionType {
+enum CollectionType: Int {
     case music
     case films
     case books
@@ -88,9 +88,9 @@ class CollectionModel: NSObject, NSCoding {
             name = "Unable to decode Collection name"
         }
         
-        if let decodedCategory = aDecoder.decodeObjectForKey(categoryKey) as? CollectionType {
+        if let decodedCategory = aDecoder.decodeObjectForKey(categoryKey) as? Int {
             
-            category = decodedCategory
+            category = CollectionType(rawValue: decodedCategory)!
             
         } else {
             category = .none
@@ -105,6 +105,7 @@ class CollectionModel: NSObject, NSCoding {
         aCoder.encodeObject(name, forKey: nameKey)
         aCoder.encodeObject(descriptionString, forKey: descriptionKey)
         aCoder.encodeObject(items, forKey: itemsKey)
+        aCoder.encodeObject(category.hashValue, forKey: categoryKey)
     }
 }
 

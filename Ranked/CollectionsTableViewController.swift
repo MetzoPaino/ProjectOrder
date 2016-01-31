@@ -91,8 +91,6 @@ class CollectionsTableViewController: UITableViewController {
             break
         }
         
-        
-        
 //        var visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .Light))
 //        
 //        visualEffectView.frame = cell.backgroundImageView.bounds
