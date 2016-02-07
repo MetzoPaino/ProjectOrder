@@ -74,6 +74,7 @@ class CollectionsTableViewController: UITableViewController {
         let collection = collectionsArray[indexPath.row];
         
         cell.titleLabel.text = collection.name
+        cell.titleLabel.textColor = collection.color
         
         switch collection.category {
             
@@ -172,14 +173,14 @@ class CollectionsTableViewController: UITableViewController {
     }
 }
 
-extension CollectionsTableViewController: AddCollectionViewControllerDelegate {
-    
-    func addCollectionViewControllerCreatedNewCollectionWithName(name: String, description: String, category: CollectionType) {
-        
-        let collection = CollectionModel(name: name, description: description, category: category, dateCreated: NSDate())
-        collectionsArray.append(collection)
-        
-        collectionsArray = collectionsArray.sort({ $0.dateCreated.compare($1.dateCreated) == NSComparisonResult.OrderedDescending})
-        tableView.reloadData()
-    }
-}
+//extension CollectionsTableViewController: AddCollectionViewControllerDelegate {
+//    
+//    func addCollectionViewControllerCreatedNewCollectionWithName(name: String, description: String, category: CollectionType) {
+//        
+//        let collection = CollectionModel(name: name, description: description, category: category, dateCreated: NSDate())
+//        collectionsArray.append(collection)
+//        
+//        collectionsArray = collectionsArray.sort({ $0.dateCreated.compare($1.dateCreated) == NSComparisonResult.OrderedDescending})
+//        tableView.reloadData()
+//    }
+//}

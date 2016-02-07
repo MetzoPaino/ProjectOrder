@@ -46,20 +46,23 @@ class CollectionModel: NSObject, NSCoding {
     private let categoryKey = "category"
     private let dateCreatedKey = "dateCreated"
     private let sortedKey = "sorted"
+    private let colorKey = "color"
 
     var name = ""
     var descriptionString = ""
     var category: CollectionType
     var sorted = false
     var dateCreated: NSDate
+    var color: UIColor
 
     var items = [ItemModel]()
     
-    init(name: String, description: String, category: CollectionType, dateCreated: NSDate) {
+    init(name: String, description: String, category: CollectionType, dateCreated: NSDate, color: UIColor) {
         self.name = name
         self.descriptionString = description
         self.category = category
         self.dateCreated = dateCreated
+        self.color = color
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -113,6 +116,13 @@ class CollectionModel: NSObject, NSCoding {
             sorted = decodedSorted
         } else {
             sorted = false
+        }
+        
+        if let decodedColor = aDecoder.decodeObjectForKey(colorKey) as? UIColor {
+            
+            color = decodedColor
+        } else {
+            color = .whiteColor()
         }
         
         super.init()

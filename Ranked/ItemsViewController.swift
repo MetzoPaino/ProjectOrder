@@ -12,7 +12,7 @@ class TitleCell: UITableViewCell {
     
     @IBOutlet weak var textView: UITextView!
     
-    weak var delegate: CollectionTitleCellDelegate?
+//    weak var delegate: CollectionTitleCellDelegate?
     
     let textViewValues = (color: UIColor.blackColor(), placeholderColor: UIColor.lightGrayColor(), placeholderText: "Title")
 
@@ -67,11 +67,13 @@ class AddItemTableViewCell: UITableViewCell {
 
 class ItemsViewController: UIViewController {
 
+    @IBOutlet weak var sortBarButton: UIBarButtonItem!
     @IBOutlet weak var tableView: UITableView!
 
-    var collection = CollectionModel(name: "", description: "", category: .none, dateCreated: NSDate())
+    var collection = CollectionModel(name: "", description: "", category: .none, dateCreated: NSDate(), color: .redColor())
     
     var inEditingMode: Bool?
+    let gradientLayer = CAGradientLayer()
 
     // MARK: - Load View
 
@@ -88,12 +90,16 @@ class ItemsViewController: UIViewController {
         if inEditingMode != nil {
             
             let editButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Edit, target: self, action: "editButtonPressed:")
-            navigationController?.navigationItem.rightBarButtonItem = editButton
+            navigationController?.navigationItem.rightBarButtonItems = [sortBarButton, editButton]
 
         } else {
             let doneButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Done, target: self, action: "doneButtonPressed:")
-            navigationController?.navigationItem.rightBarButtonItem = doneButton
+            navigationController?.navigationItem.rightBarButtonItems = [sortBarButton, doneButton]
         }
+        
+        gradientLayer.frame = self.view.bounds
+        self.view.layer.insertSublayer(gradientLayer, below: tableView.layer)
+        styleGradient()
     }
     
     func styleTableView() {
@@ -101,6 +107,15 @@ class ItemsViewController: UIViewController {
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 88
         tableView.tableFooterView = UIView()
+        
+    }
+    
+    func styleGradient() {
+        
+        let color1 = UIColor.whiteColor().CGColor as CGColorRef
+        let color2 = collection.color.CGColor as CGColorRef
+        gradientLayer.colors = [color1, color2]
+        gradientLayer.locations = [0.25, 1.0]
     }
     
     // MARK: - IBActions
@@ -112,7 +127,7 @@ class ItemsViewController: UIViewController {
         }
         
         let doneButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Done, target: self, action: "doneButtonPressed:")
-        navigationController?.navigationItem.rightBarButtonItem = doneButton
+        navigationController?.navigationItem.rightBarButtonItems = [sortBarButton, doneButton]
         
         tableView.reloadData()
     }
@@ -122,7 +137,7 @@ class ItemsViewController: UIViewController {
         self.inEditingMode = false
         
         let editButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Edit, target: self, action: "editButtonPressed:")
-        navigationController?.navigationItem.rightBarButtonItem = editButton
+        navigationController?.navigationItem.rightBarButtonItems = [sortBarButton, editButton]
         
         tableView.reloadData()
     }
@@ -135,6 +150,10 @@ class ItemsViewController: UIViewController {
             
             controller.delegate = self
             controller.providedDescription = collection.descriptionString
+        } else if let navigationController = segue.destinationViewController as? UINavigationController, controller = navigationController.topViewController as? SortingViewController {
+        
+            controller.itemArray = collection.items
+            controller.delegate = self
         }
     }
 }
@@ -144,6 +163,54 @@ extension ItemsViewController: DescriptionViewControllerDelegate {
     func newDescription(text: String) {
         collection.descriptionString = text
         tableView.reloadData()
+    }
+}
+
+
+extension ItemsViewController: SortingViewControllerDelegate {
+    
+    func sortingFinished(items: [ItemModel]) {
+        
+        collection.sorted = true
+        collection.items = items.sort({ $0.points > $1.points })
+        tableView.reloadData()
+    }
+}
+
+extension ItemsViewController: ColorCellDelegate {
+    
+    func pickedNewColor(index: Int) {
+        
+        switch index {
+            
+        case 0:
+            collection.color = .orangeColor()
+            break
+        case 1:
+            collection.color = .redColor()
+            break
+        case 2:
+            collection.color = .magentaColor()
+            break
+        case 3:
+            collection.color = .blueColor()
+            break
+        case 4:
+            collection.color = .yellowColor()
+            break
+        case 5:
+            collection.color = .purpleColor()
+            break
+        case 6:
+            collection.color = .cyanColor()
+            break
+        case 7:
+            collection.color = .greenColor()
+            break
+        default:
+            break
+        }
+        styleGradient()
     }
 }
 
@@ -169,13 +236,22 @@ extension ItemsViewController: UITableViewDelegate {
 extension ItemsViewController: UITableViewDataSource {
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 2
+        return 3
     }
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if section == 0 {
-            return 2
-
+            
+            if inEditingMode == nil || inEditingMode == true {
+                return 3
+            } else {
+                if collection.descriptionString != "" {
+                    return 2
+                } else {
+                    return 1
+                }
+            }
+            
         } else {
             return collection.items.count
         }
@@ -199,6 +275,13 @@ extension ItemsViewController: UITableViewDataSource {
                     cell.configureCell(collection.name, enableEditing: inEditingMode)
                 }
                 
+                return cell
+                
+            } else if indexPath.row == 2 {
+                
+                let cell = tableView.dequeueReusableCellWithIdentifier("ColorCell", forIndexPath: indexPath) as! ColorCell
+                cell.delegate = self
+                cell.configureCell()
                 return cell
                 
             } else {

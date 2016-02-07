@@ -54,7 +54,7 @@ class ItemTableViewCell: UITableViewCell {
 
 class CollectionTableViewController: UITableViewController {
 
-    var collection = CollectionModel(name: "", description: "", category: .none, dateCreated: NSDate())
+    var collection = CollectionModel(name: "", description: "", category: .none, dateCreated: NSDate(), color: .redColor())
     
     override func viewDidLoad() {
         super.viewDidLoad()
