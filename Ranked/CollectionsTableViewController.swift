@@ -156,20 +156,20 @@ class CollectionsTableViewController: UITableViewController {
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
-        if let navigationController = segue.destinationViewController as? UINavigationController, controller = navigationController.topViewController as? CollectionTableViewController {
+        if let navigationController = segue.destinationViewController as? UINavigationController, controller = navigationController.topViewController as? ItemsViewController {
             
-//            let selectedIndexPath = tableView.indexPathForSelectedRow
-            
-            if let selectedIndexPath = tableView.indexPathForSelectedRow {
+            if segue.identifier == "CreateCollection" {
                 
-                controller.collection = collectionsArray[selectedIndexPath.row]
+            } else if segue.identifier == "ShowCollection" {
+                
+                if let selectedIndexPath = tableView.indexPathForSelectedRow {
+                    
+                    controller.collection = collectionsArray[selectedIndexPath.row]
+                    controller.inEditingMode = false
+                }
             }
-        } else if let navigationController = segue.destinationViewController as? UINavigationController, controller = navigationController.topViewController as? AddCollectionViewController {
-            
-            controller.delegate = self
         }
     }
-
 }
 
 extension CollectionsTableViewController: AddCollectionViewControllerDelegate {

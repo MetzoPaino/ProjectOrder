@@ -10,6 +10,8 @@
 		0A2535861C52BFF100579102 /* SortingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2535851C52BFF100579102 /* SortingViewController.swift */; };
 		0A281E2F1C4BED5000492DDE /* AddCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A281E2E1C4BED5000492DDE /* AddCollectionViewController.swift */; };
 		0A3746691C5D231500F7101D /* CategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3746681C5D231500F7101D /* CategoriesViewController.swift */; };
+		0A47D52A1C6642F200DC7296 /* ItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A47D5291C6642F200DC7296 /* ItemsViewController.swift */; };
+		0A77D7DA1C67900C00792403 /* DescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A77D7D91C67900C00792403 /* DescriptionViewController.swift */; };
 		0A9A16811C5CDD260000E436 /* TournamentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9A16801C5CDD260000E436 /* TournamentManager.swift */; };
 		0AF64FA11C4A8129003F8519 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF64FA01C4A8129003F8519 /* AppDelegate.swift */; };
 		0AF64FA61C4A812A003F8519 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0AF64FA41C4A812A003F8519 /* Main.storyboard */; };
@@ -26,6 +28,8 @@
 		0A2535851C52BFF100579102 /* SortingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SortingViewController.swift; sourceTree = "<group>"; };
 		0A281E2E1C4BED5000492DDE /* AddCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddCollectionViewController.swift; sourceTree = "<group>"; };
 		0A3746681C5D231500F7101D /* CategoriesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoriesViewController.swift; sourceTree = "<group>"; };
+		0A47D5291C6642F200DC7296 /* ItemsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemsViewController.swift; sourceTree = "<group>"; };
+		0A77D7D91C67900C00792403 /* DescriptionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DescriptionViewController.swift; sourceTree = "<group>"; };
 		0A9A16801C5CDD260000E436 /* TournamentManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TournamentManager.swift; sourceTree = "<group>"; };
 		0AF64F9D1C4A8129003F8519 /* Ranked.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ranked.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0AF64FA01C4A8129003F8519 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -56,6 +60,7 @@
 			children = (
 				0A281E2E1C4BED5000492DDE /* AddCollectionViewController.swift */,
 				0A3746681C5D231500F7101D /* CategoriesViewController.swift */,
+				0AF64FBC1C4A8BD8003F8519 /* CollectionTableViewController.swift */,
 			);
 			name = "Create Category";
 			sourceTree = "<group>";
@@ -83,7 +88,8 @@
 				0AF64FA41C4A812A003F8519 /* Main.storyboard */,
 				0A2084301C5E3F12007402CC /* Create Category */,
 				0AF64FB21C4A8294003F8519 /* CollectionsTableViewController.swift */,
-				0AF64FBC1C4A8BD8003F8519 /* CollectionTableViewController.swift */,
+				0A47D5291C6642F200DC7296 /* ItemsViewController.swift */,
+				0A77D7D91C67900C00792403 /* DescriptionViewController.swift */,
 				0AF64FB41C4A830B003F8519 /* Models.swift */,
 				0AF64FB61C4A850B003F8519 /* DataManager.swift */,
 				0AF64FB81C4A859B003F8519 /* CollectionCreator.swift */,
@@ -173,8 +179,10 @@
 				0AF64FB31C4A8294003F8519 /* CollectionsTableViewController.swift in Sources */,
 				0A3746691C5D231500F7101D /* CategoriesViewController.swift in Sources */,
 				0A2535861C52BFF100579102 /* SortingViewController.swift in Sources */,
+				0A47D52A1C6642F200DC7296 /* ItemsViewController.swift in Sources */,
 				0A281E2F1C4BED5000492DDE /* AddCollectionViewController.swift in Sources */,
 				0AF64FB71C4A850B003F8519 /* DataManager.swift in Sources */,
+				0A77D7DA1C67900C00792403 /* DescriptionViewController.swift in Sources */,
 				0AF64FA11C4A8129003F8519 /* AppDelegate.swift in Sources */,
 				0AF64FB51C4A830B003F8519 /* Models.swift in Sources */,
 			);

@@ -17,40 +17,40 @@ class ItemTableViewCell: UITableViewCell {
     @IBOutlet weak var numberLabelTrailingConstraint: NSLayoutConstraint!
     @IBOutlet weak var titleLabelLeadingConstraint: NSLayoutConstraint!
 }
+//
+//protocol AddItemTableViewCellDelegate: class {
+//    func createdNewItemWithText(text: String)
+//}
+//
+//
+//class AddItemTableViewCell: UITableViewCell {
+//    
+//    @IBOutlet weak var textField: UITextField!
+//    
+//    weak var delegate: AddItemTableViewCellDelegate?
+//
+//    func configureCell() {
+//        
+//        textField.delegate = self
+//    }
+//
+//}
 
-protocol AddItemTableViewCellDelegate: class {
-    func createdNewItemWithText(text: String)
-}
-
-
-class AddItemTableViewCell: UITableViewCell {
-    
-    @IBOutlet weak var textField: UITextField!
-    
-    weak var delegate: AddItemTableViewCellDelegate?
-
-    func configureCell() {
-        
-        textField.delegate = self
-    }
-
-}
-
-extension AddItemTableViewCell: UITextFieldDelegate {
-    
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
-        
-        textField.resignFirstResponder()
-        
-        let string = textField.text! as NSString
-        
-        if string.length > 0 {
-            self.delegate?.createdNewItemWithText(textField.text!)
-            textField.text = ""
-        }
-        return true
-    }
-}
+//extension AddItemTableViewCell: UITextFieldDelegate {
+//    
+//    func textFieldShouldReturn(textField: UITextField) -> Bool {
+//        
+//        textField.resignFirstResponder()
+//        
+//        let string = textField.text! as NSString
+//        
+//        if string.length > 0 {
+//            self.delegate?.createdNewItemWithText(textField.text!)
+//            textField.text = ""
+//        }
+//        return true
+//    }
+//}
 
 class CollectionTableViewController: UITableViewController {
 
