@@ -29,6 +29,8 @@ class ColorCell: UITableViewCell {
     
     func configureCell() {
         
+        userInteractionEnabled = false
+
         for (index, button) in buttonCollection.enumerate() {
             button.tag = index
             switch index {

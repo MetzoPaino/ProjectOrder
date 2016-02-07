@@ -236,7 +236,7 @@ extension ItemsViewController: UITableViewDelegate {
 extension ItemsViewController: UITableViewDataSource {
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 3
+        return 2
     }
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
