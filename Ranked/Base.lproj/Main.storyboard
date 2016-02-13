@@ -7,7 +7,7 @@
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
-        <!--Collections View Controller-->
+        <!--Collections-->
         <scene sceneID="fN3-6q-lSH">
             <objects>
                 <viewController automaticallyAdjustsScrollViewInsets="NO" id="nmk-1J-1qM" customClass="CollectionsViewController" customModule="Ranked" customModuleProvider="target" sceneMemberID="viewController">
@@ -90,7 +90,7 @@
                             <constraint firstItem="WQH-dv-CiR" firstAttribute="top" secondItem="Htj-VI-I4n" secondAttribute="bottom" id="nRV-vx-lTM"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="UJs-0d-Kv3">
+                    <navigationItem key="navigationItem" title="Collections" id="UJs-0d-Kv3">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="TWx-fg-vke">
                             <connections>
                                 <segue destination="Rc8-2L-atM" kind="show" identifier="CreateCollection" id="yLz-Bz-ILQ"/>

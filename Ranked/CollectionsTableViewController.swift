@@ -30,17 +30,21 @@ class CollectionsViewController: UIViewController {
         super.viewDidLoad()
         collectionsArray = dataManager.collections
         styleTableView()
-        navigationController?.navigationBar.barTintColor = .whiteColor()
     }
     
-//    override func viewWillAppear(animated: Bool) {
-//        super.viewWillAppear(animated)
-//        
-//        if collectionsArray.count > 0 && view.traitCollection.horizontalSizeClass != UIUserInterfaceSizeClass.Compact {
-//            tableView.selectRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), animated: false, scrollPosition: UITableViewScrollPosition.None)
-//        }
-//    }
-//    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if collectionsArray.count > 0 && view.traitCollection.horizontalSizeClass != UIUserInterfaceSizeClass.Compact {
+            tableView.selectRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), animated: false, scrollPosition: UITableViewScrollPosition.None)
+        }
+        
+        navigationController?.navigationBar.setBackgroundImage(nil, forBarMetrics: UIBarMetrics.Default)
+        navigationController?.navigationBar.shadowImage = nil
+        navigationController?.navigationBar.translucent = false
+        navigationController?.view.backgroundColor = UIColor.whiteColor()
+    }
+//
 //    override func viewDidAppear(animated: Bool) {
 //        super.viewDidAppear(animated)
 //        if collectionsArray.count > 0 && view.traitCollection.horizontalSizeClass != UIUserInterfaceSizeClass.Compact {
@@ -84,6 +88,7 @@ class CollectionsViewController: UIViewController {
 extension CollectionsViewController: UITableViewDelegate {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
         //        performSegueWithIdentifier("ShowCollection", sender: collectionsArray[indexPath.row])
     }
 }
