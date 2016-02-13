@@ -122,7 +122,7 @@ class CollectionModel: NSObject, NSCoding {
             
             color = decodedColor
         } else {
-            color = .whiteColor()
+            color = .blackColor()
         }
         
         super.init()
@@ -137,6 +137,8 @@ class CollectionModel: NSObject, NSCoding {
         aCoder.encodeObject(category.hashValue, forKey: categoryKey)
         aCoder.encodeObject(dateCreated, forKey: dateCreatedKey)
         aCoder.encodeObject(sorted, forKey: sortedKey)
+        aCoder.encodeObject(color, forKey: colorKey)
+
     }
 }
 

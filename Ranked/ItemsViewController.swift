@@ -65,10 +65,17 @@ class AddItemTableViewCell: UITableViewCell {
     
 }
 
+protocol ItemsViewControllerDelegate: class {
+    func sortingFinished()
+}
+
+
 class ItemsViewController: UIViewController {
 
     @IBOutlet weak var sortBarButton: UIBarButtonItem!
     @IBOutlet weak var tableView: UITableView!
+    
+    weak var delegate: ItemsViewControllerDelegate?
 
     var collection = CollectionModel(name: "", description: "", category: .none, dateCreated: NSDate(), color: .redColor())
     
@@ -166,7 +173,6 @@ extension ItemsViewController: DescriptionViewControllerDelegate {
     }
 }
 
-
 extension ItemsViewController: SortingViewControllerDelegate {
     
     func sortingFinished(items: [ItemModel]) {
@@ -174,6 +180,7 @@ extension ItemsViewController: SortingViewControllerDelegate {
         collection.sorted = true
         collection.items = items.sort({ $0.points > $1.points })
         tableView.reloadData()
+        self.delegate?.sortingFinished()
     }
 }
 

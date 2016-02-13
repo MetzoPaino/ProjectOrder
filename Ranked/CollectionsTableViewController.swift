@@ -23,11 +23,8 @@ class CollectionsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionsArray = dataManager.collections
-        tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.estimatedRowHeight = 88
-        tableView.tableFooterView = UIView()
-        
-        
+        styleTableView()
+        navigationController?.navigationBar.barTintColor = .whiteColor()
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -48,6 +45,13 @@ class CollectionsTableViewController: UITableViewController {
         if collectionsArray.count > 0 && view.traitCollection.horizontalSizeClass != UIUserInterfaceSizeClass.Compact {
             tableView.selectRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), animated: false, scrollPosition: UITableViewScrollPosition.None)
         }
+    }
+    
+    func styleTableView() {
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 88
+        tableView.tableFooterView = UIView()
+        tableView.separatorInset = UIEdgeInsetsZero
     }
 
     override func didReceiveMemoryWarning() {
@@ -75,33 +79,35 @@ class CollectionsTableViewController: UITableViewController {
         
         cell.titleLabel.text = collection.name
         cell.titleLabel.textColor = collection.color
+        cell.layoutMargins = UIEdgeInsetsZero;
+//        switch collection.category {
+//            
+//        case .music:
+//            cell.descriptionLabel.text = "🎵 "
+//            
+//        case .films:
+//            cell.descriptionLabel.text = "📽 "
+//            
+//        case .books:
+//            cell.descriptionLabel.text = "📚 "
+//        case .games:
+//            cell.descriptionLabel.text = "🎮 "
+//        case .computers:
+//            cell.descriptionLabel.text = "🖥 "
+//        case .none:
+//            cell.descriptionLabel.text = ""
+//            break
+//        }
         
-        switch collection.category {
-            
-        case .music:
-            cell.descriptionLabel.text = "🎵 "
-            
-        case .films:
-            cell.descriptionLabel.text = "📽 "
-            
-        case .books:
-            cell.descriptionLabel.text = "📚 "
-        case .games:
-            cell.descriptionLabel.text = "🎮 "
-        case .computers:
-            cell.descriptionLabel.text = "🖥 "
-        case .none:
-            cell.descriptionLabel.text = ""
-            break
-        }
+        cell.descriptionLabel.text! = "⭐️"
         
         if collection.sorted {
             
             collection.items = collection.items.sort({ $0.points > $1.points })
-            cell.descriptionLabel.text! += "1. \(collection.items.first!.text)"
+            cell.descriptionLabel.text! += " \(collection.items.first!.text)"
+            cell.descriptionLabel.alpha = 1.0
         } else {
-            cell.descriptionLabel.text! += "unsorted"
-
+            cell.descriptionLabel.alpha = 0.25
         }
         
 //        var visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .Light))
@@ -167,9 +173,18 @@ class CollectionsTableViewController: UITableViewController {
                     
                     controller.collection = collectionsArray[selectedIndexPath.row]
                     controller.inEditingMode = false
+                    controller.delegate = self
                 }
             }
         }
+    }
+}
+
+extension CollectionsTableViewController: ItemsViewControllerDelegate {
+    
+    func sortingFinished() {
+        
+        tableView.reloadData()
     }
 }
 
