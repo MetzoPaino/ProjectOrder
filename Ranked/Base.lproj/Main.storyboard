@@ -23,17 +23,12 @@
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="87.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1" verticalCompressionResistancePriority="1" translatesAutoresizingMaskIntoConstraints="NO" id="jpo-LF-MpR">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="87.5"/>
-                                        </imageView>
-                                        <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ulO-2P-lti">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="87.5"/>
-                                            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="3VF-xj-Ub5">
-                                                <rect key="frame" x="0.0" y="0.0" width="600" height="87.5"/>
-                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                            </view>
-                                            <blurEffect style="light"/>
-                                        </visualEffectView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GlV-1o-3Mp">
+                                            <rect key="frame" x="542" y="16" width="42" height="20.5"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="BPb-8t-8fb">
                                             <rect key="frame" x="16" y="16" width="568" height="56"/>
                                             <subviews>
@@ -58,22 +53,16 @@
                                         </stackView>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstAttribute="bottom" secondItem="ulO-2P-lti" secondAttribute="bottom" id="6r2-Ly-pZQ"/>
-                                        <constraint firstItem="ulO-2P-lti" firstAttribute="leading" secondItem="oGB-vX-cHT" secondAttribute="leading" id="7d6-zw-szg"/>
                                         <constraint firstItem="BPb-8t-8fb" firstAttribute="top" secondItem="oGB-vX-cHT" secondAttribute="top" constant="16" id="AEb-Qk-c6m"/>
                                         <constraint firstItem="BPb-8t-8fb" firstAttribute="leading" secondItem="oGB-vX-cHT" secondAttribute="leading" constant="16" id="JgF-c6-hsv"/>
-                                        <constraint firstItem="ulO-2P-lti" firstAttribute="top" secondItem="oGB-vX-cHT" secondAttribute="top" id="Jym-KB-Lcp"/>
+                                        <constraint firstAttribute="trailing" secondItem="GlV-1o-3Mp" secondAttribute="trailing" constant="16" id="Qud-ou-FSw"/>
                                         <constraint firstAttribute="bottom" secondItem="BPb-8t-8fb" secondAttribute="bottom" constant="16" id="SRt-NY-Qwg"/>
                                         <constraint firstAttribute="trailing" secondItem="BPb-8t-8fb" secondAttribute="trailing" constant="16" id="SbR-3g-f30"/>
-                                        <constraint firstItem="jpo-LF-MpR" firstAttribute="leading" secondItem="oGB-vX-cHT" secondAttribute="leading" id="YyE-wf-WT6"/>
-                                        <constraint firstAttribute="trailing" secondItem="ulO-2P-lti" secondAttribute="trailing" id="evD-c1-44D"/>
-                                        <constraint firstItem="jpo-LF-MpR" firstAttribute="top" secondItem="oGB-vX-cHT" secondAttribute="top" id="hmz-xp-yYh"/>
-                                        <constraint firstAttribute="trailing" secondItem="jpo-LF-MpR" secondAttribute="trailing" id="rCR-hV-iYK"/>
-                                        <constraint firstAttribute="bottom" secondItem="jpo-LF-MpR" secondAttribute="bottom" id="zJg-qj-zgJ"/>
+                                        <constraint firstItem="GlV-1o-3Mp" firstAttribute="top" secondItem="oGB-vX-cHT" secondAttribute="top" constant="16" id="x8N-EZ-Mrg"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="backgroundImageView" destination="jpo-LF-MpR" id="YDG-9A-C8Z"/>
+                                    <outlet property="categoryLabel" destination="GlV-1o-3Mp" id="EHc-0j-n8a"/>
                                     <outlet property="descriptionLabel" destination="gaL-Uy-8Yo" id="czg-Tw-zDj"/>
                                     <outlet property="titleLabel" destination="muF-rp-OwD" id="Hrd-Fg-SCD"/>
                                     <segue destination="Rc8-2L-atM" kind="showDetail" identifier="ShowCollection" id="z78-Yu-0fm"/>
@@ -859,4 +848,5 @@
         <segue reference="z78-Yu-0fm"/>
         <segue reference="NhK-t1-RlG"/>
     </inferredMetricsTieBreakers>
+    <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
 </document>

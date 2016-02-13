@@ -13,6 +13,7 @@ class CollectionTableViewCell: UITableViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var backgroundImageView: UIImageView!
+    @IBOutlet weak var categoryLabel: UILabel!
 }
 
 class CollectionsTableViewController: UITableViewController {
@@ -80,24 +81,24 @@ class CollectionsTableViewController: UITableViewController {
         cell.titleLabel.text = collection.name
         cell.titleLabel.textColor = collection.color
         cell.layoutMargins = UIEdgeInsetsZero;
-//        switch collection.category {
-//            
-//        case .music:
-//            cell.descriptionLabel.text = "🎵 "
-//            
-//        case .films:
-//            cell.descriptionLabel.text = "📽 "
-//            
-//        case .books:
-//            cell.descriptionLabel.text = "📚 "
-//        case .games:
-//            cell.descriptionLabel.text = "🎮 "
-//        case .computers:
-//            cell.descriptionLabel.text = "🖥 "
-//        case .none:
-//            cell.descriptionLabel.text = ""
-//            break
-//        }
+        switch collection.category {
+            
+        case .music:
+            cell.categoryLabel.text = "🎵 "
+            
+        case .films:
+            cell.categoryLabel.text = "📽 "
+            
+        case .books:
+            cell.categoryLabel.text = "📚 "
+        case .games:
+            cell.categoryLabel.text = "🎮 "
+        case .computers:
+            cell.categoryLabel.text = "🖥 "
+        case .none:
+            cell.categoryLabel.text = ""
+            break
+        }
         
         cell.descriptionLabel.text! = "⭐️"
         
