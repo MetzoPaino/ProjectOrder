@@ -74,13 +74,14 @@ class CollectionsViewController: UIViewController {
                     controller.collection = collectionsArray[selectedIndexPath.row]
                     controller.inEditingMode = false
                     controller.delegate = self
-                    
-                    self.navigationController?.navigationBar.setBackgroundImage(UIImage(), forBarMetrics: UIBarMetrics.Default)
-                    self.navigationController?.navigationBar.shadowImage = UIImage()
-                    self.navigationController?.navigationBar.translucent = true
-                    self.navigationController?.view.backgroundColor = UIColor.clearColor()
+                
                 }
             }
+            
+            self.navigationController?.navigationBar.setBackgroundImage(UIImage(), forBarMetrics: UIBarMetrics.Default)
+            self.navigationController?.navigationBar.shadowImage = UIImage()
+            self.navigationController?.navigationBar.translucent = true
+            self.navigationController?.view.backgroundColor = UIColor.clearColor()
         }
     }
 }

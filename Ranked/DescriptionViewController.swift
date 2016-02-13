@@ -29,7 +29,15 @@ class DescriptionViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        textView.textContainerInset = UIEdgeInsetsMake(0, 32, 0, 32)
         textView.text = providedDescription
+        
+        if context == .title {
+            textView.font = UIFont.preferredFontForTextStyle(UIFontTextStyleTitle1)
+        } else {
+            textView.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
+        }
     }
     
     override func viewWillAppear(animated: Bool) {
