@@ -22,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             splitViewController.delegate = self
             let navigationController = splitViewController.viewControllers[0] as! UINavigationController
-            let masterController = navigationController.topViewController as! CollectionsTableViewController
+            let masterController = navigationController.topViewController as! CollectionsViewController
             masterController.dataManager = dataManager
             
             if UIDevice.currentDevice().userInterfaceIdiom == .Pad {
