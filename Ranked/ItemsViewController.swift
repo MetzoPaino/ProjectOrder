@@ -114,6 +114,7 @@ class ItemsViewController: UIViewController {
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 88
         tableView.tableFooterView = UIView()
+        tableView.separatorInset = UIEdgeInsetsZero
         
     }
     
@@ -272,7 +273,7 @@ extension ItemsViewController: UITableViewDataSource {
             if indexPath.row == 0 {
                 
                 let cell = tableView.dequeueReusableCellWithIdentifier("TitleCell", forIndexPath: indexPath) as! TitleCell
-                
+                cell.separatorInset = UIEdgeInsetsMake(0, cell.bounds.size.width, 0, 0);
                 
                 if inEditingMode == nil {
                     cell.textView.becomeFirstResponder()
@@ -289,11 +290,13 @@ extension ItemsViewController: UITableViewDataSource {
                 let cell = tableView.dequeueReusableCellWithIdentifier("ColorCell", forIndexPath: indexPath) as! ColorCell
                 cell.delegate = self
                 cell.configureCell()
+                cell.separatorInset = UIEdgeInsetsMake(0, cell.bounds.size.width, 0, 0);
                 return cell
                 
             } else {
                 
                 let cell = tableView.dequeueReusableCellWithIdentifier("DescriptionCell", forIndexPath: indexPath) as! DescriptionCell
+                cell.separatorInset = UIEdgeInsetsMake(0, cell.bounds.size.width, 0, 0);
                 
                 if inEditingMode == nil || inEditingMode == true {
                     
@@ -329,7 +332,7 @@ extension ItemsViewController: UITableViewDataSource {
 
             cell.numberLabel.text = "\(indexPath.row + 1)"
             cell.titleLabel.text = item.text
-            
+            cell.layoutMargins = UIEdgeInsetsZero;
             if collection.sorted {
                 
                 cell.numberLabelWidthConstraint.constant = 40
