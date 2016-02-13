@@ -11,6 +11,7 @@ import UIKit
 class TitleCell: UITableViewCell {
     
     @IBOutlet weak var textView: UITextView!
+    @IBOutlet weak var label: UILabel!
     
 //    weak var delegate: CollectionTitleCellDelegate?
     
@@ -18,24 +19,26 @@ class TitleCell: UITableViewCell {
 
     func configureCell(title: String?, enableEditing: Bool?) {
         
-        if let enableEditing = enableEditing {
-            
-            textView.userInteractionEnabled = enableEditing
-            
-        } else {
-            
-            textView.userInteractionEnabled = true
-        }
         
-        if title != nil {
-            textView.text = title
-            textView.textColor = textViewValues.color
-
-        } else {
-            textView.text = textViewValues.placeholderText
-            textView.textColor = textViewValues.placeholderColor
-            textView.selectedTextRange = textView.textRangeFromPosition(textView.beginningOfDocument, toPosition: textView.beginningOfDocument)
-        }
+        
+//        if let enableEditing = enableEditing {
+//            
+//            textView.userInteractionEnabled = enableEditing
+//            
+//        } else {
+//            
+//            textView.userInteractionEnabled = true
+//        }
+//        
+//        if title != nil {
+//            textView.text = title
+//            textView.textColor = textViewValues.color
+//
+//        } else {
+//            textView.text = textViewValues.placeholderText
+//            textView.textColor = textViewValues.placeholderColor
+//            textView.selectedTextRange = textView.textRangeFromPosition(textView.beginningOfDocument, toPosition: textView.beginningOfDocument)
+//        }
     }
 }
 
@@ -157,7 +160,16 @@ class ItemsViewController: UIViewController {
         if let controller = segue.destinationViewController as? DescriptionViewController {
             
             controller.delegate = self
-            controller.providedDescription = collection.descriptionString
+
+            if let _ = sender as? TitleCell {
+                controller.context = .title
+                controller.providedDescription = collection.name
+
+            } else {
+                controller.context = .description
+                controller.providedDescription = collection.descriptionString
+            }
+            
         } else if let navigationController = segue.destinationViewController as? UINavigationController, controller = navigationController.topViewController as? SortingViewController {
         
             controller.itemArray = collection.items
@@ -167,6 +179,11 @@ class ItemsViewController: UIViewController {
 }
 
 extension ItemsViewController: DescriptionViewControllerDelegate {
+    
+    func newTitle(text: String) {
+        collection.name = text
+        tableView.reloadData()
+    }
     
     func newDescription(text: String) {
         collection.descriptionString = text
@@ -275,13 +292,35 @@ extension ItemsViewController: UITableViewDataSource {
                 let cell = tableView.dequeueReusableCellWithIdentifier("TitleCell", forIndexPath: indexPath) as! TitleCell
                 cell.separatorInset = UIEdgeInsetsMake(0, cell.bounds.size.width, 0, 0);
                 
-                if inEditingMode == nil {
-                    cell.textView.becomeFirstResponder()
-                    cell.configureCell(nil, enableEditing: inEditingMode)
+                if inEditingMode == nil || inEditingMode == true {
+                    
+                    cell.userInteractionEnabled = true
+                    cell.accessoryType = .DisclosureIndicator
+                    cell.label.text = "Title"
                     
                 } else {
-                    cell.configureCell(collection.name, enableEditing: inEditingMode)
+                    cell.userInteractionEnabled = false
+                    cell.accessoryType = .None
+                    cell.label.textColor = .blackColor()
                 }
+                
+                if collection.name != "" {
+                    
+                    cell.label.text = collection.name
+                    cell.label.textColor = .blackColor()
+                    
+                } else {
+                    cell.label.text = "Title"
+                    cell.label.textColor = .lightGrayColor()
+                    
+                }
+//                if inEditingMode == nil {
+//                    cell.textView.becomeFirstResponder()
+//                    cell.configureCell(nil, enableEditing: inEditingMode)
+//                    
+//                } else {
+//                    cell.configureCell(collection.name, enableEditing: inEditingMode)
+//                }
                 
                 return cell
                 

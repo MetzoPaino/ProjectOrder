@@ -9,12 +9,20 @@
 import UIKit
 
 protocol DescriptionViewControllerDelegate: class {
+    func newTitle(text: String)
     func newDescription(text: String)
+}
+
+enum Context {
+    case title
+    case description
 }
 
 class DescriptionViewController: UIViewController {
 
     @IBOutlet weak var textView: UITextView!
+    
+    var context = Context.title
     
     weak var delegate: DescriptionViewControllerDelegate?
     var providedDescription = String()
@@ -22,6 +30,10 @@ class DescriptionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         textView.text = providedDescription
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -34,7 +46,11 @@ class DescriptionViewController: UIViewController {
         super.viewWillDisappear(animated)
         if isMovingFromParentViewController() {
             
-            self.delegate?.newDescription(textView.text)
+            if context == .title {
+                self.delegate?.newTitle(textView.text)
+            } else {
+                self.delegate?.newDescription(textView.text)
+            }
         }
     }
 
