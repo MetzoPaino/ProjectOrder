@@ -566,93 +566,40 @@
                                             <outlet property="textField" destination="aow-7k-eef" id="Yhy-oK-eIN"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ColorCell" rowHeight="95" id="xMz-rx-G7O" customClass="ColorCell" customModule="Ranked" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="302" width="600" height="95"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ColorCell" rowHeight="44" id="xMz-rx-G7O" customClass="ColorCell" customModule="Ranked" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="302" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="xMz-rx-G7O" id="bBQ-Sk-6H0">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="94.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="dxh-T1-PnB">
-                                                    <rect key="frame" x="16" y="16" width="568" height="63"/>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="r39-R6-NNT">
+                                                    <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                                     <subviews>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V5S-CE-C48">
-                                                            <rect key="frame" x="0.0" y="0.0" width="71" height="63"/>
-                                                            <connections>
-                                                                <action selector="buttonPressed:" destination="xMz-rx-G7O" eventType="touchUpInside" id="j5F-DC-vAt"/>
-                                                            </connections>
-                                                        </button>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nlv-V5-E0S">
-                                                            <rect key="frame" x="71" y="0.0" width="71" height="63"/>
-                                                            <connections>
-                                                                <action selector="buttonPressed:" destination="xMz-rx-G7O" eventType="touchUpInside" id="J3d-e4-Wdd"/>
-                                                            </connections>
-                                                        </button>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZaE-jA-7y2">
-                                                            <rect key="frame" x="142" y="0.0" width="71" height="63"/>
-                                                            <connections>
-                                                                <action selector="buttonPressed:" destination="xMz-rx-G7O" eventType="touchUpInside" id="EFt-2m-RlS"/>
-                                                            </connections>
-                                                        </button>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0yX-ye-gIs">
-                                                            <rect key="frame" x="213" y="0.0" width="71" height="63"/>
-                                                            <connections>
-                                                                <action selector="buttonPressed:" destination="xMz-rx-G7O" eventType="touchUpInside" id="oR5-wA-I1Q"/>
-                                                            </connections>
-                                                        </button>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d2W-7I-Uzc">
-                                                            <rect key="frame" x="284" y="0.0" width="71" height="63"/>
-                                                            <connections>
-                                                                <action selector="buttonPressed:" destination="xMz-rx-G7O" eventType="touchUpInside" id="mzb-vR-TTK"/>
-                                                            </connections>
-                                                        </button>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rTx-CY-VA9">
-                                                            <rect key="frame" x="355" y="0.0" width="71" height="63"/>
-                                                            <connections>
-                                                                <action selector="buttonPressed:" destination="xMz-rx-G7O" eventType="touchUpInside" id="12c-Ri-vyl"/>
-                                                            </connections>
-                                                        </button>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Oku-Ry-yN4">
-                                                            <rect key="frame" x="426" y="0.0" width="71" height="63"/>
-                                                            <connections>
-                                                                <action selector="buttonPressed:" destination="xMz-rx-G7O" eventType="touchUpInside" id="vGW-Rd-22F"/>
-                                                            </connections>
-                                                        </button>
-                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g6F-AQ-gqp">
-                                                            <rect key="frame" x="497" y="0.0" width="71" height="63"/>
-                                                            <connections>
-                                                                <action selector="buttonPressed:" destination="xMz-rx-G7O" eventType="touchUpInside" id="yT8-Ij-WqD"/>
-                                                            </connections>
-                                                        </button>
+                                                        <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" alwaysBounceHorizontal="YES" pagingEnabled="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IJM-8H-jHk">
+                                                            <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                                        </scrollView>
                                                     </subviews>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                </stackView>
+                                                    <constraints>
+                                                        <constraint firstAttribute="bottom" secondItem="IJM-8H-jHk" secondAttribute="bottom" id="18P-q6-CEd"/>
+                                                        <constraint firstAttribute="height" constant="44" id="BRp-He-j0O"/>
+                                                        <constraint firstAttribute="trailing" secondItem="IJM-8H-jHk" secondAttribute="trailing" id="Bwe-Gu-ANk"/>
+                                                        <constraint firstItem="IJM-8H-jHk" firstAttribute="top" secondItem="r39-R6-NNT" secondAttribute="top" id="EgP-GV-ZxL"/>
+                                                        <constraint firstItem="IJM-8H-jHk" firstAttribute="height" secondItem="r39-R6-NNT" secondAttribute="height" id="ZBd-jE-rFD"/>
+                                                        <constraint firstItem="IJM-8H-jHk" firstAttribute="leading" secondItem="r39-R6-NNT" secondAttribute="leading" id="oTA-gL-7ob"/>
+                                                    </constraints>
+                                                </view>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="bottom" secondItem="dxh-T1-PnB" secondAttribute="bottom" constant="16" id="6uS-wR-wg2"/>
-                                                <constraint firstAttribute="trailing" secondItem="dxh-T1-PnB" secondAttribute="trailing" constant="16" id="hvc-3z-XzN"/>
-                                                <constraint firstItem="dxh-T1-PnB" firstAttribute="leading" secondItem="bBQ-Sk-6H0" secondAttribute="leading" constant="16" id="j6s-p7-3FS"/>
-                                                <constraint firstItem="dxh-T1-PnB" firstAttribute="top" secondItem="bBQ-Sk-6H0" secondAttribute="top" constant="16" id="oWN-Kh-utS"/>
+                                                <constraint firstAttribute="trailing" secondItem="r39-R6-NNT" secondAttribute="trailing" id="4gp-YV-W3w"/>
+                                                <constraint firstItem="r39-R6-NNT" firstAttribute="top" secondItem="bBQ-Sk-6H0" secondAttribute="top" id="WIr-De-0gJ"/>
+                                                <constraint firstItem="r39-R6-NNT" firstAttribute="leading" secondItem="bBQ-Sk-6H0" secondAttribute="leading" id="uOc-kD-b7R"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <connections>
-                                            <outlet property="button1" destination="V5S-CE-C48" id="BUP-v6-tmr"/>
-                                            <outlet property="button2" destination="Nlv-V5-E0S" id="zIN-Rk-UKe"/>
-                                            <outlet property="button3" destination="ZaE-jA-7y2" id="kyf-Wj-CaW"/>
-                                            <outlet property="button4" destination="0yX-ye-gIs" id="27X-ov-XO0"/>
-                                            <outlet property="button5" destination="d2W-7I-Uzc" id="1Sd-Nl-Ybf"/>
-                                            <outlet property="button6" destination="rTx-CY-VA9" id="5in-ss-bNx"/>
-                                            <outlet property="button7" destination="Oku-Ry-yN4" id="TbM-QQ-6Xk"/>
-                                            <outlet property="button8" destination="g6F-AQ-gqp" id="DLZ-ao-4SV"/>
-                                            <outletCollection property="buttonCollection" destination="V5S-CE-C48" collectionClass="NSMutableArray" id="ObL-Dt-w0S"/>
-                                            <outletCollection property="buttonCollection" destination="Nlv-V5-E0S" collectionClass="NSMutableArray" id="6jb-Wf-Vjp"/>
-                                            <outletCollection property="buttonCollection" destination="ZaE-jA-7y2" collectionClass="NSMutableArray" id="bC9-79-oSe"/>
-                                            <outletCollection property="buttonCollection" destination="0yX-ye-gIs" collectionClass="NSMutableArray" id="eyv-Wv-dPD"/>
-                                            <outletCollection property="buttonCollection" destination="d2W-7I-Uzc" collectionClass="NSMutableArray" id="Mhv-kk-3nC"/>
-                                            <outletCollection property="buttonCollection" destination="rTx-CY-VA9" collectionClass="NSMutableArray" id="LwS-T7-29u"/>
-                                            <outletCollection property="buttonCollection" destination="Oku-Ry-yN4" collectionClass="NSMutableArray" id="PhU-0L-K9o"/>
-                                            <outletCollection property="buttonCollection" destination="g6F-AQ-gqp" collectionClass="NSMutableArray" id="AC3-Ky-Lls"/>
+                                            <outlet property="scrollView" destination="IJM-8H-jHk" id="jnF-d6-22G"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -707,7 +654,7 @@
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="a01-8U-7N8">
                                 <rect key="frame" x="0.0" y="64" width="600" height="536"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <mutableString key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</mutableString>
+                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>

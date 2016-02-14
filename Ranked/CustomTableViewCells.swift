@@ -13,60 +13,104 @@ protocol ColorCellDelegate: class {
 }
 
 class ColorCell: UITableViewCell {
-    
-    @IBOutlet weak var button1: UIButton!
-    @IBOutlet weak var button2: UIButton!
-    @IBOutlet weak var button3: UIButton!
-    @IBOutlet weak var button4: UIButton!
-    @IBOutlet weak var button5: UIButton!
-    @IBOutlet weak var button6: UIButton!
-    @IBOutlet weak var button7: UIButton!
-    @IBOutlet weak var button8: UIButton!
 
-    @IBOutlet var buttonCollection: [UIButton]!
+    @IBOutlet weak var scrollView: UIScrollView!
+    
+    let colorManager = ColorManager()
+    var laidOut = false
     
     weak var delegate: ColorCellDelegate?
     
-    func configureCell() {
+    override func layoutSubviews() {
         
-        userInteractionEnabled = false
+        if !laidOut {
+            laidOut = false
+            
+            let subviews = self.scrollView.subviews
+            for subview in subviews{
+                subview.removeFromSuperview()
+            }
+            
+            self.scrollView.contentSize = CGSizeMake(self.scrollView.bounds.width * 3,
+                self.scrollView.bounds.height)
+            
+            let scrollViewWidth:CGFloat = self.scrollView.bounds.width
+            let scrollViewHeight:CGFloat = self.scrollView.bounds.height
+            
+            var itterator = 0
+            
+            if let colorPicker = NSBundle.mainBundle().loadNibNamed("ColorPicker", owner: self, options: nil).first as? ColorPickerView {
+                colorPicker.frame = CGRectMake(0, 0,scrollViewWidth, scrollViewHeight)
+                self.scrollView.addSubview(colorPicker)
+                colorPicker.delegate = self
 
-        for (index, button) in buttonCollection.enumerate() {
-            button.tag = index
-            switch index {
-                
-            case 0:
-                button.backgroundColor = .orangeColor()
-                break
-            case 1:
-                button.backgroundColor = .redColor()
-                break
-            case 2:
-                button.backgroundColor = .magentaColor()
-                break
-            case 3:
-                button.backgroundColor = .blueColor()
-                break
-            case 4:
-                button.backgroundColor = .yellowColor()
-                break
-            case 5:
-                button.backgroundColor = .purpleColor()
-                break
-            case 6:
-                button.backgroundColor = .cyanColor()
-                break
-            case 7:
-                button.backgroundColor = .greenColor()
-                break
-            default:
-                break
+                for button in colorPicker.buttonCollection {
+
+                    button.tag = itterator
+
+                    if itterator < colorManager.colorThemes.count {
+                        
+                        button.backgroundColor = colorManager.colorThemes[itterator].titleColor
+                    } else {
+                        button.alpha = 0
+                        button.userInteractionEnabled = false
+                    }
+                    itterator = itterator + 1
+                }
+            }
+            
+            if let colorPicker = NSBundle.mainBundle().loadNibNamed("ColorPicker", owner: self, options: nil).first as? ColorPickerView {
+                colorPicker.frame = CGRectMake(scrollViewWidth, 0,scrollViewWidth, scrollViewHeight)
+                self.scrollView.addSubview(colorPicker)
+                colorPicker.delegate = self
+
+                for button in colorPicker.buttonCollection {
+                    
+                    button.tag = itterator
+
+                    if itterator < colorManager.colorThemes.count {
+                        
+                        button.backgroundColor = colorManager.colorThemes[itterator].titleColor
+                    } else {
+                        button.alpha = 0
+                        button.userInteractionEnabled = false
+                    }
+                    itterator = itterator + 1
+                }
+            }
+            
+            if let colorPicker = NSBundle.mainBundle().loadNibNamed("ColorPicker", owner: self, options: nil).first as? ColorPickerView {
+                colorPicker.frame = CGRectMake(scrollViewWidth*2, 0,scrollViewWidth, scrollViewHeight)
+                self.scrollView.addSubview(colorPicker)
+                colorPicker.delegate = self
+                for button in colorPicker.buttonCollection {
+                    
+                    button.tag = itterator
+
+                    if itterator < colorManager.colorThemes.count {
+                        
+                        button.backgroundColor = colorManager.colorThemes[itterator].titleColor
+                    } else {
+                        button.alpha = 0
+                        button.userInteractionEnabled = false
+                    }
+                    itterator = itterator + 1
+                }
             }
         }
     }
     
-    @IBAction func buttonPressed(sender: UIButton) {
+    func configureCell() {
         
-        self.delegate?.pickedNewColor(sender.tag)
+//        scrollView.userInteractionEnabled = false
+//        contentView.addGestureRecognizer(scrollView.panGestureRecognizer)
+    }
+}
+
+extension ColorCell: ColorPickerViewDelegate {
+    
+    func pickedNewColor(index: Int) {
+        
+        self.delegate?.pickedNewColor(index)
     }
 }

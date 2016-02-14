@@ -80,7 +80,7 @@ class ItemsViewController: UIViewController {
     
     weak var delegate: ItemsViewControllerDelegate?
 
-    var collection = CollectionModel(name: "", description: "", category: .none, dateCreated: NSDate(), color: .redColor())
+    var collection = CollectionModel(name: "", description: "", category: .none, dateCreated: NSDate(), color: ColorTheme(titleColor: .whiteColor(), subtitleColor: .whiteColor(), backgroundColors: [.whiteColor()]))
     
     var inEditingMode: Bool?
     let gradientLayer = CAGradientLayer()
@@ -110,6 +110,7 @@ class ItemsViewController: UIViewController {
         gradientLayer.frame = self.view.bounds
         self.view.layer.insertSublayer(gradientLayer, below: tableView.layer)
         styleGradient()
+
     }
     
     func styleTableView() {
@@ -118,14 +119,24 @@ class ItemsViewController: UIViewController {
         tableView.estimatedRowHeight = 88
         tableView.tableFooterView = UIView()
         tableView.separatorInset = UIEdgeInsetsZero
-        
+        tableView.separatorColor = collection.color.subtitleColor
     }
     
     func styleGradient() {
         
-        let color1 = UIColor.whiteColor().CGColor as CGColorRef
-        let color2 = collection.color.CGColor as CGColorRef
-        gradientLayer.colors = [color1, color2]
+        var colorRefArray = [CGColorRef]()
+        
+        for color in collection.color.backgroundColors {
+            
+            colorRefArray.append(color.CGColor as CGColorRef)
+        }
+        
+        if colorRefArray.count == 1 {
+            colorRefArray.append(colorRefArray[0])
+
+        }
+        
+        gradientLayer.colors = colorRefArray
         gradientLayer.locations = [0.25, 1.0]
     }
     
@@ -206,36 +217,12 @@ extension ItemsViewController: ColorCellDelegate {
     
     func pickedNewColor(index: Int) {
         
-        switch index {
-            
-        case 0:
-            collection.color = .orangeColor()
-            break
-        case 1:
-            collection.color = .redColor()
-            break
-        case 2:
-            collection.color = .magentaColor()
-            break
-        case 3:
-            collection.color = .blueColor()
-            break
-        case 4:
-            collection.color = .yellowColor()
-            break
-        case 5:
-            collection.color = .purpleColor()
-            break
-        case 6:
-            collection.color = .cyanColor()
-            break
-        case 7:
-            collection.color = .greenColor()
-            break
-        default:
-            break
-        }
+        let colorManager = ColorManager()
+        
+        collection.color = colorManager.colorThemes[index]
+        tableView.reloadData()
         styleGradient()
+        tableView.separatorColor = collection.color.subtitleColor
     }
 }
 
@@ -256,6 +243,17 @@ extension AddItemTableViewCell: UITextFieldDelegate {
 }
 
 extension ItemsViewController: UITableViewDelegate {
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
+        if indexPath.section == 0 && indexPath.row == 2 {
+            tableView.deselectRowAtIndexPath(indexPath, animated: false)
+
+        } else {
+            tableView.deselectRowAtIndexPath(indexPath, animated: true)
+ 
+        }
+    }
 }
 
 extension ItemsViewController: UITableViewDataSource {
@@ -297,17 +295,19 @@ extension ItemsViewController: UITableViewDataSource {
                     cell.userInteractionEnabled = true
                     cell.accessoryType = .DisclosureIndicator
                     cell.label.text = "Title"
+                    cell.label.textColor = .lightGrayColor()
                     
                 } else {
                     cell.userInteractionEnabled = false
                     cell.accessoryType = .None
-                    cell.label.textColor = .blackColor()
+                    cell.label.textColor = collection.color.titleColor
+
                 }
                 
                 if collection.name != "" {
                     
                     cell.label.text = collection.name
-                    cell.label.textColor = .blackColor()
+                    cell.label.textColor = collection.color.titleColor
                     
                 } else {
                     cell.label.text = "Title"
@@ -342,17 +342,18 @@ extension ItemsViewController: UITableViewDataSource {
                     cell.userInteractionEnabled = true
                     cell.accessoryType = .DisclosureIndicator
                     cell.label.text = "Description"
+                    cell.label.textColor = .lightGrayColor()
                     
                 } else {
                     cell.userInteractionEnabled = false
                     cell.accessoryType = .None
-                    cell.label.textColor = .blackColor()
+                    cell.label.textColor = collection.color.subtitleColor
                 }
                 
                 if collection.descriptionString != "" {
                     
                     cell.label.text = collection.descriptionString
-                    cell.label.textColor = .blackColor()
+                    cell.label.textColor = collection.color.subtitleColor
 
                 } else {
                     cell.label.text = "Description"
@@ -371,11 +372,13 @@ extension ItemsViewController: UITableViewDataSource {
 
             cell.numberLabel.text = "\(indexPath.row + 1)"
             cell.titleLabel.text = item.text
+            cell.titleLabel.textColor = collection.color.titleColor
             cell.layoutMargins = UIEdgeInsetsZero;
             if collection.sorted {
                 
                 cell.numberLabelWidthConstraint.constant = 40
                 cell.numberLabel.hidden = false
+                cell.numberLabel.textColor = collection.color.titleColor
                 
             } else {
                 cell.numberLabelWidthConstraint.constant = 0

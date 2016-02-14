@@ -43,6 +43,8 @@ class CollectionsViewController: UIViewController {
         navigationController?.navigationBar.shadowImage = nil
         navigationController?.navigationBar.translucent = false
         navigationController?.view.backgroundColor = UIColor.whiteColor()
+        self.navigationController?.navigationBar.tintColor = .blackColor()
+
     }
 //
 //    override func viewDidAppear(animated: Bool) {
@@ -74,7 +76,8 @@ class CollectionsViewController: UIViewController {
                     controller.collection = collectionsArray[selectedIndexPath.row]
                     controller.inEditingMode = false
                     controller.delegate = self
-                
+                    self.navigationController?.navigationBar.tintColor = controller.collection.color.subtitleColor
+
                 }
             }
             
@@ -108,7 +111,8 @@ extension CollectionsViewController: UITableViewDataSource {
         let collection = collectionsArray[indexPath.row];
         
         cell.titleLabel.text = collection.name
-        cell.titleLabel.textColor = collection.color
+        cell.titleLabel.textColor = collection.color.titleColor
+        cell.descriptionLabel.textColor = collection.color.subtitleColor
         cell.layoutMargins = UIEdgeInsetsZero;
         switch collection.category {
             

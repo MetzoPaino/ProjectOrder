@@ -53,11 +53,11 @@ class CollectionModel: NSObject, NSCoding {
     var category: CollectionType
     var sorted = false
     var dateCreated: NSDate
-    var color: UIColor
+    var color: ColorTheme
 
     var items = [ItemModel]()
     
-    init(name: String, description: String, category: CollectionType, dateCreated: NSDate, color: UIColor) {
+    init(name: String, description: String, category: CollectionType, dateCreated: NSDate, color: ColorTheme) {
         self.name = name
         self.descriptionString = description
         self.category = category
@@ -118,11 +118,11 @@ class CollectionModel: NSObject, NSCoding {
             sorted = false
         }
         
-        if let decodedColor = aDecoder.decodeObjectForKey(colorKey) as? UIColor {
+        if let decodedColor = aDecoder.decodeObjectForKey(colorKey) as? ColorTheme {
             
             color = decodedColor
         } else {
-            color = .blackColor()
+            color = createColorTheme9()
         }
         
         super.init()
