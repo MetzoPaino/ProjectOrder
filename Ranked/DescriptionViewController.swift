@@ -16,6 +16,7 @@ protocol DescriptionViewControllerDelegate: class {
 enum Context {
     case title
     case description
+    case item
 }
 
 class DescriptionViewController: UIViewController {
@@ -29,6 +30,10 @@ class DescriptionViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let notificationCenter = NSNotificationCenter.defaultCenter()
+        notificationCenter.addObserver(self, selector: "receivedKeyboardNotification:", name: UIKeyboardDidShowNotification, object: nil)
+        notificationCenter.addObserver(self, selector: "receivedKeyboardNotification:", name: UIKeyboardDidHideNotification, object: nil)
         
         textView.textContainerInset = UIEdgeInsetsMake(0, 32, 0, 32)
         textView.text = providedDescription
@@ -62,14 +67,37 @@ class DescriptionViewController: UIViewController {
         }
     }
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    @IBAction func keyboardButtonPressed(sender: UIBarButtonItem) {
+        if textView.isFirstResponder() {
+            
+            textView.resignFirstResponder()
+            
+        } else {
+            
+            textView.becomeFirstResponder()
+        }
     }
-    */
+    // MARK: - NSNotification
+    
+    func receivedKeyboardNotification(notification: NSNotification) {
+        
+        let info = notification.userInfo! as Dictionary
+        
+        if notification.name == UIKeyboardDidShowNotification {
+            
+            if let keyboardSize = info[UIKeyboardFrameEndUserInfoKey]?.CGRectValue.size {
+                
+                textView.contentInset = UIEdgeInsetsMake(0, 0, keyboardSize.height, 0)
+                textView.scrollIndicatorInsets = textView.contentInset
+
+            }
+            
+        } else if notification.name == UIKeyboardDidHideNotification {
+            
+            textView.contentInset = UIEdgeInsetsZero
+            textView.scrollIndicatorInsets = textView.contentInset
+        }
+    }
+
 
 }
