@@ -72,7 +72,8 @@ class ItemsViewController: UIViewController {
     
     
     @IBOutlet weak var tableView: UITableView!
-    
+    @IBOutlet var addItemsHeaderView: AddItemView!
+
     var sortBarButton: UIBarButtonItem!
     var doneBarButton: UIBarButtonItem!
     var editBarButton: UIBarButtonItem!
@@ -152,7 +153,17 @@ class ItemsViewController: UIViewController {
         doneBarButton = createBarButton(.done)
         navigationController?.navigationItem.rightBarButtonItems = [doneBarButton]
         
-        tableView.reloadData()
+        
+        let cell = tableView.dequeueReusableCellWithIdentifier("AddItemCell") as! AddItemTableViewCell
+        cell.delegate = self
+        cell.configureCell()
+        
+        
+        let colorPickerIndex = NSIndexPath(forRow: 2, inSection: 0)
+        
+        tableView.beginUpdates()
+        tableView.insertRowsAtIndexPaths([colorPickerIndex], withRowAnimation: .Automatic)
+        tableView.endUpdates()
     }
     
     @IBAction func doneButtonPressed(sender: UIBarButtonItem) {
@@ -163,7 +174,11 @@ class ItemsViewController: UIViewController {
         sortBarButton = createBarButton(.sort)
         navigationController?.navigationItem.rightBarButtonItems = [sortBarButton, editBarButton]
         
-        tableView.reloadData()
+        let colorPickerIndex = NSIndexPath(forRow: 2, inSection: 0)
+        
+        tableView.beginUpdates()
+        tableView.deleteRowsAtIndexPaths([colorPickerIndex], withRowAnimation: .Automatic)
+        tableView.endUpdates()
     }
     
     @IBAction func sortButtonPressed(sender: UIBarButtonItem) {
@@ -439,14 +454,18 @@ extension ItemsViewController: UITableViewDataSource {
         if section == 0 {
             return nil
         }
-        if inEditingMode == nil || inEditingMode == true {
-            let cell = tableView.dequeueReusableCellWithIdentifier("AddItemCell") as! AddItemTableViewCell
-            cell.delegate = self
-            cell.configureCell()
-            return cell
-        } else {
-            return nil
-        }
+        
+        
+        
+        return addItemsHeaderView
+//        if inEditingMode == nil || inEditingMode == true {
+//            let cell = tableView.dequeueReusableCellWithIdentifier("AddItemCell") as! AddItemTableViewCell
+//            cell.delegate = self
+//            cell.configureCell()
+//            return cell
+//        } else {
+//            return nil
+//        }
     }
     
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -456,7 +475,7 @@ extension ItemsViewController: UITableViewDataSource {
         if inEditingMode == nil || inEditingMode == true {
             return 48 + 32
         } else {
-            return 0
+            return 48 + 32
         }
     }
     

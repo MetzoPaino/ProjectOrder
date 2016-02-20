@@ -540,11 +540,48 @@
                     </view>
                     <navigationItem key="navigationItem" id="8t6-LZ-5Lj"/>
                     <connections>
+                        <outlet property="addItemsHeaderView" destination="3yg-C0-yHS" id="iz5-gL-psm"/>
                         <outlet property="tableView" destination="9q0-BK-96f" id="pFo-eU-z40"/>
                         <segue destination="ku8-om-PyQ" kind="presentation" identifier="PresentSort" id="ciD-m2-PsK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BSC-44-Hch" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <view contentMode="scaleToFill" id="3yg-C0-yHS" customClass="AddItemView" customModule="Ranked" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="0.0" width="574" height="128"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="N0q-KA-6wA">
+                            <rect key="frame" x="16" y="16" width="96" height="96"/>
+                            <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="0.25098040700000002" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="width" secondItem="N0q-KA-6wA" secondAttribute="height" multiplier="1:1" id="OxW-Bz-B26"/>
+                            </constraints>
+                        </imageView>
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Add Item" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lCz-eA-4K0">
+                            <rect key="frame" x="127.5" y="16" width="430.5" height="96"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
+                            <connections>
+                                <outlet property="delegate" destination="3yg-C0-yHS" id="TCQ-y5-ueF"/>
+                            </connections>
+                        </textField>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="lCz-eA-4K0" secondAttribute="bottom" constant="16" id="Ajf-1a-XF9"/>
+                        <constraint firstItem="N0q-KA-6wA" firstAttribute="leading" secondItem="3yg-C0-yHS" secondAttribute="leading" constant="16" id="FVH-Xd-I3a"/>
+                        <constraint firstItem="lCz-eA-4K0" firstAttribute="top" secondItem="3yg-C0-yHS" secondAttribute="top" constant="16" id="GSo-Yn-vix"/>
+                        <constraint firstItem="lCz-eA-4K0" firstAttribute="leading" secondItem="N0q-KA-6wA" secondAttribute="trailing" constant="16" id="Hnm-W9-65X"/>
+                        <constraint firstAttribute="bottom" secondItem="N0q-KA-6wA" secondAttribute="bottom" constant="16" id="Kn8-Mo-ExJ"/>
+                        <constraint firstAttribute="trailing" secondItem="lCz-eA-4K0" secondAttribute="trailing" constant="16" id="Lpb-eV-Is0"/>
+                        <constraint firstItem="N0q-KA-6wA" firstAttribute="top" secondItem="3yg-C0-yHS" secondAttribute="top" constant="16" id="daF-Dc-sWB"/>
+                    </constraints>
+                    <connections>
+                        <outlet property="addImageView" destination="N0q-KA-6wA" id="Rdo-op-8ix"/>
+                        <outlet property="textField" destination="lCz-eA-4K0" id="DHV-Pa-i3B"/>
+                    </connections>
+                </view>
             </objects>
             <point key="canvasLocation" x="1145" y="-576"/>
         </scene>
