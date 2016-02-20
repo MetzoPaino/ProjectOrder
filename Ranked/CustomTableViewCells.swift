@@ -8,6 +8,44 @@
 
 import UIKit
 
+class TitleCell: UITableViewCell {
+    
+    @IBOutlet weak var label: UILabel!
+    
+    let textViewValues = (color: UIColor.blackColor(), placeholderColor: UIColor.lightGrayColor(), placeholderText: "Title")
+    
+    func configureCell(title: String?, enableEditing: Bool?) {
+        
+    }
+}
+
+class DescriptionCell: UITableViewCell {
+    
+    @IBOutlet weak var label: UILabel!
+    
+    func configureCell() {
+    }
+}
+
+// MARK:- ItemTableViewCell
+
+class ItemTableViewCell: UITableViewCell {
+    
+    @IBOutlet weak var numberImageView: UIImageView!
+    @IBOutlet weak var numberLabel: UILabel!
+    @IBOutlet weak var titleLabel: UILabel!
+    
+    @IBOutlet weak var numberLabelWidthConstraint: NSLayoutConstraint!
+    @IBOutlet weak var numberLabelTrailingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var titleLabelLeadingConstraint: NSLayoutConstraint!
+    
+    override func layoutSubviews() {
+
+    }
+}
+
+// MARK:- ColorCell
+
 protocol ColorCellDelegate: class {
     func pickedNewColor(index: Int)
 }

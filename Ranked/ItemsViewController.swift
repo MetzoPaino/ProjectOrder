@@ -8,50 +8,6 @@
 
 import UIKit
 
-class TitleCell: UITableViewCell {
-    
-    @IBOutlet weak var textView: UITextView!
-    @IBOutlet weak var label: UILabel!
-    
-//    weak var delegate: CollectionTitleCellDelegate?
-    
-    let textViewValues = (color: UIColor.blackColor(), placeholderColor: UIColor.lightGrayColor(), placeholderText: "Title")
-
-    func configureCell(title: String?, enableEditing: Bool?) {
-        
-        
-        
-//        if let enableEditing = enableEditing {
-//            
-//            textView.userInteractionEnabled = enableEditing
-//            
-//        } else {
-//            
-//            textView.userInteractionEnabled = true
-//        }
-//        
-//        if title != nil {
-//            textView.text = title
-//            textView.textColor = textViewValues.color
-//
-//        } else {
-//            textView.text = textViewValues.placeholderText
-//            textView.textColor = textViewValues.placeholderColor
-//            textView.selectedTextRange = textView.textRangeFromPosition(textView.beginningOfDocument, toPosition: textView.beginningOfDocument)
-//        }
-    }
-}
-
-class DescriptionCell: UITableViewCell {
-    
-    @IBOutlet weak var label: UILabel!
-    
-    func configureCell() {
-    }
-}
-
-
-
 protocol ItemsViewControllerDelegate: class {
     func sortingFinished()
 }
@@ -62,7 +18,6 @@ enum BarButtonType {
     case edit
     case sort
 }
-
 
 class ItemsViewController: UIViewController {
 
@@ -204,6 +159,12 @@ class ItemsViewController: UIViewController {
             }
             
         } else if let navigationController = segue.destinationViewController as? UINavigationController, controller = navigationController.topViewController as? SortingViewController {
+            
+            navigationController.navigationBar.setBackgroundImage(nil, forBarMetrics: UIBarMetrics.Default)
+            navigationController.navigationBar.shadowImage = nil
+            navigationController.navigationBar.translucent = false
+            navigationController.view.backgroundColor = UIColor.whiteColor()
+            navigationController.navigationBar.tintColor = .blackColor()
         
             controller.itemArray = collection.items
             controller.delegate = self
@@ -434,6 +395,9 @@ extension ItemsViewController: UITableViewDataSource {
             cell.numberLabel.text = "\(indexPath.row + 1)"
             cell.titleLabel.text = item.text
             cell.titleLabel.textColor = collection.color.titleColor
+            
+
+            
             cell.layoutMargins = UIEdgeInsetsZero;
             if collection.sorted {
                 
@@ -473,9 +437,9 @@ extension ItemsViewController: UITableViewDataSource {
             return 0
         }
         if inEditingMode == nil || inEditingMode == true {
-            return 48 + 32
+            return 32
         } else {
-            return 48 + 32
+            return 32
         }
     }
     

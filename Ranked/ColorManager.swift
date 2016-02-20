@@ -62,7 +62,6 @@ class ColorTheme : NSObject {
         aCoder.encodeObject(titleColor, forKey: titleColorKey)
         aCoder.encodeObject(subtitleColor, forKey: subtitleColorKey)
         aCoder.encodeObject(backgroundColors, forKey: backgroundColorsKey)
-        
     }
 }
 

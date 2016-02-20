@@ -45,7 +45,7 @@ class CollectionsViewController: UIViewController {
         navigationController?.navigationBar.shadowImage = nil
         navigationController?.navigationBar.translucent = false
         navigationController?.view.backgroundColor = UIColor.whiteColor()
-        self.navigationController?.navigationBar.tintColor = .blackColor()
+        navigationController?.navigationBar.tintColor = .blackColor()
 
     }
 //

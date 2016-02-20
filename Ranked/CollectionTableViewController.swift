@@ -8,15 +8,7 @@
 
 import UIKit
 
-class ItemTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var numberLabel: UILabel!
-    @IBOutlet weak var titleLabel: UILabel!
-    
-    @IBOutlet weak var numberLabelWidthConstraint: NSLayoutConstraint!
-    @IBOutlet weak var numberLabelTrailingConstraint: NSLayoutConstraint!
-    @IBOutlet weak var titleLabelLeadingConstraint: NSLayoutConstraint!
-}
 //
 //protocol AddItemTableViewCellDelegate: class {
 //    func createdNewItemWithText(text: String)
