@@ -26,6 +26,10 @@ class ColorTheme : NSObject {
         self.backgroundColors = backgroundColors
     }
     
+    convenience override init() {
+        self.init(titleColor: .blackColor(), subtitleColor: .blackColor(), backgroundColors: [.whiteColor()])
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         
         if let decodedTitleColor = aDecoder.decodeObjectForKey(titleColorKey) as? UIColor {

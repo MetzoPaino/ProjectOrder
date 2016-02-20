@@ -30,6 +30,8 @@ class CollectionsViewController: UIViewController {
         super.viewDidLoad()
         collectionsArray = dataManager.collections
         styleTableView()
+    
+        navigationController?.navigationItem.backBarButtonItem?.title = ""
     }
     
     override func viewWillAppear(animated: Bool) {

@@ -50,37 +50,37 @@ class DescriptionCell: UITableViewCell {
     }
 }
 
-protocol AddItemTableViewCellDelegate: class {
-    func createdNewItemWithText(text: String)
-}
 
-
-class AddItemTableViewCell: UITableViewCell {
-    
-    @IBOutlet weak var textField: UITextField!
-    
-    weak var delegate: AddItemTableViewCellDelegate?
-    
-    func configureCell() {
-        
-        textField.delegate = self
-    }
-    
-}
 
 protocol ItemsViewControllerDelegate: class {
     func sortingFinished()
 }
 
+enum BarButtonType {
+    
+    case done
+    case edit
+    case sort
+}
+
 
 class ItemsViewController: UIViewController {
 
-    @IBOutlet weak var sortBarButton: UIBarButtonItem!
+
+//    @IBOutlet weak var sortBarButton: UIBarButtonItem!
+
+    
+    
     @IBOutlet weak var tableView: UITableView!
+    
+    var sortBarButton: UIBarButtonItem!
+    var doneBarButton: UIBarButtonItem!
+    var editBarButton: UIBarButtonItem!
+
     
     weak var delegate: ItemsViewControllerDelegate?
 
-    var collection = CollectionModel(name: "", description: "", category: .none, dateCreated: NSDate(), color: ColorTheme(titleColor: .whiteColor(), subtitleColor: .whiteColor(), backgroundColors: [.whiteColor()]))
+    var collection = CollectionModel(name: "", description: "", category: .none, dateCreated: NSDate(), color: ColorTheme())
     
     var inEditingMode: Bool?
     let gradientLayer = CAGradientLayer()
@@ -99,12 +99,13 @@ class ItemsViewController: UIViewController {
         
         if inEditingMode != nil {
             
-            let editButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Edit, target: self, action: "editButtonPressed:")
-            navigationController?.navigationItem.rightBarButtonItems = [sortBarButton, editButton]
+            editBarButton = createBarButton(.edit)
+            sortBarButton = createBarButton(.sort)
+            navigationController?.navigationItem.rightBarButtonItems = [sortBarButton, editBarButton]
 
         } else {
-            let doneButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Done, target: self, action: "doneButtonPressed:")
-            navigationController?.navigationItem.rightBarButtonItems = [sortBarButton, doneButton]
+            doneBarButton = createBarButton(.done)
+            navigationController?.navigationItem.rightBarButtonItems = [doneBarButton]
         }
         
         gradientLayer.frame = self.view.bounds
@@ -148,8 +149,8 @@ class ItemsViewController: UIViewController {
             self.inEditingMode = !inEditingMode
         }
         
-        let doneButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Done, target: self, action: "doneButtonPressed:")
-        navigationController?.navigationItem.rightBarButtonItems = [sortBarButton, doneButton]
+        doneBarButton = createBarButton(.done)
+        navigationController?.navigationItem.rightBarButtonItems = [doneBarButton]
         
         tableView.reloadData()
     }
@@ -158,8 +159,9 @@ class ItemsViewController: UIViewController {
         
         self.inEditingMode = false
         
-        let editButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Edit, target: self, action: "editButtonPressed:")
-        navigationController?.navigationItem.rightBarButtonItems = [sortBarButton, editButton]
+        editBarButton = createBarButton(.edit)
+        sortBarButton = createBarButton(.sort)
+        navigationController?.navigationItem.rightBarButtonItems = [sortBarButton, editBarButton]
         
         tableView.reloadData()
     }
@@ -187,6 +189,43 @@ class ItemsViewController: UIViewController {
             controller.delegate = self
         }
     }
+    
+    // MARK: - Internal
+    
+    func createBarButton(barButtonType: BarButtonType) -> UIBarButtonItem {
+        
+        var action = Selector("")
+        var title: String
+        
+        switch barButtonType {
+            
+            case .done:
+                action =  Selector("doneButtonPressed:")
+                title = "Done"
+                break
+            case .edit:
+                action = Selector("editButtonPressed:")
+                title = "Edit"
+                break
+            case .sort:
+                action = Selector("sortButtonPressed:")
+                title = "Sort"
+            break
+        }
+        
+        let barButton = UIBarButtonItem(title: title, style: UIBarButtonItemStyle.Plain, target: self, action: action)
+        
+        if barButtonType == .done {
+            
+            if collection.name != "" {
+                barButton.enabled = true
+            } else {
+                barButton.enabled = false
+            }
+        }
+        
+        return barButton
+    }
 }
 
 extension ItemsViewController: DescriptionViewControllerDelegate {
@@ -194,6 +233,12 @@ extension ItemsViewController: DescriptionViewControllerDelegate {
     func newTitle(text: String) {
         collection.name = text
         tableView.reloadData()
+        
+        if text != "" {
+            doneBarButton.enabled = true
+        } else {
+            doneBarButton.enabled = false
+        }
     }
     
     func newDescription(text: String) {
@@ -226,19 +271,13 @@ extension ItemsViewController: ColorCellDelegate {
     }
 }
 
-extension AddItemTableViewCell: UITextFieldDelegate {
+extension ItemsViewController: AddItemTableViewCellDelegate {
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func createdNewItemWithText(text: String) {
         
-        textField.resignFirstResponder()
-        
-        let string = textField.text! as NSString
-        
-        if string.length > 0 {
-            self.delegate?.createdNewItemWithText(textField.text!)
-            textField.text = ""
-        }
-        return true
+        let item = ItemModel(string: text)
+        collection.items.append(item)
+        tableView.reloadData()
     }
 }
 
@@ -388,31 +427,57 @@ extension ItemsViewController: UITableViewDataSource {
         }
     }
     
-    func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
         if section == 0 {
             return nil
         }
         if inEditingMode == nil || inEditingMode == true {
             let cell = tableView.dequeueReusableCellWithIdentifier("AddItemCell") as! AddItemTableViewCell
-//            cell.delegate = self
+            cell.delegate = self
             cell.configureCell()
             return cell
         } else {
             return nil
         }
-
     }
     
-    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        
+    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section == 0 {
             return 0
         }
         if inEditingMode == nil || inEditingMode == true {
             return 48 + 32
         } else {
-           return 0
+            return 0
         }
     }
+    
+//    func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+//        
+//        if section == 0 {
+//            return nil
+//        }
+//        if inEditingMode == nil || inEditingMode == true {
+//            let cell = tableView.dequeueReusableCellWithIdentifier("AddItemCell") as! AddItemTableViewCell
+////            cell.delegate = self
+//            cell.configureCell()
+//            return cell
+//        } else {
+//            return nil
+//        }
+//
+//    }
+//    
+//    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+//        
+//        if section == 0 {
+//            return 0
+//        }
+//        if inEditingMode == nil || inEditingMode == true {
+//            return 48 + 32
+//        } else {
+//           return 0
+//        }
+//    }
 }

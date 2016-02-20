@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
@@ -541,33 +542,45 @@
                                             <segue destination="DyF-CK-2qW" kind="show" identifier="ShowDescription" id="2s8-ef-QMs"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="AddItemCell" id="920-h4-U4z" customClass="AddItemTableViewCell" customModule="Ranked" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="258" width="600" height="44"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="AddItemCell" rowHeight="111" id="920-h4-U4z" customClass="AddItemTableViewCell" customModule="Ranked" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="258" width="600" height="111"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="920-h4-U4z" id="B7W-XF-g3G">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="110.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Add Item" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aow-7k-eef">
-                                                    <rect key="frame" x="16" y="16" width="568" height="11.5"/>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Add Item" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aow-7k-eef">
+                                                    <rect key="frame" x="110.5" y="16" width="473.5" height="78.5"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits"/>
+                                                    <textInputTraits key="textInputTraits" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
                                                 </textField>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="nru-HQ-9WV">
+                                                    <rect key="frame" x="16" y="16" width="78.5" height="78.5"/>
+                                                    <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="0.25098040700000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" secondItem="nru-HQ-9WV" secondAttribute="height" multiplier="1:1" id="nnZ-Hg-xk7"/>
+                                                    </constraints>
+                                                </imageView>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="nru-HQ-9WV" firstAttribute="leading" secondItem="B7W-XF-g3G" secondAttribute="leading" constant="16" id="3gb-ng-sOO"/>
                                                 <constraint firstAttribute="bottom" secondItem="aow-7k-eef" secondAttribute="bottom" constant="16" id="5We-2g-LOX"/>
+                                                <constraint firstItem="aow-7k-eef" firstAttribute="leading" secondItem="nru-HQ-9WV" secondAttribute="trailing" constant="16" id="87n-jg-X41"/>
                                                 <constraint firstItem="aow-7k-eef" firstAttribute="top" secondItem="B7W-XF-g3G" secondAttribute="top" constant="16" id="AMN-I8-lfk"/>
-                                                <constraint firstItem="aow-7k-eef" firstAttribute="leading" secondItem="B7W-XF-g3G" secondAttribute="leading" constant="16" id="Edj-Zm-xZ1"/>
+                                                <constraint firstItem="nru-HQ-9WV" firstAttribute="top" secondItem="B7W-XF-g3G" secondAttribute="top" constant="16" id="LEo-dy-T30"/>
+                                                <constraint firstAttribute="bottom" secondItem="nru-HQ-9WV" secondAttribute="bottom" constant="16" id="PDz-eN-CUm"/>
                                                 <constraint firstAttribute="trailing" secondItem="aow-7k-eef" secondAttribute="trailing" constant="16" id="mr3-TF-b0y"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <connections>
+                                            <outlet property="addImageView" destination="nru-HQ-9WV" id="Thc-R8-q47"/>
                                             <outlet property="textField" destination="aow-7k-eef" id="Yhy-oK-eIN"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ColorCell" rowHeight="44" id="xMz-rx-G7O" customClass="ColorCell" customModule="Ranked" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="302" width="600" height="44"/>
+                                        <rect key="frame" x="0.0" y="369" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="xMz-rx-G7O" id="bBQ-Sk-6H0">
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
@@ -623,15 +636,8 @@
                             </mask>
                         </variation>
                     </view>
-                    <navigationItem key="navigationItem" id="8t6-LZ-5Lj">
-                        <barButtonItem key="rightBarButtonItem" title="Sort" id="i8J-8n-ZfX">
-                            <connections>
-                                <segue destination="ku8-om-PyQ" kind="presentation" id="NhK-t1-RlG"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="8t6-LZ-5Lj"/>
                     <connections>
-                        <outlet property="sortBarButton" destination="i8J-8n-ZfX" id="RnU-ds-mhv"/>
                         <outlet property="tableView" destination="9q0-BK-96f" id="pFo-eU-z40"/>
                     </connections>
                 </viewController>
@@ -826,7 +832,6 @@
     <inferredMetricsTieBreakers>
         <segue reference="yLz-Bz-ILQ"/>
         <segue reference="XiR-PU-1Jc"/>
-        <segue reference="NhK-t1-RlG"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
 </document>
