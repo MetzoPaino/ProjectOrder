@@ -166,6 +166,11 @@ class ItemsViewController: UIViewController {
         tableView.reloadData()
     }
     
+    @IBAction func sortButtonPressed(sender: UIBarButtonItem) {
+        
+        performSegueWithIdentifier("PresentSort", sender: self)
+    }
+    
     // MARK: - Navigation
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -294,6 +299,8 @@ extension ItemsViewController: UITableViewDelegate {
         }
     }
 }
+
+// MARK: - UITableViewDataSource
 
 extension ItemsViewController: UITableViewDataSource {
     
@@ -453,31 +460,10 @@ extension ItemsViewController: UITableViewDataSource {
         }
     }
     
-//    func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-//        
-//        if section == 0 {
-//            return nil
-//        }
-//        if inEditingMode == nil || inEditingMode == true {
-//            let cell = tableView.dequeueReusableCellWithIdentifier("AddItemCell") as! AddItemTableViewCell
-////            cell.delegate = self
-//            cell.configureCell()
-//            return cell
-//        } else {
-//            return nil
-//        }
-//
-//    }
-//    
-//    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-//        
-//        if section == 0 {
-//            return 0
-//        }
-//        if inEditingMode == nil || inEditingMode == true {
-//            return 48 + 32
-//        } else {
-//           return 0
-//        }
-//    }
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if editingStyle == .Delete {
+            collection.items.removeAtIndex(indexPath.row)
+            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+        }
+    }
 }

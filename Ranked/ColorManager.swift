@@ -83,11 +83,10 @@ class ColorManager {
 func createColorTheme1() -> ColorTheme {
     
     return ColorTheme(
-        titleColor: UIColor(red: 255, green: 91, blue: 126),
-        subtitleColor: UIColor(red: 179, green: 66, blue: 115),
+        titleColor: UIColor(red: 0, green: 0, blue: 0),
+        subtitleColor: UIColor(red: 0, green: 0, blue: 0),
         backgroundColors:[
-            UIColor(red: 255, green: 255, blue: 255),
-            UIColor(red: 168, green: 208, blue: 231)])
+            UIColor(red: 255, green: 255, blue: 255)])
 }
 
 func createColorTheme2() -> ColorTheme {
@@ -95,7 +94,8 @@ func createColorTheme2() -> ColorTheme {
     return ColorTheme(
         titleColor: UIColor(red: 84, green: 153, blue: 230),
         subtitleColor: UIColor(red: 123, green: 135, blue: 180),
-        backgroundColors: [UIColor(red: 221, green: 235, blue: 249)])
+        backgroundColors: [
+            UIColor(red: 255, green: 255, blue: 255)])
 }
 
 func createColorTheme3() -> ColorTheme {
@@ -103,10 +103,89 @@ func createColorTheme3() -> ColorTheme {
     return ColorTheme(
         titleColor: UIColor(red: 255, green: 91, blue: 126),
         subtitleColor: UIColor(red: 184, green: 97, blue: 116),
-        backgroundColors: [UIColor(red: 254, green: 222, blue: 229)])
+        backgroundColors: [
+            UIColor(red: 255, green: 255, blue: 255)])
 }
 
 func createColorTheme4() -> ColorTheme {
+    
+    return ColorTheme(
+        titleColor: UIColor(red: 83, green: 84, blue: 166),
+        subtitleColor: UIColor(red: 158, green: 158, blue: 222),
+        backgroundColors: [
+            UIColor(red: 255, green: 255, blue: 255)])
+}
+
+func createColorTheme5() -> ColorTheme {
+    
+    return ColorTheme(
+        titleColor: UIColor(red: 87, green: 71, blue: 122),
+        subtitleColor: UIColor(red: 255, green: 255, blue: 255),
+        backgroundColors: [
+            UIColor(red: 255, green: 255, blue: 255)])
+}
+
+func createColorTheme6() -> ColorTheme {
+    
+    return ColorTheme(
+        titleColor: UIColor(red: 249, green: 116, blue: 100),
+        subtitleColor: UIColor(red: 255, green: 255, blue: 255),
+        backgroundColors: [
+            UIColor(red: 255, green: 255, blue: 255)])
+}
+
+func createColorTheme7() -> ColorTheme {
+    
+    return ColorTheme(
+        titleColor: UIColor(red: 61, green: 139, blue: 199),
+        subtitleColor: UIColor(red: 162, green: 208, blue: 243),
+        backgroundColors: [UIColor(red: 255, green: 255, blue: 255)])
+}
+
+func createColorTheme8() -> ColorTheme {
+    
+    return ColorTheme(
+        titleColor: UIColor(red: 255, green: 82, blue: 94),
+        subtitleColor: UIColor(red: 198, green: 121, blue: 136),
+        backgroundColors: [UIColor(red: 255, green: 255, blue: 255)])
+}
+
+func createColorTheme9() -> ColorTheme {
+    
+    return ColorTheme(
+        titleColor: UIColor(red: 82, green: 192, blue: 178),
+        subtitleColor: UIColor(red: 132, green: 207, blue: 197),
+        backgroundColors: [
+            UIColor(red: 255, green: 255, blue: 255)])
+}
+
+func createColorTheme100() -> ColorTheme {
+    
+    return ColorTheme(
+        titleColor: UIColor(red: 255, green: 91, blue: 126),
+        subtitleColor: UIColor(red: 179, green: 66, blue: 115),
+        backgroundColors:[
+            UIColor(red: 255, green: 255, blue: 255),
+            UIColor(red: 168, green: 208, blue: 231)])
+}
+
+func createColorTheme101() -> ColorTheme {
+    
+    return ColorTheme(
+        titleColor: UIColor(red: 84, green: 153, blue: 230),
+        subtitleColor: UIColor(red: 123, green: 135, blue: 180),
+        backgroundColors: [UIColor(red: 221, green: 235, blue: 249)])
+}
+
+func createColorTheme102() -> ColorTheme {
+    
+    return ColorTheme(
+        titleColor: UIColor(red: 255, green: 91, blue: 126),
+        subtitleColor: UIColor(red: 184, green: 97, blue: 116),
+        backgroundColors: [UIColor(red: 254, green: 222, blue: 229)])
+}
+
+func createColorTheme103() -> ColorTheme {
     
     return ColorTheme(
         titleColor: UIColor(red: 83, green: 84, blue: 166),
@@ -116,7 +195,7 @@ func createColorTheme4() -> ColorTheme {
             UIColor(red: 181, green: 182, blue: 233)])
 }
 
-func createColorTheme5() -> ColorTheme {
+func createColorTheme104() -> ColorTheme {
     
     return ColorTheme(
         titleColor: UIColor(red: 87, green: 71, blue: 122),
@@ -126,7 +205,7 @@ func createColorTheme5() -> ColorTheme {
             UIColor(red: 125, green: 124, blue: 218)])
 }
 
-func createColorTheme6() -> ColorTheme {
+func createColorTheme105() -> ColorTheme {
     
     return ColorTheme(
         titleColor: UIColor(red: 249, green: 116, blue: 100),
@@ -136,7 +215,7 @@ func createColorTheme6() -> ColorTheme {
             UIColor(red: 255, green: 161, blue: 78)])
 }
 
-func createColorTheme7() -> ColorTheme {
+func createColorTheme106() -> ColorTheme {
     
     return ColorTheme(
         titleColor: UIColor(red: 61, green: 139, blue: 199),
@@ -144,7 +223,7 @@ func createColorTheme7() -> ColorTheme {
         backgroundColors: [UIColor(red: 49, green: 51, blue: 76)])
 }
 
-func createColorTheme8() -> ColorTheme {
+func createColorTheme107() -> ColorTheme {
     
     return ColorTheme(
         titleColor: UIColor(red: 255, green: 82, blue: 94),
@@ -152,7 +231,7 @@ func createColorTheme8() -> ColorTheme {
         backgroundColors: [UIColor(red: 69, green: 49, blue: 76)])
 }
 
-func createColorTheme9() -> ColorTheme {
+func createColorTheme108() -> ColorTheme {
     
     return ColorTheme(
         titleColor: UIColor(red: 82, green: 192, blue: 178),
