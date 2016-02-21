@@ -25,15 +25,30 @@ class SortingViewController: UIViewController {
     @IBOutlet weak var option2Button: UIButton!
     @IBOutlet var buttonCollection: [UIButton]!
     
+    @IBOutlet var topViewPanGesture: UIPanGestureRecognizer!
+    @IBOutlet weak var topView: UIView!
+    @IBOutlet weak var topViewTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var topLabel: UILabel!
+    
+    @IBOutlet weak var centerView: UIView!
+    
+    @IBOutlet var bottomViewPanGesture: UIPanGestureRecognizer!
+    @IBOutlet weak var bottomView: UIView!
+    @IBOutlet weak var bottomLabel: UILabel!
+    @IBOutlet weak var bottomViewBottomConstraint: NSLayoutConstraint!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        styleView()
         styleNavBar()
-        styleButtons()
         
         tournamentManager.delegate = self
         tournamentManager.createTournament(itemArray)
-        setupButtons()
+//        setupButtons()
+        setupBattle()
+        print(centerView.center.y)
+
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -43,17 +58,20 @@ class SortingViewController: UIViewController {
 
     }
     
+    override func viewDidLayoutSubviews() {
+    }
+    
     func styleNavBar() {
         
 
     }
     
-    func styleButtons() {
+    func styleView() {
+        topView.layer.cornerRadius = 12
+        topView.layer.masksToBounds = true
         
-        for button in buttonCollection {
-            
-            button.titleLabel?.numberOfLines = 0
-        }
+        bottomView.layer.cornerRadius = 12
+        bottomView.layer.masksToBounds = true
     }
     
     // MARK: - IBAction
@@ -99,6 +117,27 @@ class SortingViewController: UIViewController {
         }
     }
 
+    func setupBattle() {
+        
+        do {
+            
+            let battle = try tournamentManager.pickBattle()
+            
+            topLabel.text = battle.playerOne.text
+            topView.tag = battle.playerOne.tag
+            
+            bottomLabel.text = battle.playerTwo.text
+            bottomView.tag = battle.playerTwo.tag
+            
+        } catch PickBattleError.AlreadyTakenPlace {
+            
+            setupBattle()
+            
+        } catch {
+            print("We should never get here")
+        }
+
+    }
     
     func setupButtons() {
         
@@ -119,6 +158,72 @@ class SortingViewController: UIViewController {
         } catch {
             print("We should never get here")
         }
+    }
+    
+    @IBAction func panGestureAction(sender: UIPanGestureRecognizer) {
+        
+        var constraintToEdit = NSLayoutConstraint()
+        
+        if sender == topViewPanGesture {
+            constraintToEdit = topViewTopConstraint
+        } else {
+            constraintToEdit = bottomViewBottomConstraint
+        }
+        
+        if sender.state == .Ended {
+            
+            UIView.animateWithDuration(0.25, delay: 0.0, options: UIViewAnimationOptions.CurveEaseInOut, animations: { () -> Void in
+                
+                constraintToEdit.constant = 16
+                self.view.layoutIfNeeded()
+
+                }, completion: nil)
+            
+        } else {
+            
+            let velocity = sender.velocityInView(view)
+            
+            if velocity.y > 0 || velocity.y < 0 {
+                
+                print("\(view.bounds.size.height) - \(sender.locationInView(view).y) = \(view.bounds.size.height - sender.locationInView(view).y)")
+                
+                var newConstant: CGFloat = 0
+                
+                if sender == topViewPanGesture {
+                    
+                    newConstant = sender.locationInView(view).y - topView.bounds.height
+                    
+                    if newConstant < 16 {
+                        newConstant = 16
+                    } else if newConstant > centerView.frame.origin.y - 16 {
+                        
+                        newConstant = centerView.frame.origin.y - 16
+                    }
+                    
+                    constraintToEdit.constant = newConstant
+
+                    
+                    
+                } else {
+                    
+                    newConstant = (view.bounds.size.height - sender.locationInView(view).y) + 16 - bottomView.bounds.size.height
+                    
+                    if newConstant < 16 {
+                        newConstant = 16
+                    }
+                    
+                }
+                
+                
+
+                constraintToEdit.constant = newConstant
+
+                
+            }
+        }
+        
+
+
     }
 }
 

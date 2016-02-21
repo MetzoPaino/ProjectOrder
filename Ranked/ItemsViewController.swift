@@ -405,13 +405,15 @@ extension ItemsViewController: UITableViewDataSource {
                 cell.numberLabelWidthConstraint.constant = 40
                 cell.numberLabel.hidden = false
                 cell.numberLabel.textColor = collection.color.backgroundColors.first
-                cell.numberImageView.backgroundColor = collection.color.titleColor
                 
- 
+                cell.numberImageView.hidden = false
+                cell.numberImageView.backgroundColor = collection.color.titleColor
                 
             } else {
                 cell.numberLabelWidthConstraint.constant = 0
                 cell.numberLabel.hidden = true
+                cell.numberImageView.hidden = true
+
             }
             return cell
         }
