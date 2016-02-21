@@ -113,13 +113,11 @@ class ItemsViewController: UIViewController, MFMessageComposeViewControllerDeleg
         tableView.layer.renderInContext(UIGraphicsGetCurrentContext()!)
         
         let screenshot = UIGraphicsGetImageFromCurrentImageContext()
-                
+        
         let data = UIImagePNGRepresentation(screenshot)
         
         UIGraphicsEndImageContext()
-        
-        print("Hope")
-        
+                
         let messageComposeVC = MFMessageComposeViewController()
         messageComposeVC.messageComposeDelegate = self
         
