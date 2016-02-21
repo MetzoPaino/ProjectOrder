@@ -262,6 +262,8 @@ extension ItemsViewController: AddItemTableViewCellDelegate {
     }
 }
 
+// MARK: - UITableViewDelegate
+
 extension ItemsViewController: UITableViewDelegate {
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -386,6 +388,7 @@ extension ItemsViewController: UITableViewDataSource {
                 
                 return cell
             }
+            
         } else {
             
             let item = collection.items[indexPath.row]
@@ -396,14 +399,15 @@ extension ItemsViewController: UITableViewDataSource {
             cell.titleLabel.text = item.text
             cell.titleLabel.textColor = collection.color.titleColor
             
-
-            
             cell.layoutMargins = UIEdgeInsetsZero;
             if collection.sorted {
                 
                 cell.numberLabelWidthConstraint.constant = 40
                 cell.numberLabel.hidden = false
-                cell.numberLabel.textColor = collection.color.titleColor
+                cell.numberLabel.textColor = collection.color.backgroundColors.first
+                cell.numberImageView.backgroundColor = collection.color.titleColor
+                
+ 
                 
             } else {
                 cell.numberLabelWidthConstraint.constant = 0
