@@ -40,8 +40,12 @@ class ItemTableViewCell: UITableViewCell {
     @IBOutlet weak var titleLabelLeadingConstraint: NSLayoutConstraint!
     
     override func layoutSubviews() {
-
+        super.layoutSubviews()
+        numberImageView.layer.cornerRadius = numberImageView.frame.width / 2
+        numberImageView.clipsToBounds = true
     }
+    
+    
 }
 
 // MARK:- ColorCell
