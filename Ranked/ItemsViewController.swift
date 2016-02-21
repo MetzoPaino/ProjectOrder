@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MessageUI
 
 protocol ItemsViewControllerDelegate: class {
     func sortingFinished()
@@ -19,7 +20,7 @@ enum BarButtonType {
     case sort
 }
 
-class ItemsViewController: UIViewController {
+class ItemsViewController: UIViewController, MFMessageComposeViewControllerDelegate {
 
 
 //    @IBOutlet weak var sortBarButton: UIBarButtonItem!
@@ -103,7 +104,49 @@ class ItemsViewController: UIViewController {
     @IBAction func shareButtonPressed(sender: AnyObject) {
         
         print("Test")
+        
+        let fullFrame = CGRectMake(0, 0, tableView.frame.size.width, tableView.contentSize.height)
+        tableView.frame = fullFrame
+        
+        UIGraphicsBeginImageContext(tableView.bounds.size);
+
+        tableView.layer.renderInContext(UIGraphicsGetCurrentContext()!)
+        
+        let screenshot = UIGraphicsGetImageFromCurrentImageContext()
+                
+        let data = UIImagePNGRepresentation(screenshot)
+        
+        UIGraphicsEndImageContext()
+        
+        print("Hope")
+        
+        let messageComposeVC = MFMessageComposeViewController()
+        messageComposeVC.messageComposeDelegate = self
+        
+        messageComposeVC.addAttachmentData(data!, typeIdentifier: "image/png", filename: "My Image.png")
+        presentViewController(messageComposeVC, animated: true, completion: nil)
+
+        
+        //messageComposeVC.body = image
+        
+        view.layoutIfNeeded()
+        
+//        CGRect frame = _tableView.frame;
+//        frame.size.height = _tableView.contentSize.height;//the most important line
+//        _tableView.frame = frame;
+        
+//        UIGraphicsBeginImageContext(_tableView.bounds.size);
+//        [_tableView.layer renderInContext:UIGraphicsGetCurrentContext()];
+//        UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+//        UIGraphicsEndImageContext();
+//        
+//        NSData * data = UIImagePNGRepresentation(image);
     }
+    
+    func messageComposeViewController(controller: MFMessageComposeViewController!, didFinishWithResult result: MessageComposeResult) {
+        controller.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
     @IBAction func editButtonPressed(sender: UIBarButtonItem) {
         
         if let inEditingMode = inEditingMode {
