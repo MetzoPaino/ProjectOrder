@@ -28,6 +28,7 @@ class ItemsViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet var addItemsHeaderView: AddItemView!
+    @IBOutlet weak var shareBarButton: UIBarButtonItem!
 
     var sortBarButton: UIBarButtonItem!
     var doneBarButton: UIBarButtonItem!
@@ -57,11 +58,11 @@ class ItemsViewController: UIViewController {
             
             editBarButton = createBarButton(.edit)
             sortBarButton = createBarButton(.sort)
-            navigationController?.navigationItem.rightBarButtonItems = [sortBarButton, editBarButton]
+            navigationController?.navigationItem.rightBarButtonItems = [shareBarButton, sortBarButton, editBarButton]
 
         } else {
             doneBarButton = createBarButton(.done)
-            navigationController?.navigationItem.rightBarButtonItems = [doneBarButton]
+            navigationController?.navigationItem.rightBarButtonItems = [shareBarButton, doneBarButton]
         }
         
         gradientLayer.frame = self.view.bounds
@@ -99,6 +100,10 @@ class ItemsViewController: UIViewController {
     
     // MARK: - IBActions
 
+    @IBAction func shareButtonPressed(sender: AnyObject) {
+        
+        print("Test")
+    }
     @IBAction func editButtonPressed(sender: UIBarButtonItem) {
         
         if let inEditingMode = inEditingMode {
@@ -106,7 +111,7 @@ class ItemsViewController: UIViewController {
         }
         
         doneBarButton = createBarButton(.done)
-        navigationController?.navigationItem.rightBarButtonItems = [doneBarButton]
+        navigationController?.navigationItem.rightBarButtonItems = [shareBarButton, doneBarButton]
         
         
         let cell = tableView.dequeueReusableCellWithIdentifier("AddItemCell") as! AddItemTableViewCell
@@ -127,7 +132,7 @@ class ItemsViewController: UIViewController {
         
         editBarButton = createBarButton(.edit)
         sortBarButton = createBarButton(.sort)
-        navigationController?.navigationItem.rightBarButtonItems = [sortBarButton, editBarButton]
+        navigationController?.navigationItem.rightBarButtonItems = [shareBarButton, sortBarButton, editBarButton]
         
         let colorPickerIndex = NSIndexPath(forRow: 2, inSection: 0)
         
@@ -168,6 +173,7 @@ class ItemsViewController: UIViewController {
         
             controller.itemArray = collection.items
             controller.delegate = self
+            controller.colorTheme = collection.color
         }
     }
     

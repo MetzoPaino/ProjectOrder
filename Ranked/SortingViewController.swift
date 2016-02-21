@@ -37,6 +37,8 @@ class SortingViewController: UIViewController {
     @IBOutlet weak var bottomLabel: UILabel!
     @IBOutlet weak var bottomViewBottomConstraint: NSLayoutConstraint!
     
+    var colorTheme = ColorTheme()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -67,11 +69,18 @@ class SortingViewController: UIViewController {
     }
     
     func styleView() {
+        
         topView.layer.cornerRadius = 12
         topView.layer.masksToBounds = true
         
         bottomView.layer.cornerRadius = 12
         bottomView.layer.masksToBounds = true
+        
+        topView.backgroundColor = colorTheme.titleColor
+        bottomView.backgroundColor = colorTheme.titleColor
+        topLabel.textColor = colorTheme.backgroundColors[0]
+        bottomLabel.textColor = colorTheme.backgroundColors[0]
+
     }
     
     // MARK: - IBAction
@@ -172,20 +181,70 @@ class SortingViewController: UIViewController {
         
         if sender.state == .Ended {
             
-            UIView.animateWithDuration(0.25, delay: 0.0, options: UIViewAnimationOptions.CurveEaseInOut, animations: { () -> Void in
+            if CGRectIntersectsRect(topView.frame, centerView.frame) {
                 
-                constraintToEdit.constant = 16
-                self.view.layoutIfNeeded()
+                let victoriousItem = tournamentManager.participants[topView.tag];
+                let defeatedItem = tournamentManager.participants[bottomView.tag];
+                
+                tournamentManager.assignPointsForCompletedBattle(victoriousItem, loser: defeatedItem)
+                
+                if tournamentManager.isTournamentResolved() {
+                    
+                    self.delegate?.sortingFinished(tournamentManager.participants)
+                    dismissViewControllerAnimated(true, completion: nil)
+                    
+                } else {
+                    setupBattle()
+                }
+                
+                
+                
+                UIView.animateWithDuration(0.25, delay: 0.0, options: UIViewAnimationOptions.CurveEaseInOut, animations: { () -> Void in
+                    
+                    constraintToEdit.constant = 16
+                    self.view.layoutIfNeeded()
+                    
+                    }, completion: nil)
+                
+                
+                print("Top view")
+            } else if CGRectIntersectsRect(bottomView.frame, centerView.frame) {
+                
+                let victoriousItem = tournamentManager.participants[bottomView.tag];
+                let defeatedItem = tournamentManager.participants[topView.tag];
+                
+                tournamentManager.assignPointsForCompletedBattle(victoriousItem, loser: defeatedItem)
+                
+                if tournamentManager.isTournamentResolved() {
+                    
+                    self.delegate?.sortingFinished(tournamentManager.participants)
+                    dismissViewControllerAnimated(true, completion: nil)
+                    
+                } else {
+                    setupBattle()
+                }
+                
+                UIView.animateWithDuration(0.25, delay: 0.0, options: UIViewAnimationOptions.CurveEaseInOut, animations: { () -> Void in
+                    
+                    constraintToEdit.constant = 16
+                    self.view.layoutIfNeeded()
+                    
+                    }, completion: nil)
+            } else {
+                
+                UIView.animateWithDuration(0.25, delay: 0.0, options: UIViewAnimationOptions.CurveEaseInOut, animations: { () -> Void in
+                    
+                    constraintToEdit.constant = 16
+                    self.view.layoutIfNeeded()
+                    
+                    }, completion: nil)
+            }
 
-                }, completion: nil)
-            
         } else {
             
             let velocity = sender.velocityInView(view)
             
             if velocity.y > 0 || velocity.y < 0 {
-                
-                print("\(view.bounds.size.height) - \(sender.locationInView(view).y) = \(view.bounds.size.height - sender.locationInView(view).y)")
                 
                 var newConstant: CGFloat = 0
                 
@@ -210,20 +269,17 @@ class SortingViewController: UIViewController {
                     
                     if newConstant < 16 {
                         newConstant = 16
+                        
+                    } else if newConstant > centerView.frame.origin.y {
+                        
+                        newConstant = centerView.frame.origin.y
                     }
                     
                 }
-                
-                
-
                 constraintToEdit.constant = newConstant
 
-                
             }
         }
-        
-
-
     }
 }
 

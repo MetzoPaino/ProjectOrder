@@ -5,6 +5,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--Collections-->
@@ -548,9 +549,16 @@
                             </mask>
                         </variation>
                     </view>
-                    <navigationItem key="navigationItem" id="8t6-LZ-5Lj"/>
+                    <navigationItem key="navigationItem" id="8t6-LZ-5Lj">
+                        <barButtonItem key="rightBarButtonItem" systemItem="action" id="2NM-bX-NuP">
+                            <connections>
+                                <action selector="shareButtonPressed:" destination="nlL-AF-Rd4" id="EZY-cp-JoQ"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="addItemsHeaderView" destination="3yg-C0-yHS" id="iz5-gL-psm"/>
+                        <outlet property="shareBarButton" destination="2NM-bX-NuP" id="XCf-Ey-yxO"/>
                         <outlet property="tableView" destination="9q0-BK-96f" id="pFo-eU-z40"/>
                         <segue destination="ku8-om-PyQ" kind="presentation" identifier="PresentSort" id="ciD-m2-PsK"/>
                     </connections>
@@ -664,14 +672,14 @@
                                     <outletCollection property="gestureRecognizers" destination="T3P-3V-5tI" appends="YES" id="5jJ-r1-txj"/>
                                 </connections>
                             </view>
-                            <view alpha="0.40000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hxi-Hk-hEX">
-                                <rect key="frame" x="16" y="236" width="568" height="64.5"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hxi-Hk-hEX">
+                                <rect key="frame" x="16" y="204" width="568" height="129"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Black heart" translatesAutoresizingMaskIntoConstraints="NO" id="NR3-qU-Txi">
-                                        <rect key="frame" x="0.0" y="0.0" width="568" height="64.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="568" height="129"/>
                                     </imageView>
                                 </subviews>
-                                <color key="backgroundColor" red="1" green="0.69411764710000001" blue="0.30196078430000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="NR3-qU-Txi" firstAttribute="leading" secondItem="hxi-Hk-hEX" secondAttribute="leading" id="2O9-GO-1iG"/>
                                     <constraint firstAttribute="trailing" secondItem="NR3-qU-Txi" secondAttribute="trailing" id="WX4-Aq-GCO"/>
@@ -704,10 +712,10 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="pnT-b6-PXj" firstAttribute="height" secondItem="SVL-KD-6G0" secondAttribute="height" id="4pP-Os-HK1"/>
                             <constraint firstItem="hxi-Hk-hEX" firstAttribute="centerY" secondItem="NyH-9w-pfQ" secondAttribute="centerY" id="F1h-xH-ssf"/>
                             <constraint firstItem="y63-RQ-907" firstAttribute="top" secondItem="pnT-b6-PXj" secondAttribute="bottom" constant="16" id="MZs-2q-A9k"/>
                             <constraint firstAttribute="trailing" secondItem="pnT-b6-PXj" secondAttribute="trailing" constant="16" id="ReU-Fa-Qii"/>
-                            <constraint firstItem="pnT-b6-PXj" firstAttribute="height" secondItem="hxi-Hk-hEX" secondAttribute="height" id="VaM-h4-gzI"/>
                             <constraint firstItem="SVL-KD-6G0" firstAttribute="leading" secondItem="NyH-9w-pfQ" secondAttribute="leading" constant="16" id="Yu2-Ta-dvB"/>
                             <constraint firstItem="hxi-Hk-hEX" firstAttribute="leading" secondItem="NyH-9w-pfQ" secondAttribute="leading" constant="16" id="YuX-zS-iXi"/>
                             <constraint firstItem="Deb-Vk-5eY" firstAttribute="leading" secondItem="NyH-9w-pfQ" secondAttribute="leading" constant="16" id="ZDl-kt-yL4"/>
@@ -715,7 +723,7 @@
                             <constraint firstAttribute="trailing" secondItem="SVL-KD-6G0" secondAttribute="trailing" constant="16" id="lHJ-9z-H77"/>
                             <constraint firstItem="pnT-b6-PXj" firstAttribute="leading" secondItem="NyH-9w-pfQ" secondAttribute="leading" constant="16" id="qAx-J7-eu6"/>
                             <constraint firstItem="SVL-KD-6G0" firstAttribute="top" secondItem="Deb-Vk-5eY" secondAttribute="bottom" constant="16" id="snG-9S-3dd"/>
-                            <constraint firstItem="hxi-Hk-hEX" firstAttribute="height" secondItem="SVL-KD-6G0" secondAttribute="height" id="t00-fP-6ia"/>
+                            <constraint firstItem="hxi-Hk-hEX" firstAttribute="height" secondItem="SVL-KD-6G0" secondAttribute="height" multiplier="2" id="t00-fP-6ia"/>
                             <constraint firstItem="Deb-Vk-5eY" firstAttribute="top" secondItem="krz-Lv-NtN" secondAttribute="bottom" constant="16" id="v1S-Yw-Jbf"/>
                             <constraint firstAttribute="trailing" secondItem="Deb-Vk-5eY" secondAttribute="trailing" constant="16" id="vBR-hc-1au"/>
                             <constraint firstAttribute="trailing" secondItem="hxi-Hk-hEX" secondAttribute="trailing" constant="16" id="zF3-U4-jpd"/>
