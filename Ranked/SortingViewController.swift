@@ -12,50 +12,6 @@ protocol SortingViewControllerDelegate: class {
     func sortingFinished(items: [ItemModel])
 }
 
-//class BattleObject {
-//    
-//    var opponentTag = Int()
-//    var won = Bool()
-//    
-//    init(opponentTag: Int, won: Bool) {
-//        self.opponentTag = opponentTag
-//        self.won = won
-//    }
-//}
-//
-//class BattleTracker {
-//    
-//    var battles = [(objects: [SortingModel], winner: SortingModel, loser: SortingModel)]()
-//    
-//    
-//    var tournament = [(playerOne: SortingModel, playerTwo: SortingModel, winner: SortingModel?, loser: SortingModel?)]()
-//
-//}
-//
-//
-//class SortingModel {
-//    
-//    var name: String
-//    var battleArray = [BattleObject]()
-//    var tag = Int()
-//    var points = 0
-//    
-//    init(name: String) {
-//        self.name = name
-//    }
-//}
-//
-//extension ItemModel {
-//    
-//
-//}
-
-//
-//enum CreateBattleError: ErrorType {
-//    
-//    case AlreadyTakenPlace()
-//}
-
 class SortingViewController: UIViewController {
     
     var itemArray = [ItemModel]()
@@ -63,15 +19,12 @@ class SortingViewController: UIViewController {
     
     weak var delegate: SortingViewControllerDelegate?
     
+    @IBOutlet weak var progressView: UIProgressView!
     @IBOutlet weak var option1Button: UIButton!
     @IBOutlet weak var passButton: UIButton!
     @IBOutlet weak var option2Button: UIButton!
     @IBOutlet var buttonCollection: [UIButton]!
     
-    @IBOutlet weak var outputLabel: UILabel!
-    @IBOutlet weak var battleTextView: UITextView!
-    
-    @IBOutlet weak var percentageLabel: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -173,6 +126,8 @@ extension SortingViewController: TournamentManagerDelegate {
     
     func percentageCompleteValueChanged(percentage: Double) {
         
-        percentageLabel.text = "\(Int(percentage))% complete"
+        let fractionalPercentage = Float(percentage) / 100
+        
+        progressView.setProgress(fractionalPercentage, animated: true)
     }
 }
