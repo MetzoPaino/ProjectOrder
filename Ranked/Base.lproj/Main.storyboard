@@ -549,16 +549,9 @@
                             </mask>
                         </variation>
                     </view>
-                    <navigationItem key="navigationItem" id="8t6-LZ-5Lj">
-                        <barButtonItem key="rightBarButtonItem" systemItem="action" id="2NM-bX-NuP">
-                            <connections>
-                                <action selector="shareButtonPressed:" destination="nlL-AF-Rd4" id="EZY-cp-JoQ"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="8t6-LZ-5Lj"/>
                     <connections>
                         <outlet property="addItemsHeaderView" destination="3yg-C0-yHS" id="iz5-gL-psm"/>
-                        <outlet property="shareBarButton" destination="2NM-bX-NuP" id="XCf-Ey-yxO"/>
                         <outlet property="tableView" destination="9q0-BK-96f" id="pFo-eU-z40"/>
                         <segue destination="ku8-om-PyQ" kind="presentation" identifier="PresentSort" id="ciD-m2-PsK"/>
                     </connections>

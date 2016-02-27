@@ -18,6 +18,7 @@ enum BarButtonType {
     case done
     case edit
     case sort
+    case share
 }
 
 class ItemsViewController: UIViewController, MFMessageComposeViewControllerDelegate {
@@ -29,11 +30,11 @@ class ItemsViewController: UIViewController, MFMessageComposeViewControllerDeleg
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet var addItemsHeaderView: AddItemView!
-    @IBOutlet weak var shareBarButton: UIBarButtonItem!
 
     var sortBarButton: UIBarButtonItem!
     var doneBarButton: UIBarButtonItem!
     var editBarButton: UIBarButtonItem!
+    var shareBarButton: UIBarButtonItem!
 
     
     weak var delegate: ItemsViewControllerDelegate?
@@ -59,11 +60,12 @@ class ItemsViewController: UIViewController, MFMessageComposeViewControllerDeleg
             
             editBarButton = createBarButton(.edit)
             sortBarButton = createBarButton(.sort)
+            shareBarButton = createBarButton(.share)
             navigationController?.navigationItem.rightBarButtonItems = [shareBarButton, sortBarButton, editBarButton]
 
         } else {
             doneBarButton = createBarButton(.done)
-            navigationController?.navigationItem.rightBarButtonItems = [shareBarButton, doneBarButton]
+            navigationController?.navigationItem.rightBarButtonItems = [doneBarButton]
         }
         
         gradientLayer.frame = self.view.bounds
@@ -153,7 +155,7 @@ class ItemsViewController: UIViewController, MFMessageComposeViewControllerDeleg
         }
         
         doneBarButton = createBarButton(.done)
-        navigationController?.navigationItem.rightBarButtonItems = [shareBarButton, doneBarButton]
+        navigationController?.navigationItem.rightBarButtonItems = [doneBarButton]
         
         
         let cell = tableView.dequeueReusableCellWithIdentifier("AddItemCell") as! AddItemTableViewCell
@@ -174,6 +176,7 @@ class ItemsViewController: UIViewController, MFMessageComposeViewControllerDeleg
         
         editBarButton = createBarButton(.edit)
         sortBarButton = createBarButton(.sort)
+        shareBarButton = createBarButton(.share)
         navigationController?.navigationItem.rightBarButtonItems = [shareBarButton, sortBarButton, editBarButton]
         
         let colorPickerIndex = NSIndexPath(forRow: 2, inSection: 0)
@@ -239,21 +242,33 @@ class ItemsViewController: UIViewController, MFMessageComposeViewControllerDeleg
             case .sort:
                 action = Selector("sortButtonPressed:")
                 title = "Sort"
-            break
+                break
+            case .share:
+                action = Selector("shareButtonPressed:")
+                title = ""
+                break
         }
         
-        let barButton = UIBarButtonItem(title: title, style: UIBarButtonItemStyle.Plain, target: self, action: action)
-        
-        if barButtonType == .done {
+        if barButtonType == .share {
             
-            if collection.name != "" {
-                barButton.enabled = true
-            } else {
-                barButton.enabled = false
+            let barButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Action, target: self, action: action)
+            return barButton
+            
+        } else {
+            
+            let barButton = UIBarButtonItem(title: title, style: UIBarButtonItemStyle.Plain, target: self, action: action)
+            
+            if barButtonType == .done {
+                
+                if collection.name != "" {
+                    barButton.enabled = true
+                } else {
+                    barButton.enabled = false
+                }
             }
+            
+            return barButton
         }
-        
-        return barButton
     }
 }
 
