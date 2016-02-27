@@ -105,7 +105,7 @@ class ItemsViewController: UIViewController, MFMessageComposeViewControllerDeleg
         
         print("Test")
         
-        let fullFrame = CGRectMake(0, 0, tableView.frame.size.width, tableView.contentSize.height)
+        let fullFrame = CGRectMake(tableView.frame.origin.x, tableView.frame.origin.y, tableView.frame.size.width, tableView.contentSize.height)
         tableView.frame = fullFrame
         
         UIGraphicsBeginImageContext(tableView.bounds.size);
