@@ -107,6 +107,7 @@ class ItemsViewController: UIViewController, MFMessageComposeViewControllerDeleg
         
         let fullFrame = CGRectMake(tableView.frame.origin.x, tableView.frame.origin.y, tableView.frame.size.width, tableView.contentSize.height)
         tableView.frame = fullFrame
+        tableView.backgroundColor = collection.color.backgroundColors.first
         
         UIGraphicsBeginImageContext(tableView.bounds.size);
 
