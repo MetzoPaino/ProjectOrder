@@ -21,7 +21,7 @@ enum BarButtonType {
     case share
 }
 
-class ItemsViewController: UIViewController, MFMessageComposeViewControllerDelegate {
+class ItemsViewController: UIViewController {
 
 
 //    @IBOutlet weak var sortBarButton: UIBarButtonItem!
@@ -105,18 +105,12 @@ class ItemsViewController: UIViewController, MFMessageComposeViewControllerDeleg
 
     @IBAction func shareButtonPressed(sender: AnyObject) {
         
-        print("Test")
-        
         let fullFrame = CGRectMake(tableView.frame.origin.x, tableView.frame.origin.y, tableView.frame.size.width, tableView.contentSize.height)
         tableView.frame = fullFrame
         tableView.backgroundColor = collection.color.backgroundColors.first
         
         UIGraphicsBeginImageContextWithOptions(tableView.frame.size, false, 0.0)
         tableView.drawViewHierarchyInRect(tableView.frame, afterScreenUpdates: false)
-        
-        
-        
-//        tableView.layer.renderInContext(UIGraphicsGetCurrentContext()!)
         
         let screenshot = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext();
@@ -129,8 +123,6 @@ class ItemsViewController: UIViewController, MFMessageComposeViewControllerDeleg
 //        [view drawViewHierarchyInRect:view.bounds afterScreenUpdates:NO];
 //        UIImage * snapshotImage = UIGraphicsGetImageFromCurrentImageContext();
 //        return snapshotImage;
-        
-        
 //        let data = UIImagePNGRepresentation(screenshot)
 //        
 //        UIGraphicsEndImageContext()
@@ -140,8 +132,6 @@ class ItemsViewController: UIViewController, MFMessageComposeViewControllerDeleg
 //        
 //        messageComposeVC.addAttachmentData(data!, typeIdentifier: "image/png", filename: "My Image.png")
 //        presentViewController(messageComposeVC, animated: true, completion: nil)
-
-        
         //messageComposeVC.body = image
         
         view.layoutIfNeeded()
@@ -157,10 +147,10 @@ class ItemsViewController: UIViewController, MFMessageComposeViewControllerDeleg
 //        
 //        NSData * data = UIImagePNGRepresentation(image);
     }
-    
-    func messageComposeViewController(controller: MFMessageComposeViewController!, didFinishWithResult result: MessageComposeResult) {
-        controller.dismissViewControllerAnimated(true, completion: nil)
-    }
+//    
+//    func messageComposeViewController(controller: MFMessageComposeViewController!, didFinishWithResult result: MessageComposeResult) {
+//        controller.dismissViewControllerAnimated(true, completion: nil)
+//    }
     
     @IBAction func editButtonPressed(sender: UIBarButtonItem) {
         
@@ -171,16 +161,15 @@ class ItemsViewController: UIViewController, MFMessageComposeViewControllerDeleg
         doneBarButton = createBarButton(.done)
         navigationController?.navigationItem.rightBarButtonItems = [doneBarButton]
         
-        
-        let cell = tableView.dequeueReusableCellWithIdentifier("AddItemCell") as! AddItemTableViewCell
-        cell.delegate = self
-        cell.configureCell()
-        
+//        let cell = tableView.dequeueReusableCellWithIdentifier("AddItemCell") as! AddItemTableViewCell
+//        cell.delegate = self
+//        cell.configureCell()
         
         let colorPickerIndex = NSIndexPath(forRow: 2, inSection: 0)
-        
+        let addItemIndex = NSIndexPath(forRow: 3, inSection: 0)
+
         tableView.beginUpdates()
-        tableView.insertRowsAtIndexPaths([colorPickerIndex], withRowAnimation: .Automatic)
+        tableView.insertRowsAtIndexPaths([colorPickerIndex, addItemIndex], withRowAnimation: .Automatic)
         tableView.endUpdates()
     }
     
@@ -194,9 +183,10 @@ class ItemsViewController: UIViewController, MFMessageComposeViewControllerDeleg
         navigationController?.navigationItem.rightBarButtonItems = [shareBarButton, sortBarButton, editBarButton]
         
         let colorPickerIndex = NSIndexPath(forRow: 2, inSection: 0)
-        
+        let addItemIndex = NSIndexPath(forRow: 3, inSection: 0)
+
         tableView.beginUpdates()
-        tableView.deleteRowsAtIndexPaths([colorPickerIndex], withRowAnimation: .Automatic)
+        tableView.deleteRowsAtIndexPaths([colorPickerIndex, addItemIndex], withRowAnimation: .Automatic)
         tableView.endUpdates()
     }
     
@@ -367,7 +357,7 @@ extension ItemsViewController: UITableViewDataSource {
         if section == 0 {
             
             if inEditingMode == nil || inEditingMode == true {
-                return 3
+                return 4
             } else {
                 if collection.descriptionString != "" {
                     return 2
@@ -377,9 +367,9 @@ extension ItemsViewController: UITableViewDataSource {
             }
             
         } else {
+            
             return collection.items.count
         }
-        
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -431,6 +421,13 @@ extension ItemsViewController: UITableViewDataSource {
                 cell.delegate = self
                 cell.configureCell()
                 cell.separatorInset = UIEdgeInsetsMake(0, cell.bounds.size.width, 0, 0);
+                return cell
+                
+            } else if indexPath.row == 3 {
+            
+                let cell = tableView.dequeueReusableCellWithIdentifier("AddItemCell", forIndexPath: indexPath) as! AddItemTableViewCell
+                cell.delegate = self
+                cell.configureCell()
                 return cell
                 
             } else {
@@ -496,35 +493,35 @@ extension ItemsViewController: UITableViewDataSource {
         }
     }
     
-    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        
-        if section == 0 {
-            return nil
-        }
-        
-        
-        
-        return addItemsHeaderView
-//        if inEditingMode == nil || inEditingMode == true {
-//            let cell = tableView.dequeueReusableCellWithIdentifier("AddItemCell") as! AddItemTableViewCell
-//            cell.delegate = self
-//            cell.configureCell()
-//            return cell
-//        } else {
+//    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+//        
+//        if section == 0 {
 //            return nil
 //        }
-    }
+//        
+//        
+//        
+//        return addItemsHeaderView
+////        if inEditingMode == nil || inEditingMode == true {
+////            let cell = tableView.dequeueReusableCellWithIdentifier("AddItemCell") as! AddItemTableViewCell
+////            cell.delegate = self
+////            cell.configureCell()
+////            return cell
+////        } else {
+////            return nil
+////        }
+//    }
     
-    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if section == 0 {
-            return 0
-        }
-        if inEditingMode == nil || inEditingMode == true {
-            return 32
-        } else {
-            return 32
-        }
-    }
+//    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+//        if section == 0 {
+//            return 0
+//        }
+//        if inEditingMode == nil || inEditingMode == true {
+//            return 32
+//        } else {
+//            return 32
+//        }
+//    }
     
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {

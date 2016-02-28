@@ -165,16 +165,13 @@ protocol AddItemTableViewCellDelegate: class {
 class AddItemTableViewCell: UITableViewCell {
     
     @IBOutlet weak var textField: UITextField!
-    @IBOutlet weak var addImageView: UIImageView!
-
+    
     weak var delegate: AddItemTableViewCellDelegate?
     
     func configureCell() {
         
         textField.delegate = self
         textField.attributedPlaceholder = NSAttributedString(string: textField.placeholder!, attributes: [NSForegroundColorAttributeName: UIColor.lightGrayColor()])
-        
-        addImageView.layer.cornerRadius = addImageView.bounds.size.width / 4.0;
     }
 }
 
