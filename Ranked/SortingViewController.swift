@@ -55,6 +55,8 @@ class SortingViewController: UIViewController {
         tournamentManager.createTournament(itemArray)
 //        setupButtons()
         setupBattle()
+        
+        moveViewsOffscreen()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -62,6 +64,10 @@ class SortingViewController: UIViewController {
         super.viewWillAppear(animated)
         
 
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        animateViewsToArriveOrDepart(true)
     }
     
     override func viewDidLayoutSubviews() {
@@ -234,7 +240,7 @@ class SortingViewController: UIViewController {
                 
                 UIView.animateWithDuration(0.25, delay: 0.0, options: UIViewAnimationOptions.CurveEaseInOut, animations: { () -> Void in
                     
-                    constraintToEdit.constant = self.constantConstant - 16
+                    constraintToEdit.constant = self.constantConstant
                     self.view.layoutIfNeeded()
                     
                     }, completion: nil)
@@ -267,7 +273,7 @@ class SortingViewController: UIViewController {
                     }
                     else if newConstant > middleConstant - (topView.bounds.height / 2) {
                         
-                        newConstant = middleConstant
+                        newConstant = middleConstant - (topView.bounds.height / 2)
                     }
                     
                     
@@ -284,21 +290,60 @@ class SortingViewController: UIViewController {
                     
                 } else {
                     
-                    newConstant = (view.bounds.size.height - sender.locationInView(playingFieldView).y) + self.constantConstant - bottomView.bounds.size.height
+                    newConstant = (playingFieldView.bounds.size.height - sender.locationInView(playingFieldView).y) + self.constantConstant - bottomView.bounds.size.height
                     
                     if newConstant < self.constantConstant {
                         newConstant = self.constantConstant
                         
-                    } else if newConstant > centerView.frame.origin.y {
-                        
-                        newConstant = centerView.frame.origin.y
                     }
+                    else if newConstant > middleConstant - (bottomView.bounds.height / 2) {
+                        
+                        newConstant = middleConstant - (bottomView.bounds.height / 2)
+                    }
+                    
+//                    else if newConstant > centerView.frame.origin.y {
+//                        
+//                        newConstant = centerView.frame.origin.y
+//                    }
                     
                 }
                 constraintToEdit.constant = newConstant
 
             }
         }
+    }
+    
+    func animateViewsToArriveOrDepart(arrive: Bool) {
+        
+        var constant = 0 as CGFloat
+        var alpha = 1 as CGFloat
+        
+        if !arrive {
+            
+            constant = 0 - self.view.bounds.size.height
+            alpha = 0
+        }
+        
+        UIView.animateWithDuration(0.25, delay: 0.0, options: UIViewAnimationOptions.CurveEaseInOut, animations: { () -> Void in
+            
+            self.topViewTopConstraint.constant = constant
+            self.bottomViewBottomConstraint.constant = constant
+            self.topView.alpha = alpha
+            self.bottomView.alpha = alpha
+
+            self.view.layoutIfNeeded()
+            
+            }, completion: nil)
+        
+    }
+    
+    func moveViewsOffscreen() {
+        
+        topViewTopConstraint.constant = 0 - self.view.bounds.size.height
+        bottomViewBottomConstraint.constant = 0 - self.view.bounds.size.height
+        self.topView.alpha = 0
+        self.bottomView.alpha = 0
+        view.layoutIfNeeded()
     }
 }
 
