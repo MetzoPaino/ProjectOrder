@@ -185,47 +185,28 @@ class SortingViewController: UIViewController {
     @IBAction func panGestureAction(sender: UIPanGestureRecognizer) {
         
         var constraintToEdit = NSLayoutConstraint()
+        var view = UIView()
+        var otherView = UIView()
         
         if sender == topViewPanGesture {
             constraintToEdit = topViewTopConstraint
+            view = topView
+            otherView = bottomView
+
         } else {
             constraintToEdit = bottomViewBottomConstraint
+            view = bottomView
+            otherView = topView
         }
         
         if sender.state == .Ended {
             
-            if CGRectIntersectsRect(topView.frame, centerView.frame) {
+            let y = constraintToEdit.constant + view.bounds.height
+            
+            if y >= middleConstant - (centerView.bounds.height / 2) {
                 
-                let victoriousItem = tournamentManager.participants[topView.tag];
-                let defeatedItem = tournamentManager.participants[bottomView.tag];
-                
-                tournamentManager.assignPointsForCompletedBattle(victoriousItem, loser: defeatedItem)
-                
-                if tournamentManager.isTournamentResolved() {
-                    
-                    self.delegate?.sortingFinished(tournamentManager.participants)
-                    dismissViewControllerAnimated(true, completion: nil)
-                    
-                } else {
-                    setupBattle()
-                }
-                
-                
-                
-                UIView.animateWithDuration(0.25, delay: 0.0, options: UIViewAnimationOptions.CurveEaseInOut, animations: { () -> Void in
-                    
-                    constraintToEdit.constant = self.constantConstant
-                    self.view.layoutIfNeeded()
-                    
-                    }, completion: nil)
-                
-                
-                print("Top view")
-                
-            } else if CGRectIntersectsRect(bottomView.frame, centerView.frame) {
-                
-                let victoriousItem = tournamentManager.participants[bottomView.tag];
-                let defeatedItem = tournamentManager.participants[topView.tag];
+                let victoriousItem = tournamentManager.participants[view.tag];
+                let defeatedItem = tournamentManager.participants[otherView.tag];
                 
                 tournamentManager.assignPointsForCompletedBattle(victoriousItem, loser: defeatedItem)
                 
@@ -244,7 +225,7 @@ class SortingViewController: UIViewController {
                     self.view.layoutIfNeeded()
                     
                     }, completion: nil)
-                
+
             } else {
                 
                 UIView.animateWithDuration(0.25, delay: 0.0, options: UIViewAnimationOptions.CurveEaseInOut, animations: { () -> Void in
@@ -276,14 +257,6 @@ class SortingViewController: UIViewController {
                         newConstant = middleConstant - (topView.bounds.height / 2)
                     }
                     
-                    
-                    
-                    
-//                    else if newConstant > centerView.frame.origin.y - self.constantConstant {
-//                        
-//                        newConstant = centerView.frame.origin.y - self.constantConstant
-//                    }
-                    
                     constraintToEdit.constant = newConstant
 
                     
@@ -300,12 +273,6 @@ class SortingViewController: UIViewController {
                         
                         newConstant = middleConstant - (bottomView.bounds.height / 2)
                     }
-                    
-//                    else if newConstant > centerView.frame.origin.y {
-//                        
-//                        newConstant = centerView.frame.origin.y
-//                    }
-                    
                 }
                 constraintToEdit.constant = newConstant
 
