@@ -37,7 +37,13 @@ class SortingViewController: UIViewController {
     @IBOutlet weak var bottomLabel: UILabel!
     @IBOutlet weak var bottomViewBottomConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var playingFieldView: UIView!
+    
     var colorTheme = ColorTheme()
+    
+    let constantConstant = 0 as CGFloat
+    
+    var middleConstant = 0 as CGFloat
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,8 +55,6 @@ class SortingViewController: UIViewController {
         tournamentManager.createTournament(itemArray)
 //        setupButtons()
         setupBattle()
-        print(centerView.center.y)
-
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -61,6 +65,9 @@ class SortingViewController: UIViewController {
     }
     
     override func viewDidLayoutSubviews() {
+        
+        middleConstant = playingFieldView.bounds.size.height / 2
+        print(middleConstant)
     }
     
     func styleNavBar() {
@@ -201,13 +208,14 @@ class SortingViewController: UIViewController {
                 
                 UIView.animateWithDuration(0.25, delay: 0.0, options: UIViewAnimationOptions.CurveEaseInOut, animations: { () -> Void in
                     
-                    constraintToEdit.constant = 16
+                    constraintToEdit.constant = self.constantConstant
                     self.view.layoutIfNeeded()
                     
                     }, completion: nil)
                 
                 
                 print("Top view")
+                
             } else if CGRectIntersectsRect(bottomView.frame, centerView.frame) {
                 
                 let victoriousItem = tournamentManager.participants[bottomView.tag];
@@ -226,15 +234,16 @@ class SortingViewController: UIViewController {
                 
                 UIView.animateWithDuration(0.25, delay: 0.0, options: UIViewAnimationOptions.CurveEaseInOut, animations: { () -> Void in
                     
-                    constraintToEdit.constant = 16
+                    constraintToEdit.constant = self.constantConstant - 16
                     self.view.layoutIfNeeded()
                     
                     }, completion: nil)
+                
             } else {
                 
                 UIView.animateWithDuration(0.25, delay: 0.0, options: UIViewAnimationOptions.CurveEaseInOut, animations: { () -> Void in
                     
-                    constraintToEdit.constant = 16
+                    constraintToEdit.constant = self.constantConstant
                     self.view.layoutIfNeeded()
                     
                     }, completion: nil)
@@ -242,7 +251,7 @@ class SortingViewController: UIViewController {
 
         } else {
             
-            let velocity = sender.velocityInView(view)
+            let velocity = sender.velocityInView(playingFieldView)
             
             if velocity.y > 0 || velocity.y < 0 {
                 
@@ -250,14 +259,24 @@ class SortingViewController: UIViewController {
                 
                 if sender == topViewPanGesture {
                     
-                    newConstant = sender.locationInView(view).y - topView.bounds.height
+                    newConstant = sender.locationInView(playingFieldView).y - topView.bounds.height
                     
-                    if newConstant < 16 {
-                        newConstant = 16
-                    } else if newConstant > centerView.frame.origin.y - 16 {
+                    if newConstant < 0 {
+                        newConstant = 0
                         
-                        newConstant = centerView.frame.origin.y - 16
                     }
+                    else if newConstant > middleConstant - (topView.bounds.height / 2) {
+                        
+                        newConstant = middleConstant
+                    }
+                    
+                    
+                    
+                    
+//                    else if newConstant > centerView.frame.origin.y - self.constantConstant {
+//                        
+//                        newConstant = centerView.frame.origin.y - self.constantConstant
+//                    }
                     
                     constraintToEdit.constant = newConstant
 
@@ -265,10 +284,10 @@ class SortingViewController: UIViewController {
                     
                 } else {
                     
-                    newConstant = (view.bounds.size.height - sender.locationInView(view).y) + 16 - bottomView.bounds.size.height
+                    newConstant = (view.bounds.size.height - sender.locationInView(playingFieldView).y) + self.constantConstant - bottomView.bounds.size.height
                     
-                    if newConstant < 16 {
-                        newConstant = 16
+                    if newConstant < self.constantConstant {
+                        newConstant = self.constantConstant
                         
                     } else if newConstant > centerView.frame.origin.y {
                         

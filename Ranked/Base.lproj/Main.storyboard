@@ -441,36 +441,72 @@
                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Deb-Vk-5eY">
                                 <rect key="frame" x="16" y="16" width="568" height="2"/>
                             </progressView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SVL-KD-6G0">
-                                <rect key="frame" x="16" y="34" width="568" height="64.5"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UPf-OF-iQc">
+                                <rect key="frame" x="32" y="107" width="536" height="322"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1bc-j6-bVc">
-                                        <rect key="frame" x="16" y="16" width="536" height="32.5"/>
-                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
-                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SVL-KD-6G0">
+                                        <rect key="frame" x="0.0" y="0.0" width="536" height="64.5"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1bc-j6-bVc">
+                                                <rect key="frame" x="16" y="16" width="504" height="32.5"/>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
+                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <gestureRecognizers/>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="1bc-j6-bVc" secondAttribute="trailing" constant="16" id="29i-P1-ZtA"/>
+                                            <constraint firstItem="1bc-j6-bVc" firstAttribute="top" secondItem="SVL-KD-6G0" secondAttribute="top" constant="16" id="LKq-6t-lHS"/>
+                                            <constraint firstAttribute="bottom" secondItem="1bc-j6-bVc" secondAttribute="bottom" constant="16" id="Stv-lA-ISu"/>
+                                            <constraint firstItem="1bc-j6-bVc" firstAttribute="leading" secondItem="SVL-KD-6G0" secondAttribute="leading" constant="16" id="rTh-RY-CDu"/>
+                                        </constraints>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="T3P-3V-5tI" appends="YES" id="5jJ-r1-txj"/>
+                                        </connections>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pnT-b6-PXj">
+                                        <rect key="frame" x="0.0" y="257.5" width="536" height="64.5"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4FI-4V-mlu">
+                                                <rect key="frame" x="16" y="16" width="504" height="32.5"/>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
+                                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <gestureRecognizers/>
+                                        <constraints>
+                                            <constraint firstItem="4FI-4V-mlu" firstAttribute="leading" secondItem="pnT-b6-PXj" secondAttribute="leading" constant="16" id="9Wb-oe-keq"/>
+                                            <constraint firstAttribute="trailing" secondItem="4FI-4V-mlu" secondAttribute="trailing" constant="16" id="jXb-6X-CeA"/>
+                                            <constraint firstItem="4FI-4V-mlu" firstAttribute="top" secondItem="pnT-b6-PXj" secondAttribute="top" constant="16" id="kGQ-8I-7Rd"/>
+                                            <constraint firstAttribute="bottom" secondItem="4FI-4V-mlu" secondAttribute="bottom" constant="16" id="okA-Nq-paA"/>
+                                        </constraints>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="iKC-vg-ZHE" appends="YES" id="j47-hv-uYq"/>
+                                        </connections>
+                                    </view>
                                 </subviews>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                <gestureRecognizers/>
+                                <color key="backgroundColor" red="0.79215686269999996" green="0.92156862750000001" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="1bc-j6-bVc" secondAttribute="trailing" constant="16" id="29i-P1-ZtA"/>
-                                    <constraint firstItem="1bc-j6-bVc" firstAttribute="top" secondItem="SVL-KD-6G0" secondAttribute="top" constant="16" id="LKq-6t-lHS"/>
-                                    <constraint firstAttribute="bottom" secondItem="1bc-j6-bVc" secondAttribute="bottom" constant="16" id="Stv-lA-ISu"/>
-                                    <constraint firstItem="1bc-j6-bVc" firstAttribute="leading" secondItem="SVL-KD-6G0" secondAttribute="leading" constant="16" id="rTh-RY-CDu"/>
+                                    <constraint firstItem="SVL-KD-6G0" firstAttribute="top" secondItem="UPf-OF-iQc" secondAttribute="top" id="5DD-29-fRc"/>
+                                    <constraint firstAttribute="bottom" secondItem="pnT-b6-PXj" secondAttribute="bottom" id="5E2-gY-BvQ"/>
+                                    <constraint firstItem="pnT-b6-PXj" firstAttribute="leading" secondItem="UPf-OF-iQc" secondAttribute="leading" id="DnA-36-9GF"/>
+                                    <constraint firstAttribute="trailing" secondItem="SVL-KD-6G0" secondAttribute="trailing" id="DyS-cj-FkU"/>
+                                    <constraint firstItem="SVL-KD-6G0" firstAttribute="leading" secondItem="UPf-OF-iQc" secondAttribute="leading" id="LH8-jI-HMq"/>
+                                    <constraint firstAttribute="trailing" secondItem="pnT-b6-PXj" secondAttribute="trailing" id="yO1-kA-Bn5"/>
                                 </constraints>
-                                <connections>
-                                    <outletCollection property="gestureRecognizers" destination="T3P-3V-5tI" appends="YES" id="5jJ-r1-txj"/>
-                                </connections>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hxi-Hk-hEX">
-                                <rect key="frame" x="16" y="204" width="568" height="129"/>
+                                <rect key="frame" x="16" y="248.5" width="568" height="40"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Black heart" translatesAutoresizingMaskIntoConstraints="NO" id="NR3-qU-Txi">
-                                        <rect key="frame" x="0.0" y="0.0" width="568" height="129"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="568" height="40"/>
                                     </imageView>
                                 </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.40000000600000002" green="0.80000001190000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="NR3-qU-Txi" firstAttribute="leading" secondItem="hxi-Hk-hEX" secondAttribute="leading" id="2O9-GO-1iG"/>
                                     <constraint firstAttribute="trailing" secondItem="NR3-qU-Txi" secondAttribute="trailing" id="WX4-Aq-GCO"/>
@@ -478,43 +514,18 @@
                                     <constraint firstItem="NR3-qU-Txi" firstAttribute="top" secondItem="hxi-Hk-hEX" secondAttribute="top" id="nLr-zv-rMk"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pnT-b6-PXj">
-                                <rect key="frame" x="16" y="455.5" width="568" height="64.5"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4FI-4V-mlu">
-                                        <rect key="frame" x="16" y="16" width="536" height="32.5"/>
-                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
-                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                <gestureRecognizers/>
-                                <constraints>
-                                    <constraint firstItem="4FI-4V-mlu" firstAttribute="leading" secondItem="pnT-b6-PXj" secondAttribute="leading" constant="16" id="9Wb-oe-keq"/>
-                                    <constraint firstAttribute="trailing" secondItem="4FI-4V-mlu" secondAttribute="trailing" constant="16" id="jXb-6X-CeA"/>
-                                    <constraint firstItem="4FI-4V-mlu" firstAttribute="top" secondItem="pnT-b6-PXj" secondAttribute="top" constant="16" id="kGQ-8I-7Rd"/>
-                                    <constraint firstAttribute="bottom" secondItem="4FI-4V-mlu" secondAttribute="bottom" constant="16" id="okA-Nq-paA"/>
-                                </constraints>
-                                <connections>
-                                    <outletCollection property="gestureRecognizers" destination="iKC-vg-ZHE" appends="YES" id="j47-hv-uYq"/>
-                                </connections>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="pnT-b6-PXj" firstAttribute="height" secondItem="SVL-KD-6G0" secondAttribute="height" id="4pP-Os-HK1"/>
+                            <constraint firstItem="UPf-OF-iQc" firstAttribute="height" secondItem="NyH-9w-pfQ" secondAttribute="height" multiplier="0.6" id="156-Xi-aNv"/>
                             <constraint firstItem="hxi-Hk-hEX" firstAttribute="centerY" secondItem="NyH-9w-pfQ" secondAttribute="centerY" id="F1h-xH-ssf"/>
-                            <constraint firstItem="y63-RQ-907" firstAttribute="top" secondItem="pnT-b6-PXj" secondAttribute="bottom" constant="16" id="MZs-2q-A9k"/>
-                            <constraint firstAttribute="trailing" secondItem="pnT-b6-PXj" secondAttribute="trailing" constant="16" id="ReU-Fa-Qii"/>
-                            <constraint firstItem="SVL-KD-6G0" firstAttribute="leading" secondItem="NyH-9w-pfQ" secondAttribute="leading" constant="16" id="Yu2-Ta-dvB"/>
+                            <constraint firstItem="UPf-OF-iQc" firstAttribute="centerY" secondItem="NyH-9w-pfQ" secondAttribute="centerY" id="PWs-pS-CEv"/>
                             <constraint firstItem="hxi-Hk-hEX" firstAttribute="leading" secondItem="NyH-9w-pfQ" secondAttribute="leading" constant="16" id="YuX-zS-iXi"/>
                             <constraint firstItem="Deb-Vk-5eY" firstAttribute="leading" secondItem="NyH-9w-pfQ" secondAttribute="leading" constant="16" id="ZDl-kt-yL4"/>
                             <constraint firstItem="hxi-Hk-hEX" firstAttribute="centerX" secondItem="NyH-9w-pfQ" secondAttribute="centerX" id="eDc-f5-ct3"/>
-                            <constraint firstAttribute="trailing" secondItem="SVL-KD-6G0" secondAttribute="trailing" constant="16" id="lHJ-9z-H77"/>
-                            <constraint firstItem="pnT-b6-PXj" firstAttribute="leading" secondItem="NyH-9w-pfQ" secondAttribute="leading" constant="16" id="qAx-J7-eu6"/>
-                            <constraint firstItem="SVL-KD-6G0" firstAttribute="top" secondItem="Deb-Vk-5eY" secondAttribute="bottom" constant="16" id="snG-9S-3dd"/>
-                            <constraint firstItem="hxi-Hk-hEX" firstAttribute="height" secondItem="SVL-KD-6G0" secondAttribute="height" multiplier="2" id="t00-fP-6ia"/>
+                            <constraint firstItem="UPf-OF-iQc" firstAttribute="centerX" secondItem="NyH-9w-pfQ" secondAttribute="centerX" id="tUl-U9-p77"/>
+                            <constraint firstAttribute="trailing" secondItem="UPf-OF-iQc" secondAttribute="trailing" constant="32" id="tjk-c1-2Xf"/>
+                            <constraint firstItem="UPf-OF-iQc" firstAttribute="leading" secondItem="NyH-9w-pfQ" secondAttribute="leading" constant="32" id="uSE-Vj-gYc"/>
                             <constraint firstItem="Deb-Vk-5eY" firstAttribute="top" secondItem="krz-Lv-NtN" secondAttribute="bottom" constant="16" id="v1S-Yw-Jbf"/>
                             <constraint firstAttribute="trailing" secondItem="Deb-Vk-5eY" secondAttribute="trailing" constant="16" id="vBR-hc-1au"/>
                             <constraint firstAttribute="trailing" secondItem="hxi-Hk-hEX" secondAttribute="trailing" constant="16" id="zF3-U4-jpd"/>
@@ -531,14 +542,15 @@
                     <connections>
                         <outlet property="bottomLabel" destination="4FI-4V-mlu" id="8yh-QU-7rU"/>
                         <outlet property="bottomView" destination="pnT-b6-PXj" id="Hir-z2-572"/>
-                        <outlet property="bottomViewBottomConstraint" destination="MZs-2q-A9k" id="M62-tN-nmR"/>
+                        <outlet property="bottomViewBottomConstraint" destination="5E2-gY-BvQ" id="qHP-oS-pFo"/>
                         <outlet property="bottomViewPanGesture" destination="iKC-vg-ZHE" id="IvV-A3-vsh"/>
                         <outlet property="centerView" destination="hxi-Hk-hEX" id="umq-CE-3BI"/>
+                        <outlet property="playingFieldView" destination="UPf-OF-iQc" id="OgL-mI-cvN"/>
                         <outlet property="progressView" destination="Deb-Vk-5eY" id="GaW-nN-h1Q"/>
                         <outlet property="topLabel" destination="1bc-j6-bVc" id="EsL-Cb-MtD"/>
                         <outlet property="topView" destination="SVL-KD-6G0" id="fei-7H-GAu"/>
                         <outlet property="topViewPanGesture" destination="T3P-3V-5tI" id="lxf-i4-1QE"/>
-                        <outlet property="topViewTopConstraint" destination="snG-9S-3dd" id="2lz-IN-CBt"/>
+                        <outlet property="topViewTopConstraint" destination="5DD-29-fRc" id="V7u-1K-FGd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Pu3-OS-MJQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
