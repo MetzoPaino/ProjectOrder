@@ -441,6 +441,20 @@
                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Deb-Vk-5eY">
                                 <rect key="frame" x="16" y="16" width="568" height="2"/>
                             </progressView>
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hxi-Hk-hEX">
+                                <rect key="frame" x="16" y="249" width="568" height="40"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Black heart" translatesAutoresizingMaskIntoConstraints="NO" id="NR3-qU-Txi">
+                                        <rect key="frame" x="0.0" y="0.0" width="568" height="40"/>
+                                    </imageView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="NR3-qU-Txi" firstAttribute="leading" secondItem="hxi-Hk-hEX" secondAttribute="leading" id="2O9-GO-1iG"/>
+                                    <constraint firstAttribute="trailing" secondItem="NR3-qU-Txi" secondAttribute="trailing" id="WX4-Aq-GCO"/>
+                                    <constraint firstAttribute="bottom" secondItem="NR3-qU-Txi" secondAttribute="bottom" id="mGi-He-Rwl"/>
+                                    <constraint firstItem="NR3-qU-Txi" firstAttribute="top" secondItem="hxi-Hk-hEX" secondAttribute="top" id="nLr-zv-rMk"/>
+                                </constraints>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UPf-OF-iQc">
                                 <rect key="frame" x="32" y="107" width="536" height="322"/>
                                 <subviews>
@@ -489,7 +503,6 @@
                                         </connections>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" red="0.79215686269999996" green="0.92156862750000001" blue="0.96470588239999999" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="SVL-KD-6G0" firstAttribute="top" secondItem="UPf-OF-iQc" secondAttribute="top" id="5DD-29-fRc"/>
                                     <constraint firstAttribute="bottom" secondItem="pnT-b6-PXj" secondAttribute="bottom" id="5E2-gY-BvQ"/>
@@ -497,21 +510,6 @@
                                     <constraint firstAttribute="trailing" secondItem="SVL-KD-6G0" secondAttribute="trailing" id="DyS-cj-FkU"/>
                                     <constraint firstItem="SVL-KD-6G0" firstAttribute="leading" secondItem="UPf-OF-iQc" secondAttribute="leading" id="LH8-jI-HMq"/>
                                     <constraint firstAttribute="trailing" secondItem="pnT-b6-PXj" secondAttribute="trailing" id="yO1-kA-Bn5"/>
-                                </constraints>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hxi-Hk-hEX">
-                                <rect key="frame" x="16" y="248.5" width="568" height="40"/>
-                                <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Black heart" translatesAutoresizingMaskIntoConstraints="NO" id="NR3-qU-Txi">
-                                        <rect key="frame" x="0.0" y="0.0" width="568" height="40"/>
-                                    </imageView>
-                                </subviews>
-                                <color key="backgroundColor" red="0.40000000600000002" green="0.80000001190000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstItem="NR3-qU-Txi" firstAttribute="leading" secondItem="hxi-Hk-hEX" secondAttribute="leading" id="2O9-GO-1iG"/>
-                                    <constraint firstAttribute="trailing" secondItem="NR3-qU-Txi" secondAttribute="trailing" id="WX4-Aq-GCO"/>
-                                    <constraint firstAttribute="bottom" secondItem="NR3-qU-Txi" secondAttribute="bottom" id="mGi-He-Rwl"/>
-                                    <constraint firstItem="NR3-qU-Txi" firstAttribute="top" secondItem="hxi-Hk-hEX" secondAttribute="top" id="nLr-zv-rMk"/>
                                 </constraints>
                             </view>
                         </subviews>

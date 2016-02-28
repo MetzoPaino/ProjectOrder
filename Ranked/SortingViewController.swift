@@ -216,24 +216,28 @@ class SortingViewController: UIViewController {
                     dismissViewControllerAnimated(true, completion: nil)
                     
                 } else {
-                    setupBattle()
-                }
-                
-                UIView.animateWithDuration(0.25, delay: 0.0, options: UIViewAnimationOptions.CurveEaseInOut, animations: { () -> Void in
                     
-                    constraintToEdit.constant = self.constantConstant
-                    self.view.layoutIfNeeded()
-                    
-                    }, completion: nil)
+                    UIView.animateWithDuration(0.25, delay: 0.0, options: UIViewAnimationOptions.CurveEaseInOut, animations: { () -> Void in
+                        
+                        self.topViewTopConstraint.constant = 0 - self.view.bounds.size.height
+                        self.bottomViewBottomConstraint.constant = 0 - self.view.bounds.size.height
+                        self.topView.alpha = 0
+                        self.bottomView.alpha = 0
+                        
+                        self.view.layoutIfNeeded()
+                        
+                        }, completion: { (complete: Bool) -> Void in
+                            
+                            self.setupBattle()
+                            self.animateViewsToArriveOrDepart(true)
 
+                    })
+
+                }
+    
             } else {
                 
-                UIView.animateWithDuration(0.25, delay: 0.0, options: UIViewAnimationOptions.CurveEaseInOut, animations: { () -> Void in
-                    
-                    constraintToEdit.constant = self.constantConstant
-                    self.view.layoutIfNeeded()
-                    
-                    }, completion: nil)
+                animateViewsToArriveOrDepart(true)
             }
 
         } else {
