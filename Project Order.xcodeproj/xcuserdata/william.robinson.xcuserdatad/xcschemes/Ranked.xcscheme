@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "0AF64F9C1C4A8129003F8519"
-               BuildableName = "Ranked.app"
-               BlueprintName = "Ranked"
-               ReferencedContainer = "container:Ranked.xcodeproj">
+               BuildableName = "Project Order.app"
+               BlueprintName = "Project Order"
+               ReferencedContainer = "container:Project Order.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "0AF64F9C1C4A8129003F8519"
-            BuildableName = "Ranked.app"
-            BlueprintName = "Ranked"
-            ReferencedContainer = "container:Ranked.xcodeproj">
+            BuildableName = "Project Order.app"
+            BlueprintName = "Project Order"
+            ReferencedContainer = "container:Project Order.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -56,9 +56,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "0AF64F9C1C4A8129003F8519"
-            BuildableName = "Ranked.app"
-            BlueprintName = "Ranked"
-            ReferencedContainer = "container:Ranked.xcodeproj">
+            BuildableName = "Project Order.app"
+            BlueprintName = "Project Order"
+            ReferencedContainer = "container:Project Order.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -75,9 +75,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "0AF64F9C1C4A8129003F8519"
-            BuildableName = "Ranked.app"
-            BlueprintName = "Ranked"
-            ReferencedContainer = "container:Ranked.xcodeproj">
+            BuildableName = "Project Order.app"
+            BlueprintName = "Project Order"
+            ReferencedContainer = "container:Project Order.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
