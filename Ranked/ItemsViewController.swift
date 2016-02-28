@@ -112,7 +112,7 @@ class ItemsViewController: UIViewController, MFMessageComposeViewControllerDeleg
         tableView.backgroundColor = collection.color.backgroundColors.first
         
         UIGraphicsBeginImageContextWithOptions(tableView.frame.size, false, 0.0)
-        tableView.drawViewHierarchyInRect(tableView.bounds, afterScreenUpdates: false)
+        tableView.drawViewHierarchyInRect(tableView.frame, afterScreenUpdates: false)
         
         
         
