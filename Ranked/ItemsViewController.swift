@@ -111,21 +111,35 @@ class ItemsViewController: UIViewController, MFMessageComposeViewControllerDeleg
         tableView.frame = fullFrame
         tableView.backgroundColor = collection.color.backgroundColors.first
         
-        UIGraphicsBeginImageContext(tableView.bounds.size);
-
-        tableView.layer.renderInContext(UIGraphicsGetCurrentContext()!)
+        UIGraphicsBeginImageContextWithOptions(tableView.frame.size, false, 0.0)
+        tableView.drawViewHierarchyInRect(tableView.bounds, afterScreenUpdates: false)
+        
+        
+        
+//        tableView.layer.renderInContext(UIGraphicsGetCurrentContext()!)
         
         let screenshot = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext();
+
+        UIImageWriteToSavedPhotosAlbum(screenshot, nil, nil, nil);
         
-        let data = UIImagePNGRepresentation(screenshot)
         
-        UIGraphicsEndImageContext()
-                
-        let messageComposeVC = MFMessageComposeViewController()
-        messageComposeVC.messageComposeDelegate = self
         
-        messageComposeVC.addAttachmentData(data!, typeIdentifier: "image/png", filename: "My Image.png")
-        presentViewController(messageComposeVC, animated: true, completion: nil)
+//        UIGraphicsBeginImageContextWithOptions(view.bounds.size, view.opaque, 0.0f);
+//        [view drawViewHierarchyInRect:view.bounds afterScreenUpdates:NO];
+//        UIImage * snapshotImage = UIGraphicsGetImageFromCurrentImageContext();
+//        return snapshotImage;
+        
+        
+//        let data = UIImagePNGRepresentation(screenshot)
+//        
+//        UIGraphicsEndImageContext()
+//                
+//        let messageComposeVC = MFMessageComposeViewController()
+//        messageComposeVC.messageComposeDelegate = self
+//        
+//        messageComposeVC.addAttachmentData(data!, typeIdentifier: "image/png", filename: "My Image.png")
+//        presentViewController(messageComposeVC, animated: true, completion: nil)
 
         
         //messageComposeVC.body = image
