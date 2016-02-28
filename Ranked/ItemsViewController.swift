@@ -493,36 +493,6 @@ extension ItemsViewController: UITableViewDataSource {
         }
     }
     
-//    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        
-//        if section == 0 {
-//            return nil
-//        }
-//        
-//        
-//        
-//        return addItemsHeaderView
-////        if inEditingMode == nil || inEditingMode == true {
-////            let cell = tableView.dequeueReusableCellWithIdentifier("AddItemCell") as! AddItemTableViewCell
-////            cell.delegate = self
-////            cell.configureCell()
-////            return cell
-////        } else {
-////            return nil
-////        }
-//    }
-    
-//    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-//        if section == 0 {
-//            return 0
-//        }
-//        if inEditingMode == nil || inEditingMode == true {
-//            return 32
-//        } else {
-//            return 32
-//        }
-//    }
-    
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
             collection.items.removeAtIndex(indexPath.row)
