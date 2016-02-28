@@ -428,6 +428,7 @@ extension ItemsViewController: UITableViewDataSource {
                 let cell = tableView.dequeueReusableCellWithIdentifier("AddItemCell", forIndexPath: indexPath) as! AddItemTableViewCell
                 cell.delegate = self
                 cell.configureCell()
+                cell.layoutMargins = UIEdgeInsetsZero;
                 return cell
                 
             } else {

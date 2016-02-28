@@ -441,8 +441,8 @@
                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Deb-Vk-5eY">
                                 <rect key="frame" x="16" y="16" width="568" height="2"/>
                             </progressView>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hxi-Hk-hEX">
-                                <rect key="frame" x="16" y="249" width="568" height="40"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hxi-Hk-hEX">
+                                <rect key="frame" x="16" y="248" width="568" height="40"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Black heart" translatesAutoresizingMaskIntoConstraints="NO" id="NR3-qU-Txi">
                                         <rect key="frame" x="0.0" y="0.0" width="568" height="40"/>
