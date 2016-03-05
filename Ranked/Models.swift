@@ -57,6 +57,8 @@ class CollectionModel: NSObject, NSCoding {
 
     var items = [ItemModel]()
     
+    private let uuid = NSUUID().UUIDString
+    
     init(name: String, description: String, category: CollectionType, dateCreated: NSDate, color: ColorTheme) {
         self.name = name
         self.descriptionString = description
