@@ -172,7 +172,7 @@ func createMarioCharactersCollection() -> CollectionModel {
     let collection = CollectionModel(name: "Mario Characters", description: "The Mario series has an extensive cast of recurring characters. Among the most frequently recurring and significant ones are protagonist Mario, his antagonist Bowser, his brother Luigi, the Princess of the Mushroom Kingdom Peach, his sidekick and mount Yoshi, and his antihero doppelganger Wario.", category: .games, dateCreated: NSDate(), color: createColorTheme1())
     
     let mario = ItemModel(string: "Mario")
-    let luigi = ItemModel(string: "Lugi")
+    let luigi = ItemModel(string: "Luigi")
     let peach = ItemModel(string: "Peach")
     let bowser = ItemModel(string: "Bowser")
     let toad = ItemModel(string: "Toad")

@@ -227,9 +227,12 @@ extension IBActions {
         tableView.frame = fullFrame
         tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), atScrollPosition: UITableViewScrollPosition.Top, animated: false)
 
-        UIGraphicsBeginImageContext(tableView.contentSize);
+//        UIGraphicsBeginImageContext(tableView.contentSize);
+        UIGraphicsBeginImageContextWithOptions(tableView.contentSize, false, 0.0)
 
         tableView.layer.renderInContext(UIGraphicsGetCurrentContext()!)
+        
+//        tableView.drawViewHierarchyInRect(tableView.frame, afterScreenUpdates: false)
         
         let image:UIImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext();
