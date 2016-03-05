@@ -37,12 +37,15 @@ class ItemsViewController: UIViewController {
     var shareBarButton: UIBarButtonItem!
 
     
+    
     weak var delegate: ItemsViewControllerDelegate?
 
     var collection = CollectionModel(name: "", description: "", category: .none, dateCreated: NSDate(), color: ColorTheme())
     
     var inEditingMode: Bool?
     let gradientLayer = CAGradientLayer()
+    
+    var indexPathToEdit: NSIndexPath?
 
     // MARK: - Load View
 
@@ -114,6 +117,20 @@ class ItemsViewController: UIViewController {
                 controller.context = .title
                 controller.providedDescription = collection.name
 
+            } else if let _ = sender as? ItemTableViewCell {
+                
+                controller.context = .item
+                if let cell = sender as? ItemTableViewCell {
+                    
+                    tableView.reloadData()
+                    
+                    if let text = cell.titleLabel.text {
+                       
+                        controller.providedDescription = text
+
+                    }
+                }
+                
             } else {
                 controller.context = .description
                 controller.providedDescription = collection.descriptionString
@@ -261,7 +278,8 @@ extension IBActions {
     }
 }
 
-extension ItemsViewController: DescriptionViewControllerDelegate {
+private typealias DescriptionDelegate = ItemsViewController
+extension DescriptionDelegate: DescriptionViewControllerDelegate {
     
     func newTitle(text: String) {
         collection.name = text
@@ -271,6 +289,19 @@ extension ItemsViewController: DescriptionViewControllerDelegate {
             doneBarButton.enabled = true
         } else {
             doneBarButton.enabled = false
+        }
+    }
+    
+    func newItem(text: String) {
+        
+        if let indexPath = indexPathToEdit {
+            
+            tableView.beginUpdates()
+            collection.items[indexPath.row].text = text
+            tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+            tableView.endUpdates()
+
+            indexPathToEdit = nil
         }
     }
     
@@ -314,9 +345,9 @@ extension ItemsViewController: AddItemTableViewCellDelegate {
     }
 }
 
-// MARK: - UITableViewDelegate
 
-extension ItemsViewController: UITableViewDelegate {
+private typealias TableViewDelegate = ItemsViewController
+extension TableViewDelegate: UITableViewDelegate {
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
@@ -328,10 +359,32 @@ extension ItemsViewController: UITableViewDelegate {
  
         }
     }
+    
+    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
+        let editAction = UITableViewRowAction(style: .Normal, title: "Edit") { (rowAction:UITableViewRowAction, indexPath:NSIndexPath) -> Void in
+            
+            self.indexPathToEdit = indexPath
+            self.performSegueWithIdentifier("ShowItem", sender: tableView.cellForRowAtIndexPath(indexPath))
+            
+        }
+        editAction.backgroundColor = UIColor.blueColor()
+        
+        
+        let deleteAction = UITableViewRowAction(style: .Destructive, title: "Delete") { (rowAction:UITableViewRowAction, indexPath:NSIndexPath) -> Void in
+            
+            self.collection.items.removeAtIndex(indexPath.row)
+            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+        }
+        deleteAction.backgroundColor = UIColor.redColor()
+        
+        return [deleteAction, editAction]
+    }
 }
 
 private typealias TableViewDataSource = ItemsViewController
 extension TableViewDataSource: UITableViewDataSource {
+    
+
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 2

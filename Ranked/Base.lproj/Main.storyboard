@@ -183,7 +183,7 @@
                                                         <constraint firstAttribute="width" secondItem="zcQ-dR-3YX" secondAttribute="height" multiplier="1:1" id="leu-eX-vRC"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8hM-xT-h5b">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="1" textAlignment="center" lineBreakMode="tailTruncation" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8hM-xT-h5b">
                                                     <rect key="frame" x="8" y="16" width="40" height="56"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="40" id="a2r-GD-PUD"/>
@@ -343,6 +343,7 @@
                         <outlet property="addItemsHeaderView" destination="3yg-C0-yHS" id="iz5-gL-psm"/>
                         <outlet property="tableView" destination="9q0-BK-96f" id="pFo-eU-z40"/>
                         <segue destination="ku8-om-PyQ" kind="presentation" identifier="PresentSort" id="ciD-m2-PsK"/>
+                        <segue destination="DyF-CK-2qW" kind="show" identifier="ShowItem" id="1Ky-jB-L3f"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BSC-44-Hch" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -599,7 +600,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="yLz-Bz-ILQ"/>
-        <segue reference="XiR-PU-1Jc"/>
+        <segue reference="1Ky-jB-L3f"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
 </document>

@@ -10,6 +10,7 @@ import UIKit
 
 protocol DescriptionViewControllerDelegate: class {
     func newTitle(text: String)
+    func newItem(text: String)
     func newDescription(text: String)
 }
 
@@ -61,6 +62,8 @@ class DescriptionViewController: UIViewController {
             
             if context == .title {
                 self.delegate?.newTitle(textView.text)
+            } else if context == .item {
+                self.delegate?.newItem(textView.text)
             } else {
                 self.delegate?.newDescription(textView.text)
             }
