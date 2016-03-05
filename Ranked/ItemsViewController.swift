@@ -207,18 +207,36 @@ extension IBActions {
     
     @IBAction func shareButtonPressed(sender: AnyObject) {
         
-        let fullFrame = CGRectMake(tableView.frame.origin.x, tableView.frame.origin.y, tableView.frame.size.width, tableView.contentSize.height)
-        tableView.frame = fullFrame
+//        let fullFrame = CGRectMake(tableView.frame.origin.x, tableView.frame.origin.y, tableView.frame.size.width, tableView.contentSize.height)
+//        tableView.frame = fullFrame
+//        tableView.backgroundColor = collection.color.backgroundColors.first
+//        
+//        UIGraphicsBeginImageContextWithOptions(tableView.contentSize, false, 0.0)
+//        tableView.drawViewHierarchyInRect(tableView.frame, afterScreenUpdates: false)
+//        
+//        let screenshot = UIGraphicsGetImageFromCurrentImageContext()
+//        UIGraphicsEndImageContext();
+//        
+//        let image = UIImageView(image: screenshot)
+//        
+//        tableView.backgroundColor = .clearColor()
+        
         tableView.backgroundColor = collection.color.backgroundColors.first
         
-        UIGraphicsBeginImageContextWithOptions(tableView.frame.size, false, 0.0)
-        tableView.drawViewHierarchyInRect(tableView.frame, afterScreenUpdates: false)
+        let fullFrame = CGRectMake(tableView.frame.origin.x, tableView.frame.origin.y, tableView.frame.size.width, tableView.contentSize.height)
+        tableView.frame = fullFrame
+        tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), atScrollPosition: UITableViewScrollPosition.Top, animated: false)
+
+        UIGraphicsBeginImageContext(tableView.contentSize);
+
+        tableView.layer.renderInContext(UIGraphicsGetCurrentContext()!)
         
-        let screenshot = UIGraphicsGetImageFromCurrentImageContext()
+        let image:UIImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext();
         
+        tableView.backgroundColor = .clearColor()
         
-        let activityViewController = UIActivityViewController(activityItems: [screenshot], applicationActivities: nil)
+        let activityViewController = UIActivityViewController(activityItems: [image], applicationActivities: nil)
         navigationController?.presentViewController(activityViewController, animated: true) {
             // ...
         }
