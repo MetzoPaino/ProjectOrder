@@ -182,5 +182,20 @@ func createMarioCharactersCollection() -> CollectionModel {
     return collection
 }
 
+func createHottestHobbitsCollection() -> CollectionModel {
+    
+    let collection = CollectionModel(name: "Hottest Hobbits", description: "Get down with The Shire", category: .games, dateCreated: NSDate(), color: createColorTheme1())
+    
+    let frodo = ItemModel(string: "Frodo")
+    let sam = ItemModel(string: "Sam")
+    let merry = ItemModel(string: "Merry")
+    let pippin = ItemModel(string: "Pippin")
+    let bilboYoung = ItemModel(string: "Bilbo (Young)")
+    let bilboOld = ItemModel(string: "Bilbo (Old)")
+    
+    collection.items = [frodo, sam, merry, pippin, bilboYoung, bilboOld]
+    
+    return collection
+}
 
           

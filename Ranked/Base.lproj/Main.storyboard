@@ -177,7 +177,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="zcQ-dR-3YX">
-                                                    <rect key="frame" x="1" y="17" width="55" height="55"/>
+                                                    <rect key="frame" x="-10" y="5" width="77" height="77"/>
                                                     <color key="backgroundColor" red="0.4549019608" green="0.79607843140000001" blue="0.90980392160000001" alpha="1" colorSpace="calibratedRGB"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="zcQ-dR-3YX" secondAttribute="height" multiplier="1:1" id="leu-eX-vRC"/>
@@ -207,7 +207,7 @@
                                                 <constraint firstItem="8hM-xT-h5b" firstAttribute="top" secondItem="i06-92-ojl" secondAttribute="top" constant="16" id="Xuh-Wx-L6U"/>
                                                 <constraint firstItem="gDW-jf-vgu" firstAttribute="leading" secondItem="8hM-xT-h5b" secondAttribute="trailing" constant="8" id="ap6-8v-PgK"/>
                                                 <constraint firstItem="gDW-jf-vgu" firstAttribute="leading" secondItem="i06-92-ojl" secondAttribute="leadingMargin" constant="16" id="bds-I6-ID0"/>
-                                                <constraint firstItem="zcQ-dR-3YX" firstAttribute="height" secondItem="8hM-xT-h5b" secondAttribute="height" id="kxe-kN-gfc"/>
+                                                <constraint firstItem="zcQ-dR-3YX" firstAttribute="height" secondItem="8hM-xT-h5b" secondAttribute="height" multiplier="1.4" id="kxe-kN-gfc"/>
                                                 <constraint firstAttribute="bottom" secondItem="gDW-jf-vgu" secondAttribute="bottom" constant="16" id="nnE-VY-eK8"/>
                                                 <constraint firstItem="zcQ-dR-3YX" firstAttribute="centerX" secondItem="8hM-xT-h5b" secondAttribute="centerX" id="oUm-M5-f9K"/>
                                                 <constraint firstItem="gDW-jf-vgu" firstAttribute="top" secondItem="i06-92-ojl" secondAttribute="top" constant="16" id="xXk-Fa-5nR"/>
@@ -348,7 +348,7 @@
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="8Aw-mV-wFQ"/>
                     </toolbarItems>
                     <navigationItem key="navigationItem" id="8t6-LZ-5Lj"/>
-                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics" translucent="NO"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="sortBarButton" destination="Upj-Ye-OdU" id="t1o-kf-zPT"/>
                         <outlet property="tableView" destination="9q0-BK-96f" id="pFo-eU-z40"/>

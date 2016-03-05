@@ -364,13 +364,7 @@ extension TableViewDelegate: UITableViewDelegate {
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
-        if indexPath.section == 0 && indexPath.row == 2 {
-            tableView.deselectRowAtIndexPath(indexPath, animated: false)
-
-        } else {
-            tableView.deselectRowAtIndexPath(indexPath, animated: true)
- 
-        }
+        tableView.deselectRowAtIndexPath(indexPath, animated: false)
     }
     
     func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
@@ -525,7 +519,8 @@ extension TableViewDataSource: UITableViewDataSource {
             cell.titleLabel.textColor = collection.color.titleColor
             
             cell.separatorInset = UIEdgeInsetsMake(0, cell.bounds.size.width, 0, 0);
-
+            cell.selectionStyle = .None
+            
             if collection.sorted {
                 
                 cell.numberLabelWidthConstraint.constant = 40
