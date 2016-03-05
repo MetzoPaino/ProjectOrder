@@ -220,18 +220,6 @@ extension IBActions {
         navigationController?.presentViewController(activityViewController, animated: true) {
             // ...
         }
-        
-        
-        //        CGRect frame = _tableView.frame;
-        //        frame.size.height = _tableView.contentSize.height;//the most important line
-        //        _tableView.frame = frame;
-        
-        //        UIGraphicsBeginImageContext(_tableView.bounds.size);
-        //        [_tableView.layer renderInContext:UIGraphicsGetCurrentContext()];
-        //        UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-        //        UIGraphicsEndImageContext();
-        //
-        //        NSData * data = UIImagePNGRepresentation(image);
     }
     
     @IBAction func editButtonPressed(sender: UIBarButtonItem) {
@@ -243,15 +231,12 @@ extension IBActions {
         doneBarButton = createBarButton(.done)
         navigationController?.navigationItem.rightBarButtonItems = [doneBarButton]
         
-        //        let cell = tableView.dequeueReusableCellWithIdentifier("AddItemCell") as! AddItemTableViewCell
-        //        cell.delegate = self
-        //        cell.configureCell()
-        
         let colorPickerIndex = NSIndexPath(forRow: 2, inSection: 0)
         let addItemIndex = NSIndexPath(forRow: 3, inSection: 0)
         
         tableView.beginUpdates()
         tableView.insertRowsAtIndexPaths([colorPickerIndex, addItemIndex], withRowAnimation: .Automatic)
+        tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: .Fade)
         tableView.endUpdates()
     }
     
@@ -269,6 +254,7 @@ extension IBActions {
         
         tableView.beginUpdates()
         tableView.deleteRowsAtIndexPaths([colorPickerIndex, addItemIndex], withRowAnimation: .Automatic)
+        tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: .Fade)
         tableView.endUpdates()
     }
     
