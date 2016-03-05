@@ -112,7 +112,8 @@ class CollectionsViewController: UIViewController {
     }
 }
 
-extension CollectionsViewController: UITableViewDelegate {
+private typealias TableViewDelegate = CollectionsViewController
+extension TableViewDelegate: UITableViewDelegate {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
@@ -120,7 +121,8 @@ extension CollectionsViewController: UITableViewDelegate {
     }
 }
 
-extension CollectionsViewController: UITableViewDataSource {
+private typealias TableViewDataSource = CollectionsViewController
+extension TableViewDataSource: UITableViewDataSource {
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
@@ -160,7 +162,8 @@ extension CollectionsViewController: UITableViewDataSource {
 
 }
 
-extension CollectionsViewController: ItemsViewControllerDelegate {
+private typealias ItemsDelegate = CollectionsViewController
+extension ItemsDelegate: ItemsViewControllerDelegate {
     
     func sortingFinished() {
         

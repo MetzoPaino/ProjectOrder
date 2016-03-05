@@ -345,9 +345,8 @@ extension ItemsViewController: UITableViewDelegate {
     }
 }
 
-// MARK: - UITableViewDataSource
-
-extension ItemsViewController: UITableViewDataSource {
+private typealias TableViewDataSource = ItemsViewController
+extension TableViewDataSource: UITableViewDataSource {
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 2
@@ -474,7 +473,8 @@ extension ItemsViewController: UITableViewDataSource {
             cell.titleLabel.text = item.text
             cell.titleLabel.textColor = collection.color.titleColor
             
-            cell.layoutMargins = UIEdgeInsetsZero;
+            cell.separatorInset = UIEdgeInsetsMake(0, cell.bounds.size.width, 0, 0);
+
             if collection.sorted {
                 
                 cell.numberLabelWidthConstraint.constant = 40
