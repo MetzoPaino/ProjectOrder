@@ -75,7 +75,7 @@ class ItemsViewController: UIViewController {
         gradientLayer.frame = self.view.bounds
         self.view.layer.insertSublayer(gradientLayer, below: tableView.layer)
         styleGradient()
-
+        sortBarButton.tintColor = collection.color.titleColor
     }
     
     func styleTableView() {

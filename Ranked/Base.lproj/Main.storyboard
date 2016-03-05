@@ -348,7 +348,7 @@
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="8Aw-mV-wFQ"/>
                     </toolbarItems>
                     <navigationItem key="navigationItem" id="8t6-LZ-5Lj"/>
-                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics" translucent="NO"/>
                     <connections>
                         <outlet property="sortBarButton" destination="Upj-Ye-OdU" id="t1o-kf-zPT"/>
                         <outlet property="tableView" destination="9q0-BK-96f" id="pFo-eU-z40"/>
@@ -511,6 +511,11 @@
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="4Rv-PP-jts">
                             <connections>
                                 <action selector="cancelButtonPressed:" destination="gUE-RR-efX" id="dby-D0-tMJ"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Decide Later" id="THh-s7-UMD">
+                            <connections>
+                                <action selector="decideLaterButtonPressed:" destination="gUE-RR-efX" id="TJQ-cW-Ltm"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
