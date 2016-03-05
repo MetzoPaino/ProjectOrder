@@ -100,100 +100,7 @@ class ItemsViewController: UIViewController {
         gradientLayer.colors = colorRefArray
         gradientLayer.locations = [0.25, 1.0]
     }
-    
-    // MARK: - IBActions
 
-    @IBAction func shareButtonPressed(sender: AnyObject) {
-        
-        let fullFrame = CGRectMake(tableView.frame.origin.x, tableView.frame.origin.y, tableView.frame.size.width, tableView.contentSize.height)
-        tableView.frame = fullFrame
-        tableView.backgroundColor = collection.color.backgroundColors.first
-        
-        UIGraphicsBeginImageContextWithOptions(tableView.frame.size, false, 0.0)
-        tableView.drawViewHierarchyInRect(tableView.frame, afterScreenUpdates: false)
-        
-        let screenshot = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext();
-
-        UIImageWriteToSavedPhotosAlbum(screenshot, nil, nil, nil);
-        
-        
-        
-//        UIGraphicsBeginImageContextWithOptions(view.bounds.size, view.opaque, 0.0f);
-//        [view drawViewHierarchyInRect:view.bounds afterScreenUpdates:NO];
-//        UIImage * snapshotImage = UIGraphicsGetImageFromCurrentImageContext();
-//        return snapshotImage;
-//        let data = UIImagePNGRepresentation(screenshot)
-//        
-//        UIGraphicsEndImageContext()
-//                
-//        let messageComposeVC = MFMessageComposeViewController()
-//        messageComposeVC.messageComposeDelegate = self
-//        
-//        messageComposeVC.addAttachmentData(data!, typeIdentifier: "image/png", filename: "My Image.png")
-//        presentViewController(messageComposeVC, animated: true, completion: nil)
-        //messageComposeVC.body = image
-        
-        view.layoutIfNeeded()
-        
-//        CGRect frame = _tableView.frame;
-//        frame.size.height = _tableView.contentSize.height;//the most important line
-//        _tableView.frame = frame;
-        
-//        UIGraphicsBeginImageContext(_tableView.bounds.size);
-//        [_tableView.layer renderInContext:UIGraphicsGetCurrentContext()];
-//        UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-//        UIGraphicsEndImageContext();
-//        
-//        NSData * data = UIImagePNGRepresentation(image);
-    }
-//    
-//    func messageComposeViewController(controller: MFMessageComposeViewController!, didFinishWithResult result: MessageComposeResult) {
-//        controller.dismissViewControllerAnimated(true, completion: nil)
-//    }
-    
-    @IBAction func editButtonPressed(sender: UIBarButtonItem) {
-        
-        if let inEditingMode = inEditingMode {
-            self.inEditingMode = !inEditingMode
-        }
-        
-        doneBarButton = createBarButton(.done)
-        navigationController?.navigationItem.rightBarButtonItems = [doneBarButton]
-        
-//        let cell = tableView.dequeueReusableCellWithIdentifier("AddItemCell") as! AddItemTableViewCell
-//        cell.delegate = self
-//        cell.configureCell()
-        
-        let colorPickerIndex = NSIndexPath(forRow: 2, inSection: 0)
-        let addItemIndex = NSIndexPath(forRow: 3, inSection: 0)
-
-        tableView.beginUpdates()
-        tableView.insertRowsAtIndexPaths([colorPickerIndex, addItemIndex], withRowAnimation: .Automatic)
-        tableView.endUpdates()
-    }
-    
-    @IBAction func doneButtonPressed(sender: UIBarButtonItem) {
-        
-        self.inEditingMode = false
-        
-        editBarButton = createBarButton(.edit)
-        sortBarButton = createBarButton(.sort)
-        shareBarButton = createBarButton(.share)
-        navigationController?.navigationItem.rightBarButtonItems = [shareBarButton, sortBarButton, editBarButton]
-        
-        let colorPickerIndex = NSIndexPath(forRow: 2, inSection: 0)
-        let addItemIndex = NSIndexPath(forRow: 3, inSection: 0)
-
-        tableView.beginUpdates()
-        tableView.deleteRowsAtIndexPaths([colorPickerIndex, addItemIndex], withRowAnimation: .Automatic)
-        tableView.endUpdates()
-    }
-    
-    @IBAction func sortButtonPressed(sender: UIBarButtonItem) {
-        
-        performSegueWithIdentifier("PresentSort", sender: self)
-    }
     
     // MARK: - Navigation
     
@@ -273,6 +180,84 @@ class ItemsViewController: UIViewController {
             
             return barButton
         }
+    }
+}
+
+private typealias IBActions = ItemsViewController
+extension IBActions {
+    
+    @IBAction func shareButtonPressed(sender: AnyObject) {
+        
+        let fullFrame = CGRectMake(tableView.frame.origin.x, tableView.frame.origin.y, tableView.frame.size.width, tableView.contentSize.height)
+        tableView.frame = fullFrame
+        tableView.backgroundColor = collection.color.backgroundColors.first
+        
+        UIGraphicsBeginImageContextWithOptions(tableView.frame.size, false, 0.0)
+        tableView.drawViewHierarchyInRect(tableView.frame, afterScreenUpdates: false)
+        
+        let screenshot = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext();
+        
+        
+        let activityViewController = UIActivityViewController(activityItems: [screenshot], applicationActivities: nil)
+        navigationController?.presentViewController(activityViewController, animated: true) {
+            // ...
+        }
+        
+        
+        //        CGRect frame = _tableView.frame;
+        //        frame.size.height = _tableView.contentSize.height;//the most important line
+        //        _tableView.frame = frame;
+        
+        //        UIGraphicsBeginImageContext(_tableView.bounds.size);
+        //        [_tableView.layer renderInContext:UIGraphicsGetCurrentContext()];
+        //        UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+        //        UIGraphicsEndImageContext();
+        //
+        //        NSData * data = UIImagePNGRepresentation(image);
+    }
+    
+    @IBAction func editButtonPressed(sender: UIBarButtonItem) {
+        
+        if let inEditingMode = inEditingMode {
+            self.inEditingMode = !inEditingMode
+        }
+        
+        doneBarButton = createBarButton(.done)
+        navigationController?.navigationItem.rightBarButtonItems = [doneBarButton]
+        
+        //        let cell = tableView.dequeueReusableCellWithIdentifier("AddItemCell") as! AddItemTableViewCell
+        //        cell.delegate = self
+        //        cell.configureCell()
+        
+        let colorPickerIndex = NSIndexPath(forRow: 2, inSection: 0)
+        let addItemIndex = NSIndexPath(forRow: 3, inSection: 0)
+        
+        tableView.beginUpdates()
+        tableView.insertRowsAtIndexPaths([colorPickerIndex, addItemIndex], withRowAnimation: .Automatic)
+        tableView.endUpdates()
+    }
+    
+    @IBAction func doneButtonPressed(sender: UIBarButtonItem) {
+        
+        self.inEditingMode = false
+        
+        editBarButton = createBarButton(.edit)
+        sortBarButton = createBarButton(.sort)
+        shareBarButton = createBarButton(.share)
+        navigationController?.navigationItem.rightBarButtonItems = [shareBarButton, sortBarButton, editBarButton]
+        
+        let colorPickerIndex = NSIndexPath(forRow: 2, inSection: 0)
+        let addItemIndex = NSIndexPath(forRow: 3, inSection: 0)
+        
+        tableView.beginUpdates()
+        tableView.deleteRowsAtIndexPaths([colorPickerIndex, addItemIndex], withRowAnimation: .Automatic)
+        tableView.endUpdates()
+    }
+    
+    @IBAction func sortButtonPressed(sender: UIBarButtonItem) {
+        
+        performSegueWithIdentifier("PresentSort", sender: self)
     }
 }
 
