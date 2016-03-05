@@ -100,6 +100,10 @@ class CollectionsViewController: UIViewController {
                 }
             }
             
+            let backItem = UIBarButtonItem()
+            backItem.title = ""
+            navigationItem.backBarButtonItem = backItem
+            
             self.navigationController?.navigationBar.setBackgroundImage(UIImage(), forBarMetrics: UIBarMetrics.Default)
             self.navigationController?.navigationBar.shadowImage = UIImage()
             self.navigationController?.navigationBar.translucent = true
@@ -133,24 +137,6 @@ extension CollectionsViewController: UITableViewDataSource {
         cell.titleLabel.textColor = collection.color.titleColor
         cell.descriptionLabel.textColor = collection.color.subtitleColor
         cell.layoutMargins = UIEdgeInsetsZero;
-        switch collection.category {
-            
-        case .music:
-            cell.categoryLabel.text = "🎵 "
-            
-        case .films:
-            cell.categoryLabel.text = "📽 "
-            
-        case .books:
-            cell.categoryLabel.text = "📚 "
-        case .games:
-            cell.categoryLabel.text = "🎮 "
-        case .computers:
-            cell.categoryLabel.text = "🖥 "
-        case .none:
-            cell.categoryLabel.text = ""
-            break
-        }
         
         cell.descriptionLabel.text! = "⭐️"
         
