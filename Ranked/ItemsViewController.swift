@@ -29,9 +29,8 @@ class ItemsViewController: UIViewController {
     
     
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet var addItemsHeaderView: AddItemView!
+    @IBOutlet var sortBarButton: UIBarButtonItem!
 
-    var sortBarButton: UIBarButtonItem!
     var doneBarButton: UIBarButtonItem!
     var editBarButton: UIBarButtonItem!
     var shareBarButton: UIBarButtonItem!
@@ -62,13 +61,15 @@ class ItemsViewController: UIViewController {
         if inEditingMode != nil {
             
             editBarButton = createBarButton(.edit)
-            sortBarButton = createBarButton(.sort)
             shareBarButton = createBarButton(.share)
-            navigationController?.navigationItem.rightBarButtonItems = [shareBarButton, sortBarButton, editBarButton]
+            navigationController?.navigationItem.rightBarButtonItems = [shareBarButton, editBarButton]
+            navigationController?.setToolbarHidden(false, animated: true)
+
 
         } else {
             doneBarButton = createBarButton(.done)
             navigationController?.navigationItem.rightBarButtonItems = [doneBarButton]
+            navigationController?.setToolbarHidden(true, animated: false)
         }
         
         gradientLayer.frame = self.view.bounds
@@ -149,6 +150,7 @@ class ItemsViewController: UIViewController {
             controller.colorTheme = collection.color
         }
     }
+
     
     // MARK: - Internal
     
@@ -235,9 +237,12 @@ extension IBActions {
         let addItemIndex = NSIndexPath(forRow: 3, inSection: 0)
         
         tableView.beginUpdates()
-        tableView.insertRowsAtIndexPaths([colorPickerIndex, addItemIndex], withRowAnimation: .Automatic)
         tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: .Fade)
+        tableView.insertRowsAtIndexPaths([colorPickerIndex, addItemIndex], withRowAnimation: .Fade)
         tableView.endUpdates()
+        
+        navigationController?.setToolbarHidden(true, animated: true)
+
     }
     
     @IBAction func doneButtonPressed(sender: UIBarButtonItem) {
@@ -245,20 +250,21 @@ extension IBActions {
         self.inEditingMode = false
         
         editBarButton = createBarButton(.edit)
-        sortBarButton = createBarButton(.sort)
         shareBarButton = createBarButton(.share)
-        navigationController?.navigationItem.rightBarButtonItems = [shareBarButton, sortBarButton, editBarButton]
+        navigationController?.navigationItem.rightBarButtonItems = [shareBarButton, editBarButton]
         
         let colorPickerIndex = NSIndexPath(forRow: 2, inSection: 0)
         let addItemIndex = NSIndexPath(forRow: 3, inSection: 0)
         
         tableView.beginUpdates()
-        tableView.deleteRowsAtIndexPaths([colorPickerIndex, addItemIndex], withRowAnimation: .Automatic)
         tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: .Fade)
+        tableView.deleteRowsAtIndexPaths([colorPickerIndex, addItemIndex], withRowAnimation: .Fade)
         tableView.endUpdates()
+        
+        navigationController?.setToolbarHidden(false, animated: true)
     }
     
-    @IBAction func sortButtonPressed(sender: UIBarButtonItem) {
+    @IBAction func sortBarButtonPressed(sender: UIBarButtonItem) {
         
         performSegueWithIdentifier("PresentSort", sender: self)
     }
