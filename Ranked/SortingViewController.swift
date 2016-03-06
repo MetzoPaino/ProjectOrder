@@ -240,8 +240,6 @@ class SortingViewController: UIViewController {
                 
                 var newConstant: CGFloat = 0
                 
-
-                
                 if sender == topViewPanGesture {
                     
                     let fullAlpha = middleConstant - (topView.bounds.height / 2)
@@ -249,15 +247,7 @@ class SortingViewController: UIViewController {
                     let takeAway = CGFloat((100 - percentage) / 100) + 0.2
                     bottomView.alpha = takeAway
                     
-                    
                     newConstant = sender.locationInView(playingFieldView).y - topView.bounds.height
-                    
-                    
-                    
-
-                    
-                    
-                    
                     
                     if newConstant < 0 {
                         newConstant = 0
@@ -270,7 +260,6 @@ class SortingViewController: UIViewController {
                     
                     constraintToEdit.constant = newConstant
 
-                    
                     
                 } else {
                     

@@ -367,26 +367,95 @@ extension TableViewDelegate: UITableViewDelegate {
         tableView.deselectRowAtIndexPath(indexPath, animated: false)
     }
     
+    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        
+        if indexPath.section == 0 {
+            return false
+        } else {
+
+            return true
+        }
+    }
     func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
-        let editAction = UITableViewRowAction(style: .Normal, title: "Edit") { (rowAction:UITableViewRowAction, indexPath:NSIndexPath) -> Void in
+        
+        if indexPath.section == 0 {
+            return nil
+        } else {
             
-            self.indexPathToEdit = indexPath
-            self.performSegueWithIdentifier("ShowItem", sender: tableView.cellForRowAtIndexPath(indexPath))
+            let editAction = UITableViewRowAction(style: .Normal, title: "Edit") { (rowAction:UITableViewRowAction, indexPath:NSIndexPath) -> Void in
+                
+                self.indexPathToEdit = indexPath
+                self.performSegueWithIdentifier("ShowItem", sender: tableView.cellForRowAtIndexPath(indexPath))
+                
+            }
+            editAction.backgroundColor = UIColor.blueColor()
             
+            
+            let deleteAction = UITableViewRowAction(style: .Destructive, title: "Delete") { (rowAction:UITableViewRowAction, indexPath:NSIndexPath) -> Void in
+                
+                self.collection.items.removeAtIndex(indexPath.row)
+                tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+            }
+            deleteAction.backgroundColor = UIColor.redColor()
+            
+            return [deleteAction, editAction]
         }
-        editAction.backgroundColor = UIColor.blueColor()
-        
-        
-        let deleteAction = UITableViewRowAction(style: .Destructive, title: "Delete") { (rowAction:UITableViewRowAction, indexPath:NSIndexPath) -> Void in
-            
-            self.collection.items.removeAtIndex(indexPath.row)
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
-        }
-        deleteAction.backgroundColor = UIColor.redColor()
-        
-        return [deleteAction, editAction]
     }
 }
+//        if indexPath.section != 0 {
+//
+//            if inEditingMode == nil || inEditingMode == true {
+//                
+//                if indexPath.row == 0 {
+//                    return nil
+//                    
+//                } else {
+//                    
+//                    let editAction = UITableViewRowAction(style: .Normal, title: "Edit") { (rowAction:UITableViewRowAction, indexPath:NSIndexPath) -> Void in
+//                        
+//                        self.indexPathToEdit = indexPath
+//                        self.performSegueWithIdentifier("ShowItem", sender: tableView.cellForRowAtIndexPath(indexPath))
+//                        
+//                    }
+//                    editAction.backgroundColor = UIColor.blueColor()
+//                    
+//                    
+//                    let deleteAction = UITableViewRowAction(style: .Destructive, title: "Delete") { (rowAction:UITableViewRowAction, indexPath:NSIndexPath) -> Void in
+//                        
+//                        self.collection.items.removeAtIndex(indexPath.row)
+//                        tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+//                    }
+//                    deleteAction.backgroundColor = UIColor.redColor()
+//                    
+//                    return [deleteAction, editAction]
+//                }
+//            } else {
+//                
+////                let editAction = UITableViewRowAction(style: .Normal, title: "Edit") { (rowAction:UITableViewRowAction, indexPath:NSIndexPath) -> Void in
+////                    
+////                    self.indexPathToEdit = indexPath
+////                    self.performSegueWithIdentifier("ShowItem", sender: tableView.cellForRowAtIndexPath(indexPath))
+////                    
+////                }
+////                editAction.backgroundColor = UIColor.blueColor()
+////                
+////                
+////                let deleteAction = UITableViewRowAction(style: .Destructive, title: "Delete") { (rowAction:UITableViewRowAction, indexPath:NSIndexPath) -> Void in
+////                    
+////                    self.collection.items.removeAtIndex(indexPath.row)
+////                    tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+////                }
+////                deleteAction.backgroundColor = UIColor.redColor()
+////                
+////                return [deleteAction, editAction]
+////            }
+//            
+//        } else {
+//            
+//            return nil
+//        }
+//    }
+//}
 
 private typealias TableViewDataSource = ItemsViewController
 extension TableViewDataSource: UITableViewDataSource {
@@ -424,7 +493,7 @@ extension TableViewDataSource: UITableViewDataSource {
                 
                 let cell = tableView.dequeueReusableCellWithIdentifier("TitleCell", forIndexPath: indexPath) as! TitleCell
                 cell.separatorInset = UIEdgeInsetsMake(0, cell.bounds.size.width, 0, 0);
-                
+
                 if inEditingMode == nil || inEditingMode == true {
                     
                     cell.userInteractionEnabled = true
@@ -540,10 +609,20 @@ extension TableViewDataSource: UITableViewDataSource {
         }
     }
     
-    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            collection.items.removeAtIndex(indexPath.row)
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
-        }
-    }
+//    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+//        
+//        if editingStyle == .Delete {
+//            collection.items.removeAtIndex(indexPath.row)
+//            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+//        }
+//    }
+    
+//    func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
+//        
+//        if indexPath.section == 0 {
+//            return UITableViewCellEditingStyle.None
+//        } else {
+//            return UITableViewCellEditingStyle.
+//        }
+//    }
 }
