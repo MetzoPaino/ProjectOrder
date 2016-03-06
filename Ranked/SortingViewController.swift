@@ -12,6 +12,12 @@ protocol SortingViewControllerDelegate: class {
     func sortingFinished(items: [ItemModel])
 }
 
+enum PanGestureInUse {
+    
+    case top
+    case bottom
+}
+
 class SortingViewController: UIViewController {
     
     var itemArray = [ItemModel]()
@@ -20,10 +26,6 @@ class SortingViewController: UIViewController {
     weak var delegate: SortingViewControllerDelegate?
     
     @IBOutlet weak var progressView: UIProgressView!
-    @IBOutlet weak var option1Button: UIButton!
-    @IBOutlet weak var passButton: UIButton!
-    @IBOutlet weak var option2Button: UIButton!
-    @IBOutlet var buttonCollection: [UIButton]!
     
     @IBOutlet var topViewPanGesture: UIPanGestureRecognizer!
     @IBOutlet weak var topView: UIView!
@@ -45,6 +47,8 @@ class SortingViewController: UIViewController {
     
     var middleConstant = 0 as CGFloat
     
+    var panGestureInUse: PanGestureInUse?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -53,7 +57,7 @@ class SortingViewController: UIViewController {
         
         tournamentManager.delegate = self
         tournamentManager.createTournament(itemArray)
-//        setupButtons()
+
         setupBattle()
         
         moveViewsOffscreen()
@@ -128,32 +132,6 @@ class SortingViewController: UIViewController {
             
         }
     }
-    
-    @IBAction func optionButtonPressed(sender: UIButton) {
-        
-        let victoriousItem = tournamentManager.participants[sender.tag];
-        var defeatedItem: ItemModel
-        
-        if sender.tag == option1Button.tag {
-            
-            defeatedItem = tournamentManager.participants[option2Button.tag];
-            
-        } else {
-            
-            defeatedItem = tournamentManager.participants[option1Button.tag];
-        }
-        
-        tournamentManager.assignPointsForCompletedBattle(victoriousItem, loser: defeatedItem)
-        
-        if tournamentManager.isTournamentResolved() {
-            
-            self.delegate?.sortingFinished(tournamentManager.participants)
-            dismissViewControllerAnimated(true, completion: nil)
-            
-        } else {
-            setupButtons()
-        }
-    }
 
     func setupBattle() {
         
@@ -177,29 +155,9 @@ class SortingViewController: UIViewController {
 
     }
     
-    func setupButtons() {
-        
-        do {
-            
-            let battle = try tournamentManager.pickBattle()
-            
-            option1Button.setTitle(battle.playerOne.text, forState: UIControlState.Normal)
-            option1Button.tag = battle.playerOne.tag
-            
-            option2Button.setTitle(battle.playerTwo.text, forState: UIControlState.Normal)
-            option2Button.tag = battle.playerTwo.tag
-            
-        } catch PickBattleError.AlreadyTakenPlace {
-            
-            setupButtons()
-            
-        } catch {
-            print("We should never get here")
-        }
-    }
-    
     @IBAction func panGestureAction(sender: UIPanGestureRecognizer) {
         
+        var panGesture: PanGestureInUse
         var constraintToEdit = NSLayoutConstraint()
         var view = UIView()
         var otherView = UIView()
@@ -208,11 +166,22 @@ class SortingViewController: UIViewController {
             constraintToEdit = topViewTopConstraint
             view = topView
             otherView = bottomView
+            panGesture = .top
 
         } else {
             constraintToEdit = bottomViewBottomConstraint
             view = bottomView
             otherView = topView
+            panGesture = .bottom
+
+        }
+        
+        if panGestureInUse == nil || panGestureInUse == panGesture {
+            
+            panGestureInUse = panGesture
+            
+        } else {
+            return
         }
         
         if sender.state == .Ended {
@@ -255,6 +224,8 @@ class SortingViewController: UIViewController {
                 
                 animateViewsToArriveOrDepart(true)
             }
+            
+            panGestureInUse = nil
 
         } else {
             
