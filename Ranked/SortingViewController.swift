@@ -39,6 +39,7 @@ class SortingViewController: UIViewController {
     @IBOutlet weak var bottomLabel: UILabel!
     @IBOutlet weak var bottomViewBottomConstraint: NSLayoutConstraint!
     
+    @IBOutlet var holdingView: UIView!
     @IBOutlet weak var playingFieldView: UIView!
     
     var colorTheme = ColorTheme()
@@ -72,6 +73,9 @@ class SortingViewController: UIViewController {
     
     override func viewDidAppear(animated: Bool) {
         animateViewsToArriveOrDepart(true)
+        
+        // First time setting middleConstant via viewDidLayoutSubviews is incorrect. Don't know why
+        middleConstant = playingFieldView.bounds.size.height / 2
     }
     
     override func viewDidLayoutSubviews() {
@@ -86,6 +90,8 @@ class SortingViewController: UIViewController {
     }
     
     func styleView() {
+        
+        holdingView.layer.masksToBounds = true
         
         topView.layer.cornerRadius = 12
         topView.layer.masksToBounds = true
@@ -114,7 +120,7 @@ class SortingViewController: UIViewController {
             
         } else {
             
-            UIView.animateWithDuration(0.25, delay: 0.0, options: UIViewAnimationOptions.CurveEaseInOut, animations: { () -> Void in
+            UIView.animateWithDuration(0.25, delay: 0.0, options: UIViewAnimationOptions.CurveEaseIn, animations: { () -> Void in
                 
                 self.topViewTopConstraint.constant = 0 - self.view.bounds.size.height
                 self.bottomViewBottomConstraint.constant = 0 - self.view.bounds.size.height
@@ -217,7 +223,6 @@ class SortingViewController: UIViewController {
                             self.animateViewsToArriveOrDepart(true)
 
                     })
-
                 }
     
             } else {
@@ -235,9 +240,24 @@ class SortingViewController: UIViewController {
                 
                 var newConstant: CGFloat = 0
                 
+
+                
                 if sender == topViewPanGesture {
                     
+                    let fullAlpha = middleConstant - (topView.bounds.height / 2)
+                    let percentage = (topViewTopConstraint.constant / fullAlpha) * 100
+                    let takeAway = CGFloat((100 - percentage) / 100) + 0.2
+                    bottomView.alpha = takeAway
+                    
+                    
                     newConstant = sender.locationInView(playingFieldView).y - topView.bounds.height
+                    
+                    
+                    
+
+                    
+                    
+                    
                     
                     if newConstant < 0 {
                         newConstant = 0
@@ -253,6 +273,11 @@ class SortingViewController: UIViewController {
                     
                     
                 } else {
+                    
+                    let fullAlpha = middleConstant - (bottomView.bounds.height / 2)
+                    let percentage = (bottomViewBottomConstraint.constant / fullAlpha) * 100
+                    let takeAway = CGFloat((100 - percentage) / 100) + 0.2
+                    topView.alpha = takeAway
                     
                     newConstant = (playingFieldView.bounds.size.height - sender.locationInView(playingFieldView).y) + self.constantConstant - bottomView.bounds.size.height
                     
@@ -282,17 +307,16 @@ class SortingViewController: UIViewController {
             alpha = 0
         }
         
-        UIView.animateWithDuration(0.25, delay: 0.0, options: UIViewAnimationOptions.CurveEaseInOut, animations: { () -> Void in
+        UIView.animateWithDuration(0.25, delay: 0.0, usingSpringWithDamping: 0.75, initialSpringVelocity: 1.0, options: UIViewAnimationOptions.CurveEaseInOut, animations: { () -> Void in
             
             self.topViewTopConstraint.constant = constant
             self.bottomViewBottomConstraint.constant = constant
             self.topView.alpha = alpha
             self.bottomView.alpha = alpha
-
+            
             self.view.layoutIfNeeded()
             
             }, completion: nil)
-        
     }
     
     func moveViewsOffscreen() {
