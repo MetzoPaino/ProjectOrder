@@ -30,7 +30,7 @@ func createDavidBowieCollection() -> CollectionModel {
     let tonight = ItemModel(string: "Tonight")
     let neverLetMeDown = ItemModel(string: "Never Let Me Down")
     let blackTieWhiteNoise = ItemModel(string: "Black Tie White Noise")
-    let outside = ItemModel(string: "Outside")
+    let outside = ItemModel(string: "1. Outside")
     let earthling = ItemModel(string: "Earthling")
     let hours = ItemModel(string: "'Hours...'")
     let heathen = ItemModel(string: "Heathen")

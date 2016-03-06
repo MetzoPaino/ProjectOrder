@@ -402,60 +402,6 @@ extension TableViewDelegate: UITableViewDelegate {
         }
     }
 }
-//        if indexPath.section != 0 {
-//
-//            if inEditingMode == nil || inEditingMode == true {
-//                
-//                if indexPath.row == 0 {
-//                    return nil
-//                    
-//                } else {
-//                    
-//                    let editAction = UITableViewRowAction(style: .Normal, title: "Edit") { (rowAction:UITableViewRowAction, indexPath:NSIndexPath) -> Void in
-//                        
-//                        self.indexPathToEdit = indexPath
-//                        self.performSegueWithIdentifier("ShowItem", sender: tableView.cellForRowAtIndexPath(indexPath))
-//                        
-//                    }
-//                    editAction.backgroundColor = UIColor.blueColor()
-//                    
-//                    
-//                    let deleteAction = UITableViewRowAction(style: .Destructive, title: "Delete") { (rowAction:UITableViewRowAction, indexPath:NSIndexPath) -> Void in
-//                        
-//                        self.collection.items.removeAtIndex(indexPath.row)
-//                        tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
-//                    }
-//                    deleteAction.backgroundColor = UIColor.redColor()
-//                    
-//                    return [deleteAction, editAction]
-//                }
-//            } else {
-//                
-////                let editAction = UITableViewRowAction(style: .Normal, title: "Edit") { (rowAction:UITableViewRowAction, indexPath:NSIndexPath) -> Void in
-////                    
-////                    self.indexPathToEdit = indexPath
-////                    self.performSegueWithIdentifier("ShowItem", sender: tableView.cellForRowAtIndexPath(indexPath))
-////                    
-////                }
-////                editAction.backgroundColor = UIColor.blueColor()
-////                
-////                
-////                let deleteAction = UITableViewRowAction(style: .Destructive, title: "Delete") { (rowAction:UITableViewRowAction, indexPath:NSIndexPath) -> Void in
-////                    
-////                    self.collection.items.removeAtIndex(indexPath.row)
-////                    tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
-////                }
-////                deleteAction.backgroundColor = UIColor.redColor()
-////                
-////                return [deleteAction, editAction]
-////            }
-//            
-//        } else {
-//            
-//            return nil
-//        }
-//    }
-//}
 
 private typealias TableViewDataSource = ItemsViewController
 extension TableViewDataSource: UITableViewDataSource {
@@ -541,7 +487,9 @@ extension TableViewDataSource: UITableViewDataSource {
                 let cell = tableView.dequeueReusableCellWithIdentifier("AddItemCell", forIndexPath: indexPath) as! AddItemTableViewCell
                 cell.delegate = self
                 cell.configureCell()
-                cell.layoutMargins = UIEdgeInsetsZero;
+//                cell.layoutMargins = UIEdgeInsetsZero;
+                cell.separatorInset = UIEdgeInsetsMake(0, cell.bounds.size.width, 0, 0);
+
                 return cell
                 
             } else {

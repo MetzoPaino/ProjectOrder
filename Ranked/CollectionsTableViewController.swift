@@ -32,21 +32,12 @@ class CollectionsViewController: UIViewController {
         styleTableView()
     
         navigationController?.navigationItem.backBarButtonItem?.title = ""
-        
-        NSNotificationCenter.defaultCenter().addObserver(self,
-            selector: "onContentSizeChange:",
-            name: UIContentSizeCategoryDidChangeNotification,
-            object: nil)
     }
     
     override func viewDidDisappear(animated: Bool)  {
         super.viewDidDisappear(animated)
         
         NSNotificationCenter.defaultCenter().removeObserver(self)
-    }
-    
-    func onContentSizeChange(notification: NSNotification) {
-        tableView.reloadData()
     }
     
     override func viewWillAppear(animated: Bool) {
