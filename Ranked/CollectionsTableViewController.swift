@@ -89,6 +89,16 @@ class CollectionsViewController: UIViewController {
                     self.navigationController?.navigationBar.tintColor = controller.collection.color.subtitleColor
 
                 }
+            } else if segue.identifier == "ShowEditCollection" {
+                
+                if let row = sender as? Int {
+                    
+                    controller.collection = collectionsArray[row]
+                    
+                }
+                controller.inEditingMode = true
+                controller.delegate = self
+                self.navigationController?.navigationBar.tintColor = controller.collection.color.subtitleColor
             }
             
             let backItem = UIBarButtonItem()
@@ -109,6 +119,26 @@ extension TableViewDelegate: UITableViewDelegate {
         
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         //        performSegueWithIdentifier("ShowCollection", sender: collectionsArray[indexPath.row])
+    }
+    
+    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
+        
+        let editAction = UITableViewRowAction(style: .Normal, title: "Edit") { (rowAction:UITableViewRowAction, indexPath:NSIndexPath) -> Void in
+            
+            self.performSegueWithIdentifier("ShowEditCollection", sender: indexPath.row)
+            
+        }
+        editAction.backgroundColor = UIColor.blueColor()
+        
+        
+        let deleteAction = UITableViewRowAction(style: .Destructive, title: "Delete") { (rowAction:UITableViewRowAction, indexPath:NSIndexPath) -> Void in
+            
+            self.collectionsArray.removeAtIndex(indexPath.row)
+            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+        }
+        deleteAction.backgroundColor = UIColor.redColor()
+        
+        return [deleteAction, editAction]
     }
 }
 
@@ -144,12 +174,12 @@ extension TableViewDataSource: UITableViewDataSource {
         return cell
     }
     
-    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            collectionsArray.removeAtIndex(indexPath.row)
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
-        }
-    }
+//    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+//        if editingStyle == .Delete {
+//            collectionsArray.removeAtIndex(indexPath.row)
+//            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+//        }
+//    }
 
 }
 

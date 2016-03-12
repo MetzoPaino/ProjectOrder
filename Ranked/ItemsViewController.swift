@@ -58,18 +58,18 @@ class ItemsViewController: UIViewController {
     
     func styleView() {
         
-        if inEditingMode != nil {
+        if inEditingMode == nil || inEditingMode == true {
+            
+            doneBarButton = createBarButton(.done)
+            navigationController?.navigationItem.rightBarButtonItems = [doneBarButton]
+            navigationController?.setToolbarHidden(true, animated: false)
+            
+        } else {
             
             editBarButton = createBarButton(.edit)
             shareBarButton = createBarButton(.share)
             navigationController?.navigationItem.rightBarButtonItems = [shareBarButton, editBarButton]
             navigationController?.setToolbarHidden(false, animated: true)
-
-
-        } else {
-            doneBarButton = createBarButton(.done)
-            navigationController?.navigationItem.rightBarButtonItems = [doneBarButton]
-            navigationController?.setToolbarHidden(true, animated: false)
         }
         
         gradientLayer.frame = self.view.bounds
