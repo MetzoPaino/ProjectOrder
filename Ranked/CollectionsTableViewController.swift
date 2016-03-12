@@ -12,8 +12,6 @@ class CollectionTableViewCell: UITableViewCell {
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
-    @IBOutlet weak var backgroundImageView: UIImageView!
-    @IBOutlet weak var categoryLabel: UILabel!
 }
 
 class CollectionsViewController: UIViewController {
@@ -34,10 +32,15 @@ class CollectionsViewController: UIViewController {
         navigationController?.navigationItem.backBarButtonItem?.title = ""
     }
     
-    override func viewDidDisappear(animated: Bool)  {
-        super.viewDidDisappear(animated)
+    override func viewWillDisappear(animated: Bool)  {
+        super.viewWillDisappear(animated)
         
         NSNotificationCenter.defaultCenter().removeObserver(self)
+        
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), forBarMetrics: UIBarMetrics.Default)
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.translucent = true
+        self.navigationController?.view.backgroundColor = UIColor.clearColor()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -104,11 +107,6 @@ class CollectionsViewController: UIViewController {
             let backItem = UIBarButtonItem()
             backItem.title = ""
             navigationItem.backBarButtonItem = backItem
-            
-            self.navigationController?.navigationBar.setBackgroundImage(UIImage(), forBarMetrics: UIBarMetrics.Default)
-            self.navigationController?.navigationBar.shadowImage = UIImage()
-            self.navigationController?.navigationBar.translucent = true
-            self.navigationController?.view.backgroundColor = UIColor.clearColor()
         }
     }
 }
