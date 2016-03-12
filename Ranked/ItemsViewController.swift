@@ -22,11 +22,6 @@ enum BarButtonType {
 }
 
 class ItemsViewController: UIViewController {
-
-
-//    @IBOutlet weak var sortBarButton: UIBarButtonItem!
-
-    
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet var sortBarButton: UIBarButtonItem!
@@ -34,24 +29,33 @@ class ItemsViewController: UIViewController {
     var doneBarButton: UIBarButtonItem!
     var editBarButton: UIBarButtonItem!
     var shareBarButton: UIBarButtonItem!
-
-    
     
     weak var delegate: ItemsViewControllerDelegate?
 
     var collection = CollectionModel(name: "", description: "", category: .none, dateCreated: NSDate(), color: ColorTheme())
     
     var inEditingMode: Bool?
-    let gradientLayer = CAGradientLayer()
     
     var indexPathToEdit: NSIndexPath?
+    
+    let tapGesture = UITapGestureRecognizer()
 
     // MARK: - Load View
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let notificationCenter = NSNotificationCenter.defaultCenter()
+        notificationCenter.addObserver(self, selector: "receivedKeyboardNotification:", name: UIKeyboardDidShowNotification, object: nil)
+        
+        tapGesture.addTarget(self, action: "receivedGestureNotification:")
         styleView()
         styleTableView()
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
 
     // MARK: - Style View
@@ -72,9 +76,6 @@ class ItemsViewController: UIViewController {
             navigationController?.setToolbarHidden(false, animated: true)
         }
         
-        gradientLayer.frame = self.view.bounds
-        self.view.layer.insertSublayer(gradientLayer, below: tableView.layer)
-        styleGradient()
         sortBarButton.tintColor = collection.color.titleColor
     }
     
@@ -87,28 +88,11 @@ class ItemsViewController: UIViewController {
         tableView.separatorColor = collection.color.subtitleColor
     }
     
-    func styleGradient() {
-        
-        var colorRefArray = [CGColorRef]()
-        
-        for color in collection.color.backgroundColors {
-            
-            colorRefArray.append(color.CGColor as CGColorRef)
-        }
-        
-        if colorRefArray.count == 1 {
-            colorRefArray.append(colorRefArray[0])
-
-        }
-        
-        gradientLayer.colors = colorRefArray
-        gradientLayer.locations = [0.25, 1.0]
-    }
-
-    
     // MARK: - Navigation
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        view.endEditing(true)
         
         if let controller = segue.destinationViewController as? DescriptionViewController {
             
@@ -150,7 +134,6 @@ class ItemsViewController: UIViewController {
             controller.colorTheme = collection.color
         }
     }
-
     
     // MARK: - Internal
     
@@ -202,8 +185,33 @@ class ItemsViewController: UIViewController {
     }
 }
 
+// MARK: - Notifications
+private typealias Notifications = ItemsViewController
+extension Notifications {
+    
+    func receivedKeyboardNotification(notification: NSNotification) {
+        
+        if notification.name == UIKeyboardDidShowNotification {
+            
+            view.addGestureRecognizer(tapGesture)
+            tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 3, inSection: 0), atScrollPosition: .Middle, animated: true)
+
+        }
+    }
+    
+    func receivedGestureNotification(gesture: UITapGestureRecognizer) {
+        
+        view.removeGestureRecognizer(tapGesture)
+        view.endEditing(true)
+    }
+}
+
+// MARK: - IBActions
+
 private typealias IBActions = ItemsViewController
 extension IBActions {
+    
+
     
     @IBAction func shareButtonPressed(sender: AnyObject) {
         
@@ -343,7 +351,6 @@ extension ItemsViewController: ColorCellDelegate {
         
         collection.color = colorManager.colorThemes[index]
         tableView.reloadData()
-        styleGradient()
         tableView.separatorColor = collection.color.subtitleColor
     }
 }
@@ -352,13 +359,14 @@ extension ItemsViewController: AddItemTableViewCellDelegate {
     
     func createdNewItemWithText(text: String) {
         
+        view.removeGestureRecognizer(tapGesture)
         let item = ItemModel(string: text)
         collection.items.append(item)
         tableView.reloadData()
     }
 }
 
-
+// MARK: - TableViewDelegate
 private typealias TableViewDelegate = ItemsViewController
 extension TableViewDelegate: UITableViewDelegate {
     
