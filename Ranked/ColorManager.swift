@@ -119,7 +119,7 @@ func createColorTheme5() -> ColorTheme {
     
     return ColorTheme(
         titleColor: UIColor(red: 87, green: 71, blue: 122),
-        subtitleColor: UIColor(red: 255, green: 255, blue: 255),
+        subtitleColor: UIColor(red: 87, green: 71, blue: 122),
         backgroundColors: [
             UIColor(red: 255, green: 255, blue: 255)])
 }
@@ -128,7 +128,7 @@ func createColorTheme6() -> ColorTheme {
     
     return ColorTheme(
         titleColor: UIColor(red: 249, green: 116, blue: 100),
-        subtitleColor: UIColor(red: 255, green: 255, blue: 255),
+        subtitleColor: UIColor(red: 249, green: 116, blue: 100),
         backgroundColors: [
             UIColor(red: 255, green: 255, blue: 255)])
 }

@@ -43,6 +43,10 @@ class CollectionsViewController: UIViewController {
         self.navigationController?.view.backgroundColor = UIColor.clearColor()
     }
     
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
+    }
+    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         

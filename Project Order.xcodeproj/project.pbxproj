@@ -67,6 +67,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0A0047EE1C94771B007CBFE7 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				0AF64FB61C4A850B003F8519 /* DataManager.swift */,
+				0AB6259F1C70CF5A008775D3 /* ColorManager.swift */,
+			);
+			name = Managers;
+			sourceTree = "<group>";
+		};
 		0A2084301C5E3F12007402CC /* Create Category */ = {
 			isa = PBXGroup;
 			children = (
@@ -101,7 +110,6 @@
 				0A2AADC31C7905CB008A6AE0 /* CustomNavigationController.swift */,
 				0AB6259B1C70B7C8008775D3 /* ColorPicker.xib */,
 				0AB6259D1C70BED6008775D3 /* ColorPickerView.swift */,
-				0AB6259F1C70CF5A008775D3 /* ColorManager.swift */,
 				0A2084301C5E3F12007402CC /* Create Category */,
 				0AF64FB21C4A8294003F8519 /* CollectionsTableViewController.swift */,
 				0A47D5291C6642F200DC7296 /* ItemsViewController.swift */,
@@ -109,7 +117,7 @@
 				0A2AADC11C78DDE3008A6AE0 /* CustomViews.swift */,
 				0A77D7D91C67900C00792403 /* DescriptionViewController.swift */,
 				0AF64FB41C4A830B003F8519 /* Models.swift */,
-				0AF64FB61C4A850B003F8519 /* DataManager.swift */,
+				0A0047EE1C94771B007CBFE7 /* Managers */,
 				0A2535851C52BFF100579102 /* SortingViewController.swift */,
 				0A9A16801C5CDD260000E436 /* TournamentManager.swift */,
 				0AF64FB81C4A859B003F8519 /* CollectionCreator.swift */,

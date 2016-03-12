@@ -81,7 +81,6 @@ class SortingViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         
         middleConstant = playingFieldView.bounds.size.height / 2
-        print(middleConstant)
     }
     
     func styleNavBar() {

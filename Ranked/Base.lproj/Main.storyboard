@@ -11,7 +11,7 @@
         <!--Collections-->
         <scene sceneID="fN3-6q-lSH">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="nmk-1J-1qM" customClass="CollectionsViewController" customModule="Project_Order" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController extendedLayoutIncludesOpaqueBars="YES" automaticallyAdjustsScrollViewInsets="NO" id="nmk-1J-1qM" customClass="CollectionsViewController" customModule="Project_Order" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Htj-VI-I4n"/>
                         <viewControllerLayoutGuide type="bottom" id="Zzx-hK-hux"/>
@@ -20,6 +20,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="GLP-dJ-p3C">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="64"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </imageView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="WQH-dv-CiR">
                                 <rect key="frame" x="0.0" y="64" width="600" height="536"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -77,9 +81,13 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="WQH-dv-CiR" secondAttribute="trailing" id="AVU-Pv-FPZ"/>
+                            <constraint firstItem="GLP-dJ-p3C" firstAttribute="bottom" secondItem="WQH-dv-CiR" secondAttribute="top" id="D09-9g-uqD"/>
+                            <constraint firstAttribute="trailing" secondItem="GLP-dJ-p3C" secondAttribute="trailing" id="M2u-YT-OjS"/>
                             <constraint firstItem="WQH-dv-CiR" firstAttribute="leading" secondItem="yja-U2-kAY" secondAttribute="leading" id="Vy7-pv-739"/>
+                            <constraint firstItem="GLP-dJ-p3C" firstAttribute="top" secondItem="yja-U2-kAY" secondAttribute="top" id="Yj3-o5-jDS"/>
                             <constraint firstItem="Zzx-hK-hux" firstAttribute="top" secondItem="WQH-dv-CiR" secondAttribute="bottom" id="ZiI-mx-7c7"/>
                             <constraint firstItem="WQH-dv-CiR" firstAttribute="top" secondItem="Htj-VI-I4n" secondAttribute="bottom" id="nRV-vx-lTM"/>
+                            <constraint firstItem="GLP-dJ-p3C" firstAttribute="leading" secondItem="yja-U2-kAY" secondAttribute="leading" id="paa-rT-xJg"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Collections" id="UJs-0d-Kv3">
