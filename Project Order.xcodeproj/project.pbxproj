@@ -12,6 +12,7 @@
 		0A2AADC21C78DDE3008A6AE0 /* CustomViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2AADC11C78DDE3008A6AE0 /* CustomViews.swift */; };
 		0A2AADC41C7905CB008A6AE0 /* CustomNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2AADC31C7905CB008A6AE0 /* CustomNavigationController.swift */; };
 		0A47D52A1C6642F200DC7296 /* ItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A47D5291C6642F200DC7296 /* ItemsViewController.swift */; };
+		0A64F8D51C95CBA8009AF27C /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A64F8D41C95CBA8009AF27C /* SettingsViewController.swift */; };
 		0A77D7DA1C67900C00792403 /* DescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A77D7D91C67900C00792403 /* DescriptionViewController.swift */; };
 		0A9A16811C5CDD260000E436 /* TournamentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9A16801C5CDD260000E436 /* TournamentManager.swift */; };
 		0AB6259C1C70B7C8008775D3 /* ColorPicker.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0AB6259B1C70B7C8008775D3 /* ColorPicker.xib */; };
@@ -33,6 +34,7 @@
 		0A2AADC11C78DDE3008A6AE0 /* CustomViews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomViews.swift; sourceTree = "<group>"; };
 		0A2AADC31C7905CB008A6AE0 /* CustomNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomNavigationController.swift; sourceTree = "<group>"; };
 		0A47D5291C6642F200DC7296 /* ItemsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemsViewController.swift; sourceTree = "<group>"; };
+		0A64F8D41C95CBA8009AF27C /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		0A77D7D91C67900C00792403 /* DescriptionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DescriptionViewController.swift; sourceTree = "<group>"; };
 		0A9A16801C5CDD260000E436 /* TournamentManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TournamentManager.swift; sourceTree = "<group>"; };
 		0AB6259B1C70B7C8008775D3 /* ColorPicker.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ColorPicker.xib; sourceTree = "<group>"; };
@@ -91,6 +93,7 @@
 			children = (
 				0AF64FA01C4A8129003F8519 /* AppDelegate.swift */,
 				0AF64FA41C4A812A003F8519 /* Main.storyboard */,
+				0A64F8D41C95CBA8009AF27C /* SettingsViewController.swift */,
 				0A2AADC31C7905CB008A6AE0 /* CustomNavigationController.swift */,
 				0AB6259B1C70B7C8008775D3 /* ColorPicker.xib */,
 				0AB6259D1C70BED6008775D3 /* ColorPickerView.swift */,
@@ -192,6 +195,7 @@
 				0AB625A01C70CF5A008775D3 /* ColorManager.swift in Sources */,
 				0A47D52A1C6642F200DC7296 /* ItemsViewController.swift in Sources */,
 				0AF64FB71C4A850B003F8519 /* DataManager.swift in Sources */,
+				0A64F8D51C95CBA8009AF27C /* SettingsViewController.swift in Sources */,
 				0A77D7DA1C67900C00792403 /* DescriptionViewController.swift in Sources */,
 				0AB6259E1C70BED6008775D3 /* ColorPickerView.swift in Sources */,
 				0AF64FA11C4A8129003F8519 /* AppDelegate.swift in Sources */,
