@@ -11,11 +11,14 @@ import UIKit
 class SettingsViewController: UIViewController {
 
     @IBOutlet weak var closeBarButton: UIBarButtonItem!
+    @IBOutlet weak var versionLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        if let version = NSBundle.mainBundle().infoDictionary?["CFBundleShortVersionString"] as? String {
+            versionLabel.text = "Version: \(version)"
+        }
     }
 
     override func didReceiveMemoryWarning() {

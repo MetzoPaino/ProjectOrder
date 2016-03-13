@@ -122,7 +122,20 @@
                     <view key="view" contentMode="scaleToFill" id="qqj-TZ-xe3">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Version: " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A01-Wl-H86">
+                                <rect key="frame" x="32" y="553.5" width="536" height="14.5"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="A01-Wl-H86" secondAttribute="trailing" constant="32" id="fvX-Bb-46R"/>
+                            <constraint firstItem="3Jz-Gh-42b" firstAttribute="top" secondItem="A01-Wl-H86" secondAttribute="bottom" constant="32" id="pHq-dO-Y11"/>
+                            <constraint firstItem="A01-Wl-H86" firstAttribute="leading" secondItem="qqj-TZ-xe3" secondAttribute="leading" constant="32" id="uBM-Ga-8ss"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="M9g-We-xCM">
                         <barButtonItem key="leftBarButtonItem" systemItem="stop" id="7J4-jV-5FM">
@@ -133,6 +146,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="closeBarButton" destination="7J4-jV-5FM" id="VFv-vC-neN"/>
+                        <outlet property="versionLabel" destination="A01-Wl-H86" id="jAw-1F-2a2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wyn-hG-Lhd" userLabel="First Responder" sceneMemberID="firstResponder"/>
