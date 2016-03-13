@@ -31,9 +31,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 
                 if splitViewController.viewControllers.count > 1 && dataManager.collections.count > 0 {
                     
-                    let detailNavigationController = splitViewController.viewControllers[1] as! UINavigationController
-                    let detailController = detailNavigationController.topViewController as! CollectionTableViewController
-                    detailController.collection = dataManager.collections[0]
+//                    let detailNavigationController = splitViewController.viewControllers[1] as! UINavigationController
+//                    let detailController = detailNavigationController.topViewController as! CollectionTableViewController
+//                    detailController.collection = dataManager.collections[0]
                 }
             }
         }
@@ -82,10 +82,10 @@ extension AppDelegate: UISplitViewControllerDelegate {
         }
         
         
-        if let secondaryNavController = secondaryViewController as? UINavigationController, detailController = secondaryNavController.topViewController as? CollectionTableViewController {
-            
-            detailController.collection = dataManager.collections[0]
-        }
+//        if let secondaryNavController = secondaryViewController as? UINavigationController, detailController = secondaryNavController.topViewController as? CollectionTableViewController {
+//            
+//            detailController.collection = dataManager.collections[0]
+//        }
         
 //        if let secondaryAsNavController = secondaryViewController as? UINavigationController, topAsDetailController = secondaryAsNavController.topViewController as? SessionViewController where topAsDetailController.session == nil {
 //            return true

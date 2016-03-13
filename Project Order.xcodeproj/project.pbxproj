@@ -9,10 +9,8 @@
 /* Begin PBXBuildFile section */
 		0A15C0AD1C67A4E100857307 /* CustomTableViewCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A15C0AC1C67A4E100857307 /* CustomTableViewCells.swift */; };
 		0A2535861C52BFF100579102 /* SortingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2535851C52BFF100579102 /* SortingViewController.swift */; };
-		0A281E2F1C4BED5000492DDE /* AddCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A281E2E1C4BED5000492DDE /* AddCollectionViewController.swift */; };
 		0A2AADC21C78DDE3008A6AE0 /* CustomViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2AADC11C78DDE3008A6AE0 /* CustomViews.swift */; };
 		0A2AADC41C7905CB008A6AE0 /* CustomNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2AADC31C7905CB008A6AE0 /* CustomNavigationController.swift */; };
-		0A3746691C5D231500F7101D /* CategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3746681C5D231500F7101D /* CategoriesViewController.swift */; };
 		0A47D52A1C6642F200DC7296 /* ItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A47D5291C6642F200DC7296 /* ItemsViewController.swift */; };
 		0A77D7DA1C67900C00792403 /* DescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A77D7D91C67900C00792403 /* DescriptionViewController.swift */; };
 		0A9A16811C5CDD260000E436 /* TournamentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9A16801C5CDD260000E436 /* TournamentManager.swift */; };
@@ -27,16 +25,13 @@
 		0AF64FB51C4A830B003F8519 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF64FB41C4A830B003F8519 /* Models.swift */; };
 		0AF64FB71C4A850B003F8519 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF64FB61C4A850B003F8519 /* DataManager.swift */; };
 		0AF64FB91C4A859B003F8519 /* CollectionCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF64FB81C4A859B003F8519 /* CollectionCreator.swift */; };
-		0AF64FBD1C4A8BD8003F8519 /* CollectionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF64FBC1C4A8BD8003F8519 /* CollectionTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		0A15C0AC1C67A4E100857307 /* CustomTableViewCells.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTableViewCells.swift; sourceTree = "<group>"; };
 		0A2535851C52BFF100579102 /* SortingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SortingViewController.swift; sourceTree = "<group>"; };
-		0A281E2E1C4BED5000492DDE /* AddCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddCollectionViewController.swift; sourceTree = "<group>"; };
 		0A2AADC11C78DDE3008A6AE0 /* CustomViews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomViews.swift; sourceTree = "<group>"; };
 		0A2AADC31C7905CB008A6AE0 /* CustomNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomNavigationController.swift; sourceTree = "<group>"; };
-		0A3746681C5D231500F7101D /* CategoriesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoriesViewController.swift; sourceTree = "<group>"; };
 		0A47D5291C6642F200DC7296 /* ItemsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemsViewController.swift; sourceTree = "<group>"; };
 		0A77D7D91C67900C00792403 /* DescriptionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DescriptionViewController.swift; sourceTree = "<group>"; };
 		0A9A16801C5CDD260000E436 /* TournamentManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TournamentManager.swift; sourceTree = "<group>"; };
@@ -53,7 +48,6 @@
 		0AF64FB41C4A830B003F8519 /* Models.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		0AF64FB61C4A850B003F8519 /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		0AF64FB81C4A859B003F8519 /* CollectionCreator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionCreator.swift; sourceTree = "<group>"; };
-		0AF64FBC1C4A8BD8003F8519 /* CollectionTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,16 +68,6 @@
 				0AB6259F1C70CF5A008775D3 /* ColorManager.swift */,
 			);
 			name = Managers;
-			sourceTree = "<group>";
-		};
-		0A2084301C5E3F12007402CC /* Create Category */ = {
-			isa = PBXGroup;
-			children = (
-				0A281E2E1C4BED5000492DDE /* AddCollectionViewController.swift */,
-				0A3746681C5D231500F7101D /* CategoriesViewController.swift */,
-				0AF64FBC1C4A8BD8003F8519 /* CollectionTableViewController.swift */,
-			);
-			name = "Create Category";
 			sourceTree = "<group>";
 		};
 		0AF64F941C4A8129003F8519 = {
@@ -110,7 +94,6 @@
 				0A2AADC31C7905CB008A6AE0 /* CustomNavigationController.swift */,
 				0AB6259B1C70B7C8008775D3 /* ColorPicker.xib */,
 				0AB6259D1C70BED6008775D3 /* ColorPickerView.swift */,
-				0A2084301C5E3F12007402CC /* Create Category */,
 				0AF64FB21C4A8294003F8519 /* CollectionsTableViewController.swift */,
 				0A47D5291C6642F200DC7296 /* ItemsViewController.swift */,
 				0A15C0AC1C67A4E100857307 /* CustomTableViewCells.swift */,
@@ -202,15 +185,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				0AF64FB91C4A859B003F8519 /* CollectionCreator.swift in Sources */,
-				0AF64FBD1C4A8BD8003F8519 /* CollectionTableViewController.swift in Sources */,
 				0A9A16811C5CDD260000E436 /* TournamentManager.swift in Sources */,
 				0AF64FB31C4A8294003F8519 /* CollectionsTableViewController.swift in Sources */,
-				0A3746691C5D231500F7101D /* CategoriesViewController.swift in Sources */,
 				0A2AADC21C78DDE3008A6AE0 /* CustomViews.swift in Sources */,
 				0A2535861C52BFF100579102 /* SortingViewController.swift in Sources */,
 				0AB625A01C70CF5A008775D3 /* ColorManager.swift in Sources */,
 				0A47D52A1C6642F200DC7296 /* ItemsViewController.swift in Sources */,
-				0A281E2F1C4BED5000492DDE /* AddCollectionViewController.swift in Sources */,
 				0AF64FB71C4A850B003F8519 /* DataManager.swift in Sources */,
 				0A77D7DA1C67900C00792403 /* DescriptionViewController.swift in Sources */,
 				0AB6259E1C70BED6008775D3 /* ColorPickerView.swift in Sources */,
