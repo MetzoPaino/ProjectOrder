@@ -72,6 +72,15 @@
 			name = Managers;
 			sourceTree = "<group>";
 		};
+		0A952AE11C9D836E00ED76D7 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				0AF64FA41C4A812A003F8519 /* Main.storyboard */,
+				0AB6259B1C70B7C8008775D3 /* ColorPicker.xib */,
+			);
+			name = Storyboards;
+			sourceTree = "<group>";
+		};
 		0AF64F941C4A8129003F8519 = {
 			isa = PBXGroup;
 			children = (
@@ -92,10 +101,9 @@
 			isa = PBXGroup;
 			children = (
 				0AF64FA01C4A8129003F8519 /* AppDelegate.swift */,
-				0AF64FA41C4A812A003F8519 /* Main.storyboard */,
+				0A952AE11C9D836E00ED76D7 /* Storyboards */,
 				0A64F8D41C95CBA8009AF27C /* SettingsViewController.swift */,
 				0A2AADC31C7905CB008A6AE0 /* CustomNavigationController.swift */,
-				0AB6259B1C70B7C8008775D3 /* ColorPicker.xib */,
 				0AB6259D1C70BED6008775D3 /* ColorPickerView.swift */,
 				0AF64FB21C4A8294003F8519 /* CollectionsTableViewController.swift */,
 				0A47D5291C6642F200DC7296 /* ItemsViewController.swift */,

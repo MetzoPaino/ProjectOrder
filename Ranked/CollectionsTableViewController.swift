@@ -17,18 +17,33 @@ class CollectionTableViewCell: UITableViewCell {
 class CollectionsViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var tutorialView: UIView!
+    @IBOutlet weak var autoCreateOption1Button: UIButton!
+    @IBOutlet weak var autoCreateOption2Button: UIButton!
+    @IBOutlet weak var autoCreateOption3Button: UIButton!
+    @IBOutlet var autoCreateOptionButtonsCollection: [UIButton]!
 
+    @IBOutlet weak var refreshAutoCreateOptionsButton: UIButton!
+
+    
     var dataManager: DataManager!
     var collectionsArray = [CollectionModel]()
     
     var shadowImage: UIImage!
     var backgroundImage: UIImage!
+    
+    var hasCollections = true
 
+    
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionsArray = dataManager.collections
         styleTableView()
-    
+        styleTutorialView()
+        
         navigationController?.navigationItem.backBarButtonItem?.title = ""
     }
     
@@ -64,13 +79,6 @@ class CollectionsViewController: UIViewController {
         navigationController?.navigationBar.tintColor = .blackColor()
 
     }
-//
-//    override func viewDidAppear(animated: Bool) {
-//        super.viewDidAppear(animated)
-//        if collectionsArray.count > 0 && view.traitCollection.horizontalSizeClass != UIUserInterfaceSizeClass.Compact {
-//            tableView.selectRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), animated: false, scrollPosition: UITableViewScrollPosition.None)
-//        }
-//    }
 
     func styleTableView() {
         tableView.rowHeight = UITableViewAutomaticDimension
@@ -78,7 +86,53 @@ class CollectionsViewController: UIViewController {
         tableView.tableFooterView = UIView()
         tableView.separatorInset = UIEdgeInsetsZero
     }
+    
+    func styleTutorialView() {
+        
+        let collectionsArray = preMadeCollectionsArray
+        var randomIntArray = [Int]()
+        
+        repeat {
+            
+            let index = Int(arc4random_uniform(UInt32(collectionsArray.count)))
+            
+            if !randomIntArray.contains(index) {
+                
+                randomIntArray.append(index)
+            }
+            
+        } while (randomIntArray.count < 3);
+        
+        for (index, integer) in randomIntArray.enumerate() {
+            
+            let button = autoCreateOptionButtonsCollection[index]
+            button.setTitle(collectionsArray[integer].name, forState: .Normal)
+            button.tag = integer
+        }
+    }
+    
+    func moveAutoCreateButtonsOffScreen() {
+        
+//        autoCreateOption1Button.center = view.center - view.frame.width.
+    }
+    
+    // MARK: - IBActions
 
+    @IBAction func optionButtonPressed(sender: UIButton) {
+        
+        let collection = preMadeCollectionsArray[sender.tag]
+        collectionsArray.insert(collection, atIndex: 0)
+        tableView.reloadData()
+        tableView.selectRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), animated: true, scrollPosition: UITableViewScrollPosition.None)
+        tutorialView.hidden = true
+        performSegueWithIdentifier("ShowCollection", sender: nil)
+        
+    }
+    
+    @IBAction func refreshAutoCreateOptionsButtonPressed(sender: UIButton) {
+        styleTutorialView()
+    }
+    
     // MARK: - Navigation
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -149,12 +203,12 @@ private typealias TableViewDataSource = CollectionsViewController
 extension TableViewDataSource: UITableViewDataSource {
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
+        
         return collectionsArray.count
     }
     
-    
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! CollectionTableViewCell
         
         let collection = collectionsArray[indexPath.row];

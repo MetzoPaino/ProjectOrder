@@ -8,6 +8,8 @@
 
 import Foundation
 
+let preMadeCollectionsArray = [createDavidBowieCollection(), createStarWarsCollection(), createHarryPotterCollection(), createFinalFantasyCollection(), createInternetBrowserCollection(), createDesktopOSCollection(), createMobileOSCollection(), createDoctorWhoCollection(), createMarioCharactersCollection(), createHottestHobbitsCollection()]
+
 func createDavidBowieCollection() -> CollectionModel {
     
     let collection = CollectionModel(name: "David Bowie Discography", description: "From Glam to Jazztronica, few have had so many hits in so many different genres. Take an out of this world trip from 1967 to 2016.", category: .music, dateCreated: NSDate(), color: createColorTheme1())
