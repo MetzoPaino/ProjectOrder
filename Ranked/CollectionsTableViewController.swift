@@ -19,11 +19,21 @@ class CollectionsViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var tutorialView: UIView!
     @IBOutlet weak var autoCreateOption1Button: UIButton!
+    @IBOutlet weak var option1XAlignmentConstraint: NSLayoutConstraint!
+    
+    
     @IBOutlet weak var autoCreateOption2Button: UIButton!
+    @IBOutlet weak var option2XAlignmentConstraint: NSLayoutConstraint!
+    
     @IBOutlet weak var autoCreateOption3Button: UIButton!
+    @IBOutlet weak var option3XAlignmentConstraint: NSLayoutConstraint!
+    
     @IBOutlet var autoCreateOptionButtonsCollection: [UIButton]!
 
     @IBOutlet weak var refreshAutoCreateOptionsButton: UIButton!
+
+
+
 
     
     var dataManager: DataManager!
@@ -42,7 +52,9 @@ class CollectionsViewController: UIViewController {
         super.viewDidLoad()
         collectionsArray = dataManager.collections
         styleTableView()
+        moveAutoCreateButtonsOffScreen()
         styleTutorialView()
+        
         
         navigationController?.navigationItem.backBarButtonItem?.title = ""
     }
@@ -68,16 +80,17 @@ class CollectionsViewController: UIViewController {
         
         tableView.reloadData()
         
-        if collectionsArray.count > 0 && view.traitCollection.horizontalSizeClass != UIUserInterfaceSizeClass.Compact {
-            tableView.selectRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), animated: false, scrollPosition: UITableViewScrollPosition.None)
-        }
-        
         navigationController?.navigationBar.setBackgroundImage(nil, forBarMetrics: UIBarMetrics.Default)
         navigationController?.navigationBar.shadowImage = nil
         navigationController?.navigationBar.translucent = false
         navigationController?.view.backgroundColor = UIColor.whiteColor()
         navigationController?.navigationBar.tintColor = .blackColor()
 
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        
+        animateAutoCreateButtons(true)
     }
 
     func styleTableView() {
@@ -89,31 +102,69 @@ class CollectionsViewController: UIViewController {
     
     func styleTutorialView() {
         
-        let collectionsArray = preMadeCollectionsArray
-        var randomIntArray = [Int]()
-        
-        repeat {
+        if collectionsArray.count == 0 {
             
-            let index = Int(arc4random_uniform(UInt32(collectionsArray.count)))
+            tutorialView.hidden = false
             
-            if !randomIntArray.contains(index) {
+            var randomIntArray = [Int]()
+            
+            repeat {
                 
-                randomIntArray.append(index)
+                let index = Int(arc4random_uniform(UInt32(preMadeCollectionsArray.count)))
+                
+                if !randomIntArray.contains(index) {
+                    
+                    randomIntArray.append(index)
+                }
+                
+            } while (randomIntArray.count < 3);
+            
+            for (index, integer) in randomIntArray.enumerate() {
+                
+                let button = autoCreateOptionButtonsCollection[index]
+                button.setTitle(preMadeCollectionsArray[integer].name, forState: .Normal)
+                button.tag = integer
             }
             
-        } while (randomIntArray.count < 3);
-        
-        for (index, integer) in randomIntArray.enumerate() {
-            
-            let button = autoCreateOptionButtonsCollection[index]
-            button.setTitle(collectionsArray[integer].name, forState: .Normal)
-            button.tag = integer
+        } else {
+            tutorialView.hidden = true
         }
     }
     
     func moveAutoCreateButtonsOffScreen() {
         
-//        autoCreateOption1Button.center = view.center - view.frame.width.
+        option1XAlignmentConstraint.constant = 0 - view.bounds.width
+        option2XAlignmentConstraint.constant = 0 + view.bounds.width
+        option3XAlignmentConstraint.constant = 0 - view.bounds.width
+    }
+    
+    func animateAutoCreateButtons(onScreen: Bool) {
+        
+        var stageLeft: CGFloat = 0
+        var stageRight: CGFloat = 0
+        
+        if !onScreen {
+            
+            stageLeft = view.bounds.width
+            stageRight = view.bounds.width
+        }
+        
+        UIView.animateWithDuration(0.5, delay: 0.0, usingSpringWithDamping: 0.75, initialSpringVelocity: 1.0, options: UIViewAnimationOptions.CurveEaseInOut, animations: { () -> Void in
+            
+            self.option1XAlignmentConstraint.constant = 0 - stageLeft
+            self.option2XAlignmentConstraint.constant = 0 + stageRight
+            self.option3XAlignmentConstraint.constant = 0 - stageLeft
+            
+            self.view.layoutIfNeeded()
+            
+            }) { (completion) -> Void in
+                
+                if !onScreen {
+                    
+                    self.styleTutorialView()
+                    self.animateAutoCreateButtons(true)
+                }
+            }
     }
     
     // MARK: - IBActions
@@ -130,7 +181,7 @@ class CollectionsViewController: UIViewController {
     }
     
     @IBAction func refreshAutoCreateOptionsButtonPressed(sender: UIButton) {
-        styleTutorialView()
+        animateAutoCreateButtons(false)
     }
     
     // MARK: - Navigation

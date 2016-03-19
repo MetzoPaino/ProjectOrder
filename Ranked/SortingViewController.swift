@@ -39,6 +39,7 @@ class SortingViewController: UIViewController {
     @IBOutlet weak var bottomLabel: UILabel!
     @IBOutlet weak var bottomViewBottomConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var imageView: UIImageView!
     @IBOutlet var holdingView: UIView!
     @IBOutlet weak var playingFieldView: UIView!
     
@@ -49,6 +50,8 @@ class SortingViewController: UIViewController {
     var middleConstant = 0 as CGFloat
     
     var panGestureInUse: PanGestureInUse?
+    
+    var animationArray = ["Heart_00006", "Heart_00007", "Heart_00008", "Heart_00009", "Heart_00010", "Heart_00011", "Heart_00012", "Heart_00013", "Heart_00014", "Heart_00015", "Heart_00016", "Heart_00017", "Heart_00018", "Heart_00019", "Heart_00020", "Heart_00021", "Heart_00022", "Heart_00023", "Heart_00024", "Heart_00025", "Heart_00026", "Heart_00027", "Heart_00028", "Heart_00029", "Heart_00030", "Heart_00031", "Heart_00032", "Heart_00033", "Heart_00034", "Heart_00035", "Heart_00036", "Heart_00037", "Heart_00038", "Heart_00039", "Heart_00040", "Heart_00041", "Heart_00042", "Heart_00043", "Heart_00044", "Heart_00045", "Heart_00046", "Heart_00047"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -243,8 +246,17 @@ class SortingViewController: UIViewController {
                     
                     let fullAlpha = middleConstant - (topView.bounds.height / 2)
                     let percentage = (topViewTopConstraint.constant / fullAlpha) * 100
+                    let animationPercentage = (topViewTopConstraint.constant / (fullAlpha - 66)) * 100
+                    var animationIndex = animationArray.count * Int(animationPercentage) / 100
+
                     let takeAway = CGFloat((100 - percentage) / 100) + 0.2
                     bottomView.alpha = takeAway
+                    
+                    if animationIndex >= animationArray.count - 1 {
+                        animationIndex = animationArray.count - 1
+                    }
+                    
+                    imageView.image = UIImage(named: animationArray[Int(animationIndex)])
                     
                     newConstant = sender.locationInView(playingFieldView).y - topView.bounds.height
                     
@@ -264,8 +276,17 @@ class SortingViewController: UIViewController {
                     
                     let fullAlpha = middleConstant - (bottomView.bounds.height / 2)
                     let percentage = (bottomViewBottomConstraint.constant / fullAlpha) * 100
+                    let animationPercentage = (bottomViewBottomConstraint.constant / (fullAlpha - 66)) * 100
+                    var animationIndex = animationArray.count * Int(animationPercentage) / 100
+                    
                     let takeAway = CGFloat((100 - percentage) / 100) + 0.2
                     topView.alpha = takeAway
+                    
+                    if animationIndex >= animationArray.count - 1 {
+                        animationIndex = animationArray.count - 1
+                    }
+                    
+                    imageView.image = UIImage(named: animationArray[Int(animationIndex)])
                     
                     newConstant = (playingFieldView.bounds.size.height - sender.locationInView(playingFieldView).y) + self.constantConstant - bottomView.bounds.size.height
                     
