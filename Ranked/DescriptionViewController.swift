@@ -33,8 +33,8 @@ class DescriptionViewController: UIViewController {
         super.viewDidLoad()
         
         let notificationCenter = NSNotificationCenter.defaultCenter()
-        notificationCenter.addObserver(self, selector: "receivedKeyboardNotification:", name: UIKeyboardDidShowNotification, object: nil)
-        notificationCenter.addObserver(self, selector: "receivedKeyboardNotification:", name: UIKeyboardDidHideNotification, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(DescriptionViewController.receivedKeyboardNotification(_:)), name: UIKeyboardDidShowNotification, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(DescriptionViewController.receivedKeyboardNotification(_:)), name: UIKeyboardDidHideNotification, object: nil)
         
         textView.textContainerInset = UIEdgeInsetsMake(0, 32, 0, 32)
         textView.text = providedDescription

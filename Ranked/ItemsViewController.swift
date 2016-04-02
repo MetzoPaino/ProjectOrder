@@ -17,7 +17,6 @@ enum BarButtonType {
     
     case done
     case edit
-    case sort
     case share
 }
 
@@ -46,9 +45,9 @@ class ItemsViewController: UIViewController {
         super.viewDidLoad()
         
         let notificationCenter = NSNotificationCenter.defaultCenter()
-        notificationCenter.addObserver(self, selector: "receivedKeyboardNotification:", name: UIKeyboardDidShowNotification, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(ItemsViewController.receivedKeyboardNotification(_:)), name: UIKeyboardDidShowNotification, object: nil)
         
-        tapGesture.addTarget(self, action: "receivedGestureNotification:")
+        tapGesture.addTarget(self, action: #selector(ItemsViewController.receivedGestureNotification(_:)))
         styleView()
         styleTableView()
     }
@@ -144,25 +143,21 @@ class ItemsViewController: UIViewController {
     
     func createBarButton(barButtonType: BarButtonType) -> UIBarButtonItem {
         
-        var action = Selector("")
+        var action = Selector()
         var title: String
         
         switch barButtonType {
             
             case .done:
-                action =  Selector("doneButtonPressed:")
+                action =  #selector(ItemsViewController.doneButtonPressed(_:))
                 title = "Done"
                 break
             case .edit:
-                action = Selector("editButtonPressed:")
+                action = #selector(ItemsViewController.editButtonPressed(_:))
                 title = "Edit"
                 break
-            case .sort:
-                action = Selector("sortButtonPressed:")
-                title = "Sort"
-                break
             case .share:
-                action = Selector("shareButtonPressed:")
+                action = #selector(ItemsViewController.shareButtonPressed(_:))
                 title = ""
                 break
         }

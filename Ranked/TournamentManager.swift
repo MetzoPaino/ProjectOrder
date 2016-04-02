@@ -65,7 +65,7 @@ class TournamentManager {
                     tournament.append(Battle(playerOne: firstObject, playerTwo: participant))
                 }
             }
-            itterator++
+            itterator += 1
         }
         
         printString(" ")
