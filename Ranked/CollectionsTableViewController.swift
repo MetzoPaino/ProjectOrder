@@ -14,6 +14,54 @@ class CollectionTableViewCell: UITableViewCell {
     @IBOutlet weak var descriptionLabel: UILabel!
 }
 
+extension UIColor {
+    
+    public class func primaryColor() -> UIColor {
+        
+        return UIColor(red: 229/255, green: 39/255, blue: 113/255, alpha: 1.0)
+    }
+    
+    public class func secondaryColor() -> UIColor {
+        
+        return UIColor(red: 84/255, green: 144/255, blue: 255/255, alpha: 1.0)
+    }
+    
+    public class func backgroundColor() -> UIColor {
+        
+        return UIColor(red: 210/255, green: 206/255, blue: 214/255, alpha: 1.0)
+    }
+    
+    public class func headingColor() -> UIColor {
+        
+        return UIColor(red: 56/255, green: 57/255, blue: 60/255, alpha: 1.0)
+    }
+    
+    public class func subHeadingColor() -> UIColor {
+        
+        return UIColor(red: 111/255, green: 111/255, blue: 112/255, alpha: 1.0)
+    }
+    
+    public class func titleColor() -> UIColor {
+        
+        return UIColor(red: 123/255, green: 42/255, blue: 133/255, alpha: 1.0)
+    }
+    
+    public class func secondColor() -> UIColor {
+        
+        return UIColor(red: 159/255, green: 71/255, blue: 156/255, alpha: 1.0)
+    }
+    
+    public class func thirdColor() -> UIColor {
+        
+        return UIColor(red: 138/255, green: 90/255, blue: 186/255, alpha: 1.0)
+    }
+    
+    public class func blockColor() -> UIColor {
+        
+        return UIColor(red: 50/255, green: 44/255, blue: 64/255, alpha: 1.0)
+    }
+}
+
 class CollectionsViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
@@ -46,7 +94,7 @@ class CollectionsViewController: UIViewController {
 
     
     
-    
+    // MARK: - Setup
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -68,7 +116,8 @@ class CollectionsViewController: UIViewController {
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.translucent = true
         self.navigationController?.view.backgroundColor = UIColor.whiteColor()
-        
+        self.navigationController?.navigationItem.backBarButtonItem?.tintColor = .primaryColor()
+
     }
     
     override func viewDidDisappear(animated: Bool) {
@@ -84,7 +133,7 @@ class CollectionsViewController: UIViewController {
         navigationController?.navigationBar.shadowImage = nil
         navigationController?.navigationBar.translucent = false
         navigationController?.view.backgroundColor = UIColor.whiteColor()
-        navigationController?.navigationBar.tintColor = .blackColor()
+        navigationController?.navigationBar.tintColor = .primaryColor()
 
     }
     
@@ -98,6 +147,7 @@ class CollectionsViewController: UIViewController {
         tableView.estimatedRowHeight = 88
         tableView.tableFooterView = UIView()
         tableView.separatorInset = UIEdgeInsetsZero
+        tableView.separatorColor = UIColor.backgroundColor()
     }
     
     func styleTutorialView() {
@@ -265,8 +315,8 @@ extension TableViewDataSource: UITableViewDataSource {
         let collection = collectionsArray[indexPath.row];
         
         cell.titleLabel.text = collection.name
-        cell.titleLabel.textColor = collection.color.titleColor
-        cell.descriptionLabel.textColor = collection.color.subtitleColor
+        cell.titleLabel.textColor = UIColor.headingColor()
+        cell.descriptionLabel.textColor = UIColor.secondaryColor()
         cell.layoutMargins = UIEdgeInsetsZero;
         
         cell.descriptionLabel.text! = "⭐️"

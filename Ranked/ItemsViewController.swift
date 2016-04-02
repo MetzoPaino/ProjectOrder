@@ -80,7 +80,9 @@ class ItemsViewController: UIViewController {
             navigationController?.setToolbarHidden(false, animated: true)
         }
         
-        sortBarButton.tintColor = collection.color.titleColor
+        navigationController?.navigationItem.backBarButtonItem?.tintColor = .primaryColor()
+        
+        sortBarButton.tintColor = .primaryColor()
     }
     
     func styleTableView() {
@@ -165,12 +167,14 @@ class ItemsViewController: UIViewController {
         if barButtonType == .share {
             
             let barButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Action, target: self, action: action)
+            barButton.tintColor = .primaryColor()
             return barButton
             
         } else {
             
             let barButton = UIBarButtonItem(title: title, style: UIBarButtonItemStyle.Plain, target: self, action: action)
-            
+            barButton.tintColor = .primaryColor()
+
             if barButtonType == .done {
                 
                 if collection.name != "" {
@@ -425,7 +429,7 @@ extension TableViewDataSource: UITableViewDataSource {
         if section == 0 {
             
             if inEditingMode == nil || inEditingMode == true {
-                return 4
+                return 3
             } else {
                 if collection.descriptionString != "" {
                     return 2
@@ -454,23 +458,23 @@ extension TableViewDataSource: UITableViewDataSource {
                     cell.userInteractionEnabled = true
                     cell.accessoryType = .DisclosureIndicator
                     cell.label.text = "Title"
-                    cell.label.textColor = .lightGrayColor()
+                    cell.label.textColor = .backgroundColor()
                     
                 } else {
                     cell.userInteractionEnabled = false
                     cell.accessoryType = .None
-                    cell.label.textColor = collection.color.titleColor
+                    cell.label.textColor = .headingColor()
 
                 }
                 
                 if collection.name != "" {
                     
                     cell.label.text = collection.name
-                    cell.label.textColor = collection.color.titleColor
+                    cell.label.textColor = .headingColor()
                     
                 } else {
                     cell.label.text = "Title"
-                    cell.label.textColor = .lightGrayColor()
+                    cell.label.textColor = .backgroundColor()
                     
                 }
 //                if inEditingMode == nil {
@@ -483,15 +487,19 @@ extension TableViewDataSource: UITableViewDataSource {
                 
                 return cell
                 
-            } else if indexPath.row == 2 {
-                
-                let cell = tableView.dequeueReusableCellWithIdentifier("ColorCell", forIndexPath: indexPath) as! ColorCell
-                cell.delegate = self
-                cell.configureCell()
-                cell.separatorInset = UIEdgeInsetsMake(0, cell.bounds.size.width, 0, 0);
-                return cell
-                
-            } else if indexPath.row == 3 {
+            }
+            
+//            else if indexPath.row == 2 {
+//                
+//                let cell = tableView.dequeueReusableCellWithIdentifier("ColorCell", forIndexPath: indexPath) as! ColorCell
+//                cell.delegate = self
+//                cell.configureCell()
+//                cell.separatorInset = UIEdgeInsetsMake(0, cell.bounds.size.width, 0, 0);
+//                return cell
+//                
+//            }
+            
+            else if indexPath.row == 2 {
             
                 let cell = tableView.dequeueReusableCellWithIdentifier("AddItemCell", forIndexPath: indexPath) as! AddItemTableViewCell
                 cell.delegate = self
@@ -511,22 +519,22 @@ extension TableViewDataSource: UITableViewDataSource {
                     cell.userInteractionEnabled = true
                     cell.accessoryType = .DisclosureIndicator
                     cell.label.text = "Description"
-                    cell.label.textColor = .lightGrayColor()
+                    cell.label.textColor = .backgroundColor()
                     
                 } else {
                     cell.userInteractionEnabled = false
                     cell.accessoryType = .None
-                    cell.label.textColor = collection.color.subtitleColor
+                    cell.label.textColor = .subHeadingColor()
                 }
                 
                 if collection.descriptionString != "" {
                     
                     cell.label.text = collection.descriptionString
-                    cell.label.textColor = collection.color.subtitleColor
+                    cell.label.textColor = .subHeadingColor()
 
                 } else {
                     cell.label.text = "Description"
-                    cell.label.textColor = .lightGrayColor()
+                    cell.label.textColor = .backgroundColor()
 
                 }
 
@@ -542,7 +550,7 @@ extension TableViewDataSource: UITableViewDataSource {
 
             cell.numberLabel.text = "\(indexPath.row + 1)"
             cell.titleLabel.text = item.text
-            cell.titleLabel.textColor = collection.color.titleColor
+            cell.titleLabel.textColor = .titleColor()
             
             cell.separatorInset = UIEdgeInsetsMake(0, cell.bounds.size.width, 0, 0);
             cell.selectionStyle = .None
@@ -551,10 +559,20 @@ extension TableViewDataSource: UITableViewDataSource {
                 
                 cell.numberLabelWidthConstraint.constant = 40
                 cell.numberLabel.hidden = false
-                cell.numberLabel.textColor = collection.color.backgroundColors.first
+                cell.numberLabel.textColor = .whiteColor()
                 
                 cell.numberImageView.hidden = false
-                cell.numberImageView.backgroundColor = collection.color.titleColor
+                
+                switch indexPath.row {
+                case 0:
+                    cell.numberImageView.backgroundColor = .primaryColor()
+                case 1:
+                    cell.numberImageView.backgroundColor = .secondColor()
+                case 2:
+                    cell.numberImageView.backgroundColor = .thirdColor()
+                default:
+                    cell.numberImageView.backgroundColor = .secondaryColor()
+                }
                 
             } else {
                 cell.numberLabelWidthConstraint.constant = 0

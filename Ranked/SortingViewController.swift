@@ -88,7 +88,8 @@ class SortingViewController: UIViewController {
     override func viewWillAppear(animated: Bool) {
         
         super.viewWillAppear(animated)
-        
+        navigationController?.navigationBar.tintColor = .primaryColor()
+
 
     }
     
@@ -112,6 +113,7 @@ class SortingViewController: UIViewController {
     func styleView() {
         
         holdingView.layer.masksToBounds = true
+        holdingView.backgroundColor = .backgroundColor()
         
         topView.layer.cornerRadius = 12
         topView.layer.masksToBounds = true
@@ -119,10 +121,10 @@ class SortingViewController: UIViewController {
         bottomView.layer.cornerRadius = 12
         bottomView.layer.masksToBounds = true
         
-        topView.backgroundColor = colorTheme.titleColor
-        bottomView.backgroundColor = colorTheme.titleColor
-        topLabel.textColor = colorTheme.backgroundColors[0]
-        bottomLabel.textColor = colorTheme.backgroundColors[0]
+        topView.backgroundColor = .blockColor()
+        bottomView.backgroundColor = .blockColor()
+        topLabel.textColor = .whiteColor()
+        bottomLabel.textColor = .whiteColor()
 
     }
     
