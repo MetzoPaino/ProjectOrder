@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="RYh-O1-C5H">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="RYh-O1-C5H">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
-        <!--Collections-->
+        <!--Collections View Controller-->
         <scene sceneID="fN3-6q-lSH">
             <objects>
                 <viewController extendedLayoutIncludesOpaqueBars="YES" automaticallyAdjustsScrollViewInsets="NO" id="nmk-1J-1qM" customClass="CollectionsViewController" customModule="Project_Order" customModuleProvider="target" sceneMemberID="viewController">
@@ -175,7 +175,7 @@
                             <constraint firstItem="GLP-dJ-p3C" firstAttribute="leading" secondItem="yja-U2-kAY" secondAttribute="leading" id="paa-rT-xJg"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Collections" id="UJs-0d-Kv3">
+                    <navigationItem key="navigationItem" id="UJs-0d-Kv3">
                         <barButtonItem key="leftBarButtonItem" title="About" id="PWf-2s-gZt">
                             <connections>
                                 <segue destination="ynz-e3-ZPG" kind="presentation" id="gNE-nn-zRs"/>
@@ -784,5 +784,5 @@
         <segue reference="VCk-uE-I3g"/>
         <segue reference="1Ky-jB-L3f"/>
     </inferredMetricsTieBreakers>
-    <color key="tintColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+    <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
 </document>
