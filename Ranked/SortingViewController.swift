@@ -247,6 +247,26 @@ class SortingViewController: UIViewController {
     
             } else {
                 
+                var shortenedAnimationArray = [UIImage]()
+
+                for image in animationArray {
+                    
+                    if image == imageView.image {
+                        
+                        break
+                        
+                    } else {
+                        
+                        shortenedAnimationArray.append(image)
+                    }
+                }
+                
+                imageView.image = shortenedAnimationArray.first
+                imageView.animationImages = shortenedAnimationArray.reverse()
+                imageView.animationDuration = 0.25
+                imageView.animationRepeatCount = 1
+                imageView.startAnimating()
+                
                 animateViewsToArriveOrDepart(true)
             }
             
@@ -332,6 +352,10 @@ class SortingViewController: UIViewController {
             
             constant = 0 - self.view.bounds.size.height
             alpha = 0
+        }
+        
+        for i in (1...10).reverse() {
+            print(i)
         }
         
         UIView.animateWithDuration(0.25, delay: 0.0, usingSpringWithDamping: 0.75, initialSpringVelocity: 1.0, options: UIViewAnimationOptions.CurveEaseInOut, animations: { () -> Void in
