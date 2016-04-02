@@ -403,6 +403,7 @@ extension TableViewDelegate: UITableViewDelegate {
                 
                 self.collection.items.removeAtIndex(indexPath.row)
                 tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+                tableView.reloadData()
             }
             deleteAction.backgroundColor = UIColor.redColor()
             
