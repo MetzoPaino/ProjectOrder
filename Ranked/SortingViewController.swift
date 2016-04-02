@@ -228,6 +228,12 @@ class SortingViewController: UIViewController {
                     
                 } else {
                     
+                    imageView.image = animationArray.first
+                    imageView.animationImages = animationArray.reverse()
+                    imageView.animationDuration = 0.25
+                    imageView.animationRepeatCount = 1
+                    imageView.startAnimating()
+                    
                     UIView.animateWithDuration(0.25, delay: 0.0, options: UIViewAnimationOptions.CurveEaseInOut, animations: { () -> Void in
                         
                         self.topViewTopConstraint.constant = 0 - self.view.bounds.size.height
@@ -261,7 +267,7 @@ class SortingViewController: UIViewController {
                     }
                 }
                 
-                imageView.image = shortenedAnimationArray.first
+                imageView.image = animationArray.first
                 imageView.animationImages = shortenedAnimationArray.reverse()
                 imageView.animationDuration = 0.25
                 imageView.animationRepeatCount = 1
