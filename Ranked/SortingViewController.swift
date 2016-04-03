@@ -112,6 +112,9 @@ class SortingViewController: UIViewController {
     
     func styleView() {
         
+        progressView.layer.cornerRadius = 6
+        progressView.layer.masksToBounds = true
+        
         holdingView.layer.masksToBounds = true
         holdingView.backgroundColor = .backgroundColor()
         
