@@ -198,7 +198,7 @@ extension Notifications {
         if notification.name == UIKeyboardDidShowNotification {
             
             view.addGestureRecognizer(tapGesture)
-            tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 3, inSection: 0), atScrollPosition: .Middle, animated: true)
+            tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 2, inSection: 0), atScrollPosition: .Middle, animated: true)
 
         }
     }
