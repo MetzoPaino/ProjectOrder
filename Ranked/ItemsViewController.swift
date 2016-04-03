@@ -23,7 +23,9 @@ enum BarButtonType {
 class ItemsViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet var sortBarButton: UIBarButtonItem!
+//    @IBOutlet var sortBarButton: UIBarButtonItem!
+    @IBOutlet weak var sortButton: UIButton!
+    @IBOutlet weak var sortButtonHeightConstraint: NSLayoutConstraint!
 
     var doneBarButton: UIBarButtonItem!
     var editBarButton: UIBarButtonItem!
@@ -70,19 +72,21 @@ class ItemsViewController: UIViewController {
             
             doneBarButton = createBarButton(.done)
             navigationController?.navigationItem.rightBarButtonItems = [doneBarButton]
-            navigationController?.setToolbarHidden(true, animated: false)
             
         } else {
             
             editBarButton = createBarButton(.edit)
             shareBarButton = createBarButton(.share)
             navigationController?.navigationItem.rightBarButtonItems = [shareBarButton, editBarButton]
-            navigationController?.setToolbarHidden(false, animated: true)
         }
         
         navigationController?.navigationItem.backBarButtonItem?.tintColor = .primaryColor()
         
-        sortBarButton.tintColor = .primaryColor()
+        sortButton.tintColor = .primaryColor()
+        sortButton.layer.cornerRadius = self.sortButtonHeightConstraint.constant / 2
+        sortButton.layer.masksToBounds = true
+    
+        sortButton.backgroundColor = .sortColor()
     }
     
     func styleTableView() {
@@ -91,7 +95,8 @@ class ItemsViewController: UIViewController {
         tableView.estimatedRowHeight = 88
         tableView.tableFooterView = UIView()
         tableView.separatorInset = UIEdgeInsetsZero
-        tableView.separatorColor = collection.color.subtitleColor
+        tableView.backgroundColor = .backgroundColor()
+        tableView.separatorColor = .backgroundColor()
     }
     
     // MARK: - Navigation
@@ -187,6 +192,11 @@ class ItemsViewController: UIViewController {
             return barButton
         }
     }
+    
+    @IBAction func sortBarButtonPressed(sender: UIButton) {
+        
+        performSegueWithIdentifier("PresentSort", sender: self)
+    }
 }
 
 // MARK: - Notifications
@@ -266,12 +276,12 @@ extension IBActions {
         doneBarButton = createBarButton(.done)
         navigationController?.navigationItem.rightBarButtonItems = [doneBarButton]
         
-        let colorPickerIndex = NSIndexPath(forRow: 2, inSection: 0)
-        let addItemIndex = NSIndexPath(forRow: 3, inSection: 0)
+//        let colorPickerIndex = NSIndexPath(forRow: 2, inSection: 0)
+        let addItemIndex = NSIndexPath(forRow: 2, inSection: 0)
         
         tableView.beginUpdates()
         tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: .Fade)
-        tableView.insertRowsAtIndexPaths([colorPickerIndex, addItemIndex], withRowAnimation: .Fade)
+        tableView.insertRowsAtIndexPaths([addItemIndex], withRowAnimation: .Fade)
         tableView.endUpdates()
         
         navigationController?.setToolbarHidden(true, animated: true)
@@ -286,21 +296,18 @@ extension IBActions {
         shareBarButton = createBarButton(.share)
         navigationController?.navigationItem.rightBarButtonItems = [shareBarButton, editBarButton]
         
-        let colorPickerIndex = NSIndexPath(forRow: 2, inSection: 0)
-        let addItemIndex = NSIndexPath(forRow: 3, inSection: 0)
+//        let colorPickerIndex = NSIndexPath(forRow: 2, inSection: 0)
+        let addItemIndex = NSIndexPath(forRow: 2, inSection: 0)
         
         tableView.beginUpdates()
         tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: .Fade)
-        tableView.deleteRowsAtIndexPaths([colorPickerIndex, addItemIndex], withRowAnimation: .Fade)
+        tableView.deleteRowsAtIndexPaths([addItemIndex], withRowAnimation: .Fade)
         tableView.endUpdates()
         
         navigationController?.setToolbarHidden(false, animated: true)
     }
     
-    @IBAction func sortBarButtonPressed(sender: UIBarButtonItem) {
-        
-        performSegueWithIdentifier("PresentSort", sender: self)
-    }
+
 }
 
 private typealias DescriptionDelegate = ItemsViewController
@@ -400,7 +407,7 @@ extension TableViewDelegate: UITableViewDelegate {
                 self.performSegueWithIdentifier("ShowItem", sender: tableView.cellForRowAtIndexPath(indexPath))
                 
             }
-            editAction.backgroundColor = UIColor.blueColor()
+            editAction.backgroundColor = UIColor.secondaryColor()
             
             
             let deleteAction = UITableViewRowAction(style: .Destructive, title: "Delete") { (rowAction:UITableViewRowAction, indexPath:NSIndexPath) -> Void in
@@ -409,7 +416,7 @@ extension TableViewDelegate: UITableViewDelegate {
                 tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
                 tableView.reloadData()
             }
-            deleteAction.backgroundColor = UIColor.redColor()
+            deleteAction.backgroundColor = UIColor.warningColor()
             
             return [deleteAction, editAction]
         }
@@ -504,16 +511,17 @@ extension TableViewDataSource: UITableViewDataSource {
                 let cell = tableView.dequeueReusableCellWithIdentifier("AddItemCell", forIndexPath: indexPath) as! AddItemTableViewCell
                 cell.delegate = self
                 cell.configureCell()
-//                cell.layoutMargins = UIEdgeInsetsZero;
-                cell.separatorInset = UIEdgeInsetsMake(0, cell.bounds.size.width, 0, 0);
+                cell.layoutMargins = UIEdgeInsetsZero;
+//                cell.separatorInset = UIEdgeInsetsMake(0, cell.bounds.size.width, 0, 0);
 
                 return cell
                 
             } else {
                 
                 let cell = tableView.dequeueReusableCellWithIdentifier("DescriptionCell", forIndexPath: indexPath) as! DescriptionCell
-                cell.separatorInset = UIEdgeInsetsMake(0, cell.bounds.size.width, 0, 0);
-                
+//                cell.separatorInset = UIEdgeInsetsMake(0, cell.bounds.size.width, 0, 0);
+                cell.layoutMargins = UIEdgeInsetsZero;
+
                 if inEditingMode == nil || inEditingMode == true {
                     
                     cell.userInteractionEnabled = true
@@ -552,7 +560,8 @@ extension TableViewDataSource: UITableViewDataSource {
             cell.titleLabel.text = item.text
             cell.titleLabel.textColor = .titleColor()
             
-            cell.separatorInset = UIEdgeInsetsMake(0, cell.bounds.size.width, 0, 0);
+//            cell.separatorInset = UIEdgeInsetsMake(0, cell.bounds.size.width, 0, 0);
+            cell.layoutMargins = UIEdgeInsetsZero;
             cell.selectionStyle = .None
             
             if collection.sorted {
@@ -571,7 +580,7 @@ extension TableViewDataSource: UITableViewDataSource {
                 case 2:
                     cell.numberImageView.backgroundColor = .thirdColor()
                 default:
-                    cell.numberImageView.backgroundColor = .secondaryColor()
+                    cell.numberImageView.backgroundColor = .loserColor()
                 }
                 
             } else {

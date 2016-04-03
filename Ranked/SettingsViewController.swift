@@ -11,13 +11,14 @@ import UIKit
 class SettingsViewController: UIViewController {
 
     @IBOutlet weak var closeBarButton: UIBarButtonItem!
+    @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var versionLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         if let version = NSBundle.mainBundle().infoDictionary?["CFBundleShortVersionString"] as? String {
-            versionLabel.text = "Version: \(version)"
+//            versionLabel.text = "Version: \(version)"
         }
     }
 
@@ -30,6 +31,7 @@ class SettingsViewController: UIViewController {
         
         dismissViewControllerAnimated(true, completion: nil)
     }
+    
 
     /*
     // MARK: - Navigation
@@ -41,4 +43,44 @@ class SettingsViewController: UIViewController {
     }
     */
 
+}
+
+// MARK: - TableViewDelegate
+private typealias TableViewDelegate = SettingsViewController
+extension TableViewDelegate: UITableViewDelegate {
+    
+//    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+//        
+//        tableView.deselectRowAtIndexPath(indexPath, animated: false)
+//    }
+}
+
+private typealias TableViewDataSource = SettingsViewController
+extension TableViewDataSource: UITableViewDataSource {
+    
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        return 1
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        
+        if indexPath.row == 0 {
+            
+            let cell = tableView.dequeueReusableCellWithIdentifier("AddCollectionsCell", forIndexPath: indexPath)
+            cell.separatorInset = UIEdgeInsetsMake(0, cell.bounds.size.width, 0, 0);
+            return cell
+            
+        } else {
+            
+            
+            let cell = tableView.dequeueReusableCellWithIdentifier("AddCollectionsCell", forIndexPath: indexPath)
+            cell.separatorInset = UIEdgeInsetsMake(0, cell.bounds.size.width, 0, 0);
+            return cell
+        }
+    }
 }

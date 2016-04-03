@@ -165,14 +165,23 @@ protocol AddItemTableViewCellDelegate: class {
 class AddItemTableViewCell: UITableViewCell {
     
     @IBOutlet weak var textField: UITextField!
+    @IBOutlet weak var addImageView: UIImageView!
     
     weak var delegate: AddItemTableViewCellDelegate?
     
     func configureCell() {
         
         textField.delegate = self
-        textField.attributedPlaceholder = NSAttributedString(string: textField.placeholder!, attributes: [NSForegroundColorAttributeName: UIColor.lightGrayColor()])
+        textField.attributedPlaceholder = NSAttributedString(string: textField.placeholder!, attributes: [NSForegroundColorAttributeName: UIColor.backgroundColor()])
+        
+        addImageView.backgroundColor = .secondaryColor()
+        addImageView.layer.cornerRadius = 20
+//        addImageView.layer.masksToBounds = true
+        addImageView.clipsToBounds = true
+
     }
+    
+    
 }
 
 extension AddItemTableViewCell: UITextFieldDelegate {

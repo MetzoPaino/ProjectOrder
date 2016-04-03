@@ -55,17 +55,17 @@ class DataManager {
             print("No file path")
             collections = [CollectionModel]()
             
-//            var temp = preMadeCollectionsArray
-//            
-//            while collections.count < preMadeCollectionsArray.count {
-//                
-//                let random = Int(arc4random_uniform(UInt32(temp.count - 1)))
-//                
-//                collections.append(temp[random])
-//                temp.removeAtIndex(random)
-//                
-//                
-//            }
+            var temp = preMadeCollectionsArray
+            
+            while collections.count < preMadeCollectionsArray.count {
+                
+                let random = Int(arc4random_uniform(UInt32(temp.count - 1)))
+                
+                collections.append(temp[random])
+                temp.removeAtIndex(random)
+                
+                
+            }
         }
     }
     

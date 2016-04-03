@@ -17,5 +17,7 @@ class CustomNavigationController: UINavigationController {
         navigationBar.shadowImage = UIImage()
         navigationBar.translucent = true
         view.backgroundColor = UIColor.clearColor()
+        navigationController?.navigationItem.backBarButtonItem?.tintColor = .primaryColor()
+        navigationBar.barTintColor = .primaryColor()
     }
 }

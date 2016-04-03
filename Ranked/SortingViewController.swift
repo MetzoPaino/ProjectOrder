@@ -114,6 +114,10 @@ class SortingViewController: UIViewController {
         
         progressView.layer.cornerRadius = 6
         progressView.layer.masksToBounds = true
+        progressView.backgroundColor = .backgroundColor()
+        progressView.tintColor = .secondaryColor()
+        progressView.trackTintColor = .backgroundColor()
+        progressView.progressTintColor = .primaryColor()
         
         holdingView.layer.masksToBounds = true
         holdingView.backgroundColor = .backgroundColor()

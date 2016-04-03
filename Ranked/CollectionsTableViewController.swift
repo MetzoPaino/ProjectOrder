@@ -11,6 +11,7 @@ import UIKit
 class CollectionTableViewCell: UITableViewCell {
     
     @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var sortedImageView: UIImageView!
     @IBOutlet weak var descriptionLabel: UILabel!
 }
 
@@ -23,42 +24,57 @@ extension UIColor {
     
     public class func secondaryColor() -> UIColor {
         
-        return UIColor(red: 84/255, green: 144/255, blue: 255/255, alpha: 1.0)
+        return UIColor(red: 142/255, green: 226/255, blue: 200/255, alpha: 1.0)
+    }
+    
+    public class func warningColor() -> UIColor {
+        
+        return UIColor(red: 219/255, green: 33/255, blue: 66/255, alpha: 1.0)
     }
     
     public class func backgroundColor() -> UIColor {
         
-        return UIColor(red: 210/255, green: 206/255, blue: 214/255, alpha: 1.0)
+        return UIColor(red: 218/255, green: 218/255, blue: 218/255, alpha: 1.0)
     }
     
     public class func headingColor() -> UIColor {
         
-        return UIColor(red: 56/255, green: 57/255, blue: 60/255, alpha: 1.0)
+        return UIColor(red: 29/255, green: 29/255, blue: 29/255, alpha: 1.0)
     }
     
     public class func subHeadingColor() -> UIColor {
         
-        return UIColor(red: 111/255, green: 111/255, blue: 112/255, alpha: 1.0)
+        return UIColor(red: 114/255, green: 113/255, blue: 110/255, alpha: 1.0)
     }
     
     public class func titleColor() -> UIColor {
         
-        return UIColor(red: 123/255, green: 42/255, blue: 133/255, alpha: 1.0)
+        return UIColor(red: 31/255, green: 31/255, blue: 31/255, alpha: 1.0)
     }
     
     public class func secondColor() -> UIColor {
         
-        return UIColor(red: 159/255, green: 71/255, blue: 156/255, alpha: 1.0)
+        return UIColor(red: 131/255, green: 47/255, blue: 85/255, alpha: 1.0)
     }
     
     public class func thirdColor() -> UIColor {
         
-        return UIColor(red: 138/255, green: 90/255, blue: 186/255, alpha: 1.0)
+        return UIColor(red: 92/255, green: 54/255, blue: 71/255, alpha: 1.0)
+    }
+    
+    public class func loserColor() -> UIColor {
+        
+        return UIColor(red: 59/255, green: 59/255, blue: 59/255, alpha: 1.0)
     }
     
     public class func blockColor() -> UIColor {
         
-        return UIColor(red: 50/255, green: 44/255, blue: 64/255, alpha: 1.0)
+        return UIColor(red: 29/255, green: 29/255, blue: 29/255, alpha: 1.0)
+    }
+    
+    public class func sortColor() -> UIColor {
+        
+        return UIColor(red: 31/255, green: 31/255, blue: 31/255, alpha: 1.0)
     }
 }
 
@@ -103,8 +119,6 @@ class CollectionsViewController: UIViewController {
         moveAutoCreateButtonsOffScreen()
         styleTutorialView()
         
-        
-        navigationController?.navigationItem.backBarButtonItem?.title = ""
     }
     
     override func viewWillDisappear(animated: Bool)  {
@@ -116,8 +130,6 @@ class CollectionsViewController: UIViewController {
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.translucent = true
         self.navigationController?.view.backgroundColor = UIColor.whiteColor()
-        self.navigationController?.navigationItem.backBarButtonItem?.tintColor = .primaryColor()
-
     }
     
     override func viewDidDisappear(animated: Bool) {
@@ -134,7 +146,6 @@ class CollectionsViewController: UIViewController {
         navigationController?.navigationBar.translucent = false
         navigationController?.view.backgroundColor = UIColor.whiteColor()
         navigationController?.navigationBar.tintColor = .primaryColor()
-
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -147,7 +158,8 @@ class CollectionsViewController: UIViewController {
         tableView.estimatedRowHeight = 88
         tableView.tableFooterView = UIView()
         tableView.separatorInset = UIEdgeInsetsZero
-        tableView.separatorColor = UIColor.backgroundColor()
+        tableView.separatorColor = .backgroundColor()
+        tableView.backgroundColor = .backgroundColor()
     }
     
     func styleTutorialView() {
@@ -249,7 +261,7 @@ class CollectionsViewController: UIViewController {
                     controller.collection = collectionsArray[selectedIndexPath.row]
                     controller.inEditingMode = false
                     controller.delegate = self
-                    self.navigationController?.navigationBar.tintColor = controller.collection.color.subtitleColor
+                    self.navigationController?.navigationBar.tintColor = .primaryColor()
 
                 }
             } else if segue.identifier == "ShowEditCollection" {
@@ -261,12 +273,13 @@ class CollectionsViewController: UIViewController {
                 }
                 controller.inEditingMode = true
                 controller.delegate = self
-                self.navigationController?.navigationBar.tintColor = controller.collection.color.subtitleColor
+                self.navigationController?.navigationBar.tintColor = .primaryColor()
             }
             
             let backItem = UIBarButtonItem()
             backItem.title = ""
             navigationItem.backBarButtonItem = backItem
+            
         }
     }
 }
@@ -286,7 +299,7 @@ extension TableViewDelegate: UITableViewDelegate {
             self.performSegueWithIdentifier("ShowEditCollection", sender: indexPath.row)
             
         }
-        editAction.backgroundColor = UIColor.blueColor()
+        editAction.backgroundColor = UIColor.secondaryColor()
         
         
         let deleteAction = UITableViewRowAction(style: .Destructive, title: "Delete") { (rowAction:UITableViewRowAction, indexPath:NSIndexPath) -> Void in
@@ -294,7 +307,7 @@ extension TableViewDelegate: UITableViewDelegate {
             self.collectionsArray.removeAtIndex(indexPath.row)
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
         }
-        deleteAction.backgroundColor = UIColor.redColor()
+        deleteAction.backgroundColor = UIColor.warningColor()
         
         return [deleteAction, editAction]
     }
@@ -316,18 +329,17 @@ extension TableViewDataSource: UITableViewDataSource {
         
         cell.titleLabel.text = collection.name
         cell.titleLabel.textColor = UIColor.headingColor()
-        cell.descriptionLabel.textColor = UIColor.secondaryColor()
+        cell.descriptionLabel.textColor = UIColor.subHeadingColor()
         cell.layoutMargins = UIEdgeInsetsZero;
-        
-        cell.descriptionLabel.text! = "⭐️"
-        
+
         if collection.sorted {
             
             collection.items = collection.items.sort({ $0.points > $1.points })
-            cell.descriptionLabel.text! += " \(collection.items.first!.text)"
-            cell.descriptionLabel.alpha = 1.0
+            cell.descriptionLabel.text = collection.items.first!.text
+            cell.sortedImageView.image = UIImage(named: "HeartSorted")
         } else {
-            cell.descriptionLabel.alpha = 0.25
+            cell.descriptionLabel.text = ""
+            cell.sortedImageView.image = UIImage(named: "HeartUnsorted")
         }
         return cell
     }
