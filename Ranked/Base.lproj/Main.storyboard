@@ -468,10 +468,10 @@
                                 </connections>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lbR-dX-btJ">
-                                <rect key="frame" x="504" y="504" width="80" height="80"/>
+                                <rect key="frame" x="520" y="520" width="64" height="64"/>
                                 <color key="backgroundColor" red="0.75686274509999996" green="0.1764705882" blue="0.4431372549" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="80" id="T5F-dy-OhK"/>
+                                    <constraint firstAttribute="height" constant="64" id="T5F-dy-OhK"/>
                                     <constraint firstAttribute="width" secondItem="lbR-dX-btJ" secondAttribute="height" multiplier="1:1" id="yKx-K8-YNL"/>
                                 </constraints>
                                 <state key="normal">
@@ -481,20 +481,13 @@
                                     <action selector="sortBarButtonPressed:" destination="nlL-AF-Rd4" eventType="touchUpInside" id="Dyh-Mc-Sai"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="GreaterThanWhite" translatesAutoresizingMaskIntoConstraints="NO" id="QIq-gh-Ssx">
-                                <rect key="frame" x="504" y="504" width="80" height="80"/>
-                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="QIq-gh-Ssx" firstAttribute="centerY" secondItem="lbR-dX-btJ" secondAttribute="centerY" id="1l7-XI-Khb"/>
-                            <constraint firstItem="QIq-gh-Ssx" firstAttribute="width" secondItem="lbR-dX-btJ" secondAttribute="width" id="3iW-Ju-p3c"/>
                             <constraint firstItem="9q0-BK-96f" firstAttribute="top" secondItem="ChP-an-8y1" secondAttribute="topMargin" identifier="BehindNavBar" id="B5e-il-GtP"/>
                             <constraint firstItem="9q0-BK-96f" firstAttribute="leading" secondItem="ChP-an-8y1" secondAttribute="leading" id="TIS-XK-Zmu"/>
                             <constraint firstItem="azO-Ab-7cP" firstAttribute="top" secondItem="9q0-BK-96f" secondAttribute="bottom" id="Vte-3d-5qE"/>
-                            <constraint firstItem="QIq-gh-Ssx" firstAttribute="height" secondItem="lbR-dX-btJ" secondAttribute="height" id="XiK-Nc-RNr"/>
                             <constraint firstItem="azO-Ab-7cP" firstAttribute="top" secondItem="lbR-dX-btJ" secondAttribute="bottom" constant="16" id="av9-7s-aGH"/>
-                            <constraint firstItem="QIq-gh-Ssx" firstAttribute="centerX" secondItem="lbR-dX-btJ" secondAttribute="centerX" id="b66-3P-ghu"/>
                             <constraint firstAttribute="trailing" secondItem="9q0-BK-96f" secondAttribute="trailing" id="hBc-Mg-rDc"/>
                             <constraint firstItem="9q0-BK-96f" firstAttribute="top" secondItem="79d-sX-gAI" secondAttribute="bottom" id="lNU-f2-pTn"/>
                             <constraint firstAttribute="trailing" secondItem="lbR-dX-btJ" secondAttribute="trailing" constant="16" id="moV-w8-0rU"/>
@@ -792,7 +785,6 @@
     </scenes>
     <resources>
         <image name="ChooseLater" width="20" height="20"/>
-        <image name="GreaterThanWhite" width="60" height="60"/>
         <image name="HeartUnsorted" width="20" height="20"/>
         <image name="Heart_0" width="60" height="60"/>
     </resources>

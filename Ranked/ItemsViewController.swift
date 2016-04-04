@@ -72,12 +72,14 @@ class ItemsViewController: UIViewController {
             
             doneBarButton = createBarButton(.done)
             navigationController?.navigationItem.rightBarButtonItems = [doneBarButton]
-            
+            sortButton.hidden = true
+
         } else {
             
             editBarButton = createBarButton(.edit)
             shareBarButton = createBarButton(.share)
             navigationController?.navigationItem.rightBarButtonItems = [shareBarButton, editBarButton]
+            sortButton.hidden = false
         }
         
         navigationController?.navigationItem.backBarButtonItem?.tintColor = .primaryColor()
@@ -85,6 +87,7 @@ class ItemsViewController: UIViewController {
         sortButton.tintColor = .primaryColor()
         sortButton.layer.cornerRadius = self.sortButtonHeightConstraint.constant / 2
         sortButton.layer.masksToBounds = true
+        sortButton.setImage(UIImage(named: "GreaterThanWhite"), forState: .Normal)
     
         sortButton.backgroundColor = .sortColor()
     }
@@ -284,7 +287,7 @@ extension IBActions {
         tableView.insertRowsAtIndexPaths([addItemIndex], withRowAnimation: .Fade)
         tableView.endUpdates()
         
-        navigationController?.setToolbarHidden(true, animated: true)
+        sortButton.hidden = true
 
     }
     
@@ -304,7 +307,7 @@ extension IBActions {
         tableView.deleteRowsAtIndexPaths([addItemIndex], withRowAnimation: .Fade)
         tableView.endUpdates()
         
-        navigationController?.setToolbarHidden(false, animated: true)
+        sortButton.hidden = false
     }
     
 
