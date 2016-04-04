@@ -232,20 +232,6 @@ extension IBActions {
     
     @IBAction func shareButtonPressed(sender: AnyObject) {
         
-//        let fullFrame = CGRectMake(tableView.frame.origin.x, tableView.frame.origin.y, tableView.frame.size.width, tableView.contentSize.height)
-//        tableView.frame = fullFrame
-//        tableView.backgroundColor = collection.color.backgroundColors.first
-//        
-//        UIGraphicsBeginImageContextWithOptions(tableView.contentSize, false, 0.0)
-//        tableView.drawViewHierarchyInRect(tableView.frame, afterScreenUpdates: false)
-//        
-//        let screenshot = UIGraphicsGetImageFromCurrentImageContext()
-//        UIGraphicsEndImageContext();
-//        
-//        let image = UIImageView(image: screenshot)
-//        
-//        tableView.backgroundColor = .clearColor()
-        
         tableView.backgroundColor = collection.color.backgroundColors.first
         
         let fullFrame = CGRectMake(tableView.frame.origin.x, tableView.frame.origin.y, tableView.frame.size.width, tableView.contentSize.height)
@@ -268,6 +254,7 @@ extension IBActions {
         navigationController?.presentViewController(activityViewController, animated: true) {
             // ...
         }
+        tableView.layoutIfNeeded()
     }
     
     @IBAction func editButtonPressed(sender: UIBarButtonItem) {
