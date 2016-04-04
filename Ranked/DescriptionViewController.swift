@@ -36,7 +36,7 @@ class DescriptionViewController: UIViewController {
         notificationCenter.addObserver(self, selector: #selector(DescriptionViewController.receivedKeyboardNotification(_:)), name: UIKeyboardDidShowNotification, object: nil)
         notificationCenter.addObserver(self, selector: #selector(DescriptionViewController.receivedKeyboardNotification(_:)), name: UIKeyboardDidHideNotification, object: nil)
         
-        textView.textContainerInset = UIEdgeInsetsMake(0, 32, 0, 32)
+        textView.textContainerInset = UIEdgeInsetsMake(0, 16, 0, 16)
         textView.text = providedDescription
         
         if context == .title {
@@ -69,17 +69,6 @@ class DescriptionViewController: UIViewController {
             } else {
                 self.delegate?.newDescription(textView.text)
             }
-        }
-    }
-
-    @IBAction func keyboardButtonPressed(sender: UIBarButtonItem) {
-        if textView.isFirstResponder() {
-            
-            textView.resignFirstResponder()
-            
-        } else {
-            
-            textView.becomeFirstResponder()
         }
     }
     // MARK: - NSNotification

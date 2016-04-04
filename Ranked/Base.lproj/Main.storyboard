@@ -357,7 +357,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wQB-2z-5h8">
-                                                    <rect key="frame" x="16" y="0.0" width="568" height="28"/>
+                                                    <rect key="frame" x="16" y="0.0" width="568" height="43.5"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -367,7 +367,7 @@
                                                 <constraint firstItem="wQB-2z-5h8" firstAttribute="leading" secondItem="GOf-zs-mhE" secondAttribute="leading" constant="16" id="EqX-0C-gYr"/>
                                                 <constraint firstItem="wQB-2z-5h8" firstAttribute="top" secondItem="GOf-zs-mhE" secondAttribute="top" id="az8-10-Cet"/>
                                                 <constraint firstAttribute="trailing" secondItem="wQB-2z-5h8" secondAttribute="trailing" constant="16" id="b1H-oo-QVN"/>
-                                                <constraint firstAttribute="bottom" secondItem="wQB-2z-5h8" secondAttribute="bottom" constant="16" id="dpt-cR-s1x"/>
+                                                <constraint firstAttribute="bottom" secondItem="wQB-2z-5h8" secondAttribute="bottom" id="dpt-cR-s1x"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -541,13 +541,7 @@
                             <constraint firstAttribute="trailing" secondItem="a01-8U-7N8" secondAttribute="trailing" id="f15-ee-bK0"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="iGD-TC-BB6">
-                        <barButtonItem key="rightBarButtonItem" title="Keyboard" id="BoQ-ZQ-pf5">
-                            <connections>
-                                <action selector="keyboardButtonPressed:" destination="DyF-CK-2qW" id="Kus-I3-ORr"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="iGD-TC-BB6"/>
                     <connections>
                         <outlet property="textView" destination="a01-8U-7N8" id="Yel-l7-1nO"/>
                     </connections>
