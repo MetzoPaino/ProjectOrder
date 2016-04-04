@@ -357,7 +357,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wQB-2z-5h8">
-                                                    <rect key="frame" x="16" y="0.0" width="568" height="43.5"/>
+                                                    <rect key="frame" x="16" y="16" width="568" height="11.5"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -365,9 +365,9 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="wQB-2z-5h8" firstAttribute="leading" secondItem="GOf-zs-mhE" secondAttribute="leading" constant="16" id="EqX-0C-gYr"/>
-                                                <constraint firstItem="wQB-2z-5h8" firstAttribute="top" secondItem="GOf-zs-mhE" secondAttribute="top" id="az8-10-Cet"/>
+                                                <constraint firstItem="wQB-2z-5h8" firstAttribute="top" secondItem="GOf-zs-mhE" secondAttribute="top" constant="16" id="az8-10-Cet"/>
                                                 <constraint firstAttribute="trailing" secondItem="wQB-2z-5h8" secondAttribute="trailing" constant="16" id="b1H-oo-QVN"/>
-                                                <constraint firstAttribute="bottom" secondItem="wQB-2z-5h8" secondAttribute="bottom" id="dpt-cR-s1x"/>
+                                                <constraint firstAttribute="bottom" secondItem="wQB-2z-5h8" secondAttribute="bottom" constant="16" id="dpt-cR-s1x"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -468,10 +468,10 @@
                                 </connections>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lbR-dX-btJ">
-                                <rect key="frame" x="520" y="520" width="64" height="64"/>
+                                <rect key="frame" x="536" y="536" width="48" height="48"/>
                                 <color key="backgroundColor" red="0.75686274509999996" green="0.1764705882" blue="0.4431372549" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="64" id="T5F-dy-OhK"/>
+                                    <constraint firstAttribute="height" constant="48" id="T5F-dy-OhK"/>
                                     <constraint firstAttribute="width" secondItem="lbR-dX-btJ" secondAttribute="height" multiplier="1:1" id="yKx-K8-YNL"/>
                                 </constraints>
                                 <state key="normal">
