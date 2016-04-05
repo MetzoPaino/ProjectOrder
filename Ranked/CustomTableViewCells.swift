@@ -188,7 +188,7 @@ extension AddItemTableViewCell: UITextFieldDelegate {
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         
-        textField.resignFirstResponder()
+//        textField.resignFirstResponder()
         
         let string = textField.text! as NSString
         
@@ -197,6 +197,6 @@ extension AddItemTableViewCell: UITextFieldDelegate {
             self.delegate?.createdNewItemWithText(textField.text!)
             textField.text = ""
         }
-        return true
+        return false
     }
 }

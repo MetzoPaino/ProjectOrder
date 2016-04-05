@@ -300,6 +300,7 @@ extension IBActions {
 
 }
 
+// MARK: - Description Delegate
 private typealias DescriptionDelegate = ItemsViewController
 extension DescriptionDelegate: DescriptionViewControllerDelegate {
     
@@ -344,26 +345,20 @@ extension ItemsViewController: SortingViewControllerDelegate {
     }
 }
 
-extension ItemsViewController: ColorCellDelegate {
-    
-    func pickedNewColor(index: Int) {
-        
-        let colorManager = ColorManager()
-        
-        collection.color = colorManager.colorThemes[index]
-        tableView.reloadData()
-        tableView.separatorColor = collection.color.subtitleColor
-    }
-}
-
-extension ItemsViewController: AddItemTableViewCellDelegate {
+// MARK: - AddItemTableViewCell Delegate
+private typealias AddItemDelegate = ItemsViewController
+extension AddItemDelegate: AddItemTableViewCellDelegate {
     
     func createdNewItemWithText(text: String) {
         
-        view.removeGestureRecognizer(tapGesture)
+        //view.removeGestureRecognizer(tapGesture)
         let item = ItemModel(string: text)
-        collection.items.append(item)
-        tableView.reloadData()
+        collection.items.insert(item, atIndex: 0)
+        
+        let newItemIndex = NSIndexPath(forRow: 0, inSection: 01)
+        tableView.beginUpdates()
+        tableView.insertRowsAtIndexPaths([newItemIndex], withRowAnimation: .Top)
+        tableView.endUpdates()
     }
 }
 
