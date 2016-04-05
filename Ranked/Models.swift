@@ -53,18 +53,16 @@ class CollectionModel: NSObject, NSCoding {
     var category: CollectionType
     var sorted = false
     var dateCreated: NSDate
-    var color: ColorTheme
 
     var items = [ItemModel]()
     
     private let uuid = NSUUID().UUIDString
     
-    init(name: String, description: String, category: CollectionType, dateCreated: NSDate, color: ColorTheme) {
+    init(name: String, description: String, category: CollectionType, dateCreated: NSDate) {
         self.name = name
         self.descriptionString = description
         self.category = category
         self.dateCreated = dateCreated
-        self.color = color
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -120,13 +118,6 @@ class CollectionModel: NSObject, NSCoding {
             sorted = false
         }
         
-        if let decodedColor = aDecoder.decodeObjectForKey(colorKey) as? ColorTheme {
-            
-            color = decodedColor
-        } else {
-            color = createColorTheme9()
-        }
-        
         super.init()
     }
     
@@ -139,8 +130,6 @@ class CollectionModel: NSObject, NSCoding {
         aCoder.encodeObject(category.hashValue, forKey: categoryKey)
         aCoder.encodeObject(dateCreated, forKey: dateCreatedKey)
         aCoder.encodeObject(sorted, forKey: sortedKey)
-        aCoder.encodeObject(color, forKey: colorKey)
-
     }
 }
 

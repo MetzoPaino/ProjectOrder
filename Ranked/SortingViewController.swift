@@ -42,9 +42,7 @@ class SortingViewController: UIViewController {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet var holdingView: UIView!
     @IBOutlet weak var playingFieldView: UIView!
-    
-    var colorTheme = ColorTheme()
-    
+        
     let constantConstant = 0 as CGFloat
     
     var middleConstant = 0 as CGFloat

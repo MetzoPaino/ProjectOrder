@@ -33,7 +33,7 @@ class ItemsViewController: UIViewController {
     
     weak var delegate: ItemsViewControllerDelegate?
 
-    var collection = CollectionModel(name: "", description: "", category: .none, dateCreated: NSDate(), color: ColorTheme())
+    var collection = CollectionModel(name: "", description: "", category: .none, dateCreated: NSDate())
     
     var inEditingMode: Bool?
     
@@ -145,7 +145,6 @@ class ItemsViewController: UIViewController {
         
             controller.itemArray = collection.items
             controller.delegate = self
-            controller.colorTheme = collection.color
         }
     }
     
@@ -232,7 +231,7 @@ extension IBActions {
     
     @IBAction func shareButtonPressed(sender: AnyObject) {
         
-        tableView.backgroundColor = collection.color.backgroundColors.first
+        tableView.backgroundColor = UIColor.whiteColor()
         
         let fullFrame = CGRectMake(tableView.frame.origin.x, tableView.frame.origin.y, tableView.frame.size.width, tableView.contentSize.height)
         tableView.frame = fullFrame
