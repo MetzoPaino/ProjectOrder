@@ -33,7 +33,7 @@ class ItemsViewController: UIViewController {
     
     weak var delegate: ItemsViewControllerDelegate?
 
-    var collection = CollectionModel(name: "", description: "", category: .none, dateCreated: NSDate())
+    var collection = CollectionModel(name: "", description: "", dateCreated: NSDate())
     
     var inEditingMode: Bool?
     

@@ -8,49 +8,16 @@
 
 import UIKit
 
-enum CollectionType: Int {
-    case music
-    case films
-    case books
-    case games
-    case computers
-    case none
-}
-
-class CategoriesManager {
-    
-    let music = Category(title: "Music", type: .music)
-    let films = Category(title: "Films", type: .films)
-    let books = Category(title: "Books", type: .books)
-    let games = Category(title: "Games", type: .games)
-    let none = Category(title: "None", type: .none)
-    
-    var categories: [Category] {
-        get{
-            return [music, films, books, games, none]
-        }
-    }
-}
-
-struct Category {
-    
-    let title: String
-    let type: CollectionType
-}
-
 class CollectionModel: NSObject, NSCoding {
     
     private let nameKey = "name"
     private let descriptionKey = "description"
     private let itemsKey = "items"
-    private let categoryKey = "category"
     private let dateCreatedKey = "dateCreated"
     private let sortedKey = "sorted"
-    private let colorKey = "color"
 
     var name = ""
     var descriptionString = ""
-    var category: CollectionType
     var sorted = false
     var dateCreated: NSDate
 
@@ -58,10 +25,9 @@ class CollectionModel: NSObject, NSCoding {
     
     private let uuid = NSUUID().UUIDString
     
-    init(name: String, description: String, category: CollectionType, dateCreated: NSDate) {
+    init(name: String, description: String, dateCreated: NSDate) {
         self.name = name
         self.descriptionString = description
-        self.category = category
         self.dateCreated = dateCreated
     }
     
@@ -96,14 +62,6 @@ class CollectionModel: NSObject, NSCoding {
             name = "Unable to decode Collection name"
         }
         
-        if let decodedCategory = aDecoder.decodeObjectForKey(categoryKey) as? Int {
-            
-            category = CollectionType(rawValue: decodedCategory)!
-            
-        } else {
-            category = .none
-        }
-        
         if let decodedDateCreated = aDecoder.decodeObjectForKey(dateCreatedKey) as? NSDate {
             
             dateCreated = decodedDateCreated
@@ -127,7 +85,6 @@ class CollectionModel: NSObject, NSCoding {
         aCoder.encodeObject(name, forKey: nameKey)
         aCoder.encodeObject(descriptionString, forKey: descriptionKey)
         aCoder.encodeObject(items, forKey: itemsKey)
-        aCoder.encodeObject(category.hashValue, forKey: categoryKey)
         aCoder.encodeObject(dateCreated, forKey: dateCreatedKey)
         aCoder.encodeObject(sorted, forKey: sortedKey)
     }
