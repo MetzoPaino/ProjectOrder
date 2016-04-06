@@ -119,26 +119,26 @@
                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="IFG-BE-gjp">
                                                     <rect key="frame" x="16" y="8" width="568" height="72"/>
                                                     <subviews>
-                                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="n7g-eO-iiB">
+                                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="n7g-eO-iiB">
                                                             <rect key="frame" x="0.0" y="0.0" width="568" height="72"/>
                                                             <subviews>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6E8-A1-raX">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="568" height="24"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="568" height="25"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="Qfw-7N-8Li">
-                                                                    <rect key="frame" x="0.0" y="28" width="568" height="45"/>
+                                                                <stackView opaque="NO" contentMode="scaleToFill" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="Qfw-7N-8Li">
+                                                                    <rect key="frame" x="0.0" y="27" width="568" height="46"/>
                                                                     <subviews>
-                                                                        <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="HeartUnsorted" translatesAutoresizingMaskIntoConstraints="NO" id="ro4-Jq-Qmk">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="20" height="45"/>
+                                                                        <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="HeartUnsorted" translatesAutoresizingMaskIntoConstraints="NO" id="ro4-Jq-Qmk">
+                                                                            <rect key="frame" x="0.0" y="0.0" width="20" height="46"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="width" constant="20" id="2A4-fD-pvc"/>
                                                                             </constraints>
                                                                         </imageView>
-                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7uY-Of-a0D">
-                                                                            <rect key="frame" x="26" y="0.0" width="542" height="45"/>
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7uY-Of-a0D">
+                                                                            <rect key="frame" x="26" y="0.0" width="542" height="46"/>
                                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                             <color key="textColor" red="0.32941176470588235" green="0.56470588235294117" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                                             <nil key="highlightedColor"/>
@@ -188,11 +188,6 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="UJs-0d-Kv3">
-                        <barButtonItem key="leftBarButtonItem" title="About" id="PWf-2s-gZt">
-                            <connections>
-                                <segue destination="qCN-U2-vM2" kind="presentation" id="gNE-nn-zRs"/>
-                            </connections>
-                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="TWx-fg-vke">
                             <connections>
                                 <segue destination="Rc8-2L-atM" kind="show" identifier="CreateCollection" id="yLz-Bz-ILQ"/>

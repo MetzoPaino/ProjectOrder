@@ -336,10 +336,13 @@ extension TableViewDataSource: UITableViewDataSource {
             
             collection.items = collection.items.sort({ $0.points > $1.points })
             cell.descriptionLabel.text = collection.items.first!.text
-            cell.sortedImageView.image = UIImage(named: "HeartSorted")
+            cell.sortedImageView.tintColor = .blueColor()
+            cell.sortedImageView.image = UIImage(named: "HeartSorted")?.imageWithRenderingMode(.AlwaysTemplate)
         } else {
             cell.descriptionLabel.text = ""
-            cell.sortedImageView.image = UIImage(named: "HeartUnsorted")
+            cell.sortedImageView.tintColor = .blueColor()
+            cell.sortedImageView.image = UIImage(named: "HeartUnsorted")?.imageWithRenderingMode(.AlwaysTemplate)
+
         }
         return cell
     }
