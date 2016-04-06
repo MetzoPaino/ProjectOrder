@@ -503,7 +503,7 @@ extension TableViewDataSource: UITableViewDataSource {
             } else {
                 
                 let cell = tableView.dequeueReusableCellWithIdentifier("DescriptionCell", forIndexPath: indexPath) as! DescriptionCell
-//                cell.separatorInset = UIEdgeInsetsMake(0, cell.bounds.size.width, 0, 0);
+                cell.separatorInset = UIEdgeInsetsMake(0, cell.bounds.size.width, 0, 0);
                 cell.layoutMargins = UIEdgeInsetsZero;
 
                 if inEditingMode == nil || inEditingMode == true {
