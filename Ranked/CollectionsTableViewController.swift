@@ -96,6 +96,8 @@ class CollectionsViewController: UIViewController {
 
     @IBOutlet weak var refreshAutoCreateOptionsButton: UIButton!
 
+    @IBOutlet weak var addButton: UIButton!
+    @IBOutlet weak var addButtonHeightConstraint: NSLayoutConstraint!
 
 
 
@@ -116,9 +118,9 @@ class CollectionsViewController: UIViewController {
         super.viewDidLoad()
         collectionsArray = dataManager.collections
         styleTableView()
-        moveAutoCreateButtonsOffScreen()
-        styleTutorialView()
-        
+        styleView()
+//        moveAutoCreateButtonsOffScreen()
+//        styleTutorialView()
     }
     
     override func viewWillDisappear(animated: Bool)  {
@@ -153,6 +155,14 @@ class CollectionsViewController: UIViewController {
         animateAutoCreateButtons(true)
     }
 
+    func styleView() {
+        
+        addButton.backgroundColor = .primaryColor()
+        addButton.layer.cornerRadius = self.addButtonHeightConstraint.constant / 2
+        addButton.layer.masksToBounds = true
+        addButton.setImage(UIImage(named: "GreaterThanWhite"), forState: .Normal)
+    }
+    
     func styleTableView() {
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 88
@@ -336,11 +346,11 @@ extension TableViewDataSource: UITableViewDataSource {
             
             collection.items = collection.items.sort({ $0.points > $1.points })
             cell.descriptionLabel.text = collection.items.first!.text
-            cell.sortedImageView.tintColor = .blueColor()
+            cell.sortedImageView.tintColor = .primaryColor()
             cell.sortedImageView.image = UIImage(named: "HeartSorted")?.imageWithRenderingMode(.AlwaysTemplate)
         } else {
             cell.descriptionLabel.text = ""
-            cell.sortedImageView.tintColor = .blueColor()
+            cell.sortedImageView.tintColor = .subHeadingColor()
             cell.sortedImageView.image = UIImage(named: "HeartUnsorted")?.imageWithRenderingMode(.AlwaysTemplate)
 
         }
