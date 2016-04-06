@@ -264,12 +264,17 @@ class CollectionsViewController: UIViewController {
             
             if segue.identifier == "CreateCollection" {
                 
+                controller.delegate = self
+                controller.newCollection = true
+                
+                
             } else if segue.identifier == "ShowCollection" {
                 
                 if let selectedIndexPath = tableView.indexPathForSelectedRow {
                     
                     controller.collection = collectionsArray[selectedIndexPath.row]
                     controller.inEditingMode = false
+                    controller.newCollection = false
                     controller.delegate = self
                     self.navigationController?.navigationBar.tintColor = .primaryColor()
 
@@ -370,6 +375,16 @@ private typealias ItemsDelegate = CollectionsViewController
 extension ItemsDelegate: ItemsViewControllerDelegate {
     
     func sortingFinished() {
+        
+        tableView.reloadData()
+    }
+    
+    func collectionUpdated(collection: CollectionModel, new: Bool) {
+        
+        // How does this work when not new?
+        if new {
+            collectionsArray.insert(collection, atIndex: 0)
+        }
         
         tableView.reloadData()
     }

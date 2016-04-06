@@ -11,6 +11,7 @@ import MessageUI
 
 protocol ItemsViewControllerDelegate: class {
     func sortingFinished()
+    func collectionUpdated(collection:CollectionModel, new: Bool)
 }
 
 enum BarButtonType {
@@ -36,6 +37,7 @@ class ItemsViewController: UIViewController {
     var collection = CollectionModel(name: "", description: "", dateCreated: NSDate())
     
     var inEditingMode: Bool?
+    var newCollection: Bool!
     
     var indexPathToEdit: NSIndexPath?
     
@@ -294,6 +296,15 @@ extension IBActions {
         tableView.endUpdates()
         
         sortButton.hidden = false
+        
+        if newCollection == true {
+            self.delegate?.collectionUpdated(collection, new: true)
+
+        } else {
+            self.delegate?.collectionUpdated(collection, new: false)
+
+        }
+        
     }
     
 
