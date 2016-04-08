@@ -174,7 +174,7 @@ class CollectionsViewController: UIViewController {
     
     func styleTutorialView() {
         
-        if collectionsArray.count == 0 {
+        if dataManager.collections.count == 0 {
             
             tutorialView.hidden = false
             
@@ -244,7 +244,7 @@ class CollectionsViewController: UIViewController {
     @IBAction func optionButtonPressed(sender: UIButton) {
         
         let collection = preMadeCollectionsArray[sender.tag]
-        collectionsArray.insert(collection, atIndex: 0)
+        dataManager.collections.insert(collection, atIndex: 0)
         tableView.reloadData()
         tableView.selectRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), animated: true, scrollPosition: UITableViewScrollPosition.None)
         tutorialView.hidden = true
@@ -272,7 +272,7 @@ class CollectionsViewController: UIViewController {
                 
                 if let selectedIndexPath = tableView.indexPathForSelectedRow {
                     
-                    controller.collection = collectionsArray[selectedIndexPath.row]
+                    controller.collection = dataManager.collections[selectedIndexPath.row]
                     controller.inEditingMode = false
                     controller.newCollection = false
                     controller.delegate = self
@@ -283,7 +283,7 @@ class CollectionsViewController: UIViewController {
                 
                 if let row = sender as? Int {
                     
-                    controller.collection = collectionsArray[row]
+                    controller.collection = dataManager.collections[row]
                     
                 }
                 controller.inEditingMode = true
@@ -319,7 +319,7 @@ extension TableViewDelegate: UITableViewDelegate {
         
         let deleteAction = UITableViewRowAction(style: .Destructive, title: "Delete") { (rowAction:UITableViewRowAction, indexPath:NSIndexPath) -> Void in
             
-            self.collectionsArray.removeAtIndex(indexPath.row)
+            self.dataManager.collections.removeAtIndex(indexPath.row)
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
         }
         deleteAction.backgroundColor = UIColor.warningColor()
@@ -333,14 +333,14 @@ extension TableViewDataSource: UITableViewDataSource {
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return collectionsArray.count
+        return dataManager.collections.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! CollectionTableViewCell
         
-        let collection = collectionsArray[indexPath.row];
+        let collection = dataManager.collections[indexPath.row];
         
         cell.titleLabel.text = collection.name
         cell.titleLabel.textColor = UIColor.headingColor()
@@ -383,7 +383,7 @@ extension ItemsDelegate: ItemsViewControllerDelegate {
         
         // How does this work when not new?
         if new {
-            collectionsArray.insert(collection, atIndex: 0)
+            dataManager.collections.insert(collection, atIndex: 0)
         }
         
         tableView.reloadData()
