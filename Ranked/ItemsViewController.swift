@@ -314,6 +314,8 @@ extension ItemsViewController {
     
     func animateSortButton(onScreen: Bool) {
         
+        // Animate on or off screen. If there is nothing to sort, never go on screen
+        
         var constant = 0 - 16 - sortButtonHeightConstraint.constant
         
         if onScreen && collection.items.count > 0 {
@@ -327,7 +329,6 @@ extension ItemsViewController {
             self.view.layoutIfNeeded()
             
             }, completion: { (complete: Bool) -> Void in
-                
         })
     }
 }

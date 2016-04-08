@@ -604,7 +604,7 @@
         <image name="HeartUnsorted" width="20" height="20"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="UJD-NW-vMF"/>
+        <segue reference="Ee9-gP-DMF"/>
         <segue reference="1Ky-jB-L3f"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.75686274509803919" green="0.1764705882352941" blue="0.44313725490196076" alpha="1" colorSpace="calibratedRGB"/>
