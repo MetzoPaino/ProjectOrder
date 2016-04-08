@@ -27,6 +27,7 @@ class ItemsViewController: UIViewController {
 //    @IBOutlet var sortBarButton: UIBarButtonItem!
     @IBOutlet weak var sortButton: UIButton!
     @IBOutlet weak var sortButtonHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var sortButtonBottomConstraint: NSLayoutConstraint!
 
     var doneBarButton: UIBarButtonItem!
     var editBarButton: UIBarButtonItem!
@@ -74,14 +75,15 @@ class ItemsViewController: UIViewController {
             
             doneBarButton = createBarButton(.done)
             navigationController?.navigationItem.rightBarButtonItems = [doneBarButton]
-            sortButton.hidden = true
-
+            sortButtonBottomConstraint.constant = 0 - 16 - sortButtonHeightConstraint.constant
+            view.layoutIfNeeded()
         } else {
             
             editBarButton = createBarButton(.edit)
             shareBarButton = createBarButton(.share)
             navigationController?.navigationItem.rightBarButtonItems = [shareBarButton, editBarButton]
-            sortButton.hidden = false
+            sortButtonBottomConstraint.constant = 16
+            view.layoutIfNeeded()
         }
         
         navigationController?.navigationItem.backBarButtonItem?.tintColor = .primaryColor()
@@ -275,13 +277,12 @@ extension IBActions {
         tableView.insertRowsAtIndexPaths([addItemIndex], withRowAnimation: .Fade)
         tableView.endUpdates()
         
-        sortButton.hidden = true
-
+        animateSortButton(false)
     }
     
     @IBAction func doneButtonPressed(sender: UIBarButtonItem) {
         
-        self.inEditingMode = false
+        inEditingMode = false
         
         editBarButton = createBarButton(.edit)
         shareBarButton = createBarButton(.share)
@@ -295,19 +296,39 @@ extension IBActions {
         tableView.deleteRowsAtIndexPaths([addItemIndex], withRowAnimation: .Fade)
         tableView.endUpdates()
         
-        sortButton.hidden = false
+        animateSortButton(true)
         
         if newCollection == true {
             self.delegate?.collectionUpdated(collection, new: true)
-
+            newCollection = false
         } else {
             self.delegate?.collectionUpdated(collection, new: false)
+        }
+    }
+}
 
+// MARK: - Animations
+
+extension ItemsViewController {
+    
+    func animateSortButton(onScreen: Bool) {
+        
+        var constant = 0 - 16 - sortButtonHeightConstraint.constant
+        
+        if onScreen && collection.items.count > 0 {
+            
+            constant = 16
         }
         
+        UIView.animateWithDuration(0.25, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 1.0, options: UIViewAnimationOptions.CurveEaseInOut, animations: { () -> Void in
+            
+            self.sortButtonBottomConstraint.constant = constant
+            self.view.layoutIfNeeded()
+            
+            }, completion: { (complete: Bool) -> Void in
+                
+        })
     }
-    
-
 }
 
 // MARK: - Description Delegate

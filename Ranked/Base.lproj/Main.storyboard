@@ -517,6 +517,7 @@
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="sortButton" destination="lbR-dX-btJ" id="sLN-Vq-zZT"/>
+                        <outlet property="sortButtonBottomConstraint" destination="av9-7s-aGH" id="W91-gj-TBj"/>
                         <outlet property="sortButtonHeightConstraint" destination="T5F-dy-OhK" id="gaB-Zc-drN"/>
                         <outlet property="tableView" destination="9q0-BK-96f" id="pFo-eU-z40"/>
                         <segue destination="ku8-om-PyQ" kind="presentation" identifier="PresentSort" id="ciD-m2-PsK"/>
