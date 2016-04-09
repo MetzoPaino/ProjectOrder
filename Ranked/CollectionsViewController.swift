@@ -21,26 +21,19 @@ class CollectionsViewController: UIViewController, Injectable {
     @IBOutlet weak var addButton: UIButton!
     @IBOutlet weak var addButtonHeightConstraint: NSLayoutConstraint!
 
-    
-    
-    typealias AssociatedObject = DataManager
-    private var dataManager: DataManager!
-    
-//    var dataManager: DataManager!
-//    var collectionsArray = [CollectionModel]()
-    
     var shadowImage: UIImage!
     var backgroundImage: UIImage!
     
     var hasCollections = true
+    
+    typealias AssociatedObject = DataManager
+    private var dataManager: DataManager!
     
     // MARK: - Setup
     
     override func viewDidLoad() {
         super.viewDidLoad()
         assertDependencies()
-
-//        collectionsArray = dataManager.collections
         styleTableView()
         styleView()
     }

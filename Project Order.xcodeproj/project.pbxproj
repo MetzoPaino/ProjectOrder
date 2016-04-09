@@ -24,7 +24,7 @@
 		0AF64FA61C4A812A003F8519 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0AF64FA41C4A812A003F8519 /* Main.storyboard */; };
 		0AF64FA81C4A812A003F8519 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0AF64FA71C4A812A003F8519 /* Assets.xcassets */; };
 		0AF64FAB1C4A812A003F8519 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0AF64FA91C4A812A003F8519 /* LaunchScreen.storyboard */; };
-		0AF64FB31C4A8294003F8519 /* CollectionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF64FB21C4A8294003F8519 /* CollectionsTableViewController.swift */; };
+		0AF64FB31C4A8294003F8519 /* CollectionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF64FB21C4A8294003F8519 /* CollectionsViewController.swift */; };
 		0AF64FB51C4A830B003F8519 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF64FB41C4A830B003F8519 /* Models.swift */; };
 		0AF64FB71C4A850B003F8519 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF64FB61C4A850B003F8519 /* DataManager.swift */; };
 		0AF64FB91C4A859B003F8519 /* CollectionCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF64FB81C4A859B003F8519 /* CollectionCreator.swift */; };
@@ -50,7 +50,7 @@
 		0AF64FA71C4A812A003F8519 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0AF64FAA1C4A812A003F8519 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0AF64FAC1C4A812A003F8519 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		0AF64FB21C4A8294003F8519 /* CollectionsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionsTableViewController.swift; sourceTree = "<group>"; };
+		0AF64FB21C4A8294003F8519 /* CollectionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionsViewController.swift; sourceTree = "<group>"; };
 		0AF64FB41C4A830B003F8519 /* Models.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		0AF64FB61C4A850B003F8519 /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		0AF64FB81C4A859B003F8519 /* CollectionCreator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionCreator.swift; sourceTree = "<group>"; };
@@ -119,7 +119,7 @@
 				0A952AE11C9D836E00ED76D7 /* Storyboards */,
 				0A98C1481CB1601600BF7252 /* Settings */,
 				0A2AADC31C7905CB008A6AE0 /* CustomNavigationController.swift */,
-				0AF64FB21C4A8294003F8519 /* CollectionsTableViewController.swift */,
+				0AF64FB21C4A8294003F8519 /* CollectionsViewController.swift */,
 				0A47D5291C6642F200DC7296 /* ItemsViewController.swift */,
 				0A15C0AC1C67A4E100857307 /* CustomTableViewCells.swift */,
 				0A2AADC11C78DDE3008A6AE0 /* CustomViews.swift */,
@@ -212,7 +212,7 @@
 			files = (
 				0AF64FB91C4A859B003F8519 /* CollectionCreator.swift in Sources */,
 				0A9A16811C5CDD260000E436 /* TournamentManager.swift in Sources */,
-				0AF64FB31C4A8294003F8519 /* CollectionsTableViewController.swift in Sources */,
+				0AF64FB31C4A8294003F8519 /* CollectionsViewController.swift in Sources */,
 				0A2AADC21C78DDE3008A6AE0 /* CustomViews.swift in Sources */,
 				0A2535861C52BFF100579102 /* SortingViewController.swift in Sources */,
 				0A47D52A1C6642F200DC7296 /* ItemsViewController.swift in Sources */,
