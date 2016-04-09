@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="RYh-O1-C5H">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="baK-Ql-DMf">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -161,7 +161,7 @@
                                             <outlet property="descriptionLabel" destination="7uY-Of-a0D" id="ExO-x3-0IS"/>
                                             <outlet property="sortedImageView" destination="ro4-Jq-Qmk" id="YT2-XQ-PSe"/>
                                             <outlet property="titleLabel" destination="6E8-A1-raX" id="eez-5a-NfS"/>
-                                            <segue destination="Rc8-2L-atM" kind="show" identifier="ShowCollection" id="VjK-bW-QoW"/>
+                                            <segue destination="nlL-AF-Rd4" kind="show" identifier="ShowCollection" id="lYa-dA-zBx"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -182,7 +182,7 @@
                                 </state>
                                 <connections>
                                     <action selector="sortBarButtonPressed:" destination="nlL-AF-Rd4" eventType="touchUpInside" id="nAb-cO-Www"/>
-                                    <segue destination="Rc8-2L-atM" kind="show" identifier="CreateCollection" id="UJD-NW-vMF"/>
+                                    <segue destination="nlL-AF-Rd4" kind="show" identifier="CreateCollection" id="Xl0-xb-tYa"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -226,6 +226,7 @@
                         <outletCollection property="autoCreateOptionButtonsCollection" destination="Ezq-Nq-pxh" collectionClass="NSMutableArray" id="iwz-9s-gmI"/>
                         <outletCollection property="autoCreateOptionButtonsCollection" destination="rjY-Lm-daf" collectionClass="NSMutableArray" id="5Wv-eC-h8d"/>
                         <segue destination="Rc8-2L-atM" kind="show" identifier="ShowEditCollection" id="VCk-uE-I3g"/>
+                        <segue destination="nlL-AF-Rd4" kind="show" identifier="ShowEditCollection" id="5ih-r3-s5W"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ChJ-K0-eoL" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -247,19 +248,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RK5-GS-Bba" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1153" y="-2283"/>
-        </scene>
-        <!--Split View Controller-->
-        <scene sceneID="eqJ-1H-sya">
-            <objects>
-                <splitViewController id="RYh-O1-C5H" sceneMemberID="viewController">
-                    <connections>
-                        <segue destination="baK-Ql-DMf" kind="relationship" relationship="masterViewController" id="nny-Gt-znj"/>
-                        <segue destination="Rc8-2L-atM" kind="relationship" relationship="detailViewController" id="Ee9-gP-DMF"/>
-                    </connections>
-                </splitViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="lc0-tz-p7v" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="333" y="-1952"/>
         </scene>
         <!--Items View Controller-->
         <scene sceneID="xAf-pg-vvo">
@@ -528,7 +516,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BSC-44-Hch" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1145" y="-576"/>
+            <point key="canvasLocation" x="1145" y="-1148"/>
         </scene>
         <!--Description View Controller-->
         <scene sceneID="zAT-26-3xH">
@@ -583,15 +571,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9hr-aq-gL9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1145" y="-1392"/>
-        </scene>
-        <!--Settings-->
-        <scene sceneID="0gn-CS-sVZ">
-            <objects>
-                <viewControllerPlaceholder storyboardName="Settings" id="qCN-U2-vM2" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="eJ7-ZQ-I1W" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2549" y="-2283"/>
+            <point key="canvasLocation" x="2043" y="-1390"/>
         </scene>
         <!--Sorting-->
         <scene sceneID="JgM-zC-nue">
@@ -607,8 +587,8 @@
         <image name="PlusButton" width="32" height="32"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="pIc-SD-dGA"/>
         <segue reference="1Ky-jB-L3f"/>
-        <segue reference="VjK-bW-QoW"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.75686274509803919" green="0.1764705882352941" blue="0.44313725490196076" alpha="1" colorSpace="calibratedRGB"/>
 </document>
