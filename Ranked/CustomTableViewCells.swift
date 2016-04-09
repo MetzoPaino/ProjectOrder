@@ -8,6 +8,17 @@
 
 import UIKit
 
+//MARK: - CollectionsViewController
+
+class CollectionTableViewCell: UITableViewCell {
+    
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var sortedImageView: UIImageView!
+    @IBOutlet weak var descriptionLabel: UILabel!
+}
+
+//MARK: - ItemsViewController
+
 class TitleCell: UITableViewCell {
     
     @IBOutlet weak var label: UILabel!
@@ -26,8 +37,6 @@ class DescriptionCell: UITableViewCell {
     func configureCell() {
     }
 }
-
-// MARK:- ItemTableViewCell
 
 class ItemTableViewCell: UITableViewCell {
     
@@ -73,9 +82,7 @@ class AddItemTableViewCell: UITableViewCell {
 extension AddItemTableViewCell: UITextFieldDelegate {
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
-        
-//        textField.resignFirstResponder()
-        
+                
         let string = textField.text! as NSString
         
         if string.length > 0 {

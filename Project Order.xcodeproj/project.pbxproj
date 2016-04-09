@@ -7,8 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0A04E6A71CB93379006A80E5 /* ColorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A04E6A61CB93379006A80E5 /* ColorManager.swift */; };
 		0A04E6A91CB93894006A80E5 /* ProtocolManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A04E6A81CB93894006A80E5 /* ProtocolManager.swift */; };
+		0A04E6AB1CB9455B006A80E5 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A04E6AA1CB9455B006A80E5 /* DataManager.swift */; };
+		0A04E6AD1CB94572006A80E5 /* ColorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A04E6AC1CB94572006A80E5 /* ColorManager.swift */; };
 		0A15C0AD1C67A4E100857307 /* CustomTableViewCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A15C0AC1C67A4E100857307 /* CustomTableViewCells.swift */; };
 		0A2535861C52BFF100579102 /* SortingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2535851C52BFF100579102 /* SortingViewController.swift */; };
 		0A2AADC41C7905CB008A6AE0 /* CustomNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2AADC31C7905CB008A6AE0 /* CustomNavigationController.swift */; };
@@ -25,13 +26,13 @@
 		0AF64FAB1C4A812A003F8519 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0AF64FA91C4A812A003F8519 /* LaunchScreen.storyboard */; };
 		0AF64FB31C4A8294003F8519 /* CollectionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF64FB21C4A8294003F8519 /* CollectionsViewController.swift */; };
 		0AF64FB51C4A830B003F8519 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF64FB41C4A830B003F8519 /* Models.swift */; };
-		0AF64FB71C4A850B003F8519 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF64FB61C4A850B003F8519 /* DataManager.swift */; };
 		0AF64FB91C4A859B003F8519 /* CollectionCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF64FB81C4A859B003F8519 /* CollectionCreator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0A04E6A61CB93379006A80E5 /* ColorManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ColorManager.swift; path = ColorManager/ColorManager.swift; sourceTree = "<group>"; };
 		0A04E6A81CB93894006A80E5 /* ProtocolManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProtocolManager.swift; path = Managers/ProtocolManager.swift; sourceTree = "<group>"; };
+		0A04E6AA1CB9455B006A80E5 /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DataManager.swift; path = Managers/DataManager.swift; sourceTree = "<group>"; };
+		0A04E6AC1CB94572006A80E5 /* ColorManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ColorManager.swift; path = Managers/ColorManager.swift; sourceTree = "<group>"; };
 		0A15C0AC1C67A4E100857307 /* CustomTableViewCells.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTableViewCells.swift; sourceTree = "<group>"; };
 		0A2535851C52BFF100579102 /* SortingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SortingViewController.swift; sourceTree = "<group>"; };
 		0A2AADC31C7905CB008A6AE0 /* CustomNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomNavigationController.swift; sourceTree = "<group>"; };
@@ -50,7 +51,6 @@
 		0AF64FAC1C4A812A003F8519 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0AF64FB21C4A8294003F8519 /* CollectionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionsViewController.swift; sourceTree = "<group>"; };
 		0AF64FB41C4A830B003F8519 /* Models.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
-		0AF64FB61C4A850B003F8519 /* DataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		0AF64FB81C4A859B003F8519 /* CollectionCreator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionCreator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -68,8 +68,8 @@
 		0A0047EE1C94771B007CBFE7 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
-				0AF64FB61C4A850B003F8519 /* DataManager.swift */,
-				0A04E6A61CB93379006A80E5 /* ColorManager.swift */,
+				0A04E6AA1CB9455B006A80E5 /* DataManager.swift */,
+				0A04E6AC1CB94572006A80E5 /* ColorManager.swift */,
 				0A04E6A81CB93894006A80E5 /* ProtocolManager.swift */,
 			);
 			name = Managers;
@@ -208,12 +208,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				0AF64FB91C4A859B003F8519 /* CollectionCreator.swift in Sources */,
+				0A04E6AB1CB9455B006A80E5 /* DataManager.swift in Sources */,
 				0A9A16811C5CDD260000E436 /* TournamentManager.swift in Sources */,
 				0AF64FB31C4A8294003F8519 /* CollectionsViewController.swift in Sources */,
 				0A2535861C52BFF100579102 /* SortingViewController.swift in Sources */,
 				0A47D52A1C6642F200DC7296 /* ItemsViewController.swift in Sources */,
-				0A04E6A71CB93379006A80E5 /* ColorManager.swift in Sources */,
-				0AF64FB71C4A850B003F8519 /* DataManager.swift in Sources */,
+				0A04E6AD1CB94572006A80E5 /* ColorManager.swift in Sources */,
 				0A64F8D51C95CBA8009AF27C /* SettingsViewController.swift in Sources */,
 				0A77D7DA1C67900C00792403 /* DescriptionViewController.swift in Sources */,
 				0AF64FA11C4A8129003F8519 /* AppDelegate.swift in Sources */,

@@ -8,13 +8,6 @@
 
 import UIKit
 
-class CollectionTableViewCell: UITableViewCell {
-    
-    @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var sortedImageView: UIImageView!
-    @IBOutlet weak var descriptionLabel: UILabel!
-}
-
 class CollectionsViewController: UIViewController, Injectable {
     
     @IBOutlet weak var tableView: UITableView!
@@ -89,9 +82,12 @@ class CollectionsViewController: UIViewController, Injectable {
         tableView.separatorColor = .backgroundColor()
         tableView.backgroundColor = .backgroundColor()
     }
-    
-    // MARK: - Navigation
+}
 
+// MARK: - Navigation
+private typealias Navigation = CollectionsViewController
+extension Navigation {
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
         if let controller = segue.destinationViewController as? ItemsViewController {
@@ -112,7 +108,7 @@ class CollectionsViewController: UIViewController, Injectable {
                     controller.newCollection = false
                     controller.delegate = self
                     self.navigationController?.navigationBar.tintColor = .primaryColor()
-
+                    
                 }
             } else if segue.identifier == "ShowEditCollection" {
                 
