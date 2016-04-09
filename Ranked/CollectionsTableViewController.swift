@@ -15,45 +15,32 @@ class CollectionTableViewCell: UITableViewCell {
     @IBOutlet weak var descriptionLabel: UILabel!
 }
 
-class CollectionsViewController: UIViewController {
+class CollectionsViewController: UIViewController, Injectable {
     
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var tutorialView: UIView!
-    @IBOutlet weak var autoCreateOption1Button: UIButton!
-    @IBOutlet weak var option1XAlignmentConstraint: NSLayoutConstraint!
-    
-    
-    @IBOutlet weak var autoCreateOption2Button: UIButton!
-    @IBOutlet weak var option2XAlignmentConstraint: NSLayoutConstraint!
-    
-    @IBOutlet weak var autoCreateOption3Button: UIButton!
-    @IBOutlet weak var option3XAlignmentConstraint: NSLayoutConstraint!
-    
-    @IBOutlet var autoCreateOptionButtonsCollection: [UIButton]!
-
-    @IBOutlet weak var refreshAutoCreateOptionsButton: UIButton!
-
     @IBOutlet weak var addButton: UIButton!
     @IBOutlet weak var addButtonHeightConstraint: NSLayoutConstraint!
 
-
-
     
-    var dataManager: DataManager!
-    var collectionsArray = [CollectionModel]()
+    
+    typealias AssociatedObject = DataManager
+    private var dataManager: DataManager!
+    
+//    var dataManager: DataManager!
+//    var collectionsArray = [CollectionModel]()
     
     var shadowImage: UIImage!
     var backgroundImage: UIImage!
     
     var hasCollections = true
-
-    
     
     // MARK: - Setup
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        collectionsArray = dataManager.collections
+        assertDependencies()
+
+//        collectionsArray = dataManager.collections
         styleTableView()
         styleView()
     }
@@ -85,9 +72,12 @@ class CollectionsViewController: UIViewController {
         navigationController?.navigationBar.tintColor = .primaryColor()
     }
     
-    override func viewDidAppear(animated: Bool) {
-        
-        animateAutoCreateButtons(true)
+    func inject(dataManager: AssociatedObject) {
+        self.dataManager = dataManager
+    }
+    
+    func assertDependencies() {
+        assert(dataManager != nil)
     }
 
     func styleView() {
@@ -105,90 +95,6 @@ class CollectionsViewController: UIViewController {
         tableView.separatorInset = UIEdgeInsetsZero
         tableView.separatorColor = .backgroundColor()
         tableView.backgroundColor = .backgroundColor()
-    }
-    
-    func styleTutorialView() {
-        
-        if dataManager.collections.count == 0 {
-            
-            tutorialView.hidden = false
-            
-            var randomIntArray = [Int]()
-            
-            repeat {
-                
-                let index = Int(arc4random_uniform(UInt32(preMadeCollectionsArray.count)))
-                
-                if !randomIntArray.contains(index) {
-                    
-                    randomIntArray.append(index)
-                }
-                
-            } while (randomIntArray.count < 3);
-            
-            for (index, integer) in randomIntArray.enumerate() {
-                
-                let button = autoCreateOptionButtonsCollection[index]
-                button.setTitle(preMadeCollectionsArray[integer].name, forState: .Normal)
-                button.tag = integer
-            }
-            
-        } else {
-            tutorialView.hidden = true
-        }
-    }
-    
-    func moveAutoCreateButtonsOffScreen() {
-        
-        option1XAlignmentConstraint.constant = 0 - view.bounds.width
-        option2XAlignmentConstraint.constant = 0 + view.bounds.width
-        option3XAlignmentConstraint.constant = 0 - view.bounds.width
-    }
-    
-    func animateAutoCreateButtons(onScreen: Bool) {
-        
-        var stageLeft: CGFloat = 0
-        var stageRight: CGFloat = 0
-        
-        if !onScreen {
-            
-            stageLeft = view.bounds.width
-            stageRight = view.bounds.width
-        }
-        
-        UIView.animateWithDuration(0.5, delay: 0.0, usingSpringWithDamping: 0.75, initialSpringVelocity: 1.0, options: UIViewAnimationOptions.CurveEaseInOut, animations: { () -> Void in
-            
-            self.option1XAlignmentConstraint.constant = 0 - stageLeft
-            self.option2XAlignmentConstraint.constant = 0 + stageRight
-            self.option3XAlignmentConstraint.constant = 0 - stageLeft
-            
-            self.view.layoutIfNeeded()
-            
-            }) { (completion) -> Void in
-                
-                if !onScreen {
-                    
-                    self.styleTutorialView()
-                    self.animateAutoCreateButtons(true)
-                }
-            }
-    }
-    
-    // MARK: - IBActions
-
-    @IBAction func optionButtonPressed(sender: UIButton) {
-        
-        let collection = preMadeCollectionsArray[sender.tag]
-        dataManager.collections.insert(collection, atIndex: 0)
-        tableView.reloadData()
-        tableView.selectRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), animated: true, scrollPosition: UITableViewScrollPosition.None)
-        tutorialView.hidden = true
-        performSegueWithIdentifier("ShowCollection", sender: nil)
-        
-    }
-    
-    @IBAction func refreshAutoCreateOptionsButtonPressed(sender: UIButton) {
-        animateAutoCreateButtons(false)
     }
     
     // MARK: - Navigation
@@ -229,11 +135,11 @@ class CollectionsViewController: UIViewController {
             let backItem = UIBarButtonItem()
             backItem.title = ""
             navigationItem.backBarButtonItem = backItem
-            
         }
     }
 }
 
+// MARK: - TableView Protocols
 private typealias TableViewDelegate = CollectionsViewController
 extension TableViewDelegate: UITableViewDelegate {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -296,16 +202,9 @@ extension TableViewDataSource: UITableViewDataSource {
         }
         return cell
     }
-    
-//    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-//        if editingStyle == .Delete {
-//            collectionsArray.removeAtIndex(indexPath.row)
-//            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
-//        }
-//    }
-
 }
 
+// MARK: - ItemsViewController Protocols
 private typealias ItemsDelegate = CollectionsViewController
 extension ItemsDelegate: ItemsViewControllerDelegate {
     
@@ -324,15 +223,3 @@ extension ItemsDelegate: ItemsViewControllerDelegate {
         tableView.reloadData()
     }
 }
-
-//extension CollectionsTableViewController: AddCollectionViewControllerDelegate {
-//    
-//    func addCollectionViewControllerCreatedNewCollectionWithName(name: String, description: String, category: CollectionType) {
-//        
-//        let collection = CollectionModel(name: name, description: description, category: category, dateCreated: NSDate())
-//        collectionsArray.append(collection)
-//        
-//        collectionsArray = collectionsArray.sort({ $0.dateCreated.compare($1.dateCreated) == NSComparisonResult.OrderedDescending})
-//        tableView.reloadData()
-//    }
-//}

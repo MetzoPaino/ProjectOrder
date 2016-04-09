@@ -44,7 +44,7 @@ class ItemsViewController: UIViewController, Injectable {
     
     
     
-    typealias CollectionModelAlias = CollectionModel
+    typealias AssociatedObject = CollectionModel
     private var collection: CollectionModel!
 
     // MARK: - Load View
@@ -72,7 +72,7 @@ class ItemsViewController: UIViewController, Injectable {
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
-    func inject(collection: CollectionModelAlias) {
+    func inject(collection: AssociatedObject) {
         self.collection = collection
     }
     

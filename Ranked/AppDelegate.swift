@@ -18,9 +18,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         if let navigationController = window!.rootViewController as? UINavigationController {
             
-            let masterController = navigationController.topViewController as! CollectionsViewController
-            masterController.dataManager = dataManager
-            
+            let controller = navigationController.topViewController as! CollectionsViewController
+            controller.inject(dataManager)
         }
         return true
     }

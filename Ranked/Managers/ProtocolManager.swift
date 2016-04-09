@@ -9,7 +9,7 @@
 import Foundation
 
 protocol Injectable {
-    associatedtype CollectionModelAlias
-    func inject(collection: CollectionModelAlias)
+    associatedtype AssociatedObject
+    func inject(object: AssociatedObject)
     func assertDependencies()
 }
