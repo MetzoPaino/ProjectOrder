@@ -71,6 +71,7 @@ class DescriptionViewController: UIViewController {
             }
         }
     }
+    
     // MARK: - NSNotification
     
     func receivedKeyboardNotification(notification: NSNotification) {

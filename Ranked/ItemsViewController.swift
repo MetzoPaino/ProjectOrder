@@ -310,8 +310,23 @@ extension IBActions {
         shareBarButton = createBarButton(.share)
         navigationItem.rightBarButtonItems = [shareBarButton, editBarButton]
         
-//        let colorPickerIndex = NSIndexPath(forRow: 2, inSection: 0)
         let addItemIndex = NSIndexPath(forRow: 2, inSection: 0)
+
+        if let addItemCell = tableView.cellForRowAtIndexPath(addItemIndex) as? AddItemTableViewCell {
+            
+//            let addItemCell = tableView.cellForRowAtIndexPath(addItemIndex) as! AddItemTableViewCell
+            
+            
+            addItemCell.textFieldShouldReturn(addItemCell.textField)
+            
+            
+//            addItemCell.delegate?.createdNewItemWithText(addItemCell.textField.text!)
+            
+            
+        }
+        
+        
+        
         
         tableView.beginUpdates()
         tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: .Fade)
@@ -405,14 +420,10 @@ extension AddItemDelegate: AddItemTableViewCellDelegate {
     
     func createdNewItemWithText(text: String) {
         
-        //view.removeGestureRecognizer(tapGesture)
+        // Inserting causes a crash, but would look nicer
         let item = ItemModel(string: text)
         collection.items.insert(item, atIndex: 0)
-        
-        let newItemIndex = NSIndexPath(forRow: 0, inSection: 01)
-        tableView.beginUpdates()
-        tableView.insertRowsAtIndexPaths([newItemIndex], withRowAnimation: .Top)
-        tableView.endUpdates()
+        tableView.reloadData()
     }
 }
 
@@ -464,8 +475,6 @@ extension TableViewDelegate: UITableViewDelegate {
 
 private typealias TableViewDataSource = ItemsViewController
 extension TableViewDataSource: UITableViewDataSource {
-    
-
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 2
@@ -523,35 +532,15 @@ extension TableViewDataSource: UITableViewDataSource {
                     cell.label.textColor = .backgroundColor()
                     
                 }
-//                if inEditingMode == nil {
-//                    cell.textView.becomeFirstResponder()
-//                    cell.configureCell(nil, enableEditing: inEditingMode)
-//                    
-//                } else {
-//                    cell.configureCell(collection.name, enableEditing: inEditingMode)
-//                }
                 
                 return cell
                 
-            }
-            
-//            else if indexPath.row == 2 {
-//                
-//                let cell = tableView.dequeueReusableCellWithIdentifier("ColorCell", forIndexPath: indexPath) as! ColorCell
-//                cell.delegate = self
-//                cell.configureCell()
-//                cell.separatorInset = UIEdgeInsetsMake(0, cell.bounds.size.width, 0, 0);
-//                return cell
-//                
-//            }
-            
-            else if indexPath.row == 2 {
+            } else if indexPath.row == 2 {
             
                 let cell = tableView.dequeueReusableCellWithIdentifier("AddItemCell", forIndexPath: indexPath) as! AddItemTableViewCell
                 cell.delegate = self
                 cell.configureCell()
                 cell.layoutMargins = UIEdgeInsetsZero;
-//                cell.separatorInset = UIEdgeInsetsMake(0, cell.bounds.size.width, 0, 0);
 
                 return cell
                 
@@ -599,7 +588,6 @@ extension TableViewDataSource: UITableViewDataSource {
             cell.titleLabel.text = item.text
             cell.titleLabel.textColor = .titleColor()
             
-//            cell.separatorInset = UIEdgeInsetsMake(0, cell.bounds.size.width, 0, 0);
             cell.layoutMargins = UIEdgeInsetsZero;
             cell.selectionStyle = .None
             
@@ -631,21 +619,4 @@ extension TableViewDataSource: UITableViewDataSource {
             return cell
         }
     }
-    
-//    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-//        
-//        if editingStyle == .Delete {
-//            collection.items.removeAtIndex(indexPath.row)
-//            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
-//        }
-//    }
-    
-//    func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
-//        
-//        if indexPath.section == 0 {
-//            return UITableViewCellEditingStyle.None
-//        } else {
-//            return UITableViewCellEditingStyle.
-//        }
-//    }
 }
