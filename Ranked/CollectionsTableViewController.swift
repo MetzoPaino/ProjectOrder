@@ -160,7 +160,7 @@ class CollectionsViewController: UIViewController {
         addButton.backgroundColor = .primaryColor()
         addButton.layer.cornerRadius = self.addButtonHeightConstraint.constant / 2
         addButton.layer.masksToBounds = true
-        addButton.setImage(UIImage(named: "GreaterThanWhite"), forState: .Normal)
+        addButton.setImage(UIImage(named: "PlusButton"), forState: .Normal)
     }
     
     func styleTableView() {

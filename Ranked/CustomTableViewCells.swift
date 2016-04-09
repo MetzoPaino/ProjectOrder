@@ -44,8 +44,6 @@ class ItemTableViewCell: UITableViewCell {
         numberImageView.layer.cornerRadius = numberImageView.frame.width / 2
         numberImageView.clipsToBounds = true
     }
-    
-    
 }
 
 protocol AddItemTableViewCellDelegate: class {
@@ -57,6 +55,7 @@ class AddItemTableViewCell: UITableViewCell {
     
     @IBOutlet weak var textField: UITextField!
     @IBOutlet weak var addImageView: UIImageView!
+    @IBOutlet weak var circleView: UIView!
     
     weak var delegate: AddItemTableViewCellDelegate?
     
@@ -65,11 +64,9 @@ class AddItemTableViewCell: UITableViewCell {
         textField.delegate = self
         textField.attributedPlaceholder = NSAttributedString(string: textField.placeholder!, attributes: [NSForegroundColorAttributeName: UIColor.backgroundColor()])
         
-        addImageView.backgroundColor = .secondaryColor()
-        addImageView.layer.cornerRadius = 20
-//        addImageView.layer.masksToBounds = true
-        addImageView.clipsToBounds = true
-
+        circleView.backgroundColor = .secondaryColor()
+        circleView.layer.cornerRadius = 32 / 2
+        circleView.clipsToBounds = true
     }
 }
 
