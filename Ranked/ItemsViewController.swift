@@ -21,10 +21,9 @@ enum BarButtonType {
     case share
 }
 
-class ItemsViewController: UIViewController {
+class ItemsViewController: UIViewController, Injectable {
     
     @IBOutlet weak var tableView: UITableView!
-//    @IBOutlet var sortBarButton: UIBarButtonItem!
     @IBOutlet weak var sortButton: UIButton!
     @IBOutlet weak var sortButtonHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var sortButtonBottomConstraint: NSLayoutConstraint!
@@ -35,7 +34,6 @@ class ItemsViewController: UIViewController {
     
     weak var delegate: ItemsViewControllerDelegate?
 
-    var collection = CollectionModel(name: "", description: "", dateCreated: NSDate())
     
     var inEditingMode: Bool?
     var newCollection: Bool!
@@ -43,11 +41,17 @@ class ItemsViewController: UIViewController {
     var indexPathToEdit: NSIndexPath?
     
     let tapGesture = UITapGestureRecognizer()
+    
+    
+    
+    typealias CollectionModelAlias = CollectionModel
+    private var collection: CollectionModel!
 
     // MARK: - Load View
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        assertDependencies()
         
         let notificationCenter = NSNotificationCenter.defaultCenter()
         notificationCenter.addObserver(self, selector: #selector(ItemsViewController.receivedKeyboardNotification(_:)), name: UIKeyboardDidShowNotification, object: nil)
@@ -67,6 +71,14 @@ class ItemsViewController: UIViewController {
         super.viewWillDisappear(animated)
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
+    
+    func inject(collection: CollectionModelAlias) {
+        self.collection = collection
+    }
+    
+    func assertDependencies() {
+        assert(collection != nil)
+    }
 
     // MARK: - Style View
     
@@ -75,16 +87,17 @@ class ItemsViewController: UIViewController {
         if inEditingMode == nil || inEditingMode == true {
             
             doneBarButton = createBarButton(.done)
-            navigationController?.navigationItem.rightBarButtonItems = [doneBarButton]
+            
+            navigationItem.rightBarButtonItems = [doneBarButton]
             
         } else {
             
             editBarButton = createBarButton(.edit)
             shareBarButton = createBarButton(.share)
-            navigationController?.navigationItem.rightBarButtonItems = [shareBarButton, editBarButton]
+            navigationItem.rightBarButtonItems = [shareBarButton, editBarButton]
         }
         
-        navigationController?.navigationItem.backBarButtonItem?.tintColor = .primaryColor()
+        navigationItem.backBarButtonItem?.tintColor = .primaryColor()
         
         sortButton.tintColor = .primaryColor()
         sortButton.layer.cornerRadius = self.sortButtonHeightConstraint.constant / 2
@@ -143,6 +156,10 @@ class ItemsViewController: UIViewController {
                 controller.context = .description
                 controller.providedDescription = collection.descriptionString
             }
+            
+            let backItem = UIBarButtonItem()
+            backItem.title = ""
+            navigationItem.backBarButtonItem = backItem
             
         } else if let navigationController = segue.destinationViewController as? UINavigationController, controller = navigationController.topViewController as? SortingViewController {
             
@@ -272,7 +289,7 @@ extension IBActions {
         }
         
         doneBarButton = createBarButton(.done)
-        navigationController?.navigationItem.rightBarButtonItems = [doneBarButton]
+        navigationItem.rightBarButtonItems = [doneBarButton]
         
 //        let colorPickerIndex = NSIndexPath(forRow: 2, inSection: 0)
         let addItemIndex = NSIndexPath(forRow: 2, inSection: 0)
@@ -291,7 +308,7 @@ extension IBActions {
         
         editBarButton = createBarButton(.edit)
         shareBarButton = createBarButton(.share)
-        navigationController?.navigationItem.rightBarButtonItems = [shareBarButton, editBarButton]
+        navigationItem.rightBarButtonItems = [shareBarButton, editBarButton]
         
 //        let colorPickerIndex = NSIndexPath(forRow: 2, inSection: 0)
         let addItemIndex = NSIndexPath(forRow: 2, inSection: 0)

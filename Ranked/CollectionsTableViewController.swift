@@ -15,69 +15,6 @@ class CollectionTableViewCell: UITableViewCell {
     @IBOutlet weak var descriptionLabel: UILabel!
 }
 
-extension UIColor {
-    
-    public class func primaryColor() -> UIColor {
-        
-        return UIColor(red: 229/255, green: 39/255, blue: 113/255, alpha: 1.0)
-    }
-    
-    public class func secondaryColor() -> UIColor {
-        
-        return UIColor(red: 142/255, green: 226/255, blue: 200/255, alpha: 1.0)
-    }
-    
-    public class func warningColor() -> UIColor {
-        
-        return UIColor(red: 219/255, green: 33/255, blue: 66/255, alpha: 1.0)
-    }
-    
-    public class func backgroundColor() -> UIColor {
-        
-        return UIColor(red: 218/255, green: 218/255, blue: 218/255, alpha: 1.0)
-    }
-    
-    public class func headingColor() -> UIColor {
-        
-        return UIColor(red: 29/255, green: 29/255, blue: 29/255, alpha: 1.0)
-    }
-    
-    public class func subHeadingColor() -> UIColor {
-        
-        return UIColor(red: 114/255, green: 113/255, blue: 110/255, alpha: 1.0)
-    }
-    
-    public class func titleColor() -> UIColor {
-        
-        return UIColor(red: 31/255, green: 31/255, blue: 31/255, alpha: 1.0)
-    }
-    
-    public class func secondColor() -> UIColor {
-        
-        return UIColor(red: 131/255, green: 47/255, blue: 85/255, alpha: 1.0)
-    }
-    
-    public class func thirdColor() -> UIColor {
-        
-        return UIColor(red: 92/255, green: 54/255, blue: 71/255, alpha: 1.0)
-    }
-    
-    public class func loserColor() -> UIColor {
-        
-        return UIColor(red: 59/255, green: 59/255, blue: 59/255, alpha: 1.0)
-    }
-    
-    public class func blockColor() -> UIColor {
-        
-        return UIColor(red: 29/255, green: 29/255, blue: 29/255, alpha: 1.0)
-    }
-    
-    public class func sortColor() -> UIColor {
-        
-        return UIColor(red: 31/255, green: 31/255, blue: 31/255, alpha: 1.0)
-    }
-}
-
 class CollectionsViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
@@ -119,8 +56,6 @@ class CollectionsViewController: UIViewController {
         collectionsArray = dataManager.collections
         styleTableView()
         styleView()
-//        moveAutoCreateButtonsOffScreen()
-//        styleTutorialView()
     }
     
     override func viewWillDisappear(animated: Bool)  {
@@ -260,10 +195,11 @@ class CollectionsViewController: UIViewController {
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
-        if let navigationController = segue.destinationViewController as? UINavigationController, controller = navigationController.topViewController as? ItemsViewController {
+        if let controller = segue.destinationViewController as? ItemsViewController {
             
             if segue.identifier == "CreateCollection" {
                 
+                controller.inject(CollectionModel(name: "", description: "", dateCreated: NSDate()))
                 controller.delegate = self
                 controller.newCollection = true
                 
@@ -272,7 +208,7 @@ class CollectionsViewController: UIViewController {
                 
                 if let selectedIndexPath = tableView.indexPathForSelectedRow {
                     
-                    controller.collection = dataManager.collections[selectedIndexPath.row]
+                    controller.inject(dataManager.collections[selectedIndexPath.row])
                     controller.inEditingMode = false
                     controller.newCollection = false
                     controller.delegate = self
@@ -283,8 +219,7 @@ class CollectionsViewController: UIViewController {
                 
                 if let row = sender as? Int {
                     
-                    controller.collection = dataManager.collections[row]
-                    
+                    controller.inject(dataManager.collections[row])
                 }
                 controller.inEditingMode = true
                 controller.delegate = self

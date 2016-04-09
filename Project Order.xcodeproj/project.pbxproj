@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A04E6A71CB93379006A80E5 /* ColorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A04E6A61CB93379006A80E5 /* ColorManager.swift */; };
+		0A04E6A91CB93894006A80E5 /* ProtocolManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A04E6A81CB93894006A80E5 /* ProtocolManager.swift */; };
 		0A15C0AD1C67A4E100857307 /* CustomTableViewCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A15C0AC1C67A4E100857307 /* CustomTableViewCells.swift */; };
 		0A2535861C52BFF100579102 /* SortingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2535851C52BFF100579102 /* SortingViewController.swift */; };
 		0A2AADC21C78DDE3008A6AE0 /* CustomViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2AADC11C78DDE3008A6AE0 /* CustomViews.swift */; };
@@ -29,6 +31,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0A04E6A61CB93379006A80E5 /* ColorManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ColorManager.swift; path = ColorManager/ColorManager.swift; sourceTree = "<group>"; };
+		0A04E6A81CB93894006A80E5 /* ProtocolManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProtocolManager.swift; path = Managers/ProtocolManager.swift; sourceTree = "<group>"; };
 		0A15C0AC1C67A4E100857307 /* CustomTableViewCells.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTableViewCells.swift; sourceTree = "<group>"; };
 		0A2535851C52BFF100579102 /* SortingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SortingViewController.swift; sourceTree = "<group>"; };
 		0A2AADC11C78DDE3008A6AE0 /* CustomViews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomViews.swift; sourceTree = "<group>"; };
@@ -67,6 +71,8 @@
 			isa = PBXGroup;
 			children = (
 				0AF64FB61C4A850B003F8519 /* DataManager.swift */,
+				0A04E6A61CB93379006A80E5 /* ColorManager.swift */,
+				0A04E6A81CB93894006A80E5 /* ProtocolManager.swift */,
 			);
 			name = Managers;
 			sourceTree = "<group>";
@@ -210,12 +216,14 @@
 				0A2AADC21C78DDE3008A6AE0 /* CustomViews.swift in Sources */,
 				0A2535861C52BFF100579102 /* SortingViewController.swift in Sources */,
 				0A47D52A1C6642F200DC7296 /* ItemsViewController.swift in Sources */,
+				0A04E6A71CB93379006A80E5 /* ColorManager.swift in Sources */,
 				0AF64FB71C4A850B003F8519 /* DataManager.swift in Sources */,
 				0A64F8D51C95CBA8009AF27C /* SettingsViewController.swift in Sources */,
 				0A77D7DA1C67900C00792403 /* DescriptionViewController.swift in Sources */,
 				0AF64FA11C4A8129003F8519 /* AppDelegate.swift in Sources */,
 				0AF64FB51C4A830B003F8519 /* Models.swift in Sources */,
 				0A98C14A1CB1603B00BF7252 /* PremadeCollectionsViewController.swift in Sources */,
+				0A04E6A91CB93894006A80E5 /* ProtocolManager.swift in Sources */,
 				0A2AADC41C7905CB008A6AE0 /* CustomNavigationController.swift in Sources */,
 				0A15C0AD1C67A4E100857307 /* CustomTableViewCells.swift in Sources */,
 			);
