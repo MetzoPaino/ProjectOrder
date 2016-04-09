@@ -76,15 +76,12 @@ class ItemsViewController: UIViewController {
             
             doneBarButton = createBarButton(.done)
             navigationController?.navigationItem.rightBarButtonItems = [doneBarButton]
-            sortButtonBottomConstraint.constant = 0 - 16 - sortButtonHeightConstraint.constant
-            view.layoutIfNeeded()
+            
         } else {
             
             editBarButton = createBarButton(.edit)
             shareBarButton = createBarButton(.share)
             navigationController?.navigationItem.rightBarButtonItems = [shareBarButton, editBarButton]
-            sortButtonBottomConstraint.constant = 16
-            view.layoutIfNeeded()
         }
         
         navigationController?.navigationItem.backBarButtonItem?.tintColor = .primaryColor()
@@ -93,8 +90,16 @@ class ItemsViewController: UIViewController {
         sortButton.layer.cornerRadius = self.sortButtonHeightConstraint.constant / 2
         sortButton.layer.masksToBounds = true
         sortButton.setImage(UIImage(named: "GreaterThanWhite"), forState: .Normal)
-    
         sortButton.backgroundColor = .sortColor()
+        
+        if collection.items.count == 0 || inEditingMode == nil || inEditingMode == true {
+            
+            sortButtonBottomConstraint.constant = 0 - 16 - sortButtonHeightConstraint.constant
+            
+        }
+        
+        view.layoutIfNeeded()
+
     }
     
     func styleTableView() {
@@ -103,7 +108,7 @@ class ItemsViewController: UIViewController {
         tableView.estimatedRowHeight = 88
         tableView.tableFooterView = UIView()
         tableView.separatorInset = UIEdgeInsetsZero
-        tableView.backgroundColor = .backgroundColor()
+        tableView.backgroundColor = .whiteColor()
         tableView.separatorColor = .backgroundColor()
     }
     
@@ -131,7 +136,6 @@ class ItemsViewController: UIViewController {
                     if let text = cell.titleLabel.text {
                        
                         controller.providedDescription = text
-
                     }
                 }
                 
