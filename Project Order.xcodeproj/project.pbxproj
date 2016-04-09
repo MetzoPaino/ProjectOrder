@@ -11,7 +11,6 @@
 		0A04E6A91CB93894006A80E5 /* ProtocolManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A04E6A81CB93894006A80E5 /* ProtocolManager.swift */; };
 		0A15C0AD1C67A4E100857307 /* CustomTableViewCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A15C0AC1C67A4E100857307 /* CustomTableViewCells.swift */; };
 		0A2535861C52BFF100579102 /* SortingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2535851C52BFF100579102 /* SortingViewController.swift */; };
-		0A2AADC21C78DDE3008A6AE0 /* CustomViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2AADC11C78DDE3008A6AE0 /* CustomViews.swift */; };
 		0A2AADC41C7905CB008A6AE0 /* CustomNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2AADC31C7905CB008A6AE0 /* CustomNavigationController.swift */; };
 		0A47D52A1C6642F200DC7296 /* ItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A47D5291C6642F200DC7296 /* ItemsViewController.swift */; };
 		0A64F8D51C95CBA8009AF27C /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A64F8D41C95CBA8009AF27C /* SettingsViewController.swift */; };
@@ -35,7 +34,6 @@
 		0A04E6A81CB93894006A80E5 /* ProtocolManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProtocolManager.swift; path = Managers/ProtocolManager.swift; sourceTree = "<group>"; };
 		0A15C0AC1C67A4E100857307 /* CustomTableViewCells.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTableViewCells.swift; sourceTree = "<group>"; };
 		0A2535851C52BFF100579102 /* SortingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SortingViewController.swift; sourceTree = "<group>"; };
-		0A2AADC11C78DDE3008A6AE0 /* CustomViews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomViews.swift; sourceTree = "<group>"; };
 		0A2AADC31C7905CB008A6AE0 /* CustomNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomNavigationController.swift; sourceTree = "<group>"; };
 		0A47D5291C6642F200DC7296 /* ItemsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemsViewController.swift; sourceTree = "<group>"; };
 		0A64F8D41C95CBA8009AF27C /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -122,7 +120,6 @@
 				0AF64FB21C4A8294003F8519 /* CollectionsViewController.swift */,
 				0A47D5291C6642F200DC7296 /* ItemsViewController.swift */,
 				0A15C0AC1C67A4E100857307 /* CustomTableViewCells.swift */,
-				0A2AADC11C78DDE3008A6AE0 /* CustomViews.swift */,
 				0A77D7D91C67900C00792403 /* DescriptionViewController.swift */,
 				0AF64FB41C4A830B003F8519 /* Models.swift */,
 				0A0047EE1C94771B007CBFE7 /* Managers */,
@@ -213,7 +210,6 @@
 				0AF64FB91C4A859B003F8519 /* CollectionCreator.swift in Sources */,
 				0A9A16811C5CDD260000E436 /* TournamentManager.swift in Sources */,
 				0AF64FB31C4A8294003F8519 /* CollectionsViewController.swift in Sources */,
-				0A2AADC21C78DDE3008A6AE0 /* CustomViews.swift in Sources */,
 				0A2535861C52BFF100579102 /* SortingViewController.swift in Sources */,
 				0A47D52A1C6642F200DC7296 /* ItemsViewController.swift in Sources */,
 				0A04E6A71CB93379006A80E5 /* ColorManager.swift in Sources */,
