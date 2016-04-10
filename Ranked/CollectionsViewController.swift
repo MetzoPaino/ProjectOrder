@@ -173,28 +173,92 @@ extension TableViewDataSource: UITableViewDataSource {
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! CollectionTableViewCell
-        
         let collection = dataManager.collections[indexPath.row];
         
-        cell.titleLabel.text = collection.name
-        cell.titleLabel.textColor = UIColor.headingColor()
-        cell.descriptionLabel.textColor = UIColor.subHeadingColor()
-        cell.layoutMargins = UIEdgeInsetsZero;
-
         if collection.sorted {
             
+            let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! CollectionTableViewCell
+            cell.titleLabel.text = collection.name
+            cell.titleLabel.textColor = UIColor.headingColor()
+            cell.descriptionLabel.textColor = UIColor.subHeadingColor()
+            cell.layoutMargins = UIEdgeInsetsZero;
+            
+            
+            
             collection.items = collection.items.sort({ $0.points > $1.points })
+            
             cell.descriptionLabel.text = collection.items.first!.text
-            cell.sortedImageView.tintColor = .primaryColor()
-            cell.sortedImageView.image = UIImage(named: "HeartSorted")?.imageWithRenderingMode(.AlwaysTemplate)
+            
+            print(cell.descriptionLabel.text)
+            
+            cell.sortedImageView.tintColor = .secondaryColor()
+            cell.sortedImageView.image = UIImage(named: "Sorted")?.imageWithRenderingMode(.AlwaysTemplate)
+            
+//            cell.masterStackViewTopConstraint.constant = 8
+//            cell.masterStackViewBottomConstraint.constant = 8
+//            cell.lowerStackView.hidden = false
+            return cell
+            
+            
+            
         } else {
-            cell.descriptionLabel.text = ""
-            cell.sortedImageView.tintColor = .subHeadingColor()
-            cell.sortedImageView.image = UIImage(named: "HeartUnsorted")?.imageWithRenderingMode(.AlwaysTemplate)
-
+            
+            let cell = tableView.dequeueReusableCellWithIdentifier("UnsortedCell", forIndexPath: indexPath) as! CollectionTableViewCell
+            cell.titleLabel.text = collection.name
+            cell.titleLabel.textColor = UIColor.headingColor()
+            cell.layoutMargins = UIEdgeInsetsZero;
+            
+//            cell.masterStackViewTopConstraint.constant = 16
+//            cell.masterStackViewBottomConstraint.constant = 16
+//            cell.lowerStackView.hidden = true
+            
+            //            cell.descriptionLabel.text = ""
+            
+            
+            //            cell.sortedImageView.tintColor = .disabledColor()
+            //            cell.sortedImageView.image = UIImage(named: "Sorted")?.imageWithRenderingMode(.AlwaysTemplate)
+            return cell
         }
-        return cell
+        
+//        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! CollectionTableViewCell
+//        
+//        
+//        cell.titleLabel.text = collection.name
+//        cell.titleLabel.textColor = UIColor.headingColor()
+//        cell.descriptionLabel.textColor = UIColor.subHeadingColor()
+//        cell.layoutMargins = UIEdgeInsetsZero;
+//
+//        if collection.sorted {
+//            
+//            collection.items = collection.items.sort({ $0.points > $1.points })
+//            
+//            cell.descriptionLabel.text = collection.items.first!.text
+//            
+//            print(cell.descriptionLabel.text)
+//            
+//            cell.sortedImageView.tintColor = .secondaryColor()
+//            cell.sortedImageView.image = UIImage(named: "Sorted")?.imageWithRenderingMode(.AlwaysTemplate)
+//            
+//            cell.masterStackViewTopConstraint.constant = 8
+//            cell.masterStackViewBottomConstraint.constant = 8
+//            cell.lowerStackView.hidden = false
+//
+//            
+//
+//            
+//        } else {
+//            cell.masterStackViewTopConstraint.constant = 16
+//            cell.masterStackViewBottomConstraint.constant = 16
+//            cell.lowerStackView.hidden = true
+//
+////            cell.descriptionLabel.text = ""
+//            
+//            
+////            cell.sortedImageView.tintColor = .disabledColor()
+////            cell.sortedImageView.image = UIImage(named: "Sorted")?.imageWithRenderingMode(.AlwaysTemplate)
+//
+//        }
+        
     }
 }
 

@@ -14,7 +14,11 @@ class CollectionTableViewCell: UITableViewCell {
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var sortedImageView: UIImageView!
+    @IBOutlet weak var lowerStackView: UIStackView!
     @IBOutlet weak var descriptionLabel: UILabel!
+    
+    @IBOutlet weak var masterStackViewBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var masterStackViewTopConstraint: NSLayoutConstraint!
 }
 
 //MARK: - ItemsViewController
@@ -74,7 +78,7 @@ class AddItemTableViewCell: UITableViewCell {
         textField.delegate = self
         textField.attributedPlaceholder = NSAttributedString(string: textField.placeholder!, attributes: [NSForegroundColorAttributeName: UIColor.backgroundColor()])
         
-        circleView.backgroundColor = .secondaryColor()
+        circleView.backgroundColor = .primaryColor()
         circleView.layer.cornerRadius = 32 / 2
         circleView.clipsToBounds = true
     }

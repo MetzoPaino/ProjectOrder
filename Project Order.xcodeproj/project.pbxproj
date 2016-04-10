@@ -81,6 +81,7 @@
 		0A952AE11C9D836E00ED76D7 /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
+				0AF64FA91C4A812A003F8519 /* LaunchScreen.storyboard */,
 				0AF64FA41C4A812A003F8519 /* Main.storyboard */,
 				0A7170891CB80316005126B4 /* Sorting.storyboard */,
 				0A98C1451CB15D9B00BF7252 /* Settings.storyboard */,
@@ -130,7 +131,6 @@
 				0A9A16801C5CDD260000E436 /* TournamentManager.swift */,
 				0AF64FB81C4A859B003F8519 /* CollectionCreator.swift */,
 				0AF64FA71C4A812A003F8519 /* Assets.xcassets */,
-				0AF64FA91C4A812A003F8519 /* LaunchScreen.storyboard */,
 				0AF64FAC1C4A812A003F8519 /* Info.plist */,
 			);
 			path = Ranked;
