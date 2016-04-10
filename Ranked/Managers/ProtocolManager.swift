@@ -10,6 +10,6 @@ import Foundation
 
 protocol Injectable {
     associatedtype AssociatedObject
-    func inject(object: AssociatedObject)
+    func inject(_: AssociatedObject)
     func assertDependencies()
 }
