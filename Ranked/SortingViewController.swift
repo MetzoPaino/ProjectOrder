@@ -115,7 +115,7 @@ class SortingViewController: UIViewController {
         progressView.backgroundColor = .backgroundColor()
         progressView.tintColor = .secondaryColor()
         progressView.trackTintColor = .backgroundColor()
-        progressView.progressTintColor = .primaryColor()
+        progressView.progressTintColor = .secondaryColor()
         
         holdingView.layer.masksToBounds = true
         holdingView.backgroundColor = .backgroundColor()
@@ -126,8 +126,8 @@ class SortingViewController: UIViewController {
         bottomView.layer.cornerRadius = 12
         bottomView.layer.masksToBounds = true
         
-        topView.backgroundColor = .blockColor()
-        bottomView.backgroundColor = .blockColor()
+        topView.backgroundColor = .secondColor()
+        bottomView.backgroundColor = .thirdColor()
         topLabel.textColor = .whiteColor()
         bottomLabel.textColor = .whiteColor()
 
@@ -365,10 +365,6 @@ class SortingViewController: UIViewController {
             
             constant = 0 - self.view.bounds.size.height
             alpha = 0
-        }
-        
-        for i in (1...10).reverse() {
-            print(i)
         }
         
         UIView.animateWithDuration(0.25, delay: 0.0, usingSpringWithDamping: 0.75, initialSpringVelocity: 1.0, options: UIViewAnimationOptions.CurveEaseInOut, animations: { () -> Void in
