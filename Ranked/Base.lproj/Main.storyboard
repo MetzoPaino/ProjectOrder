@@ -124,7 +124,6 @@
                         <outlet property="addButton" destination="hMM-LV-o62" id="j33-A5-Jcg"/>
                         <outlet property="addButtonHeightConstraint" destination="OYV-7h-IgU" id="YZc-9G-phh"/>
                         <outlet property="tableView" destination="WQH-dv-CiR" id="WVr-b1-aek"/>
-                        <segue destination="Rc8-2L-atM" kind="show" identifier="ShowEditCollection" id="VCk-uE-I3g"/>
                         <segue destination="nlL-AF-Rd4" kind="show" identifier="ShowEditCollection" id="5ih-r3-s5W"/>
                     </connections>
                 </viewController>
@@ -277,14 +276,11 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jQV-zb-ZIN">
-                                                    <rect key="frame" x="16" y="27.5" width="32" height="32"/>
+                                                    <rect key="frame" x="16" y="27" width="32" height="32"/>
                                                     <subviews>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8hM-xT-h5b">
-                                                            <rect key="frame" x="-4.5" y="3.5" width="40" height="25.5"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="width" constant="40" id="a2r-GD-PUD"/>
-                                                            </constraints>
-                                                            <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="1" textAlignment="center" lineBreakMode="tailTruncation" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8hM-xT-h5b">
+                                                            <rect key="frame" x="21" y="3.5" width="11" height="26"/>
+                                                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="21"/>
                                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
@@ -435,24 +431,6 @@
             </objects>
             <point key="canvasLocation" x="1829" y="-576"/>
         </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="GxV-kU-TvU">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Rc8-2L-atM" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="J38-1O-462">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="nlL-AF-Rd4" kind="relationship" relationship="rootViewController" id="pIc-SD-dGA"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="9hr-aq-gL9" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2043" y="-1390"/>
-        </scene>
         <!--Sorting-->
         <scene sceneID="JgM-zC-nue">
             <objects>
@@ -467,8 +445,8 @@
         <image name="PlusButton" width="32" height="32"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="lYa-dA-zBx"/>
         <segue reference="1Ky-jB-L3f"/>
+        <segue reference="5ih-r3-s5W"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.75686274509803919" green="0.1764705882352941" blue="0.44313725490196076" alpha="1" colorSpace="calibratedRGB"/>
 </document>

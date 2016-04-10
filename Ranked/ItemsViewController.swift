@@ -329,19 +329,8 @@ extension IBActions {
 
         if let addItemCell = tableView.cellForRowAtIndexPath(addItemIndex) as? AddItemTableViewCell {
             
-//            let addItemCell = tableView.cellForRowAtIndexPath(addItemIndex) as! AddItemTableViewCell
-            
-            
             addItemCell.textFieldShouldReturn(addItemCell.textField)
-            
-            
-//            addItemCell.delegate?.createdNewItemWithText(addItemCell.textField.text!)
-            
-            
         }
-        
-        
-        
         
         tableView.beginUpdates()
         tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: .Fade)
@@ -551,7 +540,6 @@ extension TableViewDataSource: UITableViewDataSource {
                     cell.userInteractionEnabled = false
                     cell.accessoryType = .None
                     cell.label.textColor = .headingColor()
-
                 }
                 
                 if collection.name != "" {
@@ -572,6 +560,7 @@ extension TableViewDataSource: UITableViewDataSource {
                 let cell = tableView.dequeueReusableCellWithIdentifier("AddItemCell", forIndexPath: indexPath) as! AddItemTableViewCell
                 cell.delegate = self
                 cell.configureCell()
+                cell.selectionStyle = .None
                 cell.layoutMargins = UIEdgeInsetsZero;
 
                 return cell
@@ -605,8 +594,6 @@ extension TableViewDataSource: UITableViewDataSource {
                     cell.label.textColor = .backgroundColor()
 
                 }
-
-                
                 return cell
             }
             
