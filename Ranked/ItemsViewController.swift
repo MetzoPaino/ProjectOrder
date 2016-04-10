@@ -104,7 +104,7 @@ class ItemsViewController: UIViewController, Injectable {
         sortButton.tintColor = .primaryColor()
         sortButton.layer.cornerRadius = self.sortButtonHeightConstraint.constant / 2
         sortButton.setImage(UIImage(named: "GreaterThanWhite"), forState: .Normal)
-        sortButton.backgroundColor = .sortColor()
+        sortButton.backgroundColor = .primaryColor()
         
         sortButton.layer.shadowColor = UIColor.blackColor().CGColor;
         sortButton.layer.shadowOpacity = 0.25
@@ -435,6 +435,12 @@ extension AddItemDelegate: AddItemTableViewCellDelegate {
         let item = ItemModel(string: text)
         collection.items.insert(item, atIndex: 0)
         tableView.reloadData()
+        
+        let addItemIndex = NSIndexPath(forRow: 2, inSection: 0)
+        if let cell = tableView.cellForRowAtIndexPath(addItemIndex) as? AddItemTableViewCell {
+            cell.textField.becomeFirstResponder()
+
+        }
     }
 }
 
@@ -525,9 +531,7 @@ extension TableViewDataSource: UITableViewDataSource {
         if indexPath.section == 0 {
             
             if indexPath.row == 0 {
-                
-                print("FLOAT MAX = \(CGFloat.max)")
-                
+                                
                 let cell = tableView.dequeueReusableCellWithIdentifier("TitleCell", forIndexPath: indexPath) as! TitleCell
                 cell.separatorInset = UIEdgeInsetsMake(0, Helper.largestDeviceSide(), 0, 0);
                 
@@ -615,7 +619,7 @@ extension TableViewDataSource: UITableViewDataSource {
 
             switch indexPath.row {
             case 0:
-                cell.circleView.backgroundColor = .primaryColor()
+                cell.circleView.backgroundColor = .secondaryColor()
             case 1:
                 cell.circleView.backgroundColor = .secondColor()
             case 2:
