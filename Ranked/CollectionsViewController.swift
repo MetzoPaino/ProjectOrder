@@ -70,8 +70,13 @@ class CollectionsViewController: UIViewController, Injectable {
         
         addButton.backgroundColor = .primaryColor()
         addButton.layer.cornerRadius = self.addButtonHeightConstraint.constant / 2
-        addButton.layer.masksToBounds = true
         addButton.setImage(UIImage(named: "PlusButton"), forState: .Normal)
+        
+        addButton.layer.shadowColor = UIColor.blackColor().CGColor;
+        addButton.layer.shadowOpacity = 0.5
+        addButton.layer.shadowRadius = 4
+        addButton.layer.shadowOffset = CGSizeZero
+        addButton.layer.masksToBounds = false
     }
     
     func styleTableView() {
