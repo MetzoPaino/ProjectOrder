@@ -46,6 +46,8 @@ class ItemsViewController: UIViewController, Injectable {
     
     typealias AssociatedObject = CollectionModel
     private var collection: CollectionModel!
+    
+    
 
     // MARK: - Load View
 
@@ -101,11 +103,16 @@ class ItemsViewController: UIViewController, Injectable {
         
         sortButton.tintColor = .primaryColor()
         sortButton.layer.cornerRadius = self.sortButtonHeightConstraint.constant / 2
-        sortButton.layer.masksToBounds = true
         sortButton.setImage(UIImage(named: "GreaterThanWhite"), forState: .Normal)
         sortButton.backgroundColor = .sortColor()
         
-        if collection.items.count == 0 || inEditingMode == nil || inEditingMode == true {
+        sortButton.layer.shadowColor = UIColor.blackColor().CGColor;
+        sortButton.layer.shadowOpacity = 0.5
+        sortButton.layer.shadowRadius = 4
+        sortButton.layer.shadowOffset = CGSizeZero
+        sortButton.layer.masksToBounds = false
+        
+        if collection.items.count < 2 || inEditingMode == nil || inEditingMode == true {
             
             sortButtonBottomConstraint.constant = 0 - 16 - sortButtonHeightConstraint.constant
             
@@ -139,20 +146,30 @@ class ItemsViewController: UIViewController, Injectable {
                 controller.context = .title
                 controller.providedDescription = collection.name
 
-            } else if let _ = sender as? ItemTableViewCell {
+            } else if let cell = sender as? SortedItemTableViewCell {
                 
                 controller.context = .item
-                if let cell = sender as? ItemTableViewCell {
+                
+                tableView.reloadData()
                     
-                    tableView.reloadData()
-                    
-                    if let text = cell.titleLabel.text {
+                if let text = cell.titleLabel.text {
                        
-                        controller.providedDescription = text
-                    }
+                    controller.providedDescription = text
+                }
+                
+            } else if let cell = sender as? UnsortedItemTableViewCell {
+                
+                controller.context = .item
+                
+                tableView.reloadData()
+                
+                if let text = cell.titleLabel.text {
+                    
+                    controller.providedDescription = text
                 }
                 
             } else {
+                
                 controller.context = .description
                 controller.providedDescription = collection.descriptionString
             }
@@ -253,9 +270,7 @@ extension Notifications {
 private typealias IBActions = ItemsViewController
 extension IBActions {
     
-
-    
-    @IBAction func shareButtonPressed(sender: AnyObject) {
+    @IBAction func shareButtonPressed(sender: UIBarButtonItem) {
         
         tableView.backgroundColor = UIColor.whiteColor()
         
@@ -353,13 +368,15 @@ extension ItemsViewController {
         // Animate on or off screen. If there is nothing to sort, never go on screen
         
         var constant = 0 - 16 - sortButtonHeightConstraint.constant
+        var time = 1.0
         
-        if onScreen && collection.items.count > 0 {
+        if onScreen && collection.items.count > 1 {
             
             constant = 16
+            time = 0.5
         }
         
-        UIView.animateWithDuration(0.25, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 1.0, options: UIViewAnimationOptions.CurveEaseInOut, animations: { () -> Void in
+        UIView.animateWithDuration(time, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 1.0, options: UIViewAnimationOptions.CurveEaseInOut, animations: { () -> Void in
             
             self.sortButtonBottomConstraint.constant = constant
             self.view.layoutIfNeeded()
@@ -408,6 +425,11 @@ extension ItemsViewController: SortingViewControllerDelegate {
     func sortingFinished(items: [ItemModel]) {
         
         collection.sorted = true
+        
+        for item in collection.items {
+            
+            item.sorted = true
+        }
         collection.items = items.sort({ $0.points > $1.points })
         tableView.reloadData()
         self.delegate?.sortingFinished()
@@ -432,6 +454,11 @@ private typealias TableViewDelegate = ItemsViewController
 extension TableViewDelegate: UITableViewDelegate {
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
+        if let cell = tableView.cellForRowAtIndexPath(indexPath) as? AddItemTableViewCell {
+            
+            cell.textField.becomeFirstResponder()
+        }
         
         tableView.deselectRowAtIndexPath(indexPath, animated: false)
     }
@@ -477,7 +504,8 @@ private typealias TableViewDataSource = ItemsViewController
 extension TableViewDataSource: UITableViewDataSource {
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 2
+        
+        return 3
     }
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
@@ -493,9 +521,13 @@ extension TableViewDataSource: UITableViewDataSource {
                 }
             }
             
+        } else if section == 1 {
+            
+            return collection.returnArrayOfItems(true).count
+            
         } else {
             
-            return collection.items.count
+            return collection.returnArrayOfItems(false).count
         }
     }
     
@@ -578,44 +610,46 @@ extension TableViewDataSource: UITableViewDataSource {
                 return cell
             }
             
+        } else if indexPath.section == 1 {
+            
+            let item = collection.returnArrayOfItems(true)[indexPath.row]
+            
+            let cell = tableView.dequeueReusableCellWithIdentifier("SortedCell", forIndexPath: indexPath) as! SortedItemTableViewCell
+
+            cell.layoutMargins = UIEdgeInsetsZero;
+            cell.selectionStyle = .None
+            
+            cell.numberLabel.text = "\(indexPath.row + 1)"
+            cell.numberLabel.textColor = .whiteColor()
+            cell.titleLabel.text = item.text
+            cell.titleLabel.textColor = .titleColor()
+            cell.configureCell()
+
+            switch indexPath.row {
+            case 0:
+                cell.circleView.backgroundColor = .primaryColor()
+            case 1:
+                cell.circleView.backgroundColor = .secondColor()
+            case 2:
+                cell.circleView.backgroundColor = .thirdColor()
+            default:
+                cell.circleView.backgroundColor = .loserColor()
+            }
+            
+            return cell
+            
         } else {
             
-            let item = collection.items[indexPath.row]
+            let item = collection.returnArrayOfItems(false)[indexPath.row]
             
-            let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! ItemTableViewCell
-
-            cell.numberLabel.text = "\(indexPath.row + 1)"
+            let cell = tableView.dequeueReusableCellWithIdentifier("UnsortedCell", forIndexPath: indexPath) as! UnsortedItemTableViewCell
+            
             cell.titleLabel.text = item.text
             cell.titleLabel.textColor = .titleColor()
             
             cell.layoutMargins = UIEdgeInsetsZero;
             cell.selectionStyle = .None
             
-            if collection.sorted {
-                
-                cell.numberLabelWidthConstraint.constant = 40
-                cell.numberLabel.hidden = false
-                cell.numberLabel.textColor = .whiteColor()
-                
-                cell.numberImageView.hidden = false
-                
-                switch indexPath.row {
-                case 0:
-                    cell.numberImageView.backgroundColor = .primaryColor()
-                case 1:
-                    cell.numberImageView.backgroundColor = .secondColor()
-                case 2:
-                    cell.numberImageView.backgroundColor = .thirdColor()
-                default:
-                    cell.numberImageView.backgroundColor = .loserColor()
-                }
-                
-            } else {
-                cell.numberLabelWidthConstraint.constant = 0
-                cell.numberLabel.hidden = true
-                cell.numberImageView.hidden = true
-
-            }
             return cell
         }
     }

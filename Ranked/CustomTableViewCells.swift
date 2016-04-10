@@ -38,21 +38,22 @@ class DescriptionCell: UITableViewCell {
     }
 }
 
-class ItemTableViewCell: UITableViewCell {
+class SortedItemTableViewCell: UITableViewCell {
     
-    @IBOutlet weak var numberImageView: UIImageView!
+    @IBOutlet weak var circleView: UIView!
     @IBOutlet weak var numberLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
     
-    @IBOutlet weak var numberLabelWidthConstraint: NSLayoutConstraint!
-    @IBOutlet weak var numberLabelTrailingConstraint: NSLayoutConstraint!
-    @IBOutlet weak var titleLabelLeadingConstraint: NSLayoutConstraint!
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        numberImageView.layer.cornerRadius = numberImageView.frame.width / 2
-        numberImageView.clipsToBounds = true
+    func configureCell() {
+        
+        circleView.layer.cornerRadius = 32 / 2
+        circleView.clipsToBounds = true
     }
+}
+
+class UnsortedItemTableViewCell: UITableViewCell {
+    
+    @IBOutlet weak var titleLabel: UILabel!
 }
 
 protocol AddItemTableViewCellDelegate: class {
