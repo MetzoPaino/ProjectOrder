@@ -41,11 +41,11 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hxi-Hk-hEX">
                                         <rect key="frame" x="0.0" y="226" width="600" height="60"/>
                                         <subviews>
-                                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Heart_0" translatesAutoresizingMaskIntoConstraints="NO" id="NR3-qU-Txi">
-                                                <rect key="frame" x="270" y="0.0" width="60" height="60"/>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="SortingAnimation_0" translatesAutoresizingMaskIntoConstraints="NO" id="NR3-qU-Txi">
+                                                <rect key="frame" x="260" y="-10" width="80" height="80"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="60" id="bA3-gV-PIN"/>
-                                                    <constraint firstAttribute="width" constant="60" id="mw8-zx-Tsh"/>
+                                                    <constraint firstAttribute="height" constant="80" id="bA3-gV-PIN"/>
+                                                    <constraint firstAttribute="width" constant="80" id="mw8-zx-Tsh"/>
                                                 </constraints>
                                             </imageView>
                                         </subviews>
@@ -209,7 +209,7 @@
     </scenes>
     <resources>
         <image name="ChooseLater" width="20" height="20"/>
-        <image name="Heart_0" width="60" height="60"/>
+        <image name="SortingAnimation_0" width="400" height="400"/>
     </resources>
     <color key="tintColor" red="0.75686274509803919" green="0.1764705882352941" blue="0.44313725490196076" alpha="1" colorSpace="calibratedRGB"/>
 </document>

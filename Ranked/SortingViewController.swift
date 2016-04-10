@@ -69,7 +69,7 @@ class SortingViewController: UIViewController {
         
         repeat {
         
-            let fileName = "Heart_" + String(index)
+            let fileName = "SortingAnimation_" + String(index)
             let image = UIImage(named: fileName)
             
             if image != nil {
@@ -297,7 +297,7 @@ class SortingViewController: UIViewController {
                     
                     let fullAlpha = middleConstant - (topView.bounds.height / 2)
                     let percentage = (topViewTopConstraint.constant / fullAlpha) * 100
-                    let animationPercentage = (topViewTopConstraint.constant / (fullAlpha)) * 100
+                    let animationPercentage = (topViewTopConstraint.constant / (fullAlpha - 70)) * 100
                     var animationIndex = animationArray.count * Int(animationPercentage) / 100
 
                     let takeAway = CGFloat((100 - percentage) / 100) + 0.2
@@ -327,7 +327,7 @@ class SortingViewController: UIViewController {
                     
                     let fullAlpha = middleConstant - (bottomView.bounds.height / 2)
                     let percentage = (bottomViewBottomConstraint.constant / fullAlpha) * 100
-                    let animationPercentage = (bottomViewBottomConstraint.constant / (fullAlpha)) * 100
+                    let animationPercentage = (bottomViewBottomConstraint.constant / (fullAlpha - 70)) * 100
                     var animationIndex = animationArray.count * Int(animationPercentage) / 100
                     
                     let takeAway = CGFloat((100 - percentage) / 100) + 0.2
