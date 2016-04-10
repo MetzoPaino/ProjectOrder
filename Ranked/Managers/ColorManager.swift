@@ -12,12 +12,17 @@ extension UIColor {
     
     public class func primaryColor() -> UIColor {
         
-        return UIColor(red: 229/255, green: 39/255, blue: 113/255, alpha: 1.0)
+        return UIColor(red: 255/255, green: 26/255, blue: 115/255, alpha: 1.0)
     }
     
     public class func secondaryColor() -> UIColor {
         
-        return UIColor(red: 142/255, green: 226/255, blue: 200/255, alpha: 1.0)
+        return UIColor(red: 107/255, green: 220/255, blue: 208/255, alpha: 1.0)
+    }
+    
+    public class func tertiaryColor() -> UIColor {
+        
+        return UIColor(red: 44/255, green: 49/255, blue: 70/255, alpha: 1.0)
     }
     
     public class func warningColor() -> UIColor {
@@ -47,17 +52,17 @@ extension UIColor {
     
     public class func secondColor() -> UIColor {
         
-        return UIColor(red: 131/255, green: 47/255, blue: 85/255, alpha: 1.0)
+        return UIColor(red: 103/255, green: 169/255, blue: 178/255, alpha: 1.0)
     }
     
     public class func thirdColor() -> UIColor {
         
-        return UIColor(red: 92/255, green: 54/255, blue: 71/255, alpha: 1.0)
+        return UIColor(red: 91/255, green: 129/255, blue: 153/255, alpha: 1.0)
     }
     
     public class func loserColor() -> UIColor {
         
-        return UIColor(red: 59/255, green: 59/255, blue: 59/255, alpha: 1.0)
+        return UIColor(red: 58/255, green: 69/255, blue: 113/255, alpha: 1.0)
     }
     
     public class func blockColor() -> UIColor {
@@ -68,5 +73,10 @@ extension UIColor {
     public class func sortColor() -> UIColor {
         
         return UIColor(red: 31/255, green: 31/255, blue: 31/255, alpha: 1.0)
+    }
+    
+    public class func disabledColor() -> UIColor {
+        
+        return UIColor(red: 234/255, green: 234/255, blue: 234/255, alpha: 1.0)
     }
 }
