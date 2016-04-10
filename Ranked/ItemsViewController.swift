@@ -107,9 +107,9 @@ class ItemsViewController: UIViewController, Injectable {
         sortButton.backgroundColor = .sortColor()
         
         sortButton.layer.shadowColor = UIColor.blackColor().CGColor;
-        sortButton.layer.shadowOpacity = 0.5
-        sortButton.layer.shadowRadius = 4
-        sortButton.layer.shadowOffset = CGSizeZero
+        sortButton.layer.shadowOpacity = 0.25
+        sortButton.layer.shadowRadius = 2
+        sortButton.layer.shadowOffset = CGSizeMake(0.0, 2.0)
         sortButton.layer.masksToBounds = false
         
         if collection.items.count < 2 || inEditingMode == nil || inEditingMode == true {
@@ -526,9 +526,11 @@ extension TableViewDataSource: UITableViewDataSource {
             
             if indexPath.row == 0 {
                 
+                print("FLOAT MAX = \(CGFloat.max)")
+                
                 let cell = tableView.dequeueReusableCellWithIdentifier("TitleCell", forIndexPath: indexPath) as! TitleCell
-                cell.separatorInset = UIEdgeInsetsMake(0, cell.bounds.size.width, 0, 0);
-
+                cell.separatorInset = UIEdgeInsetsMake(0, Helper.largestDeviceSide(), 0, 0);
+                
                 if inEditingMode == nil || inEditingMode == true {
                     
                     cell.userInteractionEnabled = true
@@ -568,8 +570,7 @@ extension TableViewDataSource: UITableViewDataSource {
             } else {
                 
                 let cell = tableView.dequeueReusableCellWithIdentifier("DescriptionCell", forIndexPath: indexPath) as! DescriptionCell
-                cell.separatorInset = UIEdgeInsetsMake(0, cell.bounds.size.width, 0, 0);
-                cell.layoutMargins = UIEdgeInsetsZero;
+                cell.separatorInset = UIEdgeInsetsMake(0, Helper.largestDeviceSide(), 0, 0);
 
                 if inEditingMode == nil || inEditingMode == true {
                     

@@ -73,9 +73,9 @@ class CollectionsViewController: UIViewController, Injectable {
         addButton.setImage(UIImage(named: "PlusButton"), forState: .Normal)
         
         addButton.layer.shadowColor = UIColor.blackColor().CGColor;
-        addButton.layer.shadowOpacity = 0.5
-        addButton.layer.shadowRadius = 4
-        addButton.layer.shadowOffset = CGSizeZero
+        addButton.layer.shadowOpacity = 0.25
+        addButton.layer.shadowRadius = 2
+        addButton.layer.shadowOffset = CGSizeMake(0.0, 2.0)
         addButton.layer.masksToBounds = false
     }
     
