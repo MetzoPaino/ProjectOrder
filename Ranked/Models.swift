@@ -88,15 +88,35 @@ class CollectionModel: NSObject, NSCoding {
         aCoder.encodeObject(dateCreated, forKey: dateCreatedKey)
         aCoder.encodeObject(sorted, forKey: sortedKey)
     }
+    
+    func returnArrayOfItems(sorted: Bool) -> [ItemModel] {
+        
+        var requestedItems = [ItemModel]()
+        
+        for item in self.items {
+            
+            if sorted && item.sorted{
+                
+                requestedItems.append(item)
+                
+            } else if !sorted && !item.sorted {
+                
+                requestedItems.append(item)
+            }
+        }
+        return requestedItems
+    }
 }
 
 class ItemModel: NSObject, NSCoding {
     
     private let textKey = "text"
     private let pointsKey = "points"
+    private let sortedKey = "sorted"
 
     var text: String
     var tag = Int()
+    var sorted = false
     var points = 0
     
     init(string: String) {
@@ -121,6 +141,12 @@ class ItemModel: NSObject, NSCoding {
             points = 0
         }
         
+        if let decodedSorted = aDecoder.decodeObjectForKey(sortedKey) as? Bool {
+            
+            sorted = decodedSorted
+            
+        }
+        
         super.init()
     }
     
@@ -128,5 +154,6 @@ class ItemModel: NSObject, NSCoding {
         
         aCoder.encodeObject(text, forKey: textKey)
         aCoder.encodeObject(points, forKey: pointsKey)
+        aCoder.encodeObject(sorted, forKey: sortedKey)
     }
 }
