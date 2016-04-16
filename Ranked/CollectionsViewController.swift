@@ -29,6 +29,12 @@ class CollectionsViewController: UIViewController, Injectable {
         assertDependencies()
         styleTableView()
         styleView()
+        
+        let logo = UIImage(named: "SortingAnimation_100")
+        let imageView = UIImageView(image:logo)
+        imageView.bounds = CGRectMake(0, 0, 32, 32)
+        imageView.contentMode = .ScaleAspectFit
+        self.navigationItem.titleView = imageView
     }
     
     override func viewWillDisappear(animated: Bool)  {
@@ -70,7 +76,10 @@ class CollectionsViewController: UIViewController, Injectable {
         
         addButton.backgroundColor = .primaryColor()
         addButton.layer.cornerRadius = self.addButtonHeightConstraint.constant / 2
-        addButton.setImage(UIImage(named: "PlusButton"), forState: .Normal)
+        addButton.setImage(UIImage(named: "PlusButton" )?.imageWithRenderingMode(.AlwaysTemplate), forState: .Normal)
+        addButton.tintColor = .whiteColor()
+
+        
         
         addButton.layer.shadowColor = UIColor.blackColor().CGColor;
         addButton.layer.shadowOpacity = 0.25
@@ -191,8 +200,8 @@ extension TableViewDataSource: UITableViewDataSource {
             
             print(cell.descriptionLabel.text)
             
-            cell.sortedImageView.tintColor = .secondaryColor()
-            cell.sortedImageView.image = UIImage(named: "Sorted")?.imageWithRenderingMode(.AlwaysTemplate)
+//            cell.sortedImageView.tintColor = .secondaryColor()
+//            cell.sortedImageView.image = UIImage(named: "Sorted")?.imageWithRenderingMode(.AlwaysTemplate)
             
 //            cell.masterStackViewTopConstraint.constant = 8
 //            cell.masterStackViewBottomConstraint.constant = 8
@@ -207,7 +216,6 @@ extension TableViewDataSource: UITableViewDataSource {
             cell.titleLabel.text = collection.name
             cell.titleLabel.textColor = UIColor.headingColor()
             cell.layoutMargins = UIEdgeInsetsZero;
-            
 //            cell.masterStackViewTopConstraint.constant = 16
 //            cell.masterStackViewBottomConstraint.constant = 16
 //            cell.lowerStackView.hidden = true

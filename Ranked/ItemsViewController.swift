@@ -104,6 +104,7 @@ class ItemsViewController: UIViewController, Injectable {
         sortButton.tintColor = .primaryColor()
         sortButton.layer.cornerRadius = self.sortButtonHeightConstraint.constant / 2
         sortButton.setImage(UIImage(named: "GreaterThanWhite"), forState: .Normal)
+        sortButton.imageEdgeInsets = UIEdgeInsetsMake(0, 4, 0, 0)
         sortButton.backgroundColor = .primaryColor()
         
         sortButton.layer.shadowColor = UIColor.blackColor().CGColor;

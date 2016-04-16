@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
@@ -38,14 +39,23 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2xq-AV-gm8">
                                 <rect key="frame" x="0.0" y="24" width="600" height="512"/>
                                 <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tf3-jn-MQb">
+                                        <rect key="frame" x="279" y="246" width="42" height="21"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="1" id="E1v-Cf-jkY"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hxi-Hk-hEX">
                                         <rect key="frame" x="0.0" y="226" width="600" height="60"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="SortingAnimation_0" translatesAutoresizingMaskIntoConstraints="NO" id="NR3-qU-Txi">
-                                                <rect key="frame" x="264" y="-6" width="72" height="72"/>
+                                                <rect key="frame" x="266" y="-4" width="68" height="68"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="72" id="bA3-gV-PIN"/>
-                                                    <constraint firstAttribute="width" constant="72" id="mw8-zx-Tsh"/>
+                                                    <constraint firstAttribute="width" secondItem="NR3-qU-Txi" secondAttribute="height" multiplier="1:1" id="gEB-4D-fKo"/>
+                                                    <constraint firstAttribute="width" constant="68" id="mw8-zx-Tsh"/>
                                                 </constraints>
                                             </imageView>
                                         </subviews>
@@ -68,7 +78,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                 </subviews>
-                                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="backgroundColor" red="0.90033037510000002" green="0.98633571369999995" blue="0.98794586490000003" alpha="1" colorSpace="calibratedRGB"/>
                                                 <gestureRecognizers/>
                                                 <constraints>
                                                     <constraint firstAttribute="trailing" secondItem="1bc-j6-bVc" secondAttribute="trailing" constant="16" id="29i-P1-ZtA"/>
@@ -90,7 +100,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                 </subviews>
-                                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="backgroundColor" red="0.90033037510000002" green="0.98633571369999995" blue="0.98794586490000003" alpha="1" colorSpace="calibratedRGB"/>
                                                 <gestureRecognizers/>
                                                 <constraints>
                                                     <constraint firstItem="4FI-4V-mlu" firstAttribute="leading" secondItem="pnT-b6-PXj" secondAttribute="leading" constant="16" id="9Wb-oe-keq"/>
@@ -113,14 +123,17 @@
                                         </constraints>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" red="0.81568627449999997" green="0.80392156859999997" blue="0.83529411760000005" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="hxi-Hk-hEX" firstAttribute="centerY" secondItem="2xq-AV-gm8" secondAttribute="centerY" id="63p-Ns-b4s"/>
+                                    <constraint firstAttribute="trailing" secondItem="Tf3-jn-MQb" secondAttribute="trailing" id="A6d-ie-vGB"/>
+                                    <constraint firstItem="Tf3-jn-MQb" firstAttribute="leading" secondItem="2xq-AV-gm8" secondAttribute="leading" id="GzB-Ab-Djd"/>
                                     <constraint firstItem="UPf-OF-iQc" firstAttribute="height" secondItem="2xq-AV-gm8" secondAttribute="height" multiplier="0.9" id="HuN-bn-GYf"/>
                                     <constraint firstItem="UPf-OF-iQc" firstAttribute="top" secondItem="2xq-AV-gm8" secondAttribute="top" constant="32" id="Is6-No-JiM"/>
                                     <constraint firstItem="UPf-OF-iQc" firstAttribute="centerY" secondItem="2xq-AV-gm8" secondAttribute="centerY" id="JaB-3C-G3e"/>
                                     <constraint firstItem="hxi-Hk-hEX" firstAttribute="width" secondItem="2xq-AV-gm8" secondAttribute="width" id="NYm-5P-f7u"/>
                                     <constraint firstItem="UPf-OF-iQc" firstAttribute="centerX" secondItem="2xq-AV-gm8" secondAttribute="centerX" id="SqQ-M4-BxS"/>
+                                    <constraint firstItem="Tf3-jn-MQb" firstAttribute="top" secondItem="2xq-AV-gm8" secondAttribute="top" id="XLX-b2-1kc"/>
                                     <constraint firstAttribute="bottom" secondItem="UPf-OF-iQc" secondAttribute="bottom" constant="32" id="deJ-pQ-Aow"/>
                                     <constraint firstAttribute="trailing" secondItem="UPf-OF-iQc" secondAttribute="trailing" constant="32" id="o5H-7h-4cb"/>
                                     <constraint firstItem="hxi-Hk-hEX" firstAttribute="centerX" secondItem="2xq-AV-gm8" secondAttribute="centerX" id="oF4-mQ-DDI"/>
@@ -151,7 +164,7 @@
                                 <action selector="cancelButtonPressed:" destination="gUE-RR-efX" id="dby-D0-tMJ"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" image="ChooseLater" id="THh-s7-UMD">
+                        <barButtonItem key="rightBarButtonItem" title="Item" id="THh-s7-UMD">
                             <connections>
                                 <action selector="decideLaterButtonPressed:" destination="gUE-RR-efX" id="TJQ-cW-Ltm"/>
                             </connections>
@@ -163,6 +176,7 @@
                         <outlet property="bottomViewBottomConstraint" destination="5E2-gY-BvQ" id="qHP-oS-pFo"/>
                         <outlet property="bottomViewPanGesture" destination="iKC-vg-ZHE" id="IvV-A3-vsh"/>
                         <outlet property="centerView" destination="hxi-Hk-hEX" id="umq-CE-3BI"/>
+                        <outlet property="decideLaterBarButton" destination="THh-s7-UMD" id="XMG-tO-Ige"/>
                         <outlet property="holdingView" destination="2xq-AV-gm8" id="dWY-yQ-3i5"/>
                         <outlet property="imageView" destination="NR3-qU-Txi" id="twq-Km-jZx"/>
                         <outlet property="playingFieldView" destination="UPf-OF-iQc" id="OgL-mI-cvN"/>
@@ -208,8 +222,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="ChooseLater" width="20" height="20"/>
-        <image name="SortingAnimation_0" width="60" height="60"/>
+        <image name="SortingAnimation_0" width="68" height="68"/>
     </resources>
     <color key="tintColor" red="1" green="0.1019607843" blue="0.45098039220000002" alpha="1" colorSpace="calibratedRGB"/>
 </document>

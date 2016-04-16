@@ -43,6 +43,12 @@ class SortingViewController: UIViewController {
     @IBOutlet var holdingView: UIView!
     @IBOutlet weak var playingFieldView: UIView!
         
+    @IBOutlet weak var decideLaterBarButton: UIBarButtonItem!
+    
+    var decideLaterImage: UIImageView!
+
+    
+    
     let constantConstant = 0 as CGFloat
     
     var middleConstant = 0 as CGFloat
@@ -50,7 +56,8 @@ class SortingViewController: UIViewController {
     var panGestureInUse: PanGestureInUse?
     
     var animationArray = [UIImage]()
-    
+    var chooseLaterAnimationArray = [UIImage]()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -81,14 +88,30 @@ class SortingViewController: UIViewController {
             index = index + 1
         
         } while foundImage
+        
+        index = 0
+        foundImage = false
+        
+        repeat {
+            
+            let fileName = "ChooseLaterAnimation_" + String(index)
+            let image = UIImage(named: fileName)
+            
+            if image != nil {
+                foundImage = true
+                chooseLaterAnimationArray.append(image!)
+            } else {
+                foundImage = false
+            }
+            index = index + 1
+            
+        } while foundImage
     }
     
     override func viewWillAppear(animated: Bool) {
         
         super.viewWillAppear(animated)
         navigationController?.navigationBar.tintColor = .primaryColor()
-
-
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -118,7 +141,7 @@ class SortingViewController: UIViewController {
         progressView.progressTintColor = .secondaryColor()
         
         holdingView.layer.masksToBounds = true
-        holdingView.backgroundColor = .backgroundColor()
+        holdingView.backgroundColor = .sortingNeutralBackgroundColor()
         
         topView.layer.cornerRadius = 12
         topView.layer.masksToBounds = true
@@ -126,10 +149,48 @@ class SortingViewController: UIViewController {
         bottomView.layer.cornerRadius = 12
         bottomView.layer.masksToBounds = true
         
-        topView.backgroundColor = .secondColor()
-        bottomView.backgroundColor = .thirdColor()
+        topView.backgroundColor = .blockNeutralColor()
+        bottomView.backgroundColor = .blockNeutralColor()
         topLabel.textColor = .whiteColor()
         bottomLabel.textColor = .whiteColor()
+        
+        topView.layer.shadowColor = UIColor.blackColor().CGColor;
+        topView.layer.shadowOpacity = 0.25
+        topView.layer.shadowRadius = 2
+        topView.layer.shadowOffset = CGSizeMake(0.0, 2.0)
+        topView.layer.masksToBounds = false
+        
+        bottomView.layer.shadowColor = UIColor.blackColor().CGColor;
+        bottomView.layer.shadowOpacity = 0.25
+        bottomView.layer.shadowRadius = 2
+        bottomView.layer.shadowOffset = CGSizeMake(0.0, 2.0)
+        bottomView.layer.masksToBounds = false
+        
+    
+        
+        decideLaterImage = UIImageView(image: UIImage(named: "ChooseLater"))
+        
+        decideLaterImage.animationImages = chooseLaterAnimationArray
+        
+        let button = UIButton(type: .Custom)
+        button.bounds = decideLaterImage.bounds
+        button.addTarget(self, action: #selector(SortingViewController.decideLaterButtonPressed(_:)), forControlEvents: .TouchUpInside)
+        button.addSubview(decideLaterImage)
+        
+        decideLaterBarButton.customView = button
+        
+        
+        
+//        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+//        
+//        button.bounds = self.imageView.bounds;
+//        
+//        [button addSubview:self.imageView];
+//        
+//        [button addTarget:self action:@selector(buttonTouched:) forControlEvents:UIControlEventTouchUpInside];
+//        
+//        UIBarButtonItem *barButton = [[[UIBarButtonItem alloc] initWithCustomView: button] autorelease];
+        
 
     }
     
@@ -147,12 +208,17 @@ class SortingViewController: UIViewController {
             
         } else {
             
+            decideLaterImage.animationImages = chooseLaterAnimationArray
+            decideLaterImage.animationDuration = 0.25
+            decideLaterImage.animationRepeatCount = 1
+            decideLaterImage.startAnimating()
+            
             UIView.animateWithDuration(0.25, delay: 0.0, options: UIViewAnimationOptions.CurveEaseIn, animations: { () -> Void in
                 
                 self.topViewTopConstraint.constant = 0 - self.view.bounds.size.height
                 self.bottomViewBottomConstraint.constant = 0 - self.view.bounds.size.height
-                self.topView.alpha = 0
-                self.bottomView.alpha = 0
+                self.topView.backgroundColor = .blockNeutralColor()
+                self.bottomView.backgroundColor = .blockNeutralColor()
                 
                 self.view.layoutIfNeeded()
                 
@@ -206,7 +272,6 @@ class SortingViewController: UIViewController {
             view = bottomView
             otherView = topView
             panGesture = .bottom
-
         }
         
         if panGestureInUse == nil || panGestureInUse == panGesture {
@@ -245,8 +310,8 @@ class SortingViewController: UIViewController {
                         
                         self.topViewTopConstraint.constant = 0 - self.view.bounds.size.height
                         self.bottomViewBottomConstraint.constant = 0 - self.view.bounds.size.height
-                        self.topView.alpha = 0
-                        self.bottomView.alpha = 0
+                        self.topView.backgroundColor = .blockNeutralColor()
+                        self.bottomView.backgroundColor = .blockNeutralColor()
                         
                         self.view.layoutIfNeeded()
                         
@@ -297,11 +362,17 @@ class SortingViewController: UIViewController {
                     
                     let fullAlpha = middleConstant - (topView.bounds.height / 2)
                     let percentage = (topViewTopConstraint.constant / fullAlpha) * 100
-                    let animationPercentage = (topViewTopConstraint.constant / (fullAlpha - 70)) * 100
+                    let animationPercentage = (topViewTopConstraint.constant / (fullAlpha - 90)) * 100
                     var animationIndex = animationArray.count * Int(animationPercentage) / 100
+                    
+                    holdingView.backgroundColor = UIColor.colorFromPercentageInRange(Float(percentage), startColor: .sortingNeutralBackgroundColor(), endColor: .sortingPreferredBackgroundColor())
 
                     let takeAway = CGFloat((100 - percentage) / 100) + 0.2
-                    bottomView.alpha = takeAway
+//                    bottomView.alpha = takeAway
+                    
+                    bottomView.backgroundColor = UIColor.colorFromPercentageInRange(Float(percentage), startColor: .blockNeutralColor(), endColor: .blockLosingColor())
+                    
+                    topView.backgroundColor = UIColor.colorFromPercentageInRange(Float(percentage), startColor: .blockNeutralColor(), endColor: .blockPreferredColor())
                     
                     if animationIndex >= animationArray.count - 1 {
                         animationIndex = animationArray.count - 1
@@ -331,8 +402,10 @@ class SortingViewController: UIViewController {
                     var animationIndex = animationArray.count * Int(animationPercentage) / 100
                     
                     let takeAway = CGFloat((100 - percentage) / 100) + 0.2
-                    topView.alpha = takeAway
                     
+                    topView.backgroundColor = UIColor.colorFromPercentageInRange(Float(percentage), startColor: .blockNeutralColor(), endColor: .blockLosingColor())
+                    
+                    bottomView.backgroundColor = UIColor.colorFromPercentageInRange(Float(percentage), startColor: .blockNeutralColor(), endColor: .blockPreferredColor())
                     if animationIndex >= animationArray.count - 1 {
                         animationIndex = animationArray.count - 1
                     }
@@ -359,20 +432,19 @@ class SortingViewController: UIViewController {
     func animateViewsToArriveOrDepart(arrive: Bool) {
         
         var constant = 0 as CGFloat
-        var alpha = 1 as CGFloat
         
         if !arrive {
             
             constant = 0 - self.view.bounds.size.height
-            alpha = 0
         }
         
         UIView.animateWithDuration(0.25, delay: 0.0, usingSpringWithDamping: 0.75, initialSpringVelocity: 1.0, options: UIViewAnimationOptions.CurveEaseInOut, animations: { () -> Void in
             
             self.topViewTopConstraint.constant = constant
             self.bottomViewBottomConstraint.constant = constant
-            self.topView.alpha = alpha
-            self.bottomView.alpha = alpha
+            self.topView.backgroundColor = .blockNeutralColor()
+            self.bottomView.backgroundColor = .blockNeutralColor()
+            self.holdingView.backgroundColor = .sortingNeutralBackgroundColor()
             
             self.view.layoutIfNeeded()
             
@@ -383,8 +455,8 @@ class SortingViewController: UIViewController {
         
         topViewTopConstraint.constant = 0 - self.view.bounds.size.height
         bottomViewBottomConstraint.constant = 0 - self.view.bounds.size.height
-        self.topView.alpha = 0
-        self.bottomView.alpha = 0
+        topView.backgroundColor = .blockNeutralColor()
+        bottomView.backgroundColor = .blockNeutralColor()
         view.layoutIfNeeded()
     }
 }

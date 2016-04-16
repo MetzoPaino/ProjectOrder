@@ -45,6 +45,7 @@ class DescriptionCell: UITableViewCell {
 class SortedItemTableViewCell: UITableViewCell {
     
     @IBOutlet weak var circleView: UIView!
+    @IBOutlet weak var firstPlaceImageView: UIImageView!
     @IBOutlet weak var numberLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
     
@@ -81,6 +82,9 @@ class AddItemTableViewCell: UITableViewCell {
         circleView.backgroundColor = .primaryColor()
         circleView.layer.cornerRadius = 32 / 2
         circleView.clipsToBounds = true
+        
+        addImageView.image = UIImage(named: "PlusButton" )?.imageWithRenderingMode(.AlwaysTemplate)
+        addImageView.tintColor = .whiteColor()
     }
 }
 
