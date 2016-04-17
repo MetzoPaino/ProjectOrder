@@ -78,7 +78,6 @@ class SortingViewController: UIViewController {
         
             let fileName = "SortingAnimation_" + String(index)
             let image = UIImage(named: fileName)
-            
             if image != nil {
                 foundImage = true
                 animationArray.append(image!)
@@ -95,7 +94,7 @@ class SortingViewController: UIViewController {
         repeat {
             
             let fileName = "ChooseLaterAnimation_" + String(index)
-            let image = UIImage(named: fileName)
+            let image = UIImage(named: fileName)?.imageWithRenderingMode(.AlwaysTemplate)
             
             if image != nil {
                 foundImage = true
@@ -169,16 +168,16 @@ class SortingViewController: UIViewController {
     
         
         decideLaterImage = UIImageView(image: UIImage(named: "ChooseLaterAnimation_0"))
-        
+        decideLaterImage.tintColor = .greenColor()
         decideLaterImage.animationImages = chooseLaterAnimationArray
         
         let button = UIButton(type: .Custom)
         button.bounds = decideLaterImage.bounds
         button.addTarget(self, action: #selector(SortingViewController.decideLaterButtonPressed(_:)), forControlEvents: .TouchUpInside)
         button.addSubview(decideLaterImage)
-        
+        button.tintColor = .greenColor()
         decideLaterBarButton.customView = button
-        
+        decideLaterBarButton.tintColor = .greenColor()
         
         
 //        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];

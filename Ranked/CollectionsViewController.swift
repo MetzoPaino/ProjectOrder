@@ -199,13 +199,6 @@ extension TableViewDataSource: UITableViewDataSource {
             cell.descriptionLabel.text = collection.items.first!.text
             
             print(cell.descriptionLabel.text)
-            
-//            cell.sortedImageView.tintColor = .secondaryColor()
-//            cell.sortedImageView.image = UIImage(named: "Sorted")?.imageWithRenderingMode(.AlwaysTemplate)
-            
-//            cell.masterStackViewTopConstraint.constant = 8
-//            cell.masterStackViewBottomConstraint.constant = 8
-//            cell.lowerStackView.hidden = false
             return cell
             
             
