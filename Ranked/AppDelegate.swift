@@ -15,12 +15,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let dataManager = DataManager()
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-                
-        if let navigationController = window!.rootViewController as? UINavigationController {
-            
-            let controller = navigationController.topViewController as! CollectionsViewController
+        
+        
+        if let controller = window!.rootViewController as? LaunchViewController {
+        
             controller.inject(dataManager)
         }
+//        if let navigationController = window!.rootViewController as? UINavigationController {
+//            
+//            let controller = navigationController.topViewController as! CollectionsViewController
+//            controller.inject(dataManager)
+//        }
+        
         return true
     }
 
