@@ -168,7 +168,7 @@ class SortingViewController: UIViewController {
         
     
         
-        decideLaterImage = UIImageView(image: UIImage(named: "ChooseLater"))
+        decideLaterImage = UIImageView(image: UIImage(named: "ChooseLaterAnimation_0"))
         
         decideLaterImage.animationImages = chooseLaterAnimationArray
         

@@ -101,10 +101,10 @@ class ItemsViewController: UIViewController, Injectable {
         
         navigationItem.backBarButtonItem?.tintColor = .primaryColor()
         
-        sortButton.tintColor = .primaryColor()
+        sortButton.tintColor = .whiteColor()
         sortButton.layer.cornerRadius = self.sortButtonHeightConstraint.constant / 2
-        sortButton.setImage(UIImage(named: "GreaterThanWhite"), forState: .Normal)
-        sortButton.imageEdgeInsets = UIEdgeInsetsMake(0, 4, 0, 0)
+        sortButton.setImage(UIImage(named: "GreaterThan")?.imageWithRenderingMode(.AlwaysTemplate), forState: .Normal)
+//        sortButton.imageEdgeInsets = UIEdgeInsetsMake(0, 4, 0, 0)
         sortButton.backgroundColor = .primaryColor()
         
         sortButton.layer.shadowColor = UIColor.blackColor().CGColor;
