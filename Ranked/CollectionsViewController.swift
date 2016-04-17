@@ -131,6 +131,7 @@ extension Navigation {
                     controller.inject(dataManager.collections[row])
                 }
                 controller.inEditingMode = true
+                controller.newCollection = false
                 controller.delegate = self
                 self.navigationController?.navigationBar.tintColor = .primaryColor()
             }

@@ -208,23 +208,7 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Ranked/CollectionsViewController.swift"
-            timestampString = "482519284.32746"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "158"
-            endingLineNumber = "158"
-            landmarkName = "tableView(_:editActionsForRowAtIndexPath:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Ranked/ItemsViewController.swift"
@@ -237,14 +221,14 @@
             landmarkType = "5">
             <Locations>
                <Location
-                  shouldBeEnabled = "Yes"
+                  shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "_.ItemsViewController.createdNewItemWithText (Swift.String) -&gt; ()"
                   moduleName = "&gt;"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/william.robinson/Documents/Personal/Ranked/Ranked/ItemsViewController.swift"
-                  timestampString = "482600737.320333"
+                  timestampString = "482602043.506006"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "441"
@@ -252,14 +236,14 @@
                   offsetFromSymbolStart = "636">
                </Location>
                <Location
-                  shouldBeEnabled = "Yes"
+                  shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "_.ItemsViewController.createdNewItemWithText (Swift.String) -&gt; ()"
                   moduleName = "&gt;"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/william.robinson/Documents/Personal/Ranked/Ranked/ItemsViewController.swift"
-                  timestampString = "482600737.320518"
+                  timestampString = "482602043.506167"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "441"

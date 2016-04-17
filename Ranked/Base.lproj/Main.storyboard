@@ -302,7 +302,7 @@
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
                                                 </textField>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="FirstPlace" translatesAutoresizingMaskIntoConstraints="NO" id="gRt-wE-gZv">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gRt-wE-gZv">
                                                     <rect key="frame" x="180" y="-8" width="240" height="128"/>
                                                 </imageView>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UvR-Kj-mjB">
@@ -355,7 +355,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="600" height="87.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="FirstPlace" translatesAutoresizingMaskIntoConstraints="NO" id="P9k-iB-fTk">
+                                                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="P9k-iB-fTk">
                                                     <rect key="frame" x="9" y="20" width="46" height="46"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="P9k-iB-fTk" secondAttribute="height" multiplier="1:1" id="BN1-AH-Rf9"/>
@@ -531,7 +531,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="FirstPlace" width="32" height="32"/>
         <image name="PlusButton" width="48" height="48"/>
     </resources>
     <inferredMetricsTieBreakers>

@@ -23,7 +23,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="24"/>
                                 <subviews>
                                     <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Deb-Vk-5eY">
-                                        <rect key="frame" x="32" y="8" width="536" height="12"/>
+                                        <rect key="frame" x="32" y="0.0" width="536" height="12"/>
                                         <color key="tintColor" red="0.3294117647" green="0.56470588239999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     </progressView>
                                 </subviews>
@@ -39,13 +39,13 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2xq-AV-gm8">
                                 <rect key="frame" x="0.0" y="24" width="600" height="512"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tf3-jn-MQb">
-                                        <rect key="frame" x="279" y="246" width="42" height="21"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tf3-jn-MQb">
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="1"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="1" id="E1v-Cf-jkY"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hxi-Hk-hEX">
@@ -71,7 +71,7 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SVL-KD-6G0">
                                                 <rect key="frame" x="0.0" y="0.0" width="536" height="65"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1bc-j6-bVc">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="1bc-j6-bVc">
                                                         <rect key="frame" x="16" y="16" width="504" height="33"/>
                                                         <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -90,10 +90,10 @@
                                                     <outletCollection property="gestureRecognizers" destination="T3P-3V-5tI" appends="YES" id="5jJ-r1-txj"/>
                                                 </connections>
                                             </view>
-                                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pnT-b6-PXj">
-                                                <rect key="frame" x="0.0" y="384" width="536" height="64"/>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pnT-b6-PXj">
+                                                <rect key="frame" x="0.0" y="383" width="536" height="65"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4FI-4V-mlu">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="4FI-4V-mlu">
                                                         <rect key="frame" x="16" y="16" width="504" height="33"/>
                                                         <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>

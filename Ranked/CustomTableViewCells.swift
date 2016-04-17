@@ -95,9 +95,18 @@ extension AddItemTableViewCell: UITextFieldDelegate {
         let string = textField.text! as NSString
         
         if string.length > 0 {
-                    
-            self.delegate?.createdNewItemWithText(textField.text!)
-            textField.text = ""
+            
+            let whitespaceSet = NSCharacterSet.whitespaceCharacterSet()
+            if !string.stringByTrimmingCharactersInSet(whitespaceSet).isEmpty {
+                
+                print("Not whitespace")
+                self.delegate?.createdNewItemWithText(textField.text!)
+                textField.text = ""
+                
+            } else {
+                
+                print("Just whitespace")
+            }
         }
         return false
     }

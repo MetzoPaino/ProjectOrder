@@ -366,7 +366,7 @@ class SortingViewController: UIViewController {
                     
                     holdingView.backgroundColor = UIColor.colorFromPercentageInRange(Float(percentage), startColor: .sortingNeutralBackgroundColor(), endColor: .sortingPreferredBackgroundColor())
 
-                    let takeAway = CGFloat((100 - percentage) / 100) + 0.2
+//                    let takeAway = CGFloat((100 - percentage) / 100) + 0.2
 //                    bottomView.alpha = takeAway
                     
                     bottomView.backgroundColor = UIColor.colorFromPercentageInRange(Float(percentage), startColor: .blockNeutralColor(), endColor: .blockLosingColor())
@@ -400,7 +400,7 @@ class SortingViewController: UIViewController {
                     let animationPercentage = (bottomViewBottomConstraint.constant / (fullAlpha - 70)) * 100
                     var animationIndex = animationArray.count * Int(animationPercentage) / 100
                     
-                    let takeAway = CGFloat((100 - percentage) / 100) + 0.2
+//                    let takeAway = CGFloat((100 - percentage) / 100) + 0.2
                     
                     topView.backgroundColor = UIColor.colorFromPercentageInRange(Float(percentage), startColor: .blockNeutralColor(), endColor: .blockLosingColor())
                     
