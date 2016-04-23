@@ -13,3 +13,4 @@ protocol Injectable {
     func inject(_: AssociatedObject)
     func assertDependencies()
 }
+

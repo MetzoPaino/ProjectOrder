@@ -11,7 +11,10 @@ import CloudKit
 
 protocol DataManagerDelegate: class {
     func newCollection()
+    func newItem()
 }
+
+
 
 class DataManager: CloudKitManagerDelegate {
     
@@ -45,6 +48,7 @@ class DataManager: CloudKitManagerDelegate {
             if collection.record.recordID.recordName == reference {
                 
                 collection.items.insert(item, atIndex: 0)
+                self.delegate?.newItem()
             }
         }
     }

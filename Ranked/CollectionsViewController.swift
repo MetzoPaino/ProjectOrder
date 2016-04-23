@@ -13,7 +13,7 @@ class CollectionsViewController: UIViewController, Injectable, DataManagerDelega
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var addButton: UIButton!
     @IBOutlet weak var addButtonHeightConstraint: NSLayoutConstraint!
-
+    
     var shadowImage: UIImage!
     var backgroundImage: UIImage!
     
@@ -21,6 +21,8 @@ class CollectionsViewController: UIViewController, Injectable, DataManagerDelega
     
     typealias AssociatedObject = DataManager
     private var dataManager: DataManager!
+    
+    var itemViewController = ItemsViewController()
     
     // MARK: - Setup
     
@@ -42,6 +44,14 @@ class CollectionsViewController: UIViewController, Injectable, DataManagerDelega
         
         dispatch_async(dispatch_get_main_queue(), {
             self.tableView.reloadData()
+        })
+        
+    }
+    
+    func newItem() {
+        
+        dispatch_async(dispatch_get_main_queue(), {
+           self.itemViewController.tableView.reloadData()
         })
         
     }
@@ -116,6 +126,8 @@ extension Navigation {
         
         if let controller = segue.destinationViewController as? ItemsViewController {
             
+            itemViewController = controller
+                        
             if segue.identifier == "CreateCollection" {
                 
                 controller.inject(CollectionModel(name: "", description: "", dateCreated: NSDate()))

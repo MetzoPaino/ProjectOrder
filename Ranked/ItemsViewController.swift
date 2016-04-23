@@ -50,6 +50,10 @@ class ItemsViewController: UIViewController, Injectable {
     
 
     // MARK: - Load View
+    
+    func newItem() {
+        self.tableView.reloadData()
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -81,6 +85,23 @@ class ItemsViewController: UIViewController, Injectable {
     func assertDependencies() {
         assert(collection != nil)
     }
+    
+//    func newCollection() {
+//        
+//        dispatch_async(dispatch_get_main_queue(), {
+//            self.tableView.reloadData()
+//        })
+//        
+//    }
+//    
+//    func newItem() {
+//        
+//        dispatch_async(dispatch_get_main_queue(), {
+//            self.tableView.reloadData()
+//
+//        })
+//        
+//    }
 
     // MARK: - Style View
     
