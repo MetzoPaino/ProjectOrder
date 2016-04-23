@@ -8,15 +8,31 @@
 
 import Foundation
 
-class DataManager {
+protocol DataManagerDelegate: class {
+    func newCollection()
+}
+
+class DataManager: CloudKitManagerDelegate {
     
     var collections = [CollectionModel]()
+    var cloudKitManager = CloudKitManager()
+    weak var delegate: DataManagerDelegate?
+
     
     let preMadeCollectionsArray = [createDavidBowieCollection(), createStarWarsCollection(), createHarryPotterCollection(), createFinalFantasyCollection(), createInternetBrowserCollection(), createDesktopOSCollection(), createMobileOSCollection(), createDoctorWhoCollection(), createMarioCharactersCollection(), createHottestHobbitsCollection()]
     
     init() {
         
+        cloudKitManager.subscribe()
+        cloudKitManager.delegate = self
         loadData()
+        cloudKitManager.getOutstandingNotifications()
+    }
+    
+    func newCloudCollection(collection: CollectionModel) {
+        
+        collections.append(collection)
+        self.delegate?.newCollection()
     }
     
     // MARK: - Save & Load
@@ -28,6 +44,8 @@ class DataManager {
         let data = NSMutableData()
         let archiver = NSKeyedArchiver(forWritingWithMutableData: data)
         archiver.encodeObject(collections, forKey: "Collections")
+        
+        
         archiver.finishEncoding()
         data.writeToFile(dataFilePath(), atomically: true)
     }
@@ -54,7 +72,6 @@ class DataManager {
             
             print("No file path")
             collections = [CollectionModel]()
-            
 //            var temp = preMadeCollectionsArray
 //            
 //            while collections.count < preMadeCollectionsArray.count {

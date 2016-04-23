@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CloudKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -14,13 +15,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     let dataManager = DataManager()
 
+    let cloudKitManager = CloudKitManager()
+
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        
         
         if let controller = window!.rootViewController as? LaunchViewController {
         
             controller.inject(dataManager)
         }
+        application.registerForRemoteNotifications()
+
+        
+        
+        
+        let notificationSettings = UIUserNotificationSettings(forTypes: [.Alert, .Sound], categories: nil)
+        UIApplication.sharedApplication().registerUserNotificationSettings(notificationSettings)
+        UIApplication.sharedApplication().registerForRemoteNotifications()
+        
+        
 //        if let navigationController = window!.rootViewController as? UINavigationController {
 //            
 //            let controller = navigationController.topViewController as! CollectionsViewController
@@ -49,6 +61,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(application: UIApplication) {
         saveData()
+    }
+    
+    func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
+        print("Registered for Push notifications with token: \(deviceToken)")
+    }
+    
+    func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
+        print("Push subscription failed: \(error)")
+    }
+    
+    func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
+        print("Got notification \(userInfo)")
+        
+        
+        if let pushInfo = userInfo as? [String: NSObject] {
+            let notification = CKQueryNotification(fromRemoteNotificationDictionary: pushInfo)
+            
+            dataManager.cloudKitManager.handleNotification(notification)
+        }
     }
 
     func saveData() {

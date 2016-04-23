@@ -485,6 +485,7 @@ extension TableViewDelegate: UITableViewDelegate {
             
             let deleteAction = UITableViewRowAction(style: .Destructive, title: "Delete") { (rowAction:UITableViewRowAction, indexPath:NSIndexPath) -> Void in
                 
+                CloudKitManager().deleteFromCloudKit(self.collection.items[indexPath.row].record.recordID)
                 self.collection.items.removeAtIndex(indexPath.row)
                 tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
                 tableView.reloadData()

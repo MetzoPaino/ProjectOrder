@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CollectionsViewController: UIViewController, Injectable {
+class CollectionsViewController: UIViewController, Injectable, DataManagerDelegate {
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var addButton: UIButton!
@@ -27,6 +27,7 @@ class CollectionsViewController: UIViewController, Injectable {
     override func viewDidLoad() {
         super.viewDidLoad()
         assertDependencies()
+        
         styleTableView()
         styleView()
         
@@ -35,6 +36,14 @@ class CollectionsViewController: UIViewController, Injectable {
         imageView.bounds = CGRectMake(0, 0, 32, 32)
         imageView.contentMode = .ScaleAspectFit
         self.navigationItem.titleView = imageView
+    }
+    
+    func newCollection() {
+        
+        dispatch_async(dispatch_get_main_queue(), {
+            self.tableView.reloadData()
+        })
+        
     }
     
     override func viewWillDisappear(animated: Bool)  {
@@ -66,6 +75,7 @@ class CollectionsViewController: UIViewController, Injectable {
     
     func inject(dataManager: AssociatedObject) {
         self.dataManager = dataManager
+        self.dataManager.delegate = self
     }
     
     func assertDependencies() {
@@ -111,7 +121,6 @@ extension Navigation {
                 controller.inject(CollectionModel(name: "", description: "", dateCreated: NSDate()))
                 controller.delegate = self
                 controller.newCollection = true
-                
                 
             } else if segue.identifier == "ShowCollection" {
                 
@@ -164,6 +173,7 @@ extension TableViewDelegate: UITableViewDelegate {
         
         let deleteAction = UITableViewRowAction(style: .Destructive, title: "Delete") { (rowAction:UITableViewRowAction, indexPath:NSIndexPath) -> Void in
             
+            CloudKitManager().deleteFromCloudKit(self.dataManager.collections[indexPath.row].record.recordID)
             self.dataManager.collections.removeAtIndex(indexPath.row)
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
         }
@@ -278,6 +288,10 @@ extension ItemsDelegate: ItemsViewControllerDelegate {
         // How does this work when not new?
         if new {
             dataManager.collections.insert(collection, atIndex: 0)
+            CloudKitManager().saveCollectionToCloudKit(collection)
+        } else {
+            
+            CloudKitManager().editCollectionInCloudKit(collection)
         }
         
         tableView.reloadData()

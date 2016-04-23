@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CloudKit
 
 class CollectionModel: NSObject, NSCoding {
     
@@ -15,17 +16,21 @@ class CollectionModel: NSObject, NSCoding {
     private let itemsKey = "items"
     private let dateCreatedKey = "dateCreated"
     private let sortedKey = "sorted"
+    private var recordKey = "record"
 
+    var record = CKRecord(recordType: "Collection")
+    
     var name = ""
     var descriptionString = ""
     var sorted = false
     var dateCreated: NSDate
-
+    
     var items = [ItemModel]()
     
     private let uuid = NSUUID().UUIDString
     
     init(name: String, description: String, dateCreated: NSDate) {
+        
         self.name = name
         self.descriptionString = description
         self.dateCreated = dateCreated
@@ -76,6 +81,11 @@ class CollectionModel: NSObject, NSCoding {
             sorted = false
         }
         
+        if let decodedRecord = aDecoder.decodeObjectForKey(recordKey) as? CKRecord {
+            
+            record = decodedRecord
+        }
+        
         super.init()
     }
     
@@ -87,6 +97,7 @@ class CollectionModel: NSObject, NSCoding {
         aCoder.encodeObject(items, forKey: itemsKey)
         aCoder.encodeObject(dateCreated, forKey: dateCreatedKey)
         aCoder.encodeObject(sorted, forKey: sortedKey)
+        aCoder.encodeObject(record, forKey: recordKey)
     }
     
     func returnArrayOfItems(sorted: Bool) -> [ItemModel] {
@@ -113,11 +124,14 @@ class ItemModel: NSObject, NSCoding {
     private let textKey = "text"
     private let pointsKey = "points"
     private let sortedKey = "sorted"
+    private var recordKey = "record"
 
     var text: String
     var tag = Int()
     var sorted = false
     var points = 0
+    
+    var record = CKRecord(recordType: "Item")
     
     init(string: String) {
         text = string
@@ -144,7 +158,11 @@ class ItemModel: NSObject, NSCoding {
         if let decodedSorted = aDecoder.decodeObjectForKey(sortedKey) as? Bool {
             
             sorted = decodedSorted
+        }
+        
+        if let decodedRecord = aDecoder.decodeObjectForKey(recordKey) as? CKRecord {
             
+            record = decodedRecord
         }
         
         super.init()
@@ -155,5 +173,6 @@ class ItemModel: NSObject, NSCoding {
         aCoder.encodeObject(text, forKey: textKey)
         aCoder.encodeObject(points, forKey: pointsKey)
         aCoder.encodeObject(sorted, forKey: sortedKey)
+        aCoder.encodeObject(record, forKey: recordKey)
     }
 }
