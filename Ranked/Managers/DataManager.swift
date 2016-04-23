@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CloudKit
 
 protocol DataManagerDelegate: class {
     func newCollection()
@@ -17,13 +18,13 @@ class DataManager: CloudKitManagerDelegate {
     var collections = [CollectionModel]()
     var cloudKitManager = CloudKitManager()
     weak var delegate: DataManagerDelegate?
-
     
     let preMadeCollectionsArray = [createDavidBowieCollection(), createStarWarsCollection(), createHarryPotterCollection(), createFinalFantasyCollection(), createInternetBrowserCollection(), createDesktopOSCollection(), createMobileOSCollection(), createDoctorWhoCollection(), createMarioCharactersCollection(), createHottestHobbitsCollection()]
     
     init() {
         
-        cloudKitManager.subscribe()
+        cloudKitManager.subscribeToCollectionUpdates()
+
         cloudKitManager.delegate = self
         loadData()
         cloudKitManager.getOutstandingNotifications()
@@ -33,6 +34,19 @@ class DataManager: CloudKitManagerDelegate {
         
         collections.append(collection)
         self.delegate?.newCollection()
+    }
+    
+    func newCloudItemFromCollectionReference(item: ItemModel, reference: String) {
+        
+        for collection in collections {
+            
+            print(collection.record.recordID.recordName)
+            
+            if collection.record.recordID.recordName == reference {
+                
+                collection.items.insert(item, atIndex: 0)
+            }
+        }
     }
     
     // MARK: - Save & Load

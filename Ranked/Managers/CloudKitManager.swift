@@ -11,22 +11,32 @@ import CloudKit
 
 protocol CloudKitManagerDelegate: class {
     func newCloudCollection(collection:CollectionModel)
+    func newCloudItemFromCollectionReference(item:ItemModel, reference: String)
 }
 
 class CloudKitManager {
     
     weak var delegate: CloudKitManagerDelegate?
 
-    let database = CKContainer.defaultContainer().publicCloudDatabase
+    let database = CKContainer.defaultContainer().privateCloudDatabase
     
-    var subscribed = false
+    var subscribedToCollections = false
+    var subscribedToItems = false
+
+    enum recordType {
+        case collections
+        case items
+    }
+    
+    //MARK: - Collections
     
     func saveCollectionToCloudKit(collection: CollectionModel) {
         
         let record = CKRecord(recordType: "Collection", recordID: collection.record.recordID)
         record.setObject(collection.name, forKey: "Name")
         record.setObject(collection.descriptionString, forKey: "Description")
-        
+        record.setObject(collection.dateCreated, forKey: "DateCreated")
+
         print("Record ID = \(collection.record.recordID)")
         
         database.saveRecord(record) { savedRecord, error in
@@ -52,6 +62,7 @@ class CloudKitManager {
             
             fetchedCollection["Name"] = collection.name
             fetchedCollection["Description"] = collection.descriptionString
+            fetchedCollection["DateCreated"] = collection.dateCreated
 
             self.database.saveRecord(fetchedCollection) { savedRecord, savedError in
                 print(error)
@@ -85,19 +96,21 @@ class CloudKitManager {
                     description = fetchedCollection["Description"] as! String
                 }
                 
-                let collection = CollectionModel (name: name, description: description, dateCreated: NSDate())
+                let dateCreated = fetchedCollection["DateCreated"] as! NSDate
+
+                let collection = CollectionModel (name: name, description: description, dateCreated: dateCreated)
                 self.delegate?.newCloudCollection(collection)
             }
         }
     }
     
     func deleteLocalCollection(recordID: CKRecordID) {
-        
     }
     
     func updateLocalCollection(recordID:CKRecordID) {
-        
     }
+    
+    //MARK: - Items
     
     private func saveItemsToCloudKit(collection: CollectionModel) {
         
@@ -110,7 +123,7 @@ class CloudKitManager {
             record.setObject(item.sorted, forKey: "Sorted")
             
             let reference = CKReference(record: collection.record, action: .DeleteSelf)
-            record.setObject(reference, forKey: "Reference")
+            record.setObject(reference, forKey: "Collection")
             recordsArray.append(record)
         }
         
@@ -139,6 +152,30 @@ class CloudKitManager {
         self.database.addOperation(saveRecordsOperation)
     }
     
+    func addItemFromCloudKit(recordID: CKRecordID) {
+        
+        database.fetchRecordWithID(recordID) { fetchedItem, error in
+            
+            guard let fetchedItem = fetchedItem else {
+                // handle errors here
+                
+                print(error)
+                return
+            }
+            
+            let name = fetchedItem["Name"] as! String
+            let collection = fetchedItem["Collection"] as! CKReference
+            let sorted = fetchedItem["Sorted"] as! Bool
+            
+            let item = ItemModel(string: name)
+            item.record = CKRecord(recordType: "Item", recordID: recordID)
+            item.sorted = sorted
+            self.delegate?.newCloudItemFromCollectionReference(item, reference: collection.recordID.recordName)
+        }
+    }
+    
+    //MARK: - Generic
+    
     func deleteFromCloudKit(recordID: CKRecordID) {
         
         database.deleteRecordWithID(recordID) {
@@ -148,21 +185,22 @@ class CloudKitManager {
         }
     }
     
-    func subscribe() {
+    func subscribeToCollectionUpdates() {
         
-        if subscribed {
-            print("Already subscribed")
+        if subscribedToCollections {
+            print("Already subscribed to collections")
             return
         }
         
         let predicate = NSPredicate(value: true)
             
         let options: CKSubscriptionOptions = [.FiresOnRecordDeletion, .FiresOnRecordUpdate, .FiresOnRecordCreation]
-        
+
         let subscription = CKSubscription(recordType: "Collection", predicate: predicate, options: options)
         
+        
         let notification = CKNotificationInfo()
-        notification.alertBody = "There's a new whistle in the genre."
+        notification.alertBody = "Collection"
         subscription.notificationInfo = notification
         
         database.saveSubscription(subscription) { (subscription, error) in
@@ -172,32 +210,72 @@ class CloudKitManager {
                 // Error code 15 means already subscribed
                 
                 if error?.code == 15 {
-                    self.subscribed = true
+                    
+                    self.subscribedToCollections = true
                 }
-                
             } else {
                 
-                print("Subscribed")
-                self.subscribed = true
+                self.subscribedToCollections = true
+                
+
+
+                let itemSubscription = CKSubscription(recordType: "Item", predicate: predicate, options: options)
+                
+                let itemNotification = CKNotificationInfo()
+                itemNotification.alertBody = "Item"
+                itemSubscription.notificationInfo = itemNotification
+                
+                self.database.saveSubscription(itemSubscription) { (itemSubscription, error) in
+                    if error != nil {
+                        print(error!.localizedDescription)
+                        
+                        // Error code 15 means already subscribed
+                        
+                        if error?.code == 15 {
+                            
+                            self.subscribedToCollections = true
+                        }
+                    } else {
+                        
+                        self.subscribedToCollections = true
+                    }
+                }
             }
         }
     }
     
     func handleNotification(note: CKQueryNotification) {
         let recordID = note.recordID
-        switch note.queryNotificationReason {
-        case .RecordDeleted:
-            print("Deleted")
-
+        
+        if note.alertBody == "Collection" {
             
-        case .RecordCreated:
-            print("Created")
-            addCollectionFromCloudKit(recordID!)
+            switch note.queryNotificationReason {
+            case .RecordDeleted:
+                print("Deleted")
+                
+            case .RecordCreated:
+                print("Created")
+                addCollectionFromCloudKit(recordID!)
+                
+            case .RecordUpdated:
+                print("Updated")
+                
+                //fetchAndUpdateOrAdd(note.recordID)
+            }
+        } else if note.alertBody == "Item" {
             
-        case .RecordUpdated:
-            print("Updated")
-
-//            fetchAndUpdateOrAdd(note.recordID)
+            switch note.queryNotificationReason {
+            case .RecordDeleted:
+                print("Deleted")
+                
+                
+            case .RecordCreated:
+                print("Created")
+                addItemFromCloudKit(recordID!)
+                
+            case .RecordUpdated:
+                print("Updated")
+            }
         }
         markNotificationAsRead([note.notificationID!])
     }
@@ -208,10 +286,11 @@ class CloudKitManager {
         op.notificationChangedBlock = { notification in
             if let ckNotification = notification as?
                 CKQueryNotification {
-                self.handleNotification(ckNotification) }
+                self.handleNotification(ckNotification)
+            }
         }
         op.fetchNotificationChangesCompletionBlock = {
-            serverChangeToken, error in // 3
+            serverChangeToken, error in
             if error != nil {
                 print("error fetching notifications \(error)") }
         }

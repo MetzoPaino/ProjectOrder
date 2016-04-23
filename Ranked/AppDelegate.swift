@@ -23,15 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
             controller.inject(dataManager)
         }
-        application.registerForRemoteNotifications()
-
-        
-        
-        
-        let notificationSettings = UIUserNotificationSettings(forTypes: [.Alert, .Sound], categories: nil)
-        UIApplication.sharedApplication().registerUserNotificationSettings(notificationSettings)
-        UIApplication.sharedApplication().registerForRemoteNotifications()
-        
+        application.registerForRemoteNotifications()        
         
 //        if let navigationController = window!.rootViewController as? UINavigationController {
 //            
@@ -74,10 +66,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
         print("Got notification \(userInfo)")
         
-        
         if let pushInfo = userInfo as? [String: NSObject] {
             let notification = CKQueryNotification(fromRemoteNotificationDictionary: pushInfo)
-            
             dataManager.cloudKitManager.handleNotification(notification)
         }
     }
