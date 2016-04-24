@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CollectionsViewController: UIViewController, Injectable, DataManagerDelegate {
+class CollectionsViewController: UIViewController, Injectable {
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var addButton: UIButton!
@@ -38,41 +38,6 @@ class CollectionsViewController: UIViewController, Injectable, DataManagerDelega
         self.navigationItem.titleView = imageView
     }
     
-    func newCollection() {
-        
-        dispatch_async(dispatch_get_main_queue(), {
-            self.tableView.reloadData()
-        })
-        
-    }
-    
-    func newItem(reference: String) {
-        
-        dispatch_async(dispatch_get_main_queue(), {
-            
-            if self.navigationController?.topViewController is ItemsViewController {
-                
-                let itemsViewController = self.navigationController?.topViewController as! ItemsViewController
-                if itemsViewController.collection.record.recordID.recordName == reference {
-                    
-                    itemsViewController.tableView.reloadData()
-
-                }
-            }
-        })
-    }
-    
-    func deleteLocalCollection(collection: CollectionModel) {
-        
-        if presentedViewController is CustomNavigationController {
-            
-            self.navigationController?.dismissViewControllerAnimated(true, completion: {
-                self.navigationController?.popToRootViewControllerAnimated(true)
-            })
-        } else {
-            self.navigationController?.popToRootViewControllerAnimated(true)
-        }
-    }
     
     override func viewWillDisappear(animated: Bool)  {
         super.viewWillDisappear(animated)
@@ -323,5 +288,52 @@ extension ItemsDelegate: ItemsViewControllerDelegate {
         }
         
         tableView.reloadData()
+    }
+}
+
+// MARK: - DataManager Delegates
+extension CollectionsViewController: DataManagerDelegate {
+
+    // MARK: Collections
+    
+    func newCollection() {
+        
+        dispatch_async(dispatch_get_main_queue(), {
+            self.tableView.reloadData()
+        })
+    }
+    
+    func deleteLocalCollection(collection: CollectionModel) {
+        
+        dispatch_async(dispatch_get_main_queue(), {
+            
+            if self.presentedViewController is CustomNavigationController {
+                
+                self.navigationController?.dismissViewControllerAnimated(true, completion: {
+                    self.navigationController?.popToRootViewControllerAnimated(true)
+                    self.tableView.reloadData()
+                })
+            } else {
+                self.navigationController?.popToRootViewControllerAnimated(true)
+                self.tableView.reloadData()
+            }
+        })
+    }
+    
+    // MARK: Items
+    
+    func newItem(reference: String) {
+        
+        dispatch_async(dispatch_get_main_queue(), {
+            
+            if self.navigationController?.topViewController is ItemsViewController {
+                
+                let itemsViewController = self.navigationController?.topViewController as! ItemsViewController
+                if itemsViewController.collection.record.recordID.recordName == reference {
+                    
+                    itemsViewController.tableView.reloadData()
+                }
+            }
+        })
     }
 }

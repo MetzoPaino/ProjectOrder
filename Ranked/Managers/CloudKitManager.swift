@@ -29,7 +29,9 @@ class CloudKitManager {
         case items
     }
     
-    //MARK: - Collections
+    //MARK: - To Cloud
+    
+    //MARK: Collections
     
     func saveCollectionToCloudKit(collection: CollectionModel) {
         
@@ -37,7 +39,7 @@ class CloudKitManager {
         record.setObject(collection.name, forKey: "Name")
         record.setObject(collection.descriptionString, forKey: "Description")
         record.setObject(collection.dateCreated, forKey: "DateCreated")
-
+        
         print("Record ID = \(collection.record.recordID)")
         
         database.saveRecord(record) { savedRecord, error in
@@ -64,7 +66,7 @@ class CloudKitManager {
             fetchedCollection["Name"] = collection.name
             fetchedCollection["Description"] = collection.descriptionString
             fetchedCollection["DateCreated"] = collection.dateCreated
-
+            
             self.database.saveRecord(fetchedCollection) { savedRecord, savedError in
                 print(error)
                 
@@ -76,43 +78,7 @@ class CloudKitManager {
         }
     }
     
-    func addCollectionFromCloudKit(recordID: CKRecordID) {
-        
-        database.fetchRecordWithID(recordID) { fetchedCollection, error in
-            
-            guard let fetchedCollection = fetchedCollection else {
-                // handle errors here
-                
-                print(error)
-                return
-            }
-            
-            if ((fetchedCollection["Name"] as? String) != nil) {
-                
-                let name = fetchedCollection["Name"] as! String
-                var description = ""
-                
-                if ((fetchedCollection["Description"] as? String) != nil) {
-                    
-                    description = fetchedCollection["Description"] as! String
-                }
-                
-                let dateCreated = fetchedCollection["DateCreated"] as! NSDate
-
-                let collection = CollectionModel (name: name, description: description, dateCreated: dateCreated)
-                self.delegate?.newCloudCollection(collection)
-            }
-        }
-    }
-    
-    func deleteLocalCollection(recordID: CKRecordID) {
-        self.delegate?.deleteCollectionWithReference(recordID.recordName)
-    }
-    
-    func updateLocalCollection(recordID:CKRecordID) {
-    }
-    
-    //MARK: - Items
+    //MARK: Items
     
     private func saveItemsToCloudKit(collection: CollectionModel) {
         
@@ -154,6 +120,59 @@ class CloudKitManager {
         self.database.addOperation(saveRecordsOperation)
     }
     
+    //MARK: Generic
+    
+    func deleteFromCloudKit(recordID: CKRecordID) {
+        
+        database.deleteRecordWithID(recordID) {
+            (record, error) in
+            
+            print(error)
+        }
+    }
+    
+    //MARK: - From Cloud
+    
+    //MARK: Collections
+    
+    func addCollectionFromCloudKit(recordID: CKRecordID) {
+        
+        database.fetchRecordWithID(recordID) { fetchedCollection, error in
+            
+            guard let fetchedCollection = fetchedCollection else {
+                // handle errors here
+                
+                print(error)
+                return
+            }
+            
+            if ((fetchedCollection["Name"] as? String) != nil) {
+                
+                let name = fetchedCollection["Name"] as! String
+                var description = ""
+                
+                if ((fetchedCollection["Description"] as? String) != nil) {
+                    
+                    description = fetchedCollection["Description"] as! String
+                }
+                
+                let dateCreated = fetchedCollection["DateCreated"] as! NSDate
+                
+                let collection = CollectionModel (name: name, description: description, dateCreated: dateCreated)
+                self.delegate?.newCloudCollection(collection)
+            }
+        }
+    }
+    
+    func deleteLocalCollection(recordID: CKRecordID) {
+        self.delegate?.deleteCollectionWithReference(recordID.recordName)
+    }
+    
+    func updateLocalCollection(recordID:CKRecordID) {
+    }
+    
+    //MARK: Items
+    
     func addItemFromCloudKit(recordID: CKRecordID) {
         
         database.fetchRecordWithID(recordID) { fetchedItem, error in
@@ -176,16 +195,7 @@ class CloudKitManager {
         }
     }
     
-    //MARK: - Generic
-    
-    func deleteFromCloudKit(recordID: CKRecordID) {
-        
-        database.deleteRecordWithID(recordID) {
-            (record, error) in
-            
-            print(error)
-        }
-    }
+    //MARK: - Subscribe
     
     func subscribeToCollectionUpdates() {
         
@@ -246,6 +256,8 @@ class CloudKitManager {
         }
     }
     
+    //MARK: - Notifications
+    
     func handleNotification(note: CKQueryNotification) {
         let recordID = note.recordID
         
@@ -253,31 +265,30 @@ class CloudKitManager {
             
             switch note.queryNotificationReason {
             case .RecordDeleted:
-                print("Deleted")
+                print("Collection Deleted")
                 deleteLocalCollection(recordID!)
                 
             case .RecordCreated:
-                print("Created")
+                print("Collection Created")
                 addCollectionFromCloudKit(recordID!)
                 
             case .RecordUpdated:
-                print("Updated")
-                
-                //fetchAndUpdateOrAdd(note.recordID)
+                print("Collection Updated")
+                updateLocalCollection(recordID!)
             }
+            
         } else if note.alertBody == "Item" {
             
             switch note.queryNotificationReason {
             case .RecordDeleted:
-                print("Deleted")
-                
+                print("Item Deleted")
                 
             case .RecordCreated:
-                print("Created")
+                print("Item Created")
                 addItemFromCloudKit(recordID!)
                 
             case .RecordUpdated:
-                print("Updated")
+                print("Item Updated")
             }
         }
         markNotificationAsRead([note.notificationID!])

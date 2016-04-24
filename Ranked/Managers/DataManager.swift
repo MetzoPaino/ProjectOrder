@@ -17,7 +17,7 @@ protocol DataManagerDelegate: class {
 
 
 
-class DataManager: CloudKitManagerDelegate {
+class DataManager {
     
     var collections = [CollectionModel]()
     var cloudKitManager = CloudKitManager()
@@ -32,40 +32,6 @@ class DataManager: CloudKitManagerDelegate {
         cloudKitManager.delegate = self
         loadData()
         cloudKitManager.getOutstandingNotifications()
-    }
-    
-    func newCloudCollection(collection: CollectionModel) {
-        
-        collections.append(collection)
-        self.delegate?.newCollection()
-    }
-    
-    func newCloudItemFromCollectionReference(item: ItemModel, reference: String) {
-        
-        for collection in collections {
-            
-            print(collection.record.recordID.recordName)
-            
-            if collection.record.recordID.recordName == reference {
-                
-                collection.items.insert(item, atIndex: 0)
-                self.delegate?.newItem(reference)
-            }
-        }
-    }
-    
-    
-    func deleteCollectionWithReference(reference: String) {
-        
-        for collection in collections {
-            
-            print(collection.record.recordID.recordName)
-            
-            if collection.record.recordID.recordName == reference {
-                
-                self.delegate?.deleteLocalCollection(collection)
-            }
-        }
     }
     
     // MARK: - Save & Load
@@ -127,4 +93,46 @@ class DataManager: CloudKitManagerDelegate {
         let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true) as [String]
         return paths[0]
     }
+}
+
+extension DataManager: CloudKitManagerDelegate {
+    
+    // MARK: Collections
+    
+    func newCloudCollection(collection: CollectionModel) {
+        
+        collections.append(collection)
+        self.delegate?.newCollection()
+    }
+    
+    func deleteCollectionWithReference(reference: String) {
+        
+        for (index, collection) in collections.enumerate() {
+            
+            print(collection.record.recordID.recordName)
+            
+            if collection.record.recordID.recordName == reference {
+                
+                collections.removeAtIndex(index)
+                self.delegate?.deleteLocalCollection(collection)
+            }
+        }
+    }
+    
+    //MARK: Items
+    
+    func newCloudItemFromCollectionReference(item: ItemModel, reference: String) {
+        
+        for collection in collections {
+            
+            print(collection.record.recordID.recordName)
+            
+            if collection.record.recordID.recordName == reference {
+                
+                collection.items.insert(item, atIndex: 0)
+                self.delegate?.newItem(reference)
+            }
+        }
+    }
+
 }
