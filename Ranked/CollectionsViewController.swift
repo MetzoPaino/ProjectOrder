@@ -320,6 +320,34 @@ extension CollectionsViewController: DataManagerDelegate {
         })
     }
     
+    func updateLocalCollection(collection: CollectionModel) {
+        
+        dispatch_async(dispatch_get_main_queue(), {
+            
+            if self.presentedViewController is CustomNavigationController {
+                
+                self.navigationController?.dismissViewControllerAnimated(true, completion: {
+
+                    if self.navigationController?.topViewController is ItemsViewController {
+                        
+                        let itemsViewController = self.navigationController?.topViewController as! ItemsViewController
+                        itemsViewController.collection = collection
+                        itemsViewController.tableView.reloadData()
+                    }
+                })
+            } else if self.navigationController?.topViewController is ItemsViewController {
+                
+                let itemsViewController = self.navigationController?.topViewController as! ItemsViewController
+                itemsViewController.collection = collection
+                itemsViewController.tableView.reloadData()
+                
+            } else {
+                self.navigationController?.popToRootViewControllerAnimated(true)
+                self.tableView.reloadData()
+            }
+        })
+    }
+    
     // MARK: Items
     
     func newItem(reference: String) {
@@ -333,6 +361,84 @@ extension CollectionsViewController: DataManagerDelegate {
                     
                     itemsViewController.tableView.reloadData()
                 }
+            }
+        })
+    }
+    
+    func deleteLocalItemFromCollection(collection: CollectionModel) {
+        
+        dispatch_async(dispatch_get_main_queue(), {
+            
+            if self.navigationController?.topViewController is ItemsViewController {
+                
+                let itemsViewController = self.navigationController?.topViewController as! ItemsViewController
+                if itemsViewController.collection.record.recordID.recordName == collection.record.recordID.recordName {
+                    
+                    itemsViewController.tableView.reloadData()
+                }
+            } else if self.navigationController?.topViewController is DescriptionViewController {
+                self.navigationController?.popToRootViewControllerAnimated(true)
+            }
+            
+            if self.presentedViewController is CustomNavigationController {
+                
+                self.navigationController?.dismissViewControllerAnimated(true, completion: {
+                })
+            }
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            if self.presentedViewController is CustomNavigationController {
+                
+                self.navigationController?.dismissViewControllerAnimated(true, completion: {
+                    if self.navigationController?.topViewController is ItemsViewController {
+                        
+                        let itemsViewController = self.navigationController?.topViewController as! ItemsViewController
+                        if itemsViewController.collection.record.recordID.recordName == collection.record.recordID.recordName {
+                            
+                            itemsViewController.tableView.reloadData()
+                        }
+                    }
+                })
+            } else if self.navigationController?.topViewController is ItemsViewController {
+                
+                let itemsViewController = self.navigationController?.topViewController as! ItemsViewController
+                if itemsViewController.collection.record.recordID.recordName == collection.record.recordID.recordName {
+                    
+                    itemsViewController.tableView.reloadData()
+                }
+            } else {
+                self.tableView.reloadData()
+            }
+        })
+    }
+    
+    func updateLocalItemInCollection(item: ItemModel, collection: CollectionModel) {
+        
+        dispatch_async(dispatch_get_main_queue(), {
+            
+            if self.navigationController?.topViewController is ItemsViewController {
+                
+                let itemsViewController = self.navigationController?.topViewController as! ItemsViewController
+                if itemsViewController.collection.record.recordID.recordName == collection.record.recordID.recordName {
+                    
+                    itemsViewController.tableView.reloadData()
+                }
+            } else if self.navigationController?.topViewController is DescriptionViewController {
+                self.navigationController?.popToRootViewControllerAnimated(true)
+            }
+            
+            if self.presentedViewController is CustomNavigationController {
+                
+                self.navigationController?.dismissViewControllerAnimated(true, completion: {
+                })
             }
         })
     }

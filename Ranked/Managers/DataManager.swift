@@ -11,11 +11,13 @@ import CloudKit
 
 protocol DataManagerDelegate: class {
     func newCollection()
-    func newItem(reference: String)
     func deleteLocalCollection(collection: CollectionModel)
+    func updateLocalCollection(collection: CollectionModel)
+    
+    func newItem(reference: String)
+    func deleteLocalItemFromCollection(collection: CollectionModel)
+    func updateLocalItemInCollection(item: ItemModel, collection: CollectionModel)
 }
-
-
 
 class DataManager {
     
@@ -109,12 +111,28 @@ extension DataManager: CloudKitManagerDelegate {
         
         for (index, collection) in collections.enumerate() {
             
-            print(collection.record.recordID.recordName)
+            if collection.record.recordID.recordName == reference {
+                
+                print(collection.record.recordID.recordName)
+
+                collections.removeAtIndex(index)
+                self.delegate?.deleteLocalCollection(collection)
+            }
+        }
+    }
+    
+    func updateCollectionWithReference(updatedCollection: CollectionModel, reference: String) {
+        
+        for (index, collection) in collections.enumerate() {
             
             if collection.record.recordID.recordName == reference {
                 
-                collections.removeAtIndex(index)
-                self.delegate?.deleteLocalCollection(collection)
+                print(collection.record.recordID.recordName)
+
+                collections[index].name = updatedCollection.name
+                collections[index].descriptionString = updatedCollection.descriptionString
+
+                self.delegate?.updateLocalCollection(collections[index])
             }
         }
     }
@@ -125,14 +143,46 @@ extension DataManager: CloudKitManagerDelegate {
         
         for collection in collections {
             
-            print(collection.record.recordID.recordName)
-            
             if collection.record.recordID.recordName == reference {
                 
+                print(collection.record.recordID.recordName)
+
                 collection.items.insert(item, atIndex: 0)
                 self.delegate?.newItem(reference)
             }
         }
     }
-
+    
+    func deleteItemWithReference(reference: String) {
+        
+        for collection in collections {
+            
+            for (index, item) in collection.items.enumerate() {
+                
+                if item.record.recordID.recordName == reference {
+                    
+                    print(item.record.recordID.recordName)
+                    collection.items.removeAtIndex(index)
+                    self.delegate?.deleteLocalItemFromCollection(collection)
+                }
+            }
+        }
+    }
+    
+    func updateItemWithReference(updatedItem: ItemModel, reference: String) {
+        
+        for collection in collections {
+            
+            for (index, item) in collection.items.enumerate() {
+                
+                if item.record.recordID.recordName == reference {
+                    
+                    print(item.record.recordID.recordName)
+                    collection.items[index].text = updatedItem.text
+                    collection.items[index].sorted = updatedItem.sorted
+                    self.delegate?.updateLocalItemInCollection(collection.items[index], collection: collection)
+                }
+            }
+        }
+    }
 }

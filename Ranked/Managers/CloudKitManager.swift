@@ -11,8 +11,12 @@ import CloudKit
 
 protocol CloudKitManagerDelegate: class {
     func newCloudCollection(collection:CollectionModel)
-    func newCloudItemFromCollectionReference(item:ItemModel, reference: String)
     func deleteCollectionWithReference(reference:String)
+    func updateCollectionWithReference(updatedCollection: CollectionModel, reference:String)
+    
+    func newCloudItemFromCollectionReference(item:ItemModel, reference: String)
+    func deleteItemWithReference(reference:String)
+    func updateItemWithReference(updatedItem: ItemModel, reference:String)
 }
 
 class CloudKitManager {
@@ -169,6 +173,30 @@ class CloudKitManager {
     }
     
     func updateLocalCollection(recordID:CKRecordID) {
+        
+        database.fetchRecordWithID(recordID) { fetchedCollection, error in
+            
+            guard let fetchedCollection = fetchedCollection else {
+                // handle errors here
+                return
+            }
+            
+            if ((fetchedCollection["Name"] as? String) != nil) {
+                
+                let name = fetchedCollection["Name"] as! String
+                var description = ""
+                
+                if ((fetchedCollection["Description"] as? String) != nil) {
+                    
+                    description = fetchedCollection["Description"] as! String
+                }
+                
+                let dateCreated = fetchedCollection["DateCreated"] as! NSDate
+                
+                let collection = CollectionModel (name: name, description: description, dateCreated: dateCreated)
+                self.delegate?.updateCollectionWithReference(collection, reference: recordID.recordName)
+            }
+        }
     }
     
     //MARK: Items
@@ -192,6 +220,30 @@ class CloudKitManager {
             item.record = CKRecord(recordType: "Item", recordID: recordID)
             item.sorted = sorted
             self.delegate?.newCloudItemFromCollectionReference(item, reference: collection.recordID.recordName)
+        }
+    }
+    
+    func deleteLocalItem(recordID: CKRecordID) {
+        self.delegate?.deleteItemWithReference(recordID.recordName)
+    }
+    
+    func updateLocalItem(recordID: CKRecordID) {
+        
+        database.fetchRecordWithID(recordID) { fetchedItem, error in
+            
+            guard let fetchedItem = fetchedItem else {
+                return
+            }
+            
+            if ((fetchedItem["Name"] as? String) != nil) {
+                
+                let name = fetchedItem["Name"] as! String
+                let sorted = fetchedItem["Sorted"] as! Bool
+                
+                let item = ItemModel(string: name)
+                item.sorted = sorted
+                self.delegate?.updateItemWithReference(item, reference: recordID.recordName)
+            }
         }
     }
     
@@ -228,8 +280,6 @@ class CloudKitManager {
             } else {
                 
                 self.subscribedToCollections = true
-                
-
 
                 let itemSubscription = CKSubscription(recordType: "Item", predicate: predicate, options: options)
                 
@@ -282,6 +332,7 @@ class CloudKitManager {
             switch note.queryNotificationReason {
             case .RecordDeleted:
                 print("Item Deleted")
+                deleteLocalItem(recordID!)
                 
             case .RecordCreated:
                 print("Item Created")
@@ -289,6 +340,7 @@ class CloudKitManager {
                 
             case .RecordUpdated:
                 print("Item Updated")
+                updateLocalItem(recordID!)
             }
         }
         markNotificationAsRead([note.notificationID!])

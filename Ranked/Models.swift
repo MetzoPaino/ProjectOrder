@@ -91,7 +91,6 @@ class CollectionModel: NSObject, NSCoding {
     
     func encodeWithCoder(aCoder: NSCoder) {
         
-        print("Saving Theme")
         aCoder.encodeObject(name, forKey: nameKey)
         aCoder.encodeObject(descriptionString, forKey: descriptionKey)
         aCoder.encodeObject(items, forKey: itemsKey)
