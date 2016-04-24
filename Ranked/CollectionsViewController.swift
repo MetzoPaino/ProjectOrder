@@ -324,26 +324,24 @@ extension CollectionsViewController: DataManagerDelegate {
         
         dispatch_async(dispatch_get_main_queue(), {
             
+            if self.navigationController?.topViewController is ItemsViewController {
+                
+                let itemsViewController = self.navigationController?.topViewController as! ItemsViewController
+                if itemsViewController.collection.record.recordID.recordName == collection.record.recordID.recordName {
+                    
+                    itemsViewController.collection = collection
+                    itemsViewController.tableView.reloadData()
+                }
+            } else {
+                
+                self.navigationController?.popToRootViewControllerAnimated(true)
+                self.tableView.reloadData()
+            }
+            
             if self.presentedViewController is CustomNavigationController {
                 
                 self.navigationController?.dismissViewControllerAnimated(true, completion: {
-
-                    if self.navigationController?.topViewController is ItemsViewController {
-                        
-                        let itemsViewController = self.navigationController?.topViewController as! ItemsViewController
-                        itemsViewController.collection = collection
-                        itemsViewController.tableView.reloadData()
-                    }
                 })
-            } else if self.navigationController?.topViewController is ItemsViewController {
-                
-                let itemsViewController = self.navigationController?.topViewController as! ItemsViewController
-                itemsViewController.collection = collection
-                itemsViewController.tableView.reloadData()
-                
-            } else {
-                self.navigationController?.popToRootViewControllerAnimated(true)
-                self.tableView.reloadData()
             }
         })
     }
@@ -384,38 +382,6 @@ extension CollectionsViewController: DataManagerDelegate {
                 
                 self.navigationController?.dismissViewControllerAnimated(true, completion: {
                 })
-            }
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            if self.presentedViewController is CustomNavigationController {
-                
-                self.navigationController?.dismissViewControllerAnimated(true, completion: {
-                    if self.navigationController?.topViewController is ItemsViewController {
-                        
-                        let itemsViewController = self.navigationController?.topViewController as! ItemsViewController
-                        if itemsViewController.collection.record.recordID.recordName == collection.record.recordID.recordName {
-                            
-                            itemsViewController.tableView.reloadData()
-                        }
-                    }
-                })
-            } else if self.navigationController?.topViewController is ItemsViewController {
-                
-                let itemsViewController = self.navigationController?.topViewController as! ItemsViewController
-                if itemsViewController.collection.record.recordID.recordName == collection.record.recordID.recordName {
-                    
-                    itemsViewController.tableView.reloadData()
-                }
-            } else {
-                self.tableView.reloadData()
             }
         })
     }
