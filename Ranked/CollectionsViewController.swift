@@ -22,8 +22,6 @@ class CollectionsViewController: UIViewController, Injectable, DataManagerDelega
     typealias AssociatedObject = DataManager
     private var dataManager: DataManager!
     
-    var itemViewController = ItemsViewController()
-    
     // MARK: - Setup
     
     override func viewDidLoad() {
@@ -48,12 +46,32 @@ class CollectionsViewController: UIViewController, Injectable, DataManagerDelega
         
     }
     
-    func newItem() {
+    func newItem(reference: String) {
         
         dispatch_async(dispatch_get_main_queue(), {
-           self.itemViewController.tableView.reloadData()
+            
+            if self.navigationController?.topViewController is ItemsViewController {
+                
+                let itemsViewController = self.navigationController?.topViewController as! ItemsViewController
+                if itemsViewController.collection.record.recordID.recordName == reference {
+                    
+                    itemsViewController.tableView.reloadData()
+
+                }
+            }
         })
+    }
+    
+    func deleteLocalCollection(collection: CollectionModel) {
         
+        if presentedViewController is CustomNavigationController {
+            
+            self.navigationController?.dismissViewControllerAnimated(true, completion: {
+                self.navigationController?.popToRootViewControllerAnimated(true)
+            })
+        } else {
+            self.navigationController?.popToRootViewControllerAnimated(true)
+        }
     }
     
     override func viewWillDisappear(animated: Bool)  {
@@ -126,8 +144,6 @@ extension Navigation {
         
         if let controller = segue.destinationViewController as? ItemsViewController {
             
-            itemViewController = controller
-                        
             if segue.identifier == "CreateCollection" {
                 
                 controller.inject(CollectionModel(name: "", description: "", dateCreated: NSDate()))

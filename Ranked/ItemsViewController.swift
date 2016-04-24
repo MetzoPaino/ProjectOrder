@@ -45,7 +45,7 @@ class ItemsViewController: UIViewController, Injectable {
     
     
     typealias AssociatedObject = CollectionModel
-    private var collection: CollectionModel!
+    var collection: CollectionModel!
     
     
 

@@ -12,6 +12,7 @@ import CloudKit
 protocol CloudKitManagerDelegate: class {
     func newCloudCollection(collection:CollectionModel)
     func newCloudItemFromCollectionReference(item:ItemModel, reference: String)
+    func deleteCollectionWithReference(reference:String)
 }
 
 class CloudKitManager {
@@ -105,6 +106,7 @@ class CloudKitManager {
     }
     
     func deleteLocalCollection(recordID: CKRecordID) {
+        self.delegate?.deleteCollectionWithReference(recordID.recordName)
     }
     
     func updateLocalCollection(recordID:CKRecordID) {
@@ -252,6 +254,7 @@ class CloudKitManager {
             switch note.queryNotificationReason {
             case .RecordDeleted:
                 print("Deleted")
+                deleteLocalCollection(recordID!)
                 
             case .RecordCreated:
                 print("Created")

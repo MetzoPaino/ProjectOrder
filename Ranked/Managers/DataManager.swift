@@ -11,7 +11,8 @@ import CloudKit
 
 protocol DataManagerDelegate: class {
     func newCollection()
-    func newItem()
+    func newItem(reference: String)
+    func deleteLocalCollection(collection: CollectionModel)
 }
 
 
@@ -48,7 +49,21 @@ class DataManager: CloudKitManagerDelegate {
             if collection.record.recordID.recordName == reference {
                 
                 collection.items.insert(item, atIndex: 0)
-                self.delegate?.newItem()
+                self.delegate?.newItem(reference)
+            }
+        }
+    }
+    
+    
+    func deleteCollectionWithReference(reference: String) {
+        
+        for collection in collections {
+            
+            print(collection.record.recordID.recordName)
+            
+            if collection.record.recordID.recordName == reference {
+                
+                self.delegate?.deleteLocalCollection(collection)
             }
         }
     }
