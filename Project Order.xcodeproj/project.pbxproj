@@ -13,6 +13,7 @@
 		0A15C0AD1C67A4E100857307 /* CustomTableViewCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A15C0AC1C67A4E100857307 /* CustomTableViewCells.swift */; };
 		0A2535861C52BFF100579102 /* SortingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2535851C52BFF100579102 /* SortingViewController.swift */; };
 		0A2AADC41C7905CB008A6AE0 /* CustomNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2AADC31C7905CB008A6AE0 /* CustomNavigationController.swift */; };
+		0A3D6EF81CD4EFDA003F5C42 /* Tutorial.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A3D6EF61CD4EFDA003F5C42 /* Tutorial.storyboard */; };
 		0A47D52A1C6642F200DC7296 /* ItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A47D5291C6642F200DC7296 /* ItemsViewController.swift */; };
 		0A64F8D51C95CBA8009AF27C /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A64F8D41C95CBA8009AF27C /* SettingsViewController.swift */; };
 		0A71708B1CB80316005126B4 /* Sorting.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A7170891CB80316005126B4 /* Sorting.storyboard */; };
@@ -40,6 +41,7 @@
 		0A15C0AC1C67A4E100857307 /* CustomTableViewCells.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTableViewCells.swift; sourceTree = "<group>"; };
 		0A2535851C52BFF100579102 /* SortingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SortingViewController.swift; sourceTree = "<group>"; };
 		0A2AADC31C7905CB008A6AE0 /* CustomNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomNavigationController.swift; sourceTree = "<group>"; };
+		0A3D6EF71CD4EFDA003F5C42 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Tutorial.storyboard; sourceTree = "<group>"; };
 		0A47D5291C6642F200DC7296 /* ItemsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemsViewController.swift; sourceTree = "<group>"; };
 		0A64F8D41C95CBA8009AF27C /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		0A71708A1CB80316005126B4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Sorting.storyboard; sourceTree = "<group>"; };
@@ -92,6 +94,7 @@
 			children = (
 				0AF64FA91C4A812A003F8519 /* LaunchScreen.storyboard */,
 				0AF64FA41C4A812A003F8519 /* Main.storyboard */,
+				0A3D6EF61CD4EFDA003F5C42 /* Tutorial.storyboard */,
 				0A7170891CB80316005126B4 /* Sorting.storyboard */,
 				0A98C1451CB15D9B00BF7252 /* Settings.storyboard */,
 			);
@@ -222,6 +225,7 @@
 				0A71708B1CB80316005126B4 /* Sorting.storyboard in Resources */,
 				0AF64FA81C4A812A003F8519 /* Assets.xcassets in Resources */,
 				0AF64FA61C4A812A003F8519 /* Main.storyboard in Resources */,
+				0A3D6EF81CD4EFDA003F5C42 /* Tutorial.storyboard in Resources */,
 				0A98C1471CB15D9B00BF7252 /* Settings.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -257,6 +261,14 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		0A3D6EF61CD4EFDA003F5C42 /* Tutorial.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0A3D6EF71CD4EFDA003F5C42 /* Base */,
+			);
+			name = Tutorial.storyboard;
+			sourceTree = "<group>";
+		};
 		0A7170891CB80316005126B4 /* Sorting.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (

@@ -367,4 +367,23 @@ class CloudKitManager {
         let markOp = CKMarkNotificationsReadOperation(notificationIDsToMarkRead: notes)
         CKContainer.defaultContainer().addOperation(markOp)
     }
+    
+    func isRetryableCKError(error:NSError?) -> Bool {
+        
+        var isRetryable = false
+
+        if let err = error {
+            
+            let isErrorDomain = err.domain == CKErrorDomain
+            let errorCode: Int = err.code
+            
+            let isUnavailable = errorCode == CKErrorCode.ServiceUnavailable.rawValue
+            let isRateLimited = errorCode == CKErrorCode.RequestRateLimited.rawValue
+            
+            let errorCodeIsRetryable = isUnavailable || isRateLimited
+            
+            
+            isRetryable = error != nil && isErrorDomain && errorCodeIsRetryable
+        }
+        return isRetryable }
 }
