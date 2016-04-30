@@ -17,9 +17,9 @@ class SettingsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        if let version = NSBundle.mainBundle().infoDictionary?["CFBundleShortVersionString"] as? String {
-//            versionLabel.text = "Version: \(version)"
-        }
+//        if let version = NSBundle.mainBundle().infoDictionary?["CFBundleShortVersionString"] as? String {
+////            versionLabel.text = "Version: \(version)"
+//        }
     }
 
     override func didReceiveMemoryWarning() {

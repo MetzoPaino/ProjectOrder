@@ -45,11 +45,15 @@ class ItemsViewController: UIViewController, Injectable {
     
     
     typealias AssociatedObject = CollectionModel
-    private var collection: CollectionModel!
+    var collection: CollectionModel!
     
     
 
     // MARK: - Load View
+    
+    func newItem() {
+        self.tableView.reloadData()
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -81,6 +85,23 @@ class ItemsViewController: UIViewController, Injectable {
     func assertDependencies() {
         assert(collection != nil)
     }
+    
+//    func newCollection() {
+//        
+//        dispatch_async(dispatch_get_main_queue(), {
+//            self.tableView.reloadData()
+//        })
+//        
+//    }
+//    
+//    func newItem() {
+//        
+//        dispatch_async(dispatch_get_main_queue(), {
+//            self.tableView.reloadData()
+//
+//        })
+//        
+//    }
 
     // MARK: - Style View
     
@@ -485,6 +506,7 @@ extension TableViewDelegate: UITableViewDelegate {
             
             let deleteAction = UITableViewRowAction(style: .Destructive, title: "Delete") { (rowAction:UITableViewRowAction, indexPath:NSIndexPath) -> Void in
                 
+                CloudKitManager().deleteFromCloudKit(self.collection.items[indexPath.row].record.recordID)
                 self.collection.items.removeAtIndex(indexPath.row)
                 tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
                 tableView.reloadData()

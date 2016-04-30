@@ -13,6 +13,7 @@
 		0A15C0AD1C67A4E100857307 /* CustomTableViewCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A15C0AC1C67A4E100857307 /* CustomTableViewCells.swift */; };
 		0A2535861C52BFF100579102 /* SortingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2535851C52BFF100579102 /* SortingViewController.swift */; };
 		0A2AADC41C7905CB008A6AE0 /* CustomNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2AADC31C7905CB008A6AE0 /* CustomNavigationController.swift */; };
+		0A3D6EF81CD4EFDA003F5C42 /* Tutorial.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A3D6EF61CD4EFDA003F5C42 /* Tutorial.storyboard */; };
 		0A47D52A1C6642F200DC7296 /* ItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A47D5291C6642F200DC7296 /* ItemsViewController.swift */; };
 		0A64F8D51C95CBA8009AF27C /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A64F8D41C95CBA8009AF27C /* SettingsViewController.swift */; };
 		0A71708B1CB80316005126B4 /* Sorting.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A7170891CB80316005126B4 /* Sorting.storyboard */; };
@@ -29,6 +30,8 @@
 		0AF64FB31C4A8294003F8519 /* CollectionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF64FB21C4A8294003F8519 /* CollectionsViewController.swift */; };
 		0AF64FB51C4A830B003F8519 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF64FB41C4A830B003F8519 /* Models.swift */; };
 		0AF64FB91C4A859B003F8519 /* CollectionCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF64FB81C4A859B003F8519 /* CollectionCreator.swift */; };
+		0AF6739D1CCB878D002F2ED5 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0AF6739C1CCB878D002F2ED5 /* CloudKit.framework */; };
+		0AF6739F1CCB966C002F2ED5 /* CloudKitManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF6739E1CCB966C002F2ED5 /* CloudKitManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +41,7 @@
 		0A15C0AC1C67A4E100857307 /* CustomTableViewCells.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTableViewCells.swift; sourceTree = "<group>"; };
 		0A2535851C52BFF100579102 /* SortingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SortingViewController.swift; sourceTree = "<group>"; };
 		0A2AADC31C7905CB008A6AE0 /* CustomNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomNavigationController.swift; sourceTree = "<group>"; };
+		0A3D6EF71CD4EFDA003F5C42 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Tutorial.storyboard; sourceTree = "<group>"; };
 		0A47D5291C6642F200DC7296 /* ItemsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemsViewController.swift; sourceTree = "<group>"; };
 		0A64F8D41C95CBA8009AF27C /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		0A71708A1CB80316005126B4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Sorting.storyboard; sourceTree = "<group>"; };
@@ -56,6 +60,9 @@
 		0AF64FB21C4A8294003F8519 /* CollectionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionsViewController.swift; sourceTree = "<group>"; };
 		0AF64FB41C4A830B003F8519 /* Models.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		0AF64FB81C4A859B003F8519 /* CollectionCreator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionCreator.swift; sourceTree = "<group>"; };
+		0AF6739B1CCB876F002F2ED5 /* >.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = ">.entitlements"; sourceTree = "<group>"; };
+		0AF6739C1CCB878D002F2ED5 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
+		0AF6739E1CCB966C002F2ED5 /* CloudKitManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CloudKitManager.swift; path = Managers/CloudKitManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +70,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0AF6739D1CCB878D002F2ED5 /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -73,6 +81,7 @@
 			isa = PBXGroup;
 			children = (
 				0A04E6AA1CB9455B006A80E5 /* DataManager.swift */,
+				0AF6739E1CCB966C002F2ED5 /* CloudKitManager.swift */,
 				0A04E6AC1CB94572006A80E5 /* ColorManager.swift */,
 				0A04E6A81CB93894006A80E5 /* ProtocolManager.swift */,
 				0ADF5C0D1CBA9D7400BC74AA /* Helpers.swift */,
@@ -85,6 +94,7 @@
 			children = (
 				0AF64FA91C4A812A003F8519 /* LaunchScreen.storyboard */,
 				0AF64FA41C4A812A003F8519 /* Main.storyboard */,
+				0A3D6EF61CD4EFDA003F5C42 /* Tutorial.storyboard */,
 				0A7170891CB80316005126B4 /* Sorting.storyboard */,
 				0A98C1451CB15D9B00BF7252 /* Settings.storyboard */,
 			);
@@ -103,6 +113,8 @@
 		0AF64F941C4A8129003F8519 = {
 			isa = PBXGroup;
 			children = (
+				0AF6739C1CCB878D002F2ED5 /* CloudKit.framework */,
+				0AF6739B1CCB876F002F2ED5 /* >.entitlements */,
 				0AF64F9F1C4A8129003F8519 /* Ranked */,
 				0AF64F9E1C4A8129003F8519 /* Products */,
 			);
@@ -172,6 +184,17 @@
 					0AF64F9C1C4A8129003F8519 = {
 						CreatedOnToolsVersion = 7.2;
 						DevelopmentTeam = XEN7DUD59Z;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.Push = {
+								enabled = 0;
+							};
+							com.apple.iCloud = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -202,6 +225,7 @@
 				0A71708B1CB80316005126B4 /* Sorting.storyboard in Resources */,
 				0AF64FA81C4A812A003F8519 /* Assets.xcassets in Resources */,
 				0AF64FA61C4A812A003F8519 /* Main.storyboard in Resources */,
+				0A3D6EF81CD4EFDA003F5C42 /* Tutorial.storyboard in Resources */,
 				0A98C1471CB15D9B00BF7252 /* Settings.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -221,6 +245,7 @@
 				0A2535861C52BFF100579102 /* SortingViewController.swift in Sources */,
 				0A47D52A1C6642F200DC7296 /* ItemsViewController.swift in Sources */,
 				0A04E6AD1CB94572006A80E5 /* ColorManager.swift in Sources */,
+				0AF6739F1CCB966C002F2ED5 /* CloudKitManager.swift in Sources */,
 				0A64F8D51C95CBA8009AF27C /* SettingsViewController.swift in Sources */,
 				0A77D7DA1C67900C00792403 /* DescriptionViewController.swift in Sources */,
 				0AF64FA11C4A8129003F8519 /* AppDelegate.swift in Sources */,
@@ -236,6 +261,14 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		0A3D6EF61CD4EFDA003F5C42 /* Tutorial.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0A3D6EF71CD4EFDA003F5C42 /* Base */,
+			);
+			name = Tutorial.storyboard;
+			sourceTree = "<group>";
+		};
 		0A7170891CB80316005126B4 /* Sorting.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -307,7 +340,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -346,7 +379,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -358,6 +391,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = ">.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Ranked/Info.plist;
@@ -374,6 +408,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = ">.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Ranked/Info.plist;

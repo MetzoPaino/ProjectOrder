@@ -13,7 +13,7 @@ class CollectionsViewController: UIViewController, Injectable {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var addButton: UIButton!
     @IBOutlet weak var addButtonHeightConstraint: NSLayoutConstraint!
-
+    
     var shadowImage: UIImage!
     var backgroundImage: UIImage!
     
@@ -27,6 +27,7 @@ class CollectionsViewController: UIViewController, Injectable {
     override func viewDidLoad() {
         super.viewDidLoad()
         assertDependencies()
+        
         styleTableView()
         styleView()
         
@@ -36,6 +37,7 @@ class CollectionsViewController: UIViewController, Injectable {
         imageView.contentMode = .ScaleAspectFit
         self.navigationItem.titleView = imageView
     }
+    
     
     override func viewWillDisappear(animated: Bool)  {
         super.viewWillDisappear(animated)
@@ -66,6 +68,7 @@ class CollectionsViewController: UIViewController, Injectable {
     
     func inject(dataManager: AssociatedObject) {
         self.dataManager = dataManager
+        self.dataManager.delegate = self
     }
     
     func assertDependencies() {
@@ -111,7 +114,6 @@ extension Navigation {
                 controller.inject(CollectionModel(name: "", description: "", dateCreated: NSDate()))
                 controller.delegate = self
                 controller.newCollection = true
-                
                 
             } else if segue.identifier == "ShowCollection" {
                 
@@ -164,6 +166,7 @@ extension TableViewDelegate: UITableViewDelegate {
         
         let deleteAction = UITableViewRowAction(style: .Destructive, title: "Delete") { (rowAction:UITableViewRowAction, indexPath:NSIndexPath) -> Void in
             
+            CloudKitManager().deleteFromCloudKit(self.dataManager.collections[indexPath.row].record.recordID)
             self.dataManager.collections.removeAtIndex(indexPath.row)
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
         }
@@ -278,8 +281,131 @@ extension ItemsDelegate: ItemsViewControllerDelegate {
         // How does this work when not new?
         if new {
             dataManager.collections.insert(collection, atIndex: 0)
+            CloudKitManager().saveCollectionToCloudKit(collection)
+        } else {
+            
+            CloudKitManager().editCollectionInCloudKit(collection)
         }
         
         tableView.reloadData()
+    }
+}
+
+// MARK: - DataManager Delegates
+extension CollectionsViewController: DataManagerDelegate {
+
+    // MARK: Collections
+    
+    func newCollection() {
+        
+        dispatch_async(dispatch_get_main_queue(), {
+            self.tableView.reloadData()
+        })
+    }
+    
+    func deleteLocalCollection(collection: CollectionModel) {
+        
+        dispatch_async(dispatch_get_main_queue(), {
+            
+            if self.presentedViewController is CustomNavigationController {
+                
+                self.navigationController?.dismissViewControllerAnimated(true, completion: {
+                    self.navigationController?.popToRootViewControllerAnimated(true)
+                    self.tableView.reloadData()
+                })
+            } else {
+                self.navigationController?.popToRootViewControllerAnimated(true)
+                self.tableView.reloadData()
+            }
+        })
+    }
+    
+    func updateLocalCollection(collection: CollectionModel) {
+        
+        dispatch_async(dispatch_get_main_queue(), {
+            
+            if self.navigationController?.topViewController is ItemsViewController {
+                
+                let itemsViewController = self.navigationController?.topViewController as! ItemsViewController
+                if itemsViewController.collection.record.recordID.recordName == collection.record.recordID.recordName {
+                    
+                    itemsViewController.collection = collection
+                    itemsViewController.tableView.reloadData()
+                }
+            } else {
+                
+                self.navigationController?.popToRootViewControllerAnimated(true)
+                self.tableView.reloadData()
+            }
+            
+            if self.presentedViewController is CustomNavigationController {
+                
+                self.navigationController?.dismissViewControllerAnimated(true, completion: {
+                })
+            }
+        })
+    }
+    
+    // MARK: Items
+    
+    func newItem(reference: String) {
+        
+        dispatch_async(dispatch_get_main_queue(), {
+            
+            if self.navigationController?.topViewController is ItemsViewController {
+                
+                let itemsViewController = self.navigationController?.topViewController as! ItemsViewController
+                if itemsViewController.collection.record.recordID.recordName == reference {
+                    
+                    itemsViewController.tableView.reloadData()
+                }
+            }
+        })
+    }
+    
+    func deleteLocalItemFromCollection(collection: CollectionModel) {
+        
+        dispatch_async(dispatch_get_main_queue(), {
+            
+            if self.navigationController?.topViewController is ItemsViewController {
+                
+                let itemsViewController = self.navigationController?.topViewController as! ItemsViewController
+                if itemsViewController.collection.record.recordID.recordName == collection.record.recordID.recordName {
+                    
+                    itemsViewController.tableView.reloadData()
+                }
+            } else if self.navigationController?.topViewController is DescriptionViewController {
+                self.navigationController?.popToRootViewControllerAnimated(true)
+            }
+            
+            if self.presentedViewController is CustomNavigationController {
+                
+                self.navigationController?.dismissViewControllerAnimated(true, completion: {
+                })
+            }
+        })
+    }
+    
+    func updateLocalItemInCollection(item: ItemModel, collection: CollectionModel) {
+        
+        dispatch_async(dispatch_get_main_queue(), {
+            
+            if self.navigationController?.topViewController is ItemsViewController {
+                
+                let itemsViewController = self.navigationController?.topViewController as! ItemsViewController
+                if itemsViewController.collection.record.recordID.recordName == collection.record.recordID.recordName {
+                    
+                    itemsViewController.tableView.reloadData()
+                }
+            } else if self.navigationController?.topViewController is DescriptionViewController {
+                self.navigationController?.popToRootViewControllerAnimated(true)
+            }
+            
+            if self.presentedViewController is CustomNavigationController {
+                
+                self.navigationController?.dismissViewControllerAnimated(true, completion: {
+                })
+            }
+        })
     }
 }

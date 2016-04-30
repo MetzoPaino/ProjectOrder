@@ -73,6 +73,7 @@ class LaunchViewController: UIViewController, Injectable {
     
             let controller = navigationController.topViewController as! CollectionsViewController
                 controller.inject(dataManager)
+                controller
             }
     }
 }
