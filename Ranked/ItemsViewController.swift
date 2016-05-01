@@ -115,9 +115,17 @@ class ItemsViewController: UIViewController, Injectable {
             
         } else {
             
-            editBarButton = createBarButton(.edit)
-            shareBarButton = createBarButton(.share)
-            navigationItem.rightBarButtonItems = [shareBarButton, editBarButton]
+            if collection.premade {
+                
+                shareBarButton = createBarButton(.share)
+                navigationItem.rightBarButtonItems = [shareBarButton]
+                
+            } else {
+                
+                editBarButton = createBarButton(.edit)
+                shareBarButton = createBarButton(.share)
+                navigationItem.rightBarButtonItems = [shareBarButton, editBarButton]
+            }
         }
         
         navigationItem.backBarButtonItem?.tintColor = .primaryColor()

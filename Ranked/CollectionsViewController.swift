@@ -177,28 +177,47 @@ extension TableViewDelegate: UITableViewDelegate {
     
     func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
         
-        let editAction = UITableViewRowAction(style: .Normal, title: "Edit") {
-            (rowAction:UITableViewRowAction, indexPath:NSIndexPath) -> Void in
+        if dataManager.collections[indexPath.row].premade {
             
-            self.performSegueWithIdentifier("ShowEditCollection", sender: indexPath.row)
+            let deleteAction = UITableViewRowAction(style: .Destructive, title: "Delete") {
+                (rowAction:UITableViewRowAction, indexPath:NSIndexPath) -> Void in
+                
+                CloudKitManager().deleteFromCloudKit(self.dataManager.collections[indexPath.row].record.recordID)
+                self.dataManager.collections.removeAtIndex(indexPath.row)
+                tableView.beginUpdates()
+                tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+                tableView.endUpdates()
+                
+            }
+            deleteAction.backgroundColor = UIColor.warningColor()
             
+            return [deleteAction]
+            
+        } else {
+          
+            let editAction = UITableViewRowAction(style: .Normal, title: "Edit") {
+                (rowAction:UITableViewRowAction, indexPath:NSIndexPath) -> Void in
+                
+                self.performSegueWithIdentifier("ShowEditCollection", sender: indexPath.row)
+                
+            }
+            editAction.backgroundColor = UIColor.secondaryColor()
+            
+            
+            let deleteAction = UITableViewRowAction(style: .Destructive, title: "Delete") {
+                (rowAction:UITableViewRowAction, indexPath:NSIndexPath) -> Void in
+                
+                CloudKitManager().deleteFromCloudKit(self.dataManager.collections[indexPath.row].record.recordID)
+                self.dataManager.collections.removeAtIndex(indexPath.row)
+                tableView.beginUpdates()
+                tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+                tableView.endUpdates()
+                
+            }
+            deleteAction.backgroundColor = UIColor.warningColor()
+            
+            return [deleteAction, editAction]
         }
-        editAction.backgroundColor = UIColor.secondaryColor()
-        
-        
-        let deleteAction = UITableViewRowAction(style: .Destructive, title: "Delete") {
-            (rowAction:UITableViewRowAction, indexPath:NSIndexPath) -> Void in
-            
-            CloudKitManager().deleteFromCloudKit(self.dataManager.collections[indexPath.row].record.recordID)
-            self.dataManager.collections.removeAtIndex(indexPath.row)
-            tableView.beginUpdates()
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
-            tableView.endUpdates()
-
-        }
-        deleteAction.backgroundColor = UIColor.warningColor()
-        
-        return [deleteAction, editAction]
     }
 }
 
