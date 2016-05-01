@@ -17,11 +17,9 @@
 		0A3D6EFB1CD4F650003F5C42 /* GetStarted.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A3D6EF91CD4F650003F5C42 /* GetStarted.storyboard */; };
 		0A3D6EFD1CD4F8F5003F5C42 /* GetStartedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3D6EFC1CD4F8F5003F5C42 /* GetStartedViewController.swift */; };
 		0A47D52A1C6642F200DC7296 /* ItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A47D5291C6642F200DC7296 /* ItemsViewController.swift */; };
-		0A64F8D51C95CBA8009AF27C /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A64F8D41C95CBA8009AF27C /* SettingsViewController.swift */; };
 		0A71708B1CB80316005126B4 /* Sorting.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A7170891CB80316005126B4 /* Sorting.storyboard */; };
 		0A77D7DA1C67900C00792403 /* DescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A77D7D91C67900C00792403 /* DescriptionViewController.swift */; };
 		0A98C1471CB15D9B00BF7252 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A98C1451CB15D9B00BF7252 /* Settings.storyboard */; };
-		0A98C14A1CB1603B00BF7252 /* PremadeCollectionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A98C1491CB1603B00BF7252 /* PremadeCollectionsViewController.swift */; };
 		0A9A16811C5CDD260000E436 /* TournamentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9A16801C5CDD260000E436 /* TournamentManager.swift */; };
 		0ADF5C0E1CBA9D7400BC74AA /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADF5C0D1CBA9D7400BC74AA /* Helpers.swift */; };
 		0AE0C83C1CC2AD960085FE30 /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE0C83B1CC2AD960085FE30 /* LaunchViewController.swift */; };
@@ -47,11 +45,9 @@
 		0A3D6EFA1CD4F650003F5C42 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/GetStarted.storyboard; sourceTree = "<group>"; };
 		0A3D6EFC1CD4F8F5003F5C42 /* GetStartedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GetStartedViewController.swift; path = Collections/GetStarted/GetStartedViewController.swift; sourceTree = "<group>"; };
 		0A47D5291C6642F200DC7296 /* ItemsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemsViewController.swift; sourceTree = "<group>"; };
-		0A64F8D41C95CBA8009AF27C /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		0A71708A1CB80316005126B4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Sorting.storyboard; sourceTree = "<group>"; };
 		0A77D7D91C67900C00792403 /* DescriptionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DescriptionViewController.swift; sourceTree = "<group>"; };
 		0A98C1461CB15D9B00BF7252 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Settings.storyboard; sourceTree = "<group>"; };
-		0A98C1491CB1603B00BF7252 /* PremadeCollectionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PremadeCollectionsViewController.swift; path = Settings/PremadeCollectionsViewController.swift; sourceTree = "<group>"; };
 		0A9A16801C5CDD260000E436 /* TournamentManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TournamentManager.swift; sourceTree = "<group>"; };
 		0ADF5C0D1CBA9D7400BC74AA /* Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Helpers.swift; path = Helpers/Helpers.swift; sourceTree = "<group>"; };
 		0AE0C83B1CC2AD960085FE30 /* LaunchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
@@ -124,15 +120,6 @@
 			name = Storyboards;
 			sourceTree = "<group>";
 		};
-		0A98C1481CB1601600BF7252 /* Settings */ = {
-			isa = PBXGroup;
-			children = (
-				0A64F8D41C95CBA8009AF27C /* SettingsViewController.swift */,
-				0A98C1491CB1603B00BF7252 /* PremadeCollectionsViewController.swift */,
-			);
-			name = Settings;
-			sourceTree = "<group>";
-		};
 		0AF64F941C4A8129003F8519 = {
 			isa = PBXGroup;
 			children = (
@@ -156,7 +143,6 @@
 			children = (
 				0AF64FA01C4A8129003F8519 /* AppDelegate.swift */,
 				0A952AE11C9D836E00ED76D7 /* Storyboards */,
-				0A98C1481CB1601600BF7252 /* Settings */,
 				0A2AADC31C7905CB008A6AE0 /* CustomNavigationController.swift */,
 				0AE0C83B1CC2AD960085FE30 /* LaunchViewController.swift */,
 				0A26B4861CD63BA600FEC35F /* Collections */,
@@ -269,12 +255,10 @@
 				0A47D52A1C6642F200DC7296 /* ItemsViewController.swift in Sources */,
 				0A04E6AD1CB94572006A80E5 /* ColorManager.swift in Sources */,
 				0AF6739F1CCB966C002F2ED5 /* CloudKitManager.swift in Sources */,
-				0A64F8D51C95CBA8009AF27C /* SettingsViewController.swift in Sources */,
 				0A77D7DA1C67900C00792403 /* DescriptionViewController.swift in Sources */,
 				0AF64FA11C4A8129003F8519 /* AppDelegate.swift in Sources */,
 				0AF64FB51C4A830B003F8519 /* Models.swift in Sources */,
 				0ADF5C0E1CBA9D7400BC74AA /* Helpers.swift in Sources */,
-				0A98C14A1CB1603B00BF7252 /* PremadeCollectionsViewController.swift in Sources */,
 				0A04E6A91CB93894006A80E5 /* ProtocolManager.swift in Sources */,
 				0A3D6EFD1CD4F8F5003F5C42 /* GetStartedViewController.swift in Sources */,
 				0A2AADC41C7905CB008A6AE0 /* CustomNavigationController.swift in Sources */,

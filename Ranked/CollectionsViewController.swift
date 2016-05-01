@@ -91,6 +91,8 @@ class CollectionsViewController: UIViewController, Injectable {
         addButton.layer.shadowRadius = 2
         addButton.layer.shadowOffset = CGSizeMake(0.0, 2.0)
         addButton.layer.masksToBounds = false
+        
+        print("DavidBowie1967-Item" + NSUUID().UUIDString)
     }
     
     func styleTableView() {

@@ -22,7 +22,7 @@ protocol DataManagerDelegate: class {
 class DataManager {
     
     var collections = [CollectionModel]()
-    var premadeCollections = preMadeCollectionsArray
+//    var premadeCollections = createPreMadeCollectionsArray()
 
     var cloudKitManager = CloudKitManager()
     weak var delegate: DataManagerDelegate?

@@ -198,8 +198,8 @@ class SortingViewController: UIViewController {
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
-    @IBAction func decideLaterButtonPressed(sender: AnyObject) {
-        
+    @IBAction func decideLaterButtonPressed(sender: UIBarButtonItem) {
+
         if tournamentManager.isTournamentResolved() {
             
             self.delegate?.sortingFinished(tournamentManager.participants)
@@ -281,8 +281,12 @@ class SortingViewController: UIViewController {
             return
         }
         
+        decideLaterBarButton.enabled = false
+        
         if sender.state == .Ended {
             
+            decideLaterBarButton.enabled = true
+
             let y = constraintToEdit.constant + view.bounds.height
             
             if y >= middleConstant - (centerView.bounds.height / 2) {
@@ -321,7 +325,7 @@ class SortingViewController: UIViewController {
 
                     })
                 }
-    
+                
             } else {
                 
                 var shortenedAnimationArray = [UIImage]()

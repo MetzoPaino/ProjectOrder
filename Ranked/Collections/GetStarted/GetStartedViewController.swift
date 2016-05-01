@@ -14,7 +14,8 @@ protocol GetStartedViewControllerDelegate: class {
 
 class GetStartedViewController: UIViewController {
 
-    var collections = preMadeCollectionsArray
+    var collections = createPreMadeCollectionsArray()
+
     var pickedCollections = [CollectionModel]()
 
     @IBOutlet weak var option1View: UIView!
@@ -67,7 +68,7 @@ class GetStartedViewController: UIViewController {
         option2View.hidden = false
         option3View.hidden = false
 
-        collections = preMadeCollectionsArray
+        collections = createPreMadeCollectionsArray()
         pickedCollections = [CollectionModel]()
         moveEverythingOffScreen()
         styleView()
