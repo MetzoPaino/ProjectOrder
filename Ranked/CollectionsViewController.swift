@@ -407,6 +407,10 @@ extension CollectionsViewController: GetStartedViewControllerDelegate {
     func finishedPickingCollections(collections: [CollectionModel]) {
         
         dataManager.collections.appendContentsOf(collections)
+
+        for collection in collections {
+            CloudKitManager().saveCollectionToCloudKit(collection)
+        }
         tableView.reloadData()
     }
 }

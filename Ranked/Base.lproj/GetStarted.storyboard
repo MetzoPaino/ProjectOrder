@@ -183,6 +183,8 @@
                         <outletCollection property="optionLabelCollection" destination="8GO-KL-qK2" collectionClass="NSMutableArray" id="cHI-bg-ykp"/>
                         <outletCollection property="optionLabelCollection" destination="EeE-aq-Qrx" collectionClass="NSMutableArray" id="j5F-CP-14w"/>
                         <outletCollection property="optionLabelCollection" destination="uDG-kE-fmU" collectionClass="NSMutableArray" id="Of7-pT-syp"/>
+                        <outletCollection property="buttonCollection" destination="qaV-7w-egv" collectionClass="NSMutableArray" id="Y2m-LA-rJ0"/>
+                        <outletCollection property="buttonCollection" destination="QLF-Hr-RVF" collectionClass="NSMutableArray" id="nQl-l3-77l"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="u7m-EP-er5" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -41,6 +41,8 @@ class GetStartedViewController: UIViewController {
     @IBOutlet weak var doneButton: UIButton!
     @IBOutlet weak var doneButtonBottomConstraint: NSLayoutConstraint!
     
+    @IBOutlet var buttonCollection: [UIButton]!
+    
     weak var delegate: GetStartedViewControllerDelegate?
 
     var option1Index: Int?
@@ -48,8 +50,6 @@ class GetStartedViewController: UIViewController {
     var option3Index: Int?
     
     var firstTime = true
-    
-
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -81,28 +81,22 @@ class GetStartedViewController: UIViewController {
             label.textColor = .whiteColor()
         }
         
+        for button in buttonCollection {
+            
+            button.layer.cornerRadius = 48 / 2
+            button.setImage(UIImage(named: "" )?.imageWithRenderingMode(.AlwaysTemplate), forState: .Normal)
+            button.tintColor = .whiteColor()
+            
+            button.layer.shadowColor = UIColor.blackColor().CGColor;
+            button.layer.shadowOpacity = 0.25
+            button.layer.shadowRadius = 2
+            button.layer.shadowOffset = CGSizeMake(0.0, 2.0)
+            button.layer.masksToBounds = false
+        }
+        
         doneButton.backgroundColor = .blockLosingColor()
-        doneButton.layer.cornerRadius = 48 / 2
-        doneButton.setImage(UIImage(named: "" )?.imageWithRenderingMode(.AlwaysTemplate), forState: .Normal)
-        doneButton.tintColor = .whiteColor()
-        
-        doneButton.layer.shadowColor = UIColor.blackColor().CGColor;
-        doneButton.layer.shadowOpacity = 0.25
-        doneButton.layer.shadowRadius = 2
-        doneButton.layer.shadowOffset = CGSizeMake(0.0, 2.0)
-        doneButton.layer.masksToBounds = false
         doneButton.userInteractionEnabled = false
-        
         refreshButton.backgroundColor = .primaryColor()
-        refreshButton.layer.cornerRadius = 48 / 2
-        refreshButton.setImage(UIImage(named: "" )?.imageWithRenderingMode(.AlwaysTemplate), forState: .Normal)
-        refreshButton.tintColor = .whiteColor()
-        
-        refreshButton.layer.shadowColor = UIColor.blackColor().CGColor;
-        refreshButton.layer.shadowOpacity = 0.25
-        refreshButton.layer.shadowRadius = 2
-        refreshButton.layer.shadowOffset = CGSizeMake(0.0, 2.0)
-        refreshButton.layer.masksToBounds = false
     }
 
     func pickOptions() {
@@ -216,37 +210,6 @@ class GetStartedViewController: UIViewController {
         }
     }
     
-    func animateOptionViews(onScreen: Bool) {
-        
-        if onScreen {
-            option1CenterConstraint.constant = 0
-            option2CenterConstraint.constant = 0
-            option3CenterConstraint.constant = 0
-            
-        } else {
-            
-            option1CenterConstraint.constant = 0 - view.bounds.width
-            option2CenterConstraint.constant = 0 + view.bounds.width
-            option3CenterConstraint.constant = 0 - view.bounds.width
-        }
-
-        var delay = 0.0
-        
-        if firstTime {
-            delay = 1.0
-            firstTime = false
-        }
-        
-        UIView.animateWithDuration(0.5, delay: delay, usingSpringWithDamping: 0.75, initialSpringVelocity: 1.0, options: UIViewAnimationOptions.CurveEaseInOut, animations: { () -> Void in
-            
-            self.option1View.layoutIfNeeded()
-            self.option2View.layoutIfNeeded()
-            self.option3View.layoutIfNeeded()
-
-            
-            }, completion: nil)
-    }
-    
     func presentOptions() {
         
         option1CenterConstraint.constant = 0
@@ -341,18 +304,4 @@ class GetStartedViewController: UIViewController {
         
         delegate?.finishedPickingCollections(pickedCollections)
     }
-    
-    
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
