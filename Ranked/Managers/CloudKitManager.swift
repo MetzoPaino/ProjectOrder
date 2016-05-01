@@ -39,12 +39,13 @@ class CloudKitManager {
     
     func saveCollectionToCloudKit(collection: CollectionModel) {
         
+//        print("Record ID = \(collection.record.recordID)")
+
         let record = CKRecord(recordType: "Collection", recordID: collection.record.recordID)
         record.setObject(collection.name, forKey: "Name")
         record.setObject(collection.descriptionString, forKey: "Description")
         record.setObject(collection.dateCreated, forKey: "DateCreated")
         
-        print("Record ID = \(collection.record.recordID)")
         
         database.saveRecord(record) { savedRecord, error in
             print(error)
@@ -368,22 +369,22 @@ class CloudKitManager {
         CKContainer.defaultContainer().addOperation(markOp)
     }
     
-    func isRetryableCKError(error:NSError?) -> Bool {
-        
-        var isRetryable = false
-
-        if let err = error {
-            
-            let isErrorDomain = err.domain == CKErrorDomain
-            let errorCode: Int = err.code
-            
-            let isUnavailable = errorCode == CKErrorCode.ServiceUnavailable.rawValue
-            let isRateLimited = errorCode == CKErrorCode.RequestRateLimited.rawValue
-            
-            let errorCodeIsRetryable = isUnavailable || isRateLimited
-            
-            
-            isRetryable = error != nil && isErrorDomain && errorCodeIsRetryable
-        }
-        return isRetryable }
+//    func isRetryableCKError(error:NSError?) -> Bool {
+//        
+//        var isRetryable = false
+//
+//        if let err = error {
+//            
+//            let isErrorDomain = err.domain == CKErrorDomain
+//            let errorCode: Int = err.code
+//            
+//            let isUnavailable = errorCode == CKErrorCode.ServiceUnavailable.rawValue
+//            let isRateLimited = errorCode == CKErrorCode.RequestRateLimited.rawValue
+//            
+//            let errorCodeIsRetryable = isUnavailable || isRateLimited
+//            
+//            
+//            isRetryable = error != nil && isErrorDomain && errorCodeIsRetryable
+//        }
+//        return isRetryable }
 }

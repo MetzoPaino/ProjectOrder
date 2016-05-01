@@ -14,10 +14,14 @@ class CollectionsViewController: UIViewController, Injectable {
     @IBOutlet weak var addButton: UIButton!
     @IBOutlet weak var addButtonHeightConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var getStartedContainerView: UIView!
+    var getStartedViewController: GetStartedViewController!
+    
     var shadowImage: UIImage!
     var backgroundImage: UIImage!
     
-    var hasCollections = true
+    var showGetStartedView = false
+    
     
     typealias AssociatedObject = DataManager
     private var dataManager: DataManager!
@@ -81,8 +85,6 @@ class CollectionsViewController: UIViewController, Injectable {
         addButton.layer.cornerRadius = self.addButtonHeightConstraint.constant / 2
         addButton.setImage(UIImage(named: "PlusButton" )?.imageWithRenderingMode(.AlwaysTemplate), forState: .Normal)
         addButton.tintColor = .whiteColor()
-
-        
         
         addButton.layer.shadowColor = UIColor.blackColor().CGColor;
         addButton.layer.shadowOpacity = 0.25
@@ -98,6 +100,18 @@ class CollectionsViewController: UIViewController, Injectable {
         tableView.separatorInset = UIEdgeInsetsZero
         tableView.separatorColor = .backgroundColor()
         tableView.backgroundColor = .backgroundColor()
+    }
+    
+    func toggleGetStarted() {
+        
+        if showGetStartedView {
+            
+//            view.bringSubviewToFront(getStartedContainerView)
+            view.insertSubview(getStartedContainerView, belowSubview: addButton)
+            
+        } else {
+            view.sendSubviewToBack(getStartedContainerView)
+        }
     }
 }
 
@@ -141,6 +155,13 @@ extension Navigation {
             let backItem = UIBarButtonItem()
             backItem.title = ""
             navigationItem.backBarButtonItem = backItem
+            
+        }
+        
+        if segue.identifier == "EmbedGetStarted" {
+            
+            getStartedViewController = segue.destinationViewController as! GetStartedViewController
+            getStartedViewController.delegate = self
         }
     }
 }
@@ -156,7 +177,8 @@ extension TableViewDelegate: UITableViewDelegate {
     
     func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
         
-        let editAction = UITableViewRowAction(style: .Normal, title: "Edit") { (rowAction:UITableViewRowAction, indexPath:NSIndexPath) -> Void in
+        let editAction = UITableViewRowAction(style: .Normal, title: "Edit") {
+            (rowAction:UITableViewRowAction, indexPath:NSIndexPath) -> Void in
             
             self.performSegueWithIdentifier("ShowEditCollection", sender: indexPath.row)
             
@@ -164,11 +186,15 @@ extension TableViewDelegate: UITableViewDelegate {
         editAction.backgroundColor = UIColor.secondaryColor()
         
         
-        let deleteAction = UITableViewRowAction(style: .Destructive, title: "Delete") { (rowAction:UITableViewRowAction, indexPath:NSIndexPath) -> Void in
+        let deleteAction = UITableViewRowAction(style: .Destructive, title: "Delete") {
+            (rowAction:UITableViewRowAction, indexPath:NSIndexPath) -> Void in
             
             CloudKitManager().deleteFromCloudKit(self.dataManager.collections[indexPath.row].record.recordID)
             self.dataManager.collections.removeAtIndex(indexPath.row)
+            tableView.beginUpdates()
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+            tableView.endUpdates()
+
         }
         deleteAction.backgroundColor = UIColor.warningColor()
         
@@ -181,89 +207,55 @@ extension TableViewDataSource: UITableViewDataSource {
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
+        if dataManager.collections.count == 0 {
+            
+            showGetStartedView = true
+            toggleGetStarted()
+            
+        } else {
+            
+            showGetStartedView = false
+            toggleGetStarted()
+        }
+        
         return dataManager.collections.count
+
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        let collection = dataManager.collections[indexPath.row];
-        
-        if collection.sorted {
+        if dataManager.collections.count > 0 {
             
-            let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! CollectionTableViewCell
-            cell.titleLabel.text = collection.name
-            cell.titleLabel.textColor = UIColor.headingColor()
-            cell.descriptionLabel.textColor = UIColor.subHeadingColor()
-            cell.layoutMargins = UIEdgeInsetsZero;
+            let collection = dataManager.collections[indexPath.row];
             
-            
-            
-            collection.items = collection.items.sort({ $0.points > $1.points })
-            
-            cell.descriptionLabel.text = collection.items.first!.text
-            
-            print(cell.descriptionLabel.text)
-            return cell
-            
-            
+            if collection.sorted {
+                
+                let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! CollectionTableViewCell
+                cell.titleLabel.text = collection.name
+                cell.titleLabel.textColor = UIColor.headingColor()
+                cell.descriptionLabel.textColor = UIColor.subHeadingColor()
+                cell.layoutMargins = UIEdgeInsetsZero;
+                collection.items = collection.items.sort({ $0.points > $1.points })
+                cell.descriptionLabel.text = collection.items.first!.text
+                return cell
+                
+                
+                
+            } else {
+                
+                let cell = tableView.dequeueReusableCellWithIdentifier("UnsortedCell", forIndexPath: indexPath) as! CollectionTableViewCell
+                cell.titleLabel.text = collection.name
+                cell.titleLabel.textColor = UIColor.headingColor()
+                cell.layoutMargins = UIEdgeInsetsZero
+                return cell
+            }
+
             
         } else {
             
-            let cell = tableView.dequeueReusableCellWithIdentifier("UnsortedCell", forIndexPath: indexPath) as! CollectionTableViewCell
-            cell.titleLabel.text = collection.name
-            cell.titleLabel.textColor = UIColor.headingColor()
-            cell.layoutMargins = UIEdgeInsetsZero;
-//            cell.masterStackViewTopConstraint.constant = 16
-//            cell.masterStackViewBottomConstraint.constant = 16
-//            cell.lowerStackView.hidden = true
-            
-            //            cell.descriptionLabel.text = ""
-            
-            
-            //            cell.sortedImageView.tintColor = .disabledColor()
-            //            cell.sortedImageView.image = UIImage(named: "Sorted")?.imageWithRenderingMode(.AlwaysTemplate)
+            let cell = tableView.dequeueReusableCellWithIdentifier("NoContentCell", forIndexPath: indexPath)
             return cell
-        }
-        
-//        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! CollectionTableViewCell
-//        
-//        
-//        cell.titleLabel.text = collection.name
-//        cell.titleLabel.textColor = UIColor.headingColor()
-//        cell.descriptionLabel.textColor = UIColor.subHeadingColor()
-//        cell.layoutMargins = UIEdgeInsetsZero;
-//
-//        if collection.sorted {
-//            
-//            collection.items = collection.items.sort({ $0.points > $1.points })
-//            
-//            cell.descriptionLabel.text = collection.items.first!.text
-//            
-//            print(cell.descriptionLabel.text)
-//            
-//            cell.sortedImageView.tintColor = .secondaryColor()
-//            cell.sortedImageView.image = UIImage(named: "Sorted")?.imageWithRenderingMode(.AlwaysTemplate)
-//            
-//            cell.masterStackViewTopConstraint.constant = 8
-//            cell.masterStackViewBottomConstraint.constant = 8
-//            cell.lowerStackView.hidden = false
-//
-//            
-//
-//            
-//        } else {
-//            cell.masterStackViewTopConstraint.constant = 16
-//            cell.masterStackViewBottomConstraint.constant = 16
-//            cell.lowerStackView.hidden = true
-//
-////            cell.descriptionLabel.text = ""
-//            
-//            
-////            cell.sortedImageView.tintColor = .disabledColor()
-////            cell.sortedImageView.image = UIImage(named: "Sorted")?.imageWithRenderingMode(.AlwaysTemplate)
-//
-//        }
-        
+        }        
     }
 }
 
@@ -407,5 +399,14 @@ extension CollectionsViewController: DataManagerDelegate {
                 })
             }
         })
+    }
+}
+
+extension CollectionsViewController: GetStartedViewControllerDelegate {
+    
+    func finishedPickingCollections(collections: [CollectionModel]) {
+        
+        dataManager.collections.appendContentsOf(collections)
+        tableView.reloadData()
     }
 }

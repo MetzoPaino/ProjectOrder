@@ -17,6 +17,7 @@ class CollectionModel: NSObject, NSCoding {
     private let dateCreatedKey = "dateCreated"
     private let sortedKey = "sorted"
     private var recordKey = "record"
+    private var premadeKey = "premade"
 
     var record = CKRecord(recordType: "Collection")
     
@@ -24,6 +25,8 @@ class CollectionModel: NSObject, NSCoding {
     var descriptionString = ""
     var sorted = false
     var dateCreated: NSDate
+    
+    var premade = false
     
     var items = [ItemModel]()
     
@@ -86,6 +89,13 @@ class CollectionModel: NSObject, NSCoding {
             record = decodedRecord
         }
         
+        if let decodedPremade = aDecoder.decodeObjectForKey(premadeKey) as? Bool {
+            
+            premade = decodedPremade
+        } else {
+            premade = false
+        }
+        
         super.init()
     }
     
@@ -97,6 +107,7 @@ class CollectionModel: NSObject, NSCoding {
         aCoder.encodeObject(dateCreated, forKey: dateCreatedKey)
         aCoder.encodeObject(sorted, forKey: sortedKey)
         aCoder.encodeObject(record, forKey: recordKey)
+        aCoder.encodeObject(premade, forKey: premadeKey)
     }
     
     func returnArrayOfItems(sorted: Bool) -> [ItemModel] {

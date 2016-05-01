@@ -7,39 +7,91 @@
 //
 
 import Foundation
+import CloudKit
 
 let preMadeCollectionsArray = [createDavidBowieCollection(), createStarWarsCollection(), createHarryPotterCollection(), createFinalFantasyCollection(), createInternetBrowserCollection(), createDesktopOSCollection(), createMobileOSCollection(), createDoctorWhoCollection(), createMarioCharactersCollection(), createHottestHobbitsCollection()]
 
 func createDavidBowieCollection() -> CollectionModel {
     
     let collection = CollectionModel(name: "David Bowie Discography", description: "From Glam to Jazztronica, few have had so many hits in so many different genres. Take an out of this world trip from 1967 to 2016.", dateCreated: NSDate())
+    collection.record = CKRecord(recordType: "Collection", recordID: CKRecordID(recordName: "DavidBowie-Collection"))
+    collection.premade = true
 
     let davidBowie1967 = ItemModel(string: "David Bowie (1967)")
-    let davidBowie1969 = ItemModel(string: "David Bowie (1969)")
-    let theManWhoSoldTheWorld = ItemModel(string: "The Man Who Sold The World")
-    let hunkyDory = ItemModel(string: "Hunky Dory")
-    let ziggyStardust = ItemModel(string: "The Rise and Fall of Ziggy Stardust and the Spiders from Mars")
-    let aladdinSane = ItemModel(string: "Aladdin Sane")
-    let pinUps = ItemModel(string: "Pin Ups")
-    let diamondDogs = ItemModel(string: "Diamond Dogs")
-    let youngAmericans = ItemModel(string: "Young Americans")
-    let stationToStation = ItemModel(string: "Station to Station")
-    let low = ItemModel(string: "Low")
-    let heroes = ItemModel(string: "\"Heroes\"")
-    let lodger = ItemModel(string: "Lodger")
-    let scaryMonsters = ItemModel(string: "Scary Monsters (And Super Creeps)")
-    let letsDance = ItemModel(string: "Let's Dance")
-    let tonight = ItemModel(string: "Tonight")
-    let neverLetMeDown = ItemModel(string: "Never Let Me Down")
-    let blackTieWhiteNoise = ItemModel(string: "Black Tie White Noise")
-    let outside = ItemModel(string: "1. Outside")
-    let earthling = ItemModel(string: "Earthling")
-    let hours = ItemModel(string: "'Hours...'")
-    let heathen = ItemModel(string: "Heathen")
-    let reality = ItemModel(string: "Reality")
-    let theNextDay = ItemModel(string: "The Next Day")
-    let blackstar = ItemModel(string: "Blackstar")
+    davidBowie1967.record = CKRecord(recordType: "Item", recordID: CKRecordID(recordName: "DavidBowie1967-Item"))
     
+    let davidBowie1969 = ItemModel(string: "David Bowie (1969)")
+    davidBowie1969.record = CKRecord(recordType: "Item", recordID: CKRecordID(recordName: "DavidBowie1969-Item"))
+
+    let theManWhoSoldTheWorld = ItemModel(string: "The Man Who Sold The World")
+    theManWhoSoldTheWorld.record = CKRecord(recordType: "Item", recordID: CKRecordID(recordName: "TheManWhoSoldTheWorld-Item"))
+
+    let hunkyDory = ItemModel(string: "Hunky Dory")
+    hunkyDory.record = CKRecord(recordType: "Item", recordID: CKRecordID(recordName: "HunkyDory-Item"))
+
+    let ziggyStardust = ItemModel(string: "The Rise and Fall of Ziggy Stardust and the Spiders from Mars")
+    ziggyStardust.record = CKRecord(recordType: "Item", recordID: CKRecordID(recordName: "ZiggyStardust-Item"))
+
+    let aladdinSane = ItemModel(string: "Aladdin Sane")
+    aladdinSane.record = CKRecord(recordType: "Item", recordID: CKRecordID(recordName: "AladdinSane-Item"))
+
+    let pinUps = ItemModel(string: "Pin Ups")
+    pinUps.record = CKRecord(recordType: "Item", recordID: CKRecordID(recordName: "PinUps-Item"))
+
+    let diamondDogs = ItemModel(string: "Diamond Dogs")
+    diamondDogs.record = CKRecord(recordType: "Item", recordID: CKRecordID(recordName: "DiamondDogs-Item"))
+
+    let youngAmericans = ItemModel(string: "Young Americans")
+    youngAmericans.record = CKRecord(recordType: "Item", recordID: CKRecordID(recordName: "YoungAmericans-Item"))
+
+    let stationToStation = ItemModel(string: "Station to Station")
+    stationToStation.record = CKRecord(recordType: "Item", recordID: CKRecordID(recordName: "StationToStation-Item"))
+
+    let low = ItemModel(string: "Low")
+    low.record = CKRecord(recordType: "Item", recordID: CKRecordID(recordName: "Low-Item"))
+
+    let heroes = ItemModel(string: "\"Heroes\"")
+    heroes.record = CKRecord(recordType: "Item", recordID: CKRecordID(recordName: "Heroes-Item"))
+
+    let lodger = ItemModel(string: "Lodger")
+    lodger.record = CKRecord(recordType: "Item", recordID: CKRecordID(recordName: "Lodger-Item"))
+
+    let scaryMonsters = ItemModel(string: "Scary Monsters (And Super Creeps)")
+    scaryMonsters.record = CKRecord(recordType: "Item", recordID: CKRecordID(recordName: "ScaryMonsters-Item"))
+
+    let letsDance = ItemModel(string: "Let's Dance")
+    letsDance.record = CKRecord(recordType: "Item", recordID: CKRecordID(recordName: "LetsDance-Item"))
+
+    let tonight = ItemModel(string: "Tonight")
+    tonight.record = CKRecord(recordType: "Item", recordID: CKRecordID(recordName: "Tonight-Item"))
+
+    let neverLetMeDown = ItemModel(string: "Never Let Me Down")
+    neverLetMeDown.record = CKRecord(recordType: "Item", recordID: CKRecordID(recordName: "NeverLetMeDown-Item"))
+
+    let blackTieWhiteNoise = ItemModel(string: "Black Tie White Noise")
+    blackTieWhiteNoise.record = CKRecord(recordType: "Item", recordID: CKRecordID(recordName: "BlackTieWhiteNoise-Item"))
+
+    let outside = ItemModel(string: "1. Outside")
+    outside.record = CKRecord(recordType: "Item", recordID: CKRecordID(recordName: "Outside-Item"))
+
+    let earthling = ItemModel(string: "Earthling")
+    earthling.record = CKRecord(recordType: "Item", recordID: CKRecordID(recordName: "Earthling-Item"))
+
+    let hours = ItemModel(string: "'Hours...'")
+    hours.record = CKRecord(recordType: "Item", recordID: CKRecordID(recordName: "Hours-Item"))
+
+    let heathen = ItemModel(string: "Heathen")
+    heathen.record = CKRecord(recordType: "Item", recordID: CKRecordID(recordName: "Heathen-Item"))
+
+    let reality = ItemModel(string: "Reality")
+    reality.record = CKRecord(recordType: "Item", recordID: CKRecordID(recordName: "Reality-Item"))
+
+    let theNextDay = ItemModel(string: "The Next Day")
+    theNextDay.record = CKRecord(recordType: "Item", recordID: CKRecordID(recordName: "TheNextDay-Item"))
+
+    let blackstar = ItemModel(string: "Blackstar")
+    blackstar.record = CKRecord(recordType: "Item", recordID: CKRecordID(recordName: "Blackstar-Item"))
+
     collection.items = [davidBowie1967, davidBowie1969, theManWhoSoldTheWorld, hunkyDory, ziggyStardust, aladdinSane, pinUps, diamondDogs, youngAmericans, stationToStation, low, heroes, lodger, scaryMonsters, letsDance, tonight, neverLetMeDown, blackTieWhiteNoise, outside, earthling, hours, heathen, reality, theNextDay, blackstar]
     
     return collection

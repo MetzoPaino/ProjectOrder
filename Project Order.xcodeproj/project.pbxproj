@@ -14,6 +14,8 @@
 		0A2535861C52BFF100579102 /* SortingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2535851C52BFF100579102 /* SortingViewController.swift */; };
 		0A2AADC41C7905CB008A6AE0 /* CustomNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2AADC31C7905CB008A6AE0 /* CustomNavigationController.swift */; };
 		0A3D6EF81CD4EFDA003F5C42 /* Tutorial.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A3D6EF61CD4EFDA003F5C42 /* Tutorial.storyboard */; };
+		0A3D6EFB1CD4F650003F5C42 /* GetStarted.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A3D6EF91CD4F650003F5C42 /* GetStarted.storyboard */; };
+		0A3D6EFD1CD4F8F5003F5C42 /* GetStartedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3D6EFC1CD4F8F5003F5C42 /* GetStartedViewController.swift */; };
 		0A47D52A1C6642F200DC7296 /* ItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A47D5291C6642F200DC7296 /* ItemsViewController.swift */; };
 		0A64F8D51C95CBA8009AF27C /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A64F8D41C95CBA8009AF27C /* SettingsViewController.swift */; };
 		0A71708B1CB80316005126B4 /* Sorting.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A7170891CB80316005126B4 /* Sorting.storyboard */; };
@@ -42,6 +44,8 @@
 		0A2535851C52BFF100579102 /* SortingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SortingViewController.swift; sourceTree = "<group>"; };
 		0A2AADC31C7905CB008A6AE0 /* CustomNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomNavigationController.swift; sourceTree = "<group>"; };
 		0A3D6EF71CD4EFDA003F5C42 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Tutorial.storyboard; sourceTree = "<group>"; };
+		0A3D6EFA1CD4F650003F5C42 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/GetStarted.storyboard; sourceTree = "<group>"; };
+		0A3D6EFC1CD4F8F5003F5C42 /* GetStartedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GetStartedViewController.swift; path = Collections/GetStarted/GetStartedViewController.swift; sourceTree = "<group>"; };
 		0A47D5291C6642F200DC7296 /* ItemsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemsViewController.swift; sourceTree = "<group>"; };
 		0A64F8D41C95CBA8009AF27C /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		0A71708A1CB80316005126B4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Sorting.storyboard; sourceTree = "<group>"; };
@@ -89,11 +93,30 @@
 			name = Managers;
 			sourceTree = "<group>";
 		};
+		0A26B4861CD63BA600FEC35F /* Collections */ = {
+			isa = PBXGroup;
+			children = (
+				0AF64FB21C4A8294003F8519 /* CollectionsViewController.swift */,
+				0A3D6EFC1CD4F8F5003F5C42 /* GetStartedViewController.swift */,
+			);
+			name = Collections;
+			sourceTree = "<group>";
+		};
+		0A26B4871CD64D9100FEC35F /* Items */ = {
+			isa = PBXGroup;
+			children = (
+				0A47D5291C6642F200DC7296 /* ItemsViewController.swift */,
+				0A77D7D91C67900C00792403 /* DescriptionViewController.swift */,
+			);
+			name = Items;
+			sourceTree = "<group>";
+		};
 		0A952AE11C9D836E00ED76D7 /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
 				0AF64FA91C4A812A003F8519 /* LaunchScreen.storyboard */,
 				0AF64FA41C4A812A003F8519 /* Main.storyboard */,
+				0A3D6EF91CD4F650003F5C42 /* GetStarted.storyboard */,
 				0A3D6EF61CD4EFDA003F5C42 /* Tutorial.storyboard */,
 				0A7170891CB80316005126B4 /* Sorting.storyboard */,
 				0A98C1451CB15D9B00BF7252 /* Settings.storyboard */,
@@ -136,9 +159,8 @@
 				0A98C1481CB1601600BF7252 /* Settings */,
 				0A2AADC31C7905CB008A6AE0 /* CustomNavigationController.swift */,
 				0AE0C83B1CC2AD960085FE30 /* LaunchViewController.swift */,
-				0AF64FB21C4A8294003F8519 /* CollectionsViewController.swift */,
-				0A47D5291C6642F200DC7296 /* ItemsViewController.swift */,
-				0A77D7D91C67900C00792403 /* DescriptionViewController.swift */,
+				0A26B4861CD63BA600FEC35F /* Collections */,
+				0A26B4871CD64D9100FEC35F /* Items */,
 				0A15C0AC1C67A4E100857307 /* CustomTableViewCells.swift */,
 				0AF64FB41C4A830B003F8519 /* Models.swift */,
 				0A0047EE1C94771B007CBFE7 /* Managers */,
@@ -225,6 +247,7 @@
 				0A71708B1CB80316005126B4 /* Sorting.storyboard in Resources */,
 				0AF64FA81C4A812A003F8519 /* Assets.xcassets in Resources */,
 				0AF64FA61C4A812A003F8519 /* Main.storyboard in Resources */,
+				0A3D6EFB1CD4F650003F5C42 /* GetStarted.storyboard in Resources */,
 				0A3D6EF81CD4EFDA003F5C42 /* Tutorial.storyboard in Resources */,
 				0A98C1471CB15D9B00BF7252 /* Settings.storyboard in Resources */,
 			);
@@ -253,6 +276,7 @@
 				0ADF5C0E1CBA9D7400BC74AA /* Helpers.swift in Sources */,
 				0A98C14A1CB1603B00BF7252 /* PremadeCollectionsViewController.swift in Sources */,
 				0A04E6A91CB93894006A80E5 /* ProtocolManager.swift in Sources */,
+				0A3D6EFD1CD4F8F5003F5C42 /* GetStartedViewController.swift in Sources */,
 				0A2AADC41C7905CB008A6AE0 /* CustomNavigationController.swift in Sources */,
 				0A15C0AD1C67A4E100857307 /* CustomTableViewCells.swift in Sources */,
 			);
@@ -267,6 +291,14 @@
 				0A3D6EF71CD4EFDA003F5C42 /* Base */,
 			);
 			name = Tutorial.storyboard;
+			sourceTree = "<group>";
+		};
+		0A3D6EF91CD4F650003F5C42 /* GetStarted.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0A3D6EFA1CD4F650003F5C42 /* Base */,
+			);
+			name = GetStarted.storyboard;
 			sourceTree = "<group>";
 		};
 		0A7170891CB80316005126B4 /* Sorting.storyboard */ = {

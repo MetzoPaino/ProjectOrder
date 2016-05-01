@@ -545,6 +545,7 @@ extension TableViewDataSource: UITableViewDataSource {
             
         } else {
             
+            print(collection.returnArrayOfItems(false).count)
             return collection.returnArrayOfItems(false).count
         }
     }
