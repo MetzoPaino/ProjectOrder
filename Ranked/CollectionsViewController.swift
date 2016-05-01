@@ -106,7 +106,7 @@ class CollectionsViewController: UIViewController, Injectable {
         
         if showGetStartedView {
             
-//            view.bringSubviewToFront(getStartedContainerView)
+            getStartedViewController.reset()
             view.insertSubview(getStartedContainerView, belowSubview: addButton)
             
         } else {

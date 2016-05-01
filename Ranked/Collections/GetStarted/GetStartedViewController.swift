@@ -61,6 +61,22 @@ class GetStartedViewController: UIViewController {
         presentOptions()
     }
     
+    func reset() {
+        
+        option1View.hidden = false
+        option2View.hidden = false
+        option3View.hidden = false
+
+        collections = preMadeCollectionsArray
+        pickedCollections = [CollectionModel]()
+        moveEverythingOffScreen()
+        styleView()
+        
+        pickOptions()
+        updateOptions()
+        presentOptions()
+    }
+    
     func styleView() {
         
         for view in optionViewCollection {
