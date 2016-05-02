@@ -432,6 +432,16 @@ extension CollectionsViewController: GetStartedViewControllerDelegate {
         for collection in collections {
             CloudKitManager().saveCollectionToCloudKit(collection)
         }
-        tableView.reloadData()
+        
+        let lastRow = tableView.numberOfRowsInSection(0)
+
+        var indexPaths = [NSIndexPath]()
+        
+        for (index, _) in collections.enumerate() {
+            
+            let indexPath = NSIndexPath(forRow: lastRow + index, inSection: 0)
+            indexPaths.append(indexPath)
+        }
+        tableView.insertRowsAtIndexPaths(indexPaths, withRowAnimation: .Top)
     }
 }

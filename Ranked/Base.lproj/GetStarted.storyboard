@@ -18,14 +18,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add collections" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n1S-36-mGb">
-                                <rect key="frame" x="32" y="32" width="536" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Can't think of your own lists? Here are some I made earlier" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n1S-36-mGb">
+                                <rect key="frame" x="32" y="32" width="536" height="48"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0ei-Lo-FFx">
-                                <rect key="frame" x="32" y="85" width="536" height="65"/>
+                                <rect key="frame" x="32" y="112" width="536" height="65"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="8GO-KL-qK2">
                                         <rect key="frame" x="16" y="16" width="504" height="33"/>
@@ -54,7 +54,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NOy-5N-eqi">
-                                <rect key="frame" x="32" y="182" width="536" height="65"/>
+                                <rect key="frame" x="32" y="209" width="536" height="65"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="EeE-aq-Qrx">
                                         <rect key="frame" x="16" y="16" width="504" height="33"/>
@@ -83,7 +83,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gkz-Bg-yf7">
-                                <rect key="frame" x="32" y="279" width="536" height="65"/>
+                                <rect key="frame" x="32" y="306" width="536" height="65"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="uDG-kE-fmU">
                                         <rect key="frame" x="16" y="16" width="504" height="33"/>
@@ -140,6 +140,7 @@
                                 </connections>
                             </button>
                         </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="NOy-5N-eqi" firstAttribute="centerX" secondItem="K3y-Uy-HHe" secondAttribute="centerX" id="0xS-gw-stz"/>
                             <constraint firstItem="qaV-7w-egv" firstAttribute="centerX" secondItem="K3y-Uy-HHe" secondAttribute="centerX" id="7Ca-wf-ObH"/>
@@ -163,6 +164,8 @@
                     <connections>
                         <outlet property="doneButton" destination="qaV-7w-egv" id="HK1-FH-CSX"/>
                         <outlet property="doneButtonBottomConstraint" destination="vtU-ID-Ox3" id="jqY-cc-NjF"/>
+                        <outlet property="infoLabel" destination="n1S-36-mGb" id="1Un-fE-MiD"/>
+                        <outlet property="infoLabelTopConstraint" destination="ckH-sJ-quv" id="ifX-cH-BHW"/>
                         <outlet property="option1Button" destination="7iY-fJ-TK1" id="vv2-ST-fAK"/>
                         <outlet property="option1CenterConstraint" destination="wHW-uy-im2" id="tSH-ih-Ryc"/>
                         <outlet property="option1Label" destination="8GO-KL-qK2" id="32K-N6-uJK"/>

@@ -124,28 +124,6 @@
                                             <segue destination="nlL-AF-Rd4" kind="show" identifier="ShowCollection" id="ShY-qk-ceN"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="NoContentCell" rowHeight="146" id="8u5-9J-sXb">
-                                        <rect key="frame" x="0.0" y="204" width="600" height="146"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="8u5-9J-sXb" id="GBk-ui-J7Z">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="145.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No content" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nv3-jf-ggr">
-                                                    <rect key="frame" x="0.0" y="0.0" width="600" height="145.5"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="bottom" secondItem="Nv3-jf-ggr" secondAttribute="bottom" id="5dH-uK-yU3"/>
-                                                <constraint firstItem="Nv3-jf-ggr" firstAttribute="top" secondItem="GBk-ui-J7Z" secondAttribute="top" id="cga-9F-uXh"/>
-                                                <constraint firstItem="Nv3-jf-ggr" firstAttribute="leading" secondItem="GBk-ui-J7Z" secondAttribute="leading" id="fKn-DR-EiU"/>
-                                                <constraint firstAttribute="trailing" secondItem="Nv3-jf-ggr" secondAttribute="trailing" id="p4s-Vb-Ki0"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
                                 </prototypes>
                                 <connections>
                                     <outlet property="dataSource" destination="nmk-1J-1qM" id="wdd-bj-jpA"/>

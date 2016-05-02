@@ -18,6 +18,9 @@ class GetStartedViewController: UIViewController {
 
     var pickedCollections = [CollectionModel]()
 
+    @IBOutlet weak var infoLabel: UILabel!
+    @IBOutlet weak var infoLabelTopConstraint: NSLayoutConstraint!
+    
     @IBOutlet weak var option1View: UIView!
     @IBOutlet weak var option2View: UIView!
     @IBOutlet weak var option3View: UIView!
@@ -101,7 +104,6 @@ class GetStartedViewController: UIViewController {
         for button in buttonCollection {
             
             button.layer.cornerRadius = 48 / 2
-            button.setImage(UIImage(named: "" )?.imageWithRenderingMode(.AlwaysTemplate), forState: .Normal)
             button.tintColor = .whiteColor()
             
             button.layer.shadowColor = UIColor.blackColor().CGColor;
@@ -111,9 +113,15 @@ class GetStartedViewController: UIViewController {
             button.layer.masksToBounds = false
         }
         
-        doneButton.backgroundColor = .blockLosingColor()
+        doneButton.backgroundColor = .disabledColor()
         doneButton.userInteractionEnabled = false
+        doneButton.setImage(UIImage(named: "Tick")?.imageWithRenderingMode(.AlwaysTemplate), forState: .Normal)
+        doneButton.tintColor = .backgroundColor()
+
         refreshButton.backgroundColor = .primaryColor()
+        refreshButton.setImage(UIImage(named: "Refresh")?.imageWithRenderingMode(.AlwaysTemplate), forState: .Normal)
+
+        infoLabel.textColor = .subHeadingColor()
     }
 
     func pickOptions() {
@@ -126,7 +134,7 @@ class GetStartedViewController: UIViewController {
             
             option1Index = nil
             option1View.hidden = true
-            delegate?.finishedPickingCollections(pickedCollections)
+            doneButtonPressed(doneButton)
         }
         
         if collections.count >= 2 {
@@ -157,8 +165,12 @@ class GetStartedViewController: UIViewController {
         
         if pickedCollections.count > 0 {
             
-            doneButton.backgroundColor = .secondaryColor()
-            doneButton.userInteractionEnabled = true
+            UIView.animateWithDuration(0.25, animations: { 
+                
+                self.doneButton.backgroundColor = .secondaryColor()
+                self.doneButton.userInteractionEnabled = true
+                self.doneButton.tintColor = .whiteColor()
+            })
         }
     }
     
@@ -181,6 +193,8 @@ class GetStartedViewController: UIViewController {
     }
     
     func moveEverythingOffScreen() {
+        
+        self.infoLabel.alpha = 0
         
         option1CenterConstraint.constant = 0 - view.bounds.width
         option2CenterConstraint.constant = 0 + view.bounds.width
@@ -238,6 +252,7 @@ class GetStartedViewController: UIViewController {
         
         UIView.animateWithDuration(0.5, delay: 0.5, usingSpringWithDamping: 0.75, initialSpringVelocity: 1.0, options: UIViewAnimationOptions.CurveEaseInOut, animations: { () -> Void in
             
+            self.infoLabel.alpha = 1
             self.option1View.layoutIfNeeded()
             self.option2View.layoutIfNeeded()
             self.option3View.layoutIfNeeded()
@@ -313,12 +328,33 @@ class GetStartedViewController: UIViewController {
                     self.option2View.layoutIfNeeded()
                     self.option3View.layoutIfNeeded()
                     
-                    }, completion: nil)
+                }, completion: nil)
         }
     }
     
     @IBAction func doneButtonPressed(sender: UIButton) {
         
-        delegate?.finishedPickingCollections(pickedCollections)
+        option1CenterConstraint.constant = 0 - view.bounds.width
+        option2CenterConstraint.constant = 0 + view.bounds.width
+        option3CenterConstraint.constant = 0 - view.bounds.width
+        
+        doneButtonBottomConstraint.constant = 0 - 16 - 48
+        refreshButtonBottomConstraint.constant = 0 - 16 - 48
+        
+        UIView.animateWithDuration(0.25, delay: 0.0, usingSpringWithDamping: 0.75, initialSpringVelocity: 1.0, options: UIViewAnimationOptions.CurveEaseInOut, animations: { () -> Void in
+            
+            self.infoLabel.alpha = 0
+
+            self.option1View.layoutIfNeeded()
+            self.option2View.layoutIfNeeded()
+            self.option3View.layoutIfNeeded()
+            
+            self.doneButton.layoutIfNeeded()
+            self.refreshButton.layoutIfNeeded()
+            
+        }) { (completion) in
+        
+            self.delegate?.finishedPickingCollections(self.pickedCollections)
+        }
     }
 }
