@@ -27,6 +27,13 @@ class CloudKitManager {
     
     var subscribedToCollections = false
     var subscribedToItems = false
+    
+    var saveCollectionToCloudKitCounter = 0
+    var editCollectionInCloudKitCounter = 0
+    var saveItemsToCloudKitCounter = 0
+    var deleteFromCloudKitCounter = 0
+    
+    let retryLimit = 10
 
     enum recordType {
         case collections
@@ -39,27 +46,47 @@ class CloudKitManager {
     
     func saveCollectionToCloudKit(collection: CollectionModel) {
         
-//        print("Record ID = \(collection.record.recordID)")
-
         let record = CKRecord(recordType: "Collection", recordID: collection.record.recordID)
         record.setObject(collection.name, forKey: "Name")
         record.setObject(collection.descriptionString, forKey: "Description")
         record.setObject(collection.dateCreated, forKey: "DateCreated")
-        
         
         database.saveRecord(record) { savedRecord, error in
             print(error)
             
             if error == nil {
                 
+                self.saveCollectionToCloudKitCounter = 0
                 self.saveItemsToCloudKit(collection)
+                
+            } else {
+                
+                self.saveCollectionToCloudKitCounter = self.saveCollectionToCloudKitCounter + 1
+                
+                if self.saveCollectionToCloudKitCounter >= self.retryLimit {
+                    return
+                }
+                
+                if self.isRetryableCKError(error) {
+                    let userInfo : NSDictionary = error!.userInfo
+                    
+                    if let retryAfter = userInfo[CKErrorRetryAfterKey] as? NSNumber {
+                        
+                        let delay = retryAfter.doubleValue * Double(NSEC_PER_SEC)
+                        let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+                        
+                        dispatch_after(time, dispatch_get_main_queue()) {
+                            
+                            self.saveCollectionToCloudKit(collection)
+                        }
+                        return
+                    }
+                }
             }
         }
     }
     
     func editCollectionInCloudKit(collection: CollectionModel) {
-        
-        print("Record ID = \(collection.record.recordID)")
         
         database.fetchRecordWithID(collection.record.recordID) { fetchedCollection, error in
             
@@ -78,6 +105,30 @@ class CloudKitManager {
                 if error == nil {
                     
                     self.saveItemsToCloudKit(collection)
+                    
+                } else {
+                    
+                    self.editCollectionInCloudKitCounter = self.editCollectionInCloudKitCounter + 1
+                    
+                    if self.editCollectionInCloudKitCounter >= self.retryLimit {
+                        return
+                    }
+                    
+                    if self.isRetryableCKError(error) {
+                        let userInfo : NSDictionary = error!.userInfo
+                        
+                        if let retryAfter = userInfo[CKErrorRetryAfterKey] as? NSNumber {
+                            
+                            let delay = retryAfter.doubleValue * Double(NSEC_PER_SEC)
+                            let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+                            
+                            dispatch_after(time, dispatch_get_main_queue()) {
+                                
+                                self.editCollectionInCloudKit(collection)
+                            }
+                            return
+                        }
+                    }
                 }
             }
         }
@@ -105,11 +156,30 @@ class CloudKitManager {
         saveRecordsOperation.savePolicy = .IfServerRecordUnchanged
         saveRecordsOperation.perRecordCompletionBlock = {
             record, error in
+            
             if (error != nil) {
-                print("Failed to save \(record!.recordType): \(error!.localizedDescription)")
+
+                self.saveItemsToCloudKitCounter = self.saveItemsToCloudKitCounter + 1
                 
-            } else {
-                print("Saved \(record!.recordType)")
+                if self.saveItemsToCloudKitCounter >= self.retryLimit {
+                    return
+                }
+                
+                if self.isRetryableCKError(error) {
+                    let userInfo : NSDictionary = error!.userInfo
+                    
+                    if let retryAfter = userInfo[CKErrorRetryAfterKey] as? NSNumber {
+                        
+                        let delay = retryAfter.doubleValue * Double(NSEC_PER_SEC)
+                        let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+                        
+                        dispatch_after(time, dispatch_get_main_queue()) {
+                            
+                            self.saveItemsToCloudKit(collection)
+                        }
+                        return
+                    }
+                }
             }
         }
         
@@ -132,7 +202,30 @@ class CloudKitManager {
         database.deleteRecordWithID(recordID) {
             (record, error) in
             
-            print(error)
+            if error != nil {
+                
+                self.deleteFromCloudKitCounter = self.deleteFromCloudKitCounter + 1
+                
+                if self.deleteFromCloudKitCounter >= self.retryLimit {
+                    return
+                }
+                
+                if self.isRetryableCKError(error) {
+                    let userInfo : NSDictionary = error!.userInfo
+                    
+                    if let retryAfter = userInfo[CKErrorRetryAfterKey] as? NSNumber {
+                        
+                        let delay = retryAfter.doubleValue * Double(NSEC_PER_SEC)
+                        let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+                        
+                        dispatch_after(time, dispatch_get_main_queue()) {
+                            
+                            self.deleteFromCloudKit(recordID)
+                        }
+                        return
+                    }
+                }
+            }
         }
     }
     
@@ -369,22 +462,22 @@ class CloudKitManager {
         CKContainer.defaultContainer().addOperation(markOp)
     }
     
-//    func isRetryableCKError(error:NSError?) -> Bool {
-//        
-//        var isRetryable = false
-//
-//        if let err = error {
-//            
-//            let isErrorDomain = err.domain == CKErrorDomain
-//            let errorCode: Int = err.code
-//            
-//            let isUnavailable = errorCode == CKErrorCode.ServiceUnavailable.rawValue
-//            let isRateLimited = errorCode == CKErrorCode.RequestRateLimited.rawValue
-//            
-//            let errorCodeIsRetryable = isUnavailable || isRateLimited
-//            
-//            
-//            isRetryable = error != nil && isErrorDomain && errorCodeIsRetryable
-//        }
-//        return isRetryable }
+    func isRetryableCKError(error:NSError?) -> Bool {
+        
+        var isRetryable = false
+
+        if let err = error {
+            
+            let errorCode: Int = err.code
+            
+            let isUnavailable = CKErrorCode.ServiceUnavailable.rawValue
+            let isRateLimited = CKErrorCode.RequestRateLimited.rawValue
+            
+            if errorCode == isUnavailable || errorCode == isRateLimited {
+                
+                isRetryable = true
+            }
+        }
+        return isRetryable
+    }
 }
