@@ -231,7 +231,7 @@ class GetStartedViewController: UIViewController {
             self.option2CenterConstraint.constant = 0
             self.option3CenterConstraint.constant = 0
             
-            UIView.animateWithDuration(0.5, delay: 0.2, usingSpringWithDamping: 0.75, initialSpringVelocity: 1.0, options: UIViewAnimationOptions.CurveEaseInOut, animations: { () -> Void in
+            UIView.animateWithDuration(0.5, delay: 0.25, usingSpringWithDamping: 0.75, initialSpringVelocity: 1.0, options: UIViewAnimationOptions.CurveEaseInOut, animations: { () -> Void in
                 
                 self.option1View.layoutIfNeeded()
                 self.option2View.layoutIfNeeded()
@@ -303,6 +303,15 @@ class GetStartedViewController: UIViewController {
         option2CenterConstraint.constant = 0 + view.bounds.width
         option3CenterConstraint.constant = 0 - view.bounds.width
         
+        let rotateAnimation = CABasicAnimation(keyPath: "transform.rotation")
+        rotateAnimation.fromValue = 0.0
+        rotateAnimation.toValue = CGFloat(M_PI * 2)
+        rotateAnimation.duration = 0.25
+        
+        refreshButton.imageView!.clipsToBounds = false;
+        refreshButton.imageView!.contentMode = .Center;
+        refreshButton.imageView!.layer.addAnimation(rotateAnimation, forKey: "rotationAnimation");
+
         UIView.animateWithDuration(0.25, delay: 0.0, options: UIViewAnimationOptions.CurveEaseIn, animations: {
             
             self.option1View.layoutIfNeeded()
@@ -322,7 +331,7 @@ class GetStartedViewController: UIViewController {
                 self.option2CenterConstraint.constant = 0
                 self.option3CenterConstraint.constant = 0
                 
-                UIView.animateWithDuration(0.5, delay: 0.2, usingSpringWithDamping: 0.75, initialSpringVelocity: 1.0, options: UIViewAnimationOptions.CurveEaseInOut, animations: { () -> Void in
+                UIView.animateWithDuration(0.5, delay: 0.25, usingSpringWithDamping: 0.75, initialSpringVelocity: 1.0, options: UIViewAnimationOptions.CurveEaseInOut, animations: { () -> Void in
                     
                     self.option1View.layoutIfNeeded()
                     self.option2View.layoutIfNeeded()
