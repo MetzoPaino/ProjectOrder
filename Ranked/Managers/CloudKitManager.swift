@@ -145,6 +145,7 @@ class CloudKitManager {
             let record = CKRecord(recordType: "Item", recordID: item.record.recordID)
             record.setObject(item.text, forKey: "Name")
             record.setObject(item.sorted, forKey: "Sorted")
+            record.setObject(item.dateCreated, forKey: "DateCreated")
             
             let reference = CKReference(record: collection.record, action: .DeleteSelf)
             record.setObject(reference, forKey: "Collection")
@@ -309,8 +310,9 @@ class CloudKitManager {
             let name = fetchedItem["Name"] as! String
             let collection = fetchedItem["Collection"] as! CKReference
             let sorted = fetchedItem["Sorted"] as! Bool
+            let dateCreated = fetchedItem["DateCreated"] as! NSDate
             
-            let item = ItemModel(string: name)
+            let item = ItemModel(string: name, dateCreated: dateCreated)
             item.record = CKRecord(recordType: "Item", recordID: recordID)
             item.sorted = sorted
             self.delegate?.newCloudItemFromCollectionReference(item, reference: collection.recordID.recordName)
@@ -333,8 +335,9 @@ class CloudKitManager {
                 
                 let name = fetchedItem["Name"] as! String
                 let sorted = fetchedItem["Sorted"] as! Bool
+                let dateCreated = fetchedItem["DateCreated"] as! NSDate
                 
-                let item = ItemModel(string: name)
+                let item = ItemModel(string: name, dateCreated: dateCreated)
                 item.sorted = sorted
                 self.delegate?.updateItemWithReference(item, reference: recordID.recordName)
             }

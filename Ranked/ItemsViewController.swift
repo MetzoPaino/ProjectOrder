@@ -462,14 +462,13 @@ extension AddItemDelegate: AddItemTableViewCellDelegate {
     func createdNewItemWithText(text: String) {
         
         // Inserting causes a crash, but would look nicer
-        let item = ItemModel(string: text)
+        let item = ItemModel(string: text, dateCreated: NSDate())
         collection.items.insert(item, atIndex: 0)
         tableView.reloadData()
         
         let addItemIndex = NSIndexPath(forRow: 2, inSection: 0)
         if let cell = tableView.cellForRowAtIndexPath(addItemIndex) as? AddItemTableViewCell {
             cell.textField.becomeFirstResponder()
-
         }
     }
 }

@@ -135,16 +135,19 @@ class ItemModel: NSObject, NSCoding {
     private let pointsKey = "points"
     private let sortedKey = "sorted"
     private var recordKey = "record"
+    private let dateCreatedKey = "dateCreated"
 
     var text: String
     var tag = Int()
     var sorted = false
     var points = 0
-    
+    var dateCreated: NSDate
+
     var record = CKRecord(recordType: "Item")
     
-    init(string: String) {
+    init(string: String, dateCreated: NSDate) {
         text = string
+        self.dateCreated = dateCreated
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -175,6 +178,13 @@ class ItemModel: NSObject, NSCoding {
             record = decodedRecord
         }
         
+        if let decodedDateCreated = aDecoder.decodeObjectForKey(dateCreatedKey) as? NSDate {
+            
+            dateCreated = decodedDateCreated
+        } else {
+            dateCreated = NSDate()
+        }
+        
         super.init()
     }
     
@@ -184,5 +194,6 @@ class ItemModel: NSObject, NSCoding {
         aCoder.encodeObject(points, forKey: pointsKey)
         aCoder.encodeObject(sorted, forKey: sortedKey)
         aCoder.encodeObject(record, forKey: recordKey)
+        aCoder.encodeObject(dateCreated, forKey: dateCreatedKey)
     }
 }
