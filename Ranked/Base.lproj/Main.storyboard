@@ -7,6 +7,14 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
+        <!--Settings-->
+        <scene sceneID="117-dI-rUE">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Settings" id="DF5-da-shk" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9Da-lM-2lh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2278.5" y="-2861"/>
+        </scene>
         <!--Collections View Controller-->
         <scene sceneID="fN3-6q-lSH">
             <objects>
@@ -165,7 +173,13 @@
                             <constraint firstItem="yyi-Cx-aX5" firstAttribute="centerY" secondItem="yja-U2-kAY" secondAttribute="centerY" id="pnl-fG-rw5"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="UJs-0d-Kv3"/>
+                    <navigationItem key="navigationItem" id="UJs-0d-Kv3">
+                        <barButtonItem key="leftBarButtonItem" title="Settings" id="9ra-hz-ajf">
+                            <connections>
+                                <segue destination="DF5-da-shk" kind="presentation" id="gTP-vc-Bdf"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="addButton" destination="hMM-LV-o62" id="j33-A5-Jcg"/>
                         <outlet property="addButtonHeightConstraint" destination="OYV-7h-IgU" id="YZc-9G-phh"/>
