@@ -21,7 +21,18 @@ class AboutViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        styleNavBar()
         styleView()
+    }
+    
+    func styleNavBar() {
+        
+        navigationController?.navigationBar.setBackgroundImage(nil, forBarMetrics: UIBarMetrics.Default)
+        navigationController?.navigationBar.shadowImage = nil
+        navigationController?.navigationBar.translucent = false
+        navigationController?.view.backgroundColor = UIColor.whiteColor()
+        navigationController?.navigationBar.tintColor = .primaryColor()
+        navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.primaryColor()]
     }
 
     func styleView() {
@@ -35,9 +46,7 @@ class AboutViewController: UIViewController {
         let robynString = "Robyn Nevison"
         
         let order = Int(arc4random_uniform(UInt32(2)))
-        
-        print(order)
-        
+                
         switch order {
         case 0:
             person1Label.text = williamString

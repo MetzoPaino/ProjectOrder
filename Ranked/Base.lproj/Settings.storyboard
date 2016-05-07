@@ -6,7 +6,7 @@
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
-        <!--Settings View Controller-->
+        <!--Settings-->
         <scene sceneID="H8K-s4-My7">
             <objects>
                 <viewController automaticallyAdjustsScrollViewInsets="NO" id="CI7-K8-7VF" customClass="SettingsViewController" customModule="_" customModuleProvider="target" sceneMemberID="viewController">
@@ -62,7 +62,7 @@
                             <constraint firstItem="3Jz-Gh-42b" firstAttribute="top" secondItem="bcD-4b-fcV" secondAttribute="bottom" id="uit-34-vAw"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="M9g-We-xCM">
+                    <navigationItem key="navigationItem" title="Settings" id="M9g-We-xCM">
                         <barButtonItem key="leftBarButtonItem" systemItem="stop" id="7J4-jV-5FM">
                             <connections>
                                 <action selector="closeBarButtonPressed:" destination="CI7-K8-7VF" id="04b-14-oz3"/>
