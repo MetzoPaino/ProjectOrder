@@ -213,7 +213,7 @@
             </objects>
             <point key="canvasLocation" x="4032" y="-2283"/>
         </scene>
-        <!--Add Lists View Controller-->
+        <!--Premade Lists-->
         <scene sceneID="WLR-Ru-FbS">
             <objects>
                 <viewController automaticallyAdjustsScrollViewInsets="NO" id="Fgi-NN-G6L" customClass="AddListsViewController" customModule="_" customModuleProvider="target" sceneMemberID="viewController">
@@ -286,6 +286,7 @@
                             <constraint firstItem="ZDf-7V-Ocd" firstAttribute="width" secondItem="ZDf-7V-Ocd" secondAttribute="height" multiplier="1:1" id="t57-OY-VgD"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="Premade Lists" id="aEh-tc-iNS"/>
                     <connections>
                         <outlet property="doneButton" destination="ZDf-7V-Ocd" id="Q1g-62-E9O"/>
                         <outlet property="tableView" destination="hE9-RU-8FN" id="4ty-VB-Ip5"/>
