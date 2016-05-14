@@ -21,6 +21,7 @@
 		0A47D52A1C6642F200DC7296 /* ItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A47D5291C6642F200DC7296 /* ItemsViewController.swift */; };
 		0A71708B1CB80316005126B4 /* Sorting.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A7170891CB80316005126B4 /* Sorting.storyboard */; };
 		0A77D7DA1C67900C00792403 /* DescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A77D7D91C67900C00792403 /* DescriptionViewController.swift */; };
+		0A7B50811CE74BA30083CCCF /* AddListsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7B50801CE74BA30083CCCF /* AddListsViewController.swift */; };
 		0A98C1471CB15D9B00BF7252 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A98C1451CB15D9B00BF7252 /* Settings.storyboard */; };
 		0A9A16811C5CDD260000E436 /* TournamentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9A16801C5CDD260000E436 /* TournamentManager.swift */; };
 		0ADF5C0E1CBA9D7400BC74AA /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADF5C0D1CBA9D7400BC74AA /* Helpers.swift */; };
@@ -51,6 +52,7 @@
 		0A47D5291C6642F200DC7296 /* ItemsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemsViewController.swift; sourceTree = "<group>"; };
 		0A71708A1CB80316005126B4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Sorting.storyboard; sourceTree = "<group>"; };
 		0A77D7D91C67900C00792403 /* DescriptionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DescriptionViewController.swift; sourceTree = "<group>"; };
+		0A7B50801CE74BA30083CCCF /* AddListsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AddListsViewController.swift; path = Settings/AddListsViewController.swift; sourceTree = "<group>"; };
 		0A98C1461CB15D9B00BF7252 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Settings.storyboard; sourceTree = "<group>"; };
 		0A9A16801C5CDD260000E436 /* TournamentManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TournamentManager.swift; sourceTree = "<group>"; };
 		0ADF5C0D1CBA9D7400BC74AA /* Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Helpers.swift; path = Helpers/Helpers.swift; sourceTree = "<group>"; };
@@ -98,6 +100,7 @@
 			children = (
 				0A221CE71CDE03C900CA2CA1 /* SettingsViewController.swift */,
 				0A221CEA1CDE0BBA00CA2CA1 /* AboutViewController.swift */,
+				0A7B50801CE74BA30083CCCF /* AddListsViewController.swift */,
 			);
 			name = Settings;
 			sourceTree = "<group>";
@@ -262,6 +265,7 @@
 			files = (
 				0AF64FB91C4A859B003F8519 /* CollectionCreator.swift in Sources */,
 				0AE0C83C1CC2AD960085FE30 /* LaunchViewController.swift in Sources */,
+				0A7B50811CE74BA30083CCCF /* AddListsViewController.swift in Sources */,
 				0A04E6AB1CB9455B006A80E5 /* DataManager.swift in Sources */,
 				0A9A16811C5CDD260000E436 /* TournamentManager.swift in Sources */,
 				0AF64FB31C4A8294003F8519 /* CollectionsViewController.swift in Sources */,

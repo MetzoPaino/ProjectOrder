@@ -174,9 +174,9 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="UJs-0d-Kv3">
-                        <barButtonItem key="leftBarButtonItem" title="Settings" id="9ra-hz-ajf">
+                        <barButtonItem key="leftBarButtonItem" image="Settings" id="9ra-hz-ajf">
                             <connections>
-                                <segue destination="DF5-da-shk" kind="presentation" id="gTP-vc-Bdf"/>
+                                <segue destination="DF5-da-shk" kind="presentation" identifier="PresentSettings" id="gTP-vc-Bdf"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -565,6 +565,7 @@
     </scenes>
     <resources>
         <image name="PlusButton" width="48" height="48"/>
+        <image name="Settings" width="20" height="20"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="1Ky-jB-L3f"/>

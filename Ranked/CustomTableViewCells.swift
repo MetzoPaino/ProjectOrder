@@ -8,6 +8,11 @@
 
 import UIKit
 
+class LabelCell: UITableViewCell {
+    
+    @IBOutlet weak var label: UILabel!
+}
+
 //MARK: - CollectionsViewController
 
 class CollectionTableViewCell: UITableViewCell {

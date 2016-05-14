@@ -8,10 +8,18 @@
 
 import UIKit
 
+protocol SettingsViewControllerDelegate: class {
+    func appendPreMadeCollections(collections: [CollectionModel])
+}
+
 class SettingsViewController: UIViewController {
 
     @IBOutlet weak var closeBarButton: UIBarButtonItem!
     @IBOutlet weak var tableView: UITableView!
+    
+    weak var delegate: SettingsViewControllerDelegate?
+    
+    var collections: [CollectionModel]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,16 +46,19 @@ class SettingsViewController: UIViewController {
         tableView.backgroundColor = .backgroundColor()
     }
     
-
-    
     // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
         let backItem = UIBarButtonItem()
         backItem.title = ""
         navigationItem.backBarButtonItem = backItem
+        
+        if let controller = segue.destinationViewController as? AddListsViewController {
+            
+            controller.delegate = self
+            controller.userCollections = collections
+        }
     }
     
     // MARK: - IBActions
@@ -70,12 +81,27 @@ extension SettingsViewController: UITableViewDataSource {
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return 1
+        return 2
         
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("AboutCell", forIndexPath: indexPath)
-        return cell
+        
+        if indexPath.row == 0 {
+            let cell = tableView.dequeueReusableCellWithIdentifier("AddListsCell", forIndexPath: indexPath)
+            return cell
+        } else {
+            let cell = tableView.dequeueReusableCellWithIdentifier("AboutCell", forIndexPath: indexPath)
+            return cell
+        }
+    }
+}
+
+extension SettingsViewController: AddListsViewControllerDelegate {
+    
+    func finishedPickingCollections(collections: [CollectionModel]) {
+        
+        self.collections.appendContentsOf(collections)
+        self.delegate?.appendPreMadeCollections(collections)
     }
 }

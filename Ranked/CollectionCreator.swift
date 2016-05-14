@@ -30,7 +30,7 @@ func createRecordOfTypeWithUniqueIdentifier(type:String, uniqueIdentifier: Strin
 func createDavidBowieCollection() -> CollectionModel {
     
     let collection = CollectionModel(name: "David Bowie Discography", description: "From Glam to Jazztronica, few have had so many hits in so many different genres. Take an out of this world trip from 1967 to 2016.", dateCreated: NSDate())
-    collection.record = createRecordOfTypeWithUniqueIdentifier(collectionRecordType, uniqueIdentifier: "DavidBowieDiscography")
+    collection.record = createRecordOfTypeWithUniqueIdentifier(collectionRecordType, uniqueIdentifier: collection.name.trim())
     collection.premade = true
 
     let davidBowie1967 = ItemModel(string: "David Bowie (1967)", dateCreated: NSDate())
@@ -116,7 +116,7 @@ func createDavidBowieCollection() -> CollectionModel {
 func createStarWarsCollection() -> CollectionModel {
     
     let collection = CollectionModel(name: "Star Wars", description: "Star Wars is an American epic space opera franchise, centered on a film series created by George Lucas. It depicts the adventures of various characters \"a long time ago in a galaxy far, far away\"", dateCreated: NSDate())
-    collection.record = createRecordOfTypeWithUniqueIdentifier(collectionRecordType, uniqueIdentifier: "StarWars")
+    collection.record = createRecordOfTypeWithUniqueIdentifier(collectionRecordType, uniqueIdentifier: collection.name.trim())
     collection.premade = true
     
     let phantomMenace = ItemModel(string: "The Phantom Menace", dateCreated: NSDate())
@@ -148,7 +148,7 @@ func createStarWarsCollection() -> CollectionModel {
 func createHarryPotterCollection() -> CollectionModel {
     
     let collection = CollectionModel(name: "Harry Potter", description: "Harry Potter is a series of seven fantasy novels written by British author J. K. Rowling. The series chronicles the life of a young wizard, Harry Potter, and his friends Hermione Granger and Ron Weasley, all of whom are students at Hogwarts School of Witchcraft and Wizardry.", dateCreated: NSDate())
-    collection.record = createRecordOfTypeWithUniqueIdentifier(collectionRecordType, uniqueIdentifier: "HarryPotter")
+    collection.record = createRecordOfTypeWithUniqueIdentifier(collectionRecordType, uniqueIdentifier: collection.name.trim())
     collection.premade = true
     
     let stone = ItemModel(string: "Philosopher's Stone", dateCreated: NSDate())
@@ -180,7 +180,7 @@ func createHarryPotterCollection() -> CollectionModel {
 func createFinalFantasyCollection() -> CollectionModel {
     
     let collection = CollectionModel(name: "Final Fantasy", description: "Final Fantasy (ファイナルファンタジー Fainaru Fantajī?) is a science fiction and fantasy media franchise created by Hironobu Sakaguchi, and developed and owned by Square Enix (formerly Square). The franchise centers on a series of fantasy and science fantasy role-playing video games (RPGs). The eponymous first game in the series, published in 1987, was conceived by Sakaguchi as his last-ditch effort in the game industry; the title was a success and spawned sequels.", dateCreated: NSDate())
-    collection.record = CKRecord(recordType: "Collection", recordID: CKRecordID(recordName: "FinalFantasy-Collection"))
+    collection.record = CKRecord(recordType: "Collection", recordID: CKRecordID(recordName: collection.name.trim()))
     collection.premade = true
     
     let I = ItemModel(string: "Final Fantasy I", dateCreated: NSDate())
@@ -207,7 +207,7 @@ func createFinalFantasyCollection() -> CollectionModel {
 func createInternetBrowserCollection() -> CollectionModel {
     
     let collection = CollectionModel(name: "Browsers", description: "A web browser (commonly referred to as a browser) is a software application for retrieving, presenting, and traversing information resources on the World Wide Web.", dateCreated: NSDate())
-    collection.record = createRecordOfTypeWithUniqueIdentifier(collectionRecordType, uniqueIdentifier: "Browser")
+    collection.record = createRecordOfTypeWithUniqueIdentifier(collectionRecordType, uniqueIdentifier: collection.name.trim())
     collection.premade = true
     
     let internetExplorer = ItemModel(string: "Internet Explorer", dateCreated: NSDate())
@@ -236,7 +236,7 @@ func createInternetBrowserCollection() -> CollectionModel {
 func createDesktopOSCollection() -> CollectionModel {
     
     let collection = CollectionModel(name: "Desktop OS", description: "An operating system (OS) is system software that manages computer hardware and software resources and provides common services for computer programs. The operating system is a component of the system software in a computer system. Application programs usually require an operating system to function.", dateCreated: NSDate())
-    collection.record = createRecordOfTypeWithUniqueIdentifier(collectionRecordType, uniqueIdentifier: "DesktopOS")
+    collection.record = createRecordOfTypeWithUniqueIdentifier(collectionRecordType, uniqueIdentifier: collection.name.trim())
     collection.premade = true
     
     let mac = ItemModel(string: "Mac", dateCreated: NSDate())
@@ -256,7 +256,7 @@ func createDesktopOSCollection() -> CollectionModel {
 func createMobileOSCollection() -> CollectionModel {
     
     let collection = CollectionModel(name: "Mobile OS", description: "A mobile operating system (or mobile OS) is an operating system for smartphones, tablets, PDAs, or other mobile devices. While computers such as the typical laptop are mobile, the operating systems usually used on them are not considered mobile ones as they were originally designed for bigger stationary desktop computers that historically did not have or need specific \"mobile\" features. This distinction is getting blurred in some newer operating systems that are hybrids made for both uses.", dateCreated: NSDate())
-    collection.record = createRecordOfTypeWithUniqueIdentifier(collectionRecordType, uniqueIdentifier: "MobileOS")
+    collection.record = createRecordOfTypeWithUniqueIdentifier(collectionRecordType, uniqueIdentifier: collection.name.trim())
     collection.premade = true
     
     let ios = ItemModel(string: "iOS", dateCreated: NSDate())
@@ -279,7 +279,7 @@ func createMobileOSCollection() -> CollectionModel {
 func createDoctorWhoCollection() -> CollectionModel {
     
     let collection = CollectionModel(name: "Doctor Who", description: "Doctor Who is a British science-fiction television programme produced by the BBC from 1963 to the present day. The programme depicts the adventures of the Doctor, a Time Lord—a space and time-travelling humanoid alien. He explores the universe in his TARDIS, a sentient time-travelling space ship. Its exterior appears as a blue British police box, which was a common sight in Britain in 1963 when the series first aired. Accompanied by companions, the Doctor combats a variety of foes, while working to save civilisations and help people in need.", dateCreated: NSDate())
-    collection.record = CKRecord(recordType: "Collection", recordID: CKRecordID(recordName: "DoctorWho-Collection"))
+    collection.record = CKRecord(recordType: "Collection", recordID: CKRecordID(recordName: collection.name.trim()))
     collection.premade = true
     
     let hartnell = ItemModel(string: "First William Hartnell", dateCreated: NSDate())
@@ -303,7 +303,7 @@ func createDoctorWhoCollection() -> CollectionModel {
 func createMarioCharactersCollection() -> CollectionModel {
     
     let collection = CollectionModel(name: "Mario Characters", description: "The Mario series has an extensive cast of recurring characters. Among the most frequently recurring and significant ones are protagonist Mario, his antagonist Bowser, his brother Luigi, the Princess of the Mushroom Kingdom Peach, his sidekick and mount Yoshi, and his antihero doppelganger Wario.", dateCreated: NSDate())
-    collection.record = createRecordOfTypeWithUniqueIdentifier(collectionRecordType, uniqueIdentifier: "MarioCharacters")
+    collection.record = createRecordOfTypeWithUniqueIdentifier(collectionRecordType, uniqueIdentifier: collection.name.trim())
     collection.premade = true
     
     let mario = ItemModel(string: "Mario", dateCreated: NSDate())
@@ -329,7 +329,7 @@ func createMarioCharactersCollection() -> CollectionModel {
 func createHottestHobbitsCollection() -> CollectionModel {
     
     let collection = CollectionModel(name: "Hottest Hobbits", description: "Get down with The Shire", dateCreated: NSDate())
-    collection.record = createRecordOfTypeWithUniqueIdentifier(collectionRecordType, uniqueIdentifier: "HottestHobbits")
+    collection.record = createRecordOfTypeWithUniqueIdentifier(collectionRecordType, uniqueIdentifier: collection.name.trim())
     collection.premade = true
     
     let frodo = ItemModel(string: "Frodo", dateCreated: NSDate())

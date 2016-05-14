@@ -22,12 +22,9 @@ protocol DataManagerDelegate: class {
 class DataManager {
     
     var collections = [CollectionModel]()
-//    var premadeCollections = createPreMadeCollectionsArray()
 
     var cloudKitManager = CloudKitManager()
     weak var delegate: DataManagerDelegate?
-    
-//    let preMadeCollectionsArray = [createDavidBowieCollection(), createStarWarsCollection(), createHarryPotterCollection(), createFinalFantasyCollection(), createInternetBrowserCollection(), createDesktopOSCollection(), createMobileOSCollection(), createDoctorWhoCollection(), createMarioCharactersCollection(), createHottestHobbitsCollection()]
     
     init() {
         

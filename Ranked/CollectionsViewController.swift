@@ -165,6 +165,14 @@ extension Navigation {
             getStartedViewController = segue.destinationViewController as! GetStartedViewController
             getStartedViewController.delegate = self
         }
+        
+        if segue.identifier == "PresentSettings" {
+            
+            let navCon = segue.destinationViewController as! UINavigationController
+            let controller = navCon.viewControllers[0] as! SettingsViewController
+            controller.delegate = self
+            controller.collections = dataManager.collections
+        }
     }
 }
 
@@ -443,5 +451,17 @@ extension CollectionsViewController: GetStartedViewControllerDelegate {
             indexPaths.append(indexPath)
         }
         tableView.insertRowsAtIndexPaths(indexPaths, withRowAnimation: .Top)
+    }
+}
+
+extension CollectionsViewController: SettingsViewControllerDelegate {
+    
+    func appendPreMadeCollections(collections: [CollectionModel]) {
+        
+        dataManager.collections.appendContentsOf(collections)
+        
+        for collection in collections {
+            CloudKitManager().saveCollectionToCloudKit(collection)
+        }
     }
 }
