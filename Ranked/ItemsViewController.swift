@@ -21,6 +21,14 @@ enum BarButtonType {
     case share
 }
 
+enum CellType {
+    
+    case image
+    case title
+    case description
+    case addItem
+}
+
 class ItemsViewController: UIViewController, Injectable {
     
     @IBOutlet weak var tableView: UITableView!
@@ -42,13 +50,12 @@ class ItemsViewController: UIViewController, Injectable {
     
     let tapGesture = UITapGestureRecognizer()
     
-    
-    
+    let editingCellOrder = [CellType.title, CellType.description, CellType.addItem]
+    var displayCellOrder = [CellType]()
+
     typealias AssociatedObject = CollectionModel
     var collection: CollectionModel!
     
-    
-
     // MARK: - Load View
     
     func newItem() {
@@ -155,7 +162,7 @@ class ItemsViewController: UIViewController, Injectable {
     func styleTableView() {
         
         tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.estimatedRowHeight = 88
+        tableView.estimatedRowHeight = 112
         tableView.tableFooterView = UIView()
         tableView.separatorInset = UIEdgeInsetsZero
         tableView.backgroundColor = .whiteColor()
@@ -216,6 +223,9 @@ class ItemsViewController: UIViewController, Injectable {
             navigationController.view.backgroundColor = UIColor.whiteColor()
             navigationController.navigationBar.tintColor = .blackColor()
         
+            if let image = collection.image {
+                controller.image = image
+            }
             controller.itemArray = collection.items
             controller.delegate = self
         }
@@ -496,6 +506,7 @@ extension TableViewDelegate: UITableViewDelegate {
             return true
         }
     }
+    
     func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
         
         if indexPath.section == 0 {
@@ -536,15 +547,30 @@ extension TableViewDataSource: UITableViewDataSource {
         
         if section == 0 {
             
+            displayCellOrder = [CellType]()
+            
+            var cellCounter = 0
+            
+            if let _ = collection.image {
+
+                cellCounter = cellCounter + 1
+                displayCellOrder.append(CellType.image)
+            }
+            
+            cellCounter = cellCounter + 1 // Title cell
+            displayCellOrder.append(CellType.title)
+
             if inEditingMode == nil || inEditingMode == true {
+                displayCellOrder = editingCellOrder
                 return 3
             } else {
                 if collection.descriptionString != "" {
-                    return 2
-                } else {
-                    return 1
+                    cellCounter = cellCounter + 1
+                    displayCellOrder.append(CellType.description)
                 }
             }
+            
+            return cellCounter
             
         } else if section == 1 {
             
@@ -561,76 +587,20 @@ extension TableViewDataSource: UITableViewDataSource {
         
         if indexPath.section == 0 {
             
-            if indexPath.row == 0 {
-                                
-                let cell = tableView.dequeueReusableCellWithIdentifier("TitleCell", forIndexPath: indexPath) as! TitleCell
-                cell.separatorInset = UIEdgeInsetsMake(0, Helper.largestDeviceSide(), 0, 0);
-                
-                if inEditingMode == nil || inEditingMode == true {
-                    
-                    cell.userInteractionEnabled = true
-                    cell.accessoryType = .DisclosureIndicator
-                    cell.label.text = "Title"
-                    cell.label.textColor = .backgroundColor()
-                    
-                } else {
-                    cell.userInteractionEnabled = false
-                    cell.accessoryType = .None
-                    cell.label.textColor = .headingColor()
-                }
-                
-                if collection.name != "" {
-                    
-                    cell.label.text = collection.name
-                    cell.label.textColor = .headingColor()
-                    
-                } else {
-                    cell.label.text = "Title"
-                    cell.label.textColor = .backgroundColor()
-                    
-                }
-                
-                return cell
-                
-            } else if indexPath.row == 2 {
+            var editing = false
             
-                let cell = tableView.dequeueReusableCellWithIdentifier("AddItemCell", forIndexPath: indexPath) as! AddItemTableViewCell
-                cell.delegate = self
-                cell.configureCell()
-                cell.selectionStyle = .None
-                cell.layoutMargins = UIEdgeInsetsZero;
-
-                return cell
-                
+            if inEditingMode == nil || inEditingMode == true {
+                editing = true
+            }
+            
+            if displayCellOrder[indexPath.row] == CellType.image {
+                return createImageCell(collection.image, indexPath: indexPath, inEditingMode: editing)
+            } else if displayCellOrder[indexPath.row] == CellType.title {
+                return createTitleCell(collection.name, indexPath: indexPath, inEditingMode: editing)
+            } else if displayCellOrder[indexPath.row] == CellType.addItem {
+                return createAddItemCell(indexPath)
             } else {
-                
-                let cell = tableView.dequeueReusableCellWithIdentifier("DescriptionCell", forIndexPath: indexPath) as! DescriptionCell
-                cell.separatorInset = UIEdgeInsetsMake(0, Helper.largestDeviceSide(), 0, 0);
-
-                if inEditingMode == nil || inEditingMode == true {
-                    
-                    cell.userInteractionEnabled = true
-                    cell.accessoryType = .DisclosureIndicator
-                    cell.label.text = "Description"
-                    cell.label.textColor = .backgroundColor()
-                    
-                } else {
-                    cell.userInteractionEnabled = false
-                    cell.accessoryType = .None
-                    cell.label.textColor = .subHeadingColor()
-                }
-                
-                if collection.descriptionString != "" {
-                    
-                    cell.label.text = collection.descriptionString
-                    cell.label.textColor = .subHeadingColor()
-
-                } else {
-                    cell.label.text = "Description"
-                    cell.label.textColor = .backgroundColor()
-
-                }
-                return cell
+                return createDescriptionCell(collection.descriptionString, indexPath: indexPath, inEditingMode: editing)
             }
             
         } else if indexPath.section == 1 {
@@ -677,3 +647,93 @@ extension TableViewDataSource: UITableViewDataSource {
         }
     }
 }
+
+extension ItemsViewController {
+    
+    func createImageCell(image:UIImage?, indexPath:NSIndexPath, inEditingMode: Bool) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCellWithIdentifier("ImageCell", forIndexPath: indexPath) as! TitleCell
+        cell.separatorInset = UIEdgeInsetsMake(0, Helper.largestDeviceSide(), 0, 0);
+        
+        if let image = image {
+            cell.summaryImageView.image = image
+        }
+        cell.configureCell()
+        return cell
+    }
+    
+    func createTitleCell(text: String, indexPath:NSIndexPath, inEditingMode: Bool) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCellWithIdentifier("TitleCell", forIndexPath: indexPath) as! TitleCell
+        cell.separatorInset = UIEdgeInsetsMake(0, Helper.largestDeviceSide(), 0, 0);
+        
+        if inEditingMode == true {
+            
+            cell.userInteractionEnabled = true
+            cell.accessoryType = .DisclosureIndicator
+            cell.label.text = "Title"
+            cell.label.textColor = .backgroundColor()
+            
+        } else {
+            cell.userInteractionEnabled = false
+            cell.accessoryType = .None
+            cell.label.textColor = .headingColor()
+        }
+        
+        if text != "" {
+            
+            cell.label.text = text
+            cell.label.textColor = .headingColor()
+            
+        } else {
+            cell.label.text = "Title"
+            cell.label.textColor = .backgroundColor()
+            
+        }
+        return cell
+    }
+    
+    func createDescriptionCell(text: String, indexPath:NSIndexPath, inEditingMode: Bool) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCellWithIdentifier("DescriptionCell", forIndexPath: indexPath) as! DescriptionCell
+        cell.separatorInset = UIEdgeInsetsMake(0, Helper.largestDeviceSide(), 0, 0);
+        
+        if inEditingMode == true {
+            
+            cell.userInteractionEnabled = true
+            cell.accessoryType = .DisclosureIndicator
+            cell.label.text = "Description"
+            cell.label.textColor = .backgroundColor()
+            
+        } else {
+            cell.userInteractionEnabled = false
+            cell.accessoryType = .None
+            cell.label.textColor = .subHeadingColor()
+        }
+        
+        if text != "" {
+            
+            cell.label.text = text
+            cell.label.textColor = .subHeadingColor()
+            
+        } else {
+            cell.label.text = "Description"
+            cell.label.textColor = .backgroundColor()
+            
+        }
+        return cell
+    }
+    
+    func createAddItemCell(indexPath:NSIndexPath) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCellWithIdentifier("AddItemCell", forIndexPath: indexPath) as! AddItemTableViewCell
+        cell.delegate = self
+        cell.configureCell()
+        cell.selectionStyle = .None
+        cell.layoutMargins = UIEdgeInsetsZero;
+        
+        return cell
+    }
+}
+
+

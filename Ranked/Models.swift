@@ -18,6 +18,8 @@ class CollectionModel: NSObject, NSCoding {
     private let sortedKey = "sorted"
     private var recordKey = "record"
     private var premadeKey = "premade"
+    private var imageKey = "image"
+
 
     var record = CKRecord(recordType: "Collection")
     
@@ -25,6 +27,7 @@ class CollectionModel: NSObject, NSCoding {
     var descriptionString = ""
     var sorted = false
     var dateCreated: NSDate
+    var image: UIImage?
     
     var premade = false
     
@@ -96,6 +99,11 @@ class CollectionModel: NSObject, NSCoding {
             premade = false
         }
         
+        if let decodedImage = aDecoder.decodeObjectForKey(imageKey) as? UIImage {
+            
+            image = decodedImage
+        }
+        
         super.init()
     }
     
@@ -108,6 +116,7 @@ class CollectionModel: NSObject, NSCoding {
         aCoder.encodeObject(sorted, forKey: sortedKey)
         aCoder.encodeObject(record, forKey: recordKey)
         aCoder.encodeObject(premade, forKey: premadeKey)
+        aCoder.encodeObject(image, forKey: imageKey)
     }
     
     func returnArrayOfItems(sorted: Bool) -> [ItemModel] {
@@ -136,12 +145,14 @@ class ItemModel: NSObject, NSCoding {
     private let sortedKey = "sorted"
     private var recordKey = "record"
     private let dateCreatedKey = "dateCreated"
+    private var imageKey = "image"
 
     var text: String
     var tag = Int()
     var sorted = false
     var points = 0
     var dateCreated: NSDate
+    var image: UIImage?
 
     var record = CKRecord(recordType: "Item")
     
@@ -185,6 +196,11 @@ class ItemModel: NSObject, NSCoding {
             dateCreated = NSDate()
         }
         
+        if let decodedImage = aDecoder.decodeObjectForKey(imageKey) as? UIImage {
+            
+            image = decodedImage
+        }
+        
         super.init()
     }
     
@@ -195,5 +211,6 @@ class ItemModel: NSObject, NSCoding {
         aCoder.encodeObject(sorted, forKey: sortedKey)
         aCoder.encodeObject(record, forKey: recordKey)
         aCoder.encodeObject(dateCreated, forKey: dateCreatedKey)
+        aCoder.encodeObject(image, forKey: imageKey)
     }
 }

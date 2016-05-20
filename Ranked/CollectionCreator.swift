@@ -6,7 +6,7 @@
 //  Copyright © 2016 William Robinson. All rights reserved.
 //
 
-import Foundation
+import UIKit
 import CloudKit
 
 //let preMadeCollectionsArray = [createDavidBowieCollection(), createStarWarsCollection(), createHarryPotterCollection(),createInternetBrowserCollection(), createDesktopOSCollection(), createMobileOSCollection(), createMarioCharactersCollection(), createHottestHobbitsCollection()]
@@ -32,6 +32,7 @@ func createDavidBowieCollection() -> CollectionModel {
     let collection = CollectionModel(name: "David Bowie Discography", description: "From Glam to Jazztronica, few have had so many hits in so many different genres. Take an out of this world trip from 1967 to 2016.", dateCreated: NSDate())
     collection.record = createRecordOfTypeWithUniqueIdentifier(collectionRecordType, uniqueIdentifier: collection.name.trim())
     collection.premade = true
+    collection.image = UIImage(named: "DavidBowie")
 
     let davidBowie1967 = ItemModel(string: "David Bowie (1967)", dateCreated: NSDate())
     davidBowie1967.record = createRecordOfTypeWithUniqueIdentifier(itemRecordType, uniqueIdentifier: "DavidBowie(1967)")
@@ -118,6 +119,7 @@ func createStarWarsCollection() -> CollectionModel {
     let collection = CollectionModel(name: "Star Wars", description: "Star Wars is an American epic space opera franchise, centered on a film series created by George Lucas. It depicts the adventures of various characters \"a long time ago in a galaxy far, far away\"", dateCreated: NSDate())
     collection.record = createRecordOfTypeWithUniqueIdentifier(collectionRecordType, uniqueIdentifier: collection.name.trim())
     collection.premade = true
+    collection.image = UIImage(named: "StarWars")
     
     let phantomMenace = ItemModel(string: "The Phantom Menace", dateCreated: NSDate())
     phantomMenace.record = createRecordOfTypeWithUniqueIdentifier(itemRecordType, uniqueIdentifier: "PhantomMenace")
@@ -331,24 +333,31 @@ func createHottestHobbitsCollection() -> CollectionModel {
     let collection = CollectionModel(name: "Hottest Hobbits", description: "Get down with The Shire", dateCreated: NSDate())
     collection.record = createRecordOfTypeWithUniqueIdentifier(collectionRecordType, uniqueIdentifier: collection.name.trim())
     collection.premade = true
-    
+    collection.image = UIImage(named: "Hobbits")
+
     let frodo = ItemModel(string: "Frodo", dateCreated: NSDate())
     frodo.record = createRecordOfTypeWithUniqueIdentifier(itemRecordType, uniqueIdentifier: "Frodo")
+    frodo.image = UIImage(named: "Frodo")
 
     let sam = ItemModel(string: "Sam", dateCreated: NSDate())
     sam.record = createRecordOfTypeWithUniqueIdentifier(itemRecordType, uniqueIdentifier: "Sam")
-
+    sam.image = UIImage(named: "Sam")
+    
     let merry = ItemModel(string: "Merry", dateCreated: NSDate())
     merry.record = createRecordOfTypeWithUniqueIdentifier(itemRecordType, uniqueIdentifier: "Merry")
-
+    merry.image = UIImage(named: "Merry")
+    
     let pippin = ItemModel(string: "Pippin", dateCreated: NSDate())
     pippin.record = createRecordOfTypeWithUniqueIdentifier(itemRecordType, uniqueIdentifier: "Pippin")
-
+    pippin.image = UIImage(named: "Pippin")
+    
     let bilboYoung = ItemModel(string: "Bilbo (Young)", dateCreated: NSDate())
     bilboYoung.record = createRecordOfTypeWithUniqueIdentifier(itemRecordType, uniqueIdentifier: "BilboYoung")
-
+    bilboYoung.image = UIImage(named: "BilboYoung")
+    
     let bilboOld = ItemModel(string: "Bilbo (Old)", dateCreated: NSDate())
     bilboOld.record = createRecordOfTypeWithUniqueIdentifier(itemRecordType, uniqueIdentifier: "BilboOld")
+    bilboOld.image = UIImage(named: "BilboOld")
     
     collection.items = [frodo, sam, merry, pippin, bilboYoung, bilboOld]
     

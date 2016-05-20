@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import QuartzCore
 
 protocol SortingViewControllerDelegate: class {
     func sortingFinished(items: [ItemModel])
@@ -22,6 +23,7 @@ class SortingViewController: UIViewController {
     
     var itemArray = [ItemModel]()
     let tournamentManager = TournamentManager()
+    var image: UIImage?
     
     weak var delegate: SortingViewControllerDelegate?
     
@@ -30,12 +32,16 @@ class SortingViewController: UIViewController {
     @IBOutlet var topViewPanGesture: UIPanGestureRecognizer!
     @IBOutlet weak var topView: UIView!
     @IBOutlet weak var topViewTopConstraint: NSLayoutConstraint!
+    @IBOutlet weak var topImageView: UIImageView!
+
     @IBOutlet weak var topLabel: UILabel!
     
     @IBOutlet weak var centerView: UIView!
     
     @IBOutlet var bottomViewPanGesture: UIPanGestureRecognizer!
     @IBOutlet weak var bottomView: UIView!
+    @IBOutlet weak var bottomImageView: UIImageView!
+
     @IBOutlet weak var bottomLabel: UILabel!
     @IBOutlet weak var bottomViewBottomConstraint: NSLayoutConstraint!
     
@@ -127,7 +133,18 @@ class SortingViewController: UIViewController {
     
     func styleNavBar() {
         
+        if let image = image {
+            
+            let imageView = UIImageView(image:image)
+            imageView.bounds = CGRectMake(0, 0, 32, 32)
+            imageView.clipsToBounds = true
+            imageView.layer.cornerRadius = 18
+            //
+            //imageView.layer.masksToBounds = true
+            imageView.contentMode = .ScaleAspectFit
 
+            //self.navigationItem.titleView = imageView
+        }
     }
     
     func styleView() {
@@ -153,6 +170,9 @@ class SortingViewController: UIViewController {
         topLabel.textColor = .whiteColor()
         bottomLabel.textColor = .whiteColor()
         
+        topImageView.layer.cornerRadius = 64 / 2
+        bottomImageView.layer.cornerRadius = 64 / 2
+
         topView.layer.shadowColor = UIColor.blackColor().CGColor;
         topView.layer.shadowOpacity = 0.25
         topView.layer.shadowRadius = 2
@@ -178,18 +198,6 @@ class SortingViewController: UIViewController {
         button.tintColor = .greenColor()
         decideLaterBarButton.customView = button
         decideLaterBarButton.tintColor = .greenColor()
-        
-        
-//        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-//        
-//        button.bounds = self.imageView.bounds;
-//        
-//        [button addSubview:self.imageView];
-//        
-//        [button addTarget:self action:@selector(buttonTouched:) forControlEvents:UIControlEventTouchUpInside];
-//        
-//        UIBarButtonItem *barButton = [[[UIBarButtonItem alloc] initWithCustomView: button] autorelease];
-        
 
     }
     
@@ -239,9 +247,15 @@ class SortingViewController: UIViewController {
             
             topLabel.text = battle.playerOne.text
             topView.tag = battle.playerOne.tag
+            if let image = battle.playerOne.image {
+                topImageView.image = image
+            }
             
             bottomLabel.text = battle.playerTwo.text
             bottomView.tag = battle.playerTwo.tag
+            if let image = battle.playerTwo.image {
+                bottomImageView.image = image
+            }
             
         } catch PickBattleError.AlreadyTakenPlace {
             

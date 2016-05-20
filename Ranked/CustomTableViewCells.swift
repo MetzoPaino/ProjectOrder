@@ -18,12 +18,21 @@ class LabelCell: UITableViewCell {
 class CollectionTableViewCell: UITableViewCell {
     
     @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var sortedImageView: UIImageView!
+    @IBOutlet weak var summaryImageView: UIImageView!
     @IBOutlet weak var lowerStackView: UIStackView!
     @IBOutlet weak var descriptionLabel: UILabel!
     
+    @IBOutlet weak var summaryImageViewWidthConstraint: NSLayoutConstraint!
+    @IBOutlet weak var summaryImageViewLeadingConstraint: NSLayoutConstraint!
+
     @IBOutlet weak var masterStackViewBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var masterStackViewTopConstraint: NSLayoutConstraint!
+    
+    func configureCell() {
+        
+        summaryImageView.layer.cornerRadius = 32 / 2
+        summaryImageView.clipsToBounds = true
+    }
 }
 
 //MARK: - ItemsViewController
@@ -31,11 +40,16 @@ class CollectionTableViewCell: UITableViewCell {
 class TitleCell: UITableViewCell {
     
     @IBOutlet weak var label: UILabel!
-    
+    @IBOutlet weak var summaryImageView: UIImageView!
+    //@IBOutlet weak var summaryImageViewWidthConstraint: NSLayoutConstraint!
+    @IBOutlet weak var summaryImageViewHeightConstraint: NSLayoutConstraint!
+    //@IBOutlet weak var summaryImageViewLeadingConstraint: NSLayoutConstraint!
+
     let textViewValues = (color: UIColor.blackColor(), placeholderColor: UIColor.lightGrayColor(), placeholderText: "Title")
     
-    func configureCell(title: String?, enableEditing: Bool?) {
-        
+    func configureCell() {
+        summaryImageView.layer.cornerRadius = 64 / 2
+        //summaryImageView.clipsToBounds = true
     }
 }
 
