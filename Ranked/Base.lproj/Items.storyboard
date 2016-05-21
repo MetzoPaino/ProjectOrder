@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="nlL-AF-Rd4">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="nlL-AF-Rd4">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -202,20 +202,32 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="chk-KZ-TAJ">
-                                                    <rect key="frame" x="16" y="16" width="576" height="29.5"/>
+                                                    <rect key="frame" x="72" y="16" width="520" height="29.5"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="FjM-mx-WmT">
+                                                    <rect key="frame" x="16" y="7" width="48" height="48"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="48" id="aIZ-bD-GSF"/>
+                                                        <constraint firstAttribute="width" secondItem="FjM-mx-WmT" secondAttribute="height" multiplier="1:1" id="xW5-L4-tNZ"/>
+                                                    </constraints>
+                                                </imageView>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="FjM-mx-WmT" firstAttribute="centerY" secondItem="7Ls-k3-2C6" secondAttribute="centerY" id="AYl-sp-gdG"/>
                                                 <constraint firstAttribute="trailing" secondItem="chk-KZ-TAJ" secondAttribute="trailing" constant="8" id="Hmg-ut-uMf"/>
-                                                <constraint firstItem="chk-KZ-TAJ" firstAttribute="leading" secondItem="7Ls-k3-2C6" secondAttribute="leading" constant="16" id="OWG-Hr-Wyh"/>
                                                 <constraint firstItem="chk-KZ-TAJ" firstAttribute="top" secondItem="7Ls-k3-2C6" secondAttribute="top" constant="16" id="ReV-sa-EnJ"/>
                                                 <constraint firstAttribute="bottom" secondItem="chk-KZ-TAJ" secondAttribute="bottom" constant="16" id="bBC-ga-qzS"/>
+                                                <constraint firstItem="chk-KZ-TAJ" firstAttribute="leading" secondItem="FjM-mx-WmT" secondAttribute="trailing" constant="8" id="n5x-Xz-Khj"/>
+                                                <constraint firstItem="FjM-mx-WmT" firstAttribute="leading" secondItem="7Ls-k3-2C6" secondAttribute="leadingMargin" constant="8" id="xvd-hc-LR3"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="circleImageView" destination="FjM-mx-WmT" id="fAa-jL-CKb"/>
+                                            <outlet property="circleImageViewLeadingConstraint" destination="xvd-hc-LR3" id="lGd-a4-48x"/>
+                                            <outlet property="circleImageViewWidthConstraint" destination="aIZ-bD-GSF" id="nOp-Nb-64A"/>
                                             <outlet property="titleLabel" destination="chk-KZ-TAJ" id="tOY-C5-AWx"/>
                                         </connections>
                                     </tableViewCell>

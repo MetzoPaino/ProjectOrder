@@ -502,8 +502,12 @@ extension TableViewDelegate: UITableViewDelegate {
         if indexPath.section == 0 {
             return false
         } else {
-
-            return true
+            
+            if !collection.premade {
+                return true
+            } else {
+                return false
+            }
         }
     }
     
@@ -513,25 +517,34 @@ extension TableViewDelegate: UITableViewDelegate {
             return nil
         } else {
             
-            let editAction = UITableViewRowAction(style: .Normal, title: "Edit") { (rowAction:UITableViewRowAction, indexPath:NSIndexPath) -> Void in
+            var actionArray = [UITableViewRowAction]()
+            
+            if !collection.premade {
+            
+                let editAction = UITableViewRowAction(style: .Normal, title: "Edit") { (rowAction:UITableViewRowAction, indexPath:NSIndexPath) -> Void in
                 
-                self.indexPathToEdit = indexPath
-                self.performSegueWithIdentifier("ShowItem", sender: tableView.cellForRowAtIndexPath(indexPath))
+                    self.indexPathToEdit = indexPath
+                    self.performSegueWithIdentifier("ShowItem", sender: tableView.cellForRowAtIndexPath(indexPath))
                 
+                }
+                editAction.backgroundColor = UIColor.secondaryColor()
+                actionArray.append(editAction)
+            
+            
+                let deleteAction = UITableViewRowAction(style: .Destructive, title: "Delete") { (rowAction:UITableViewRowAction, indexPath:NSIndexPath) -> Void in
+                    
+                    CloudKitManager().deleteFromCloudKit(self.collection.items[indexPath.row].record.recordID)
+                    self.collection.items.removeAtIndex(indexPath.row)
+                    tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+                    tableView.reloadData()
+                }
+                deleteAction.backgroundColor = UIColor.warningColor()
+                actionArray.insert(deleteAction, atIndex: 0)
+
+                return actionArray
+            } else {
+                return nil
             }
-            editAction.backgroundColor = UIColor.secondaryColor()
-            
-            
-            let deleteAction = UITableViewRowAction(style: .Destructive, title: "Delete") { (rowAction:UITableViewRowAction, indexPath:NSIndexPath) -> Void in
-                
-                CloudKitManager().deleteFromCloudKit(self.collection.items[indexPath.row].record.recordID)
-                self.collection.items.removeAtIndex(indexPath.row)
-                tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
-                tableView.reloadData()
-            }
-            deleteAction.backgroundColor = UIColor.warningColor()
-            
-            return [deleteAction, editAction]
         }
     }
 }
@@ -578,7 +591,6 @@ extension TableViewDataSource: UITableViewDataSource {
             
         } else {
             
-            print(collection.returnArrayOfItems(false).count)
             return collection.returnArrayOfItems(false).count
         }
     }
@@ -639,6 +651,14 @@ extension TableViewDataSource: UITableViewDataSource {
             
             cell.titleLabel.text = item.text
             cell.titleLabel.textColor = .titleColor()
+            
+            if let image = item.image {
+                cell.circleImageViewWidthConstraint.constant = 48
+                cell.circleImageView.image = image
+                cell.configureCell()
+            } else {
+                cell.circleImageViewWidthConstraint.constant = 0
+            }
             
             cell.layoutMargins = UIEdgeInsetsZero;
             cell.selectionStyle = .None

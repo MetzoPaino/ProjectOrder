@@ -78,6 +78,15 @@ class SortedItemTableViewCell: UITableViewCell {
 class UnsortedItemTableViewCell: UITableViewCell {
     
     @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var circleImageView: UIImageView!
+    @IBOutlet weak var circleImageViewLeadingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var circleImageViewWidthConstraint: NSLayoutConstraint!
+    
+    func configureCell() {
+        
+        circleImageView.layer.cornerRadius = circleImageViewWidthConstraint.constant / 2
+        circleImageView.clipsToBounds = true
+    }
 }
 
 protocol AddItemTableViewCellDelegate: class {
