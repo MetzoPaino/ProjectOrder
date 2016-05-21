@@ -78,6 +78,8 @@ class SortedItemTableViewCell: UITableViewCell {
 class UnsortedItemTableViewCell: UITableViewCell {
     
     @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var numberLabel: UILabel!
+    @IBOutlet weak var tintView: UIView!
     @IBOutlet weak var circleImageView: UIImageView!
     @IBOutlet weak var circleImageViewLeadingConstraint: NSLayoutConstraint!
     @IBOutlet weak var circleImageViewWidthConstraint: NSLayoutConstraint!
