@@ -33,16 +33,22 @@ class SortingViewController: UIViewController {
     @IBOutlet weak var topView: UIView!
     @IBOutlet weak var topViewTopConstraint: NSLayoutConstraint!
     @IBOutlet weak var topImageView: UIImageView!
+    @IBOutlet weak var topImageViewWidthConstraint: NSLayoutConstraint!
 
     @IBOutlet weak var topLabel: UILabel!
+    @IBOutlet weak var topLabelLeadingConstraint: NSLayoutConstraint!
+
     
     @IBOutlet weak var centerView: UIView!
     
     @IBOutlet var bottomViewPanGesture: UIPanGestureRecognizer!
     @IBOutlet weak var bottomView: UIView!
     @IBOutlet weak var bottomImageView: UIImageView!
+    @IBOutlet weak var bottomImageViewWidthConstraint: NSLayoutConstraint!
 
     @IBOutlet weak var bottomLabel: UILabel!
+    @IBOutlet weak var bottomLabelTrailingConstraint: NSLayoutConstraint!
+
     @IBOutlet weak var bottomViewBottomConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var imageView: UIImageView!
@@ -63,6 +69,8 @@ class SortingViewController: UIViewController {
     
     var animationArray = [UIImage]()
     var chooseLaterAnimationArray = [UIImage]()
+    
+    //MARK: - Setup
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -250,14 +258,32 @@ class SortingViewController: UIViewController {
             
             topLabel.text = battle.playerOne.text
             topView.tag = battle.playerOne.tag
+            
             if let image = battle.playerOne.image {
                 topImageView.image = image
+                topImageViewWidthConstraint.constant = 64
+                topLabelLeadingConstraint.constant = 16
+                topLabel.textAlignment = .Left
+
+            } else {
+                topImageViewWidthConstraint.constant = 0
+                topLabelLeadingConstraint.constant = 0
+                topLabel.textAlignment = .Center
+
             }
             
             bottomLabel.text = battle.playerTwo.text
             bottomView.tag = battle.playerTwo.tag
+            
             if let image = battle.playerTwo.image {
                 bottomImageView.image = image
+                bottomImageViewWidthConstraint.constant = 64
+                bottomLabelTrailingConstraint.constant = 16
+                bottomLabel.textAlignment = .Right
+            } else {
+                bottomImageViewWidthConstraint.constant = 0
+                bottomLabelTrailingConstraint.constant = 0
+                bottomLabel.textAlignment = .Center
             }
             
         } catch PickBattleError.AlreadyTakenPlace {

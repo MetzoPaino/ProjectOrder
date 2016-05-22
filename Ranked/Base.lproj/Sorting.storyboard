@@ -193,7 +193,9 @@
                     </navigationItem>
                     <connections>
                         <outlet property="bottomImageView" destination="dJu-Zo-ZX0" id="Eqm-HD-XvM"/>
+                        <outlet property="bottomImageViewWidthConstraint" destination="Ary-qR-DSp" id="yYc-rl-7EM"/>
                         <outlet property="bottomLabel" destination="4FI-4V-mlu" id="8yh-QU-7rU"/>
+                        <outlet property="bottomLabelTrailingConstraint" destination="9A2-0b-pZM" id="Pl5-EZ-mTz"/>
                         <outlet property="bottomView" destination="pnT-b6-PXj" id="Hir-z2-572"/>
                         <outlet property="bottomViewBottomConstraint" destination="5E2-gY-BvQ" id="qHP-oS-pFo"/>
                         <outlet property="bottomViewPanGesture" destination="iKC-vg-ZHE" id="IvV-A3-vsh"/>
@@ -204,7 +206,9 @@
                         <outlet property="playingFieldView" destination="UPf-OF-iQc" id="OgL-mI-cvN"/>
                         <outlet property="progressView" destination="Deb-Vk-5eY" id="GaW-nN-h1Q"/>
                         <outlet property="topImageView" destination="m58-qj-ehV" id="mtF-PU-qHI"/>
+                        <outlet property="topImageViewWidthConstraint" destination="guy-2P-rHT" id="swS-Sq-zCI"/>
                         <outlet property="topLabel" destination="1bc-j6-bVc" id="EsL-Cb-MtD"/>
+                        <outlet property="topLabelLeadingConstraint" destination="cyh-2f-0pV" id="hLm-7R-CbL"/>
                         <outlet property="topView" destination="SVL-KD-6G0" id="fei-7H-GAu"/>
                         <outlet property="topViewPanGesture" destination="T3P-3V-5tI" id="lxf-i4-1QE"/>
                         <outlet property="topViewTopConstraint" destination="5DD-29-fRc" id="V7u-1K-FGd"/>
