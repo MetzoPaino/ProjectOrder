@@ -66,8 +66,8 @@ extension UIColor {
     }
     
     public class func blockNeutralColor() -> UIColor {
-        
-//        return UIColor(red: 226/255, green: 47/255, blue: 117/255, alpha: 1.0)
+
+        //return UIColor(red: 226/255, green: 47/255, blue: 117/255, alpha: 1.0)
         return UIColor(red: 66/255, green: 77/255, blue: 116/255, alpha: 1.0)
 
     }

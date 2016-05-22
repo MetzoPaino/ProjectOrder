@@ -620,43 +620,33 @@ extension TableViewDataSource: UITableViewDataSource {
             let item = collection.returnArrayOfItems(true)[indexPath.row]
             
             let cell = tableView.dequeueReusableCellWithIdentifier("UnsortedCell", forIndexPath: indexPath) as! UnsortedItemTableViewCell
-
-            cell.layoutMargins = UIEdgeInsetsZero;
-            cell.selectionStyle = .None
             
-            cell.numberLabel.hidden = false
             cell.numberLabel.text = "\(indexPath.row + 1)"
-            cell.numberLabel.textColor = .whiteColor()
             cell.titleLabel.text = item.text
-            cell.titleLabel.textColor = .titleColor()
-            
-            
+
+            cell.configureCell(true)
+
             if let image = item.image {
-                cell.circleImageViewWidthConstraint.constant = 48
                 cell.circleImageView.image = image
-                cell.configureCell()
             } else {
-                cell.circleImageViewWidthConstraint.constant = 0
+                cell.circleImageView.image = UIImage()
+                cell.tintView.alpha = 1
             }
+
             
-            
-            cell.configureCell()
-            
-            cell.tintView.alpha = 0.5
             switch indexPath.row {
             case 0:
-                cell.tintView.backgroundColor = .secondaryColor()
+                cell.tintView.backgroundColor = .primaryColor()
             case 1:
-                cell.tintView.backgroundColor = .secondColor()
+                cell.tintView.backgroundColor = .secondaryColor()
             case 2:
+                cell.tintView.backgroundColor = .secondColor()
+            case 3:
                 cell.tintView.backgroundColor = .thirdColor()
             default:
                 cell.tintView.backgroundColor = .loserColor()
             }
-            
-            cell.tintView.layer.cornerRadius = cell.circleImageViewWidthConstraint.constant / 2
-            cell.tintView.clipsToBounds = true
-            
+
             return cell
             
         } else {
@@ -666,19 +656,15 @@ extension TableViewDataSource: UITableViewDataSource {
             let cell = tableView.dequeueReusableCellWithIdentifier("UnsortedCell", forIndexPath: indexPath) as! UnsortedItemTableViewCell
             
             cell.titleLabel.text = item.text
-            cell.titleLabel.textColor = .titleColor()
-            cell.numberLabel.hidden = true
-            
+
             if let image = item.image {
                 cell.circleImageViewWidthConstraint.constant = 48
                 cell.circleImageView.image = image
-                cell.configureCell()
+                
             } else {
                 cell.circleImageViewWidthConstraint.constant = 0
             }
-            
-            cell.layoutMargins = UIEdgeInsetsZero;
-            cell.selectionStyle = .None
+            cell.configureCell(false)
             
             return cell
         }

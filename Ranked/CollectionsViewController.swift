@@ -262,10 +262,10 @@ extension TableViewDataSource: UITableViewDataSource {
                 cell.descriptionLabel.textColor = UIColor.subHeadingColor()
                 cell.layoutMargins = UIEdgeInsetsZero;
                 collection.items = collection.items.sort({ $0.points > $1.points })
-                cell.descriptionLabel.text = collection.items.first!.text
+                cell.descriptionLabel.text = "1. " + collection.items.first!.text
                 
                 if let image = collection.image {
-                    cell.summaryImageViewWidthConstraint.constant = 32
+                    cell.summaryImageViewWidthConstraint.constant = 48
                     cell.summaryImageView.image = image
                     cell.configureCell()
                 } else {
@@ -282,7 +282,7 @@ extension TableViewDataSource: UITableViewDataSource {
                 cell.layoutMargins = UIEdgeInsetsZero
                 
                 if let image = collection.image {
-                    cell.summaryImageViewWidthConstraint.constant = 32
+                    cell.summaryImageViewWidthConstraint.constant = 48
                     cell.summaryImageViewLeadingConstraint.constant = 16
 
                     cell.summaryImageView.image = image

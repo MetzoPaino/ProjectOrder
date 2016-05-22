@@ -30,7 +30,7 @@ class CollectionTableViewCell: UITableViewCell {
     
     func configureCell() {
         
-        summaryImageView.layer.cornerRadius = 32 / 2
+        summaryImageView.layer.cornerRadius = summaryImageViewWidthConstraint.constant / 2
         summaryImageView.clipsToBounds = true
     }
 }
@@ -78,16 +78,41 @@ class SortedItemTableViewCell: UITableViewCell {
 class UnsortedItemTableViewCell: UITableViewCell {
     
     @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var titleLabelLeadingConstraint: NSLayoutConstraint!
     @IBOutlet weak var numberLabel: UILabel!
     @IBOutlet weak var tintView: UIView!
     @IBOutlet weak var circleImageView: UIImageView!
     @IBOutlet weak var circleImageViewLeadingConstraint: NSLayoutConstraint!
     @IBOutlet weak var circleImageViewWidthConstraint: NSLayoutConstraint!
-    
-    func configureCell() {
+
+    func configureCell(sorted:Bool) {
         
-        circleImageView.layer.cornerRadius = circleImageViewWidthConstraint.constant / 2
-        circleImageView.clipsToBounds = true
+        layoutMargins = UIEdgeInsetsZero;
+        selectionStyle = .None
+        
+        numberLabel.textColor = .whiteColor()
+        titleLabel.textColor = .titleColor()
+
+        if sorted {
+            
+            titleLabelLeadingConstraint.constant = 8
+            numberLabel.hidden = false
+
+            circleImageView.layer.cornerRadius = circleImageViewWidthConstraint.constant / 2
+            tintView.layer.cornerRadius = circleImageViewWidthConstraint.constant / 2
+            
+            circleImageView.clipsToBounds = true
+            tintView.clipsToBounds = true
+            
+            tintView.alpha = 0.5
+            
+        } else {
+            
+            titleLabelLeadingConstraint.constant = 0
+            numberLabel.hidden = true
+        }
+        
+
     }
 }
 
