@@ -159,6 +159,8 @@ extension AddListsViewController: UITableViewDataSource {
             if string.containsString(premadeCollections[indexPath.row].name.trim()) {
                 cell.backgroundColor = .disabledColor()
                 cell.userInteractionEnabled = false;
+                cell.titleLabel.textColor = .lightGrayColor()
+                cell.circleImageView.alpha = 0.5
                 break
             }
         }
