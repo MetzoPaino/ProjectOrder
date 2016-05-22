@@ -666,6 +666,22 @@ extension TableViewDataSource: UITableViewDataSource {
             }
             cell.configureCell(false)
             
+            // This is messy, fix it properly
+            if let _ = item.image {
+                
+                cell.circleImageView.layer.cornerRadius = cell.circleImageViewWidthConstraint.constant / 2
+                cell.circleImageView.layer.masksToBounds = true
+                cell.titleLabelLeadingConstraint.constant = 8
+                
+            } else {
+                
+                cell.titleLabelLeadingConstraint.constant = 0
+
+            }
+
+            
+            cell.tintView.alpha = 0
+            
             return cell
         }
     }

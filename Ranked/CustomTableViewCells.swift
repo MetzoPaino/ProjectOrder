@@ -122,7 +122,7 @@ class UnsortedItemTableViewCell: UITableViewCell {
             
         } else {
             
-            titleLabelLeadingConstraint.constant = 0
+
             numberLabel.hidden = true
         }
         

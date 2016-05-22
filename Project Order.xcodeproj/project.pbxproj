@@ -14,6 +14,7 @@
 		0A1FF5C91CE8800B007A7069 /* Items.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A1FF5C71CE8800B007A7069 /* Items.storyboard */; };
 		0A221CE81CDE03C900CA2CA1 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A221CE71CDE03C900CA2CA1 /* SettingsViewController.swift */; };
 		0A221CEB1CDE0BBA00CA2CA1 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A221CEA1CDE0BBA00CA2CA1 /* AboutViewController.swift */; };
+		0A22D63B1CF1C626005B82EC /* FinalFantasy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A22D63A1CF1C626005B82EC /* FinalFantasy.swift */; };
 		0A2535861C52BFF100579102 /* SortingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2535851C52BFF100579102 /* SortingViewController.swift */; };
 		0A2AADC41C7905CB008A6AE0 /* CustomNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2AADC31C7905CB008A6AE0 /* CustomNavigationController.swift */; };
 		0A3D6EF81CD4EFDA003F5C42 /* Tutorial.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A3D6EF61CD4EFDA003F5C42 /* Tutorial.storyboard */; };
@@ -46,6 +47,7 @@
 		0A1FF5C81CE8800B007A7069 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Items.storyboard; sourceTree = "<group>"; };
 		0A221CE71CDE03C900CA2CA1 /* SettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SettingsViewController.swift; path = Settings/SettingsViewController.swift; sourceTree = "<group>"; };
 		0A221CEA1CDE0BBA00CA2CA1 /* AboutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AboutViewController.swift; path = Settings/AboutViewController.swift; sourceTree = "<group>"; };
+		0A22D63A1CF1C626005B82EC /* FinalFantasy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FinalFantasy.swift; path = PremadeCollections/FinalFantasy.swift; sourceTree = "<group>"; };
 		0A2535851C52BFF100579102 /* SortingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SortingViewController.swift; sourceTree = "<group>"; };
 		0A2AADC31C7905CB008A6AE0 /* CustomNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomNavigationController.swift; sourceTree = "<group>"; };
 		0A3D6EF71CD4EFDA003F5C42 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Tutorial.storyboard; sourceTree = "<group>"; };
@@ -96,6 +98,7 @@
 				0A04E6A81CB93894006A80E5 /* ProtocolManager.swift */,
 				0ADF5C0D1CBA9D7400BC74AA /* Helpers.swift */,
 				0AF64FB81C4A859B003F8519 /* CollectionCreator.swift */,
+				0A22D63A1CF1C626005B82EC /* FinalFantasy.swift */,
 			);
 			name = Managers;
 			sourceTree = "<group>";
@@ -282,6 +285,7 @@
 				0AF64FA11C4A8129003F8519 /* AppDelegate.swift in Sources */,
 				0AF64FB51C4A830B003F8519 /* Models.swift in Sources */,
 				0ADF5C0E1CBA9D7400BC74AA /* Helpers.swift in Sources */,
+				0A22D63B1CF1C626005B82EC /* FinalFantasy.swift in Sources */,
 				0A04E6A91CB93894006A80E5 /* ProtocolManager.swift in Sources */,
 				0A3D6EFD1CD4F8F5003F5C42 /* GetStartedViewController.swift in Sources */,
 				0A2AADC41C7905CB008A6AE0 /* CustomNavigationController.swift in Sources */,

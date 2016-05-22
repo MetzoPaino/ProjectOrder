@@ -172,6 +172,9 @@ class SortingViewController: UIViewController {
         
         topImageView.layer.cornerRadius = 64 / 2
         bottomImageView.layer.cornerRadius = 64 / 2
+        
+        topImageView.layer.masksToBounds = true
+        bottomImageView.layer.masksToBounds = true
 
         topView.layer.shadowColor = UIColor.blackColor().CGColor;
         topView.layer.shadowOpacity = 0.25

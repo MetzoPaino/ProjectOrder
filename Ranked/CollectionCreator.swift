@@ -13,7 +13,7 @@ import CloudKit
 
 func createPreMadeCollectionsArray() -> [CollectionModel] {
     
-    return [createDavidBowieCollection(), createStarWarsCollection(), createHarryPotterCollection(),createInternetBrowserCollection(), createDesktopOSCollection(), createMobileOSCollection(), createMarioCharactersCollection(), createHottestHobbitsCollection()]
+    return [createDavidBowieCollection(), createStarWarsCollection(), createHarryPotterCollection(),createInternetBrowserCollection(), createDesktopOSCollection(), createMobileOSCollection(), createMarioCharactersCollection(), createHottestHobbitsCollection(), createFinalFantasyCollection()]
 }
 
 //createFinalFantasyCollection()
@@ -153,6 +153,7 @@ func createHarryPotterCollection() -> CollectionModel {
     collection.record = createRecordOfTypeWithUniqueIdentifier(collectionRecordType, uniqueIdentifier: collection.name.trim())
     collection.premade = true
     
+
     let stone = ItemModel(string: "Philosopher's Stone", dateCreated: NSDate())
     stone.record = createRecordOfTypeWithUniqueIdentifier(itemRecordType, uniqueIdentifier: "PhilosophersStone")
 
@@ -175,33 +176,6 @@ func createHarryPotterCollection() -> CollectionModel {
     hallows.record = createRecordOfTypeWithUniqueIdentifier(itemRecordType, uniqueIdentifier: "DeathlyHallows")
     
     collection.items = [stone, chamber, prisoner, goblet, phoenix, prince, hallows]
-    
-    return collection
-}
-
-func createFinalFantasyCollection() -> CollectionModel {
-    
-    let collection = CollectionModel(name: "Final Fantasy", description: "Final Fantasy (ファイナルファンタジー Fainaru Fantajī?) is a science fiction and fantasy media franchise created by Hironobu Sakaguchi, and developed and owned by Square Enix (formerly Square). The franchise centers on a series of fantasy and science fantasy role-playing video games (RPGs). The eponymous first game in the series, published in 1987, was conceived by Sakaguchi as his last-ditch effort in the game industry; the title was a success and spawned sequels.", dateCreated: NSDate())
-    collection.record = CKRecord(recordType: "Collection", recordID: CKRecordID(recordName: collection.name.trim()))
-    collection.premade = true
-    
-    let I = ItemModel(string: "Final Fantasy I", dateCreated: NSDate())
-    let II = ItemModel(string: "Final Fantasy II", dateCreated: NSDate())
-    let III = ItemModel(string: "Final Fantasy III", dateCreated: NSDate())
-    let IV = ItemModel(string: "Final Fantasy IV", dateCreated: NSDate())
-    let V = ItemModel(string: "Final Fantasy V", dateCreated: NSDate())
-    let VI = ItemModel(string: "Final Fantasy VI", dateCreated: NSDate())
-    let VII = ItemModel(string: "Final Fantasy VII", dateCreated: NSDate())
-    let VIII = ItemModel(string: "Final Fantasy VIII", dateCreated: NSDate())
-    let IX = ItemModel(string: "Final Fantasy IX", dateCreated: NSDate())
-    let X = ItemModel(string: "Final Fantasy X", dateCreated: NSDate())
-    let XI = ItemModel(string: "Final Fantasy XI", dateCreated: NSDate())
-    let XII = ItemModel(string: "Final Fantasy XII", dateCreated: NSDate())
-    let XIII = ItemModel(string: "Final Fantasy XIII", dateCreated: NSDate())
-    let XIV = ItemModel(string: "Final Fantasy XIV", dateCreated: NSDate())
-    let XV = ItemModel(string: "Final Fantasy XV", dateCreated: NSDate())
-    
-    collection.items = [I, II, III, IV, V, VI, VII, VIII, IX, X, XI, XII, XIII, XIV, XV]
     
     return collection
 }

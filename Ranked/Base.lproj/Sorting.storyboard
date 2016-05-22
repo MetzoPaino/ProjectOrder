@@ -71,7 +71,7 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SVL-KD-6G0">
                                                 <rect key="frame" x="0.0" y="0.0" width="536" height="96"/>
                                                 <subviews>
-                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="m58-qj-ehV">
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="m58-qj-ehV">
                                                         <rect key="frame" x="16" y="16" width="64" height="64"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" secondItem="m58-qj-ehV" secondAttribute="height" multiplier="1:1" id="EsJ-fb-9YG"/>
@@ -103,7 +103,7 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pnT-b6-PXj">
                                                 <rect key="frame" x="0.0" y="352" width="536" height="96"/>
                                                 <subviews>
-                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dJu-Zo-ZX0">
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dJu-Zo-ZX0">
                                                         <rect key="frame" x="456" y="16.5" width="64" height="64"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="64" id="Ary-qR-DSp"/>
