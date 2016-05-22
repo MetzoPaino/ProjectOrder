@@ -133,7 +133,16 @@ extension AddListsViewController: UITableViewDataSource {
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! LabelCell
-        cell.label.text = premadeCollections[indexPath.row].name
+        cell.titleLabel.text = premadeCollections[indexPath.row].name
+        
+        if let image = premadeCollections[indexPath.row].image {
+            cell.circleImageViewWidthConstraint.constant = 48
+            cell.circleImageView.image = image
+            cell.configureCell(true)
+        } else {
+            cell.circleImageViewWidthConstraint.constant = 0
+            cell.configureCell(false)
+        }
         
         cell.selected = selectedArray[indexPath.row]
 
@@ -153,6 +162,7 @@ extension AddListsViewController: UITableViewDataSource {
                 break
             }
         }
+
         return cell
     }
 }

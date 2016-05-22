@@ -10,7 +10,23 @@ import UIKit
 
 class LabelCell: UITableViewCell {
     
-    @IBOutlet weak var label: UILabel!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var titleLabelLeadingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var circleImageView: UIImageView!
+    @IBOutlet weak var circleImageViewWidthConstraint: NSLayoutConstraint!
+    
+    func configureCell(hasImage:Bool) {
+        
+        layoutMargins = UIEdgeInsetsZero;
+        selectionStyle = .None
+        
+        if hasImage {
+            titleLabelLeadingConstraint.constant = 8
+            circleImageView.layer.cornerRadius = circleImageViewWidthConstraint.constant / 2
+        } else {
+            titleLabelLeadingConstraint.constant = 0
+        }
+    }
 }
 
 //MARK: - CollectionsViewController
@@ -41,15 +57,13 @@ class TitleCell: UITableViewCell {
     
     @IBOutlet weak var label: UILabel!
     @IBOutlet weak var summaryImageView: UIImageView!
-    //@IBOutlet weak var summaryImageViewWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var summaryImageViewHeightConstraint: NSLayoutConstraint!
-    //@IBOutlet weak var summaryImageViewLeadingConstraint: NSLayoutConstraint!
 
     let textViewValues = (color: UIColor.blackColor(), placeholderColor: UIColor.lightGrayColor(), placeholderText: "Title")
     
     func configureCell() {
         summaryImageView.layer.cornerRadius = 64 / 2
-        //summaryImageView.clipsToBounds = true
+        summaryImageView.clipsToBounds = true
     }
 }
 

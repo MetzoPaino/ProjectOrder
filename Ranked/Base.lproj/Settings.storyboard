@@ -225,33 +225,45 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="hE9-RU-8FN">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="96" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="hE9-RU-8FN">
                                 <rect key="frame" x="0.0" y="64" width="600" height="536"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="nz6-i7-GsZ" customClass="LabelCell" customModule="_" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="600" height="44"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" rowHeight="96" id="nz6-i7-GsZ" customClass="LabelCell" customModule="_" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="600" height="96"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="nz6-i7-GsZ" id="mnC-PA-eDN">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="95.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PDL-Ty-Mcj">
-                                                    <rect key="frame" x="16" y="16" width="568" height="11.5"/>
+                                                    <rect key="frame" x="72" y="16" width="512" height="63.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hLe-Cc-sX8">
+                                                    <rect key="frame" x="16" y="24" width="48" height="48"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" secondItem="hLe-Cc-sX8" secondAttribute="height" multiplier="1:1" id="Mc6-dM-53P"/>
+                                                        <constraint firstAttribute="width" constant="48" id="aJQ-2g-Duw"/>
+                                                    </constraints>
+                                                </imageView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="PDL-Ty-Mcj" firstAttribute="leading" secondItem="mnC-PA-eDN" secondAttribute="leading" constant="16" id="84K-mP-iRk"/>
                                                 <constraint firstAttribute="bottom" secondItem="PDL-Ty-Mcj" secondAttribute="bottom" constant="16" id="CIr-aB-o86"/>
+                                                <constraint firstItem="hLe-Cc-sX8" firstAttribute="centerY" secondItem="mnC-PA-eDN" secondAttribute="centerY" id="IEQ-xV-mq7"/>
+                                                <constraint firstItem="hLe-Cc-sX8" firstAttribute="leading" secondItem="mnC-PA-eDN" secondAttribute="leading" constant="16" id="XK3-5b-GaZ"/>
+                                                <constraint firstItem="PDL-Ty-Mcj" firstAttribute="leading" secondItem="hLe-Cc-sX8" secondAttribute="trailing" constant="8" id="gVC-gH-seq"/>
                                                 <constraint firstAttribute="trailing" secondItem="PDL-Ty-Mcj" secondAttribute="trailing" constant="16" id="kKY-U6-t6U"/>
                                                 <constraint firstItem="PDL-Ty-Mcj" firstAttribute="top" secondItem="mnC-PA-eDN" secondAttribute="top" constant="16" id="zge-Cp-mKQ"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="label" destination="PDL-Ty-Mcj" id="kta-H4-VTu"/>
+                                            <outlet property="circleImageView" destination="hLe-Cc-sX8" id="tm0-EW-ck8"/>
+                                            <outlet property="circleImageViewWidthConstraint" destination="aJQ-2g-Duw" id="N9i-vP-dgB"/>
+                                            <outlet property="titleLabel" destination="PDL-Ty-Mcj" id="V8z-g2-WhY"/>
+                                            <outlet property="titleLabelLeadingConstraint" destination="gVC-gH-seq" id="te4-bU-bQB"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
