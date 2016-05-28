@@ -275,6 +275,13 @@ class CloudKitManager {
                 let dateCreated = fetchedCollection["DateCreated"] as! NSDate
                 
                 let collection = CollectionModel (name: name, description: description, dateCreated: dateCreated)
+                
+                if let asset = fetchedCollection["Image"] as? CKAsset,
+                    data = NSData(contentsOfURL: asset.fileURL),
+                    image = UIImage(data: data) {
+                    collection.image = image
+                }
+                
                 self.delegate?.newCloudCollection(collection)
             }
         }
