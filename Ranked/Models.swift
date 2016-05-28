@@ -20,7 +20,6 @@ class CollectionModel: NSObject, NSCoding {
     private var premadeKey = "premade"
     private var imageKey = "image"
 
-
     var record = CKRecord(recordType: "Collection")
     
     var name = ""

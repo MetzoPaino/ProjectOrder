@@ -8,6 +8,7 @@
 
 import Foundation
 import CloudKit
+import UIKit
 
 protocol CloudKitManagerDelegate: class {
     func newCloudCollection(collection:CollectionModel)
@@ -51,6 +52,22 @@ class CloudKitManager {
         record.setObject(collection.descriptionString, forKey: "Description")
         record.setObject(collection.dateCreated, forKey: "DateCreated")
         
+        if let image = collection.image {
+            
+            do {
+                
+                let url = NSURL(fileURLWithPath: NSTemporaryDirectory()).URLByAppendingPathComponent(collection.name.trim())
+                let data = UIImagePNGRepresentation(image)!
+                
+                try data.writeToURL(url, options: NSDataWritingOptions.AtomicWrite)
+                let asset = CKAsset(fileURL: url)
+                record.setObject(asset, forKey: "Image")
+            }
+            catch {
+                print("Error writing data", error)
+            }
+        }
+    
         database.saveRecord(record) { savedRecord, error in
             print(error)
             

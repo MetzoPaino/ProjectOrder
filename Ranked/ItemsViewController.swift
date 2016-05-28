@@ -68,7 +68,7 @@ class ItemsViewController: UIViewController, Injectable {
         
         let notificationCenter = NSNotificationCenter.defaultCenter()
         notificationCenter.addObserver(self, selector: #selector(ItemsViewController.receivedKeyboardNotification(_:)), name: UIKeyboardDidShowNotification, object: nil)
-        
+
         tapGesture.addTarget(self, action: #selector(ItemsViewController.receivedGestureNotification(_:)))
         styleView()
         styleTableView()
