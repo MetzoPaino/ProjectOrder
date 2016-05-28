@@ -624,10 +624,14 @@ extension TableViewDataSource: UITableViewDataSource {
             cell.numberLabel.text = "\(indexPath.row + 1)"
             cell.titleLabel.text = item.text
 
+            cell.circleImageViewWidthConstraint.constant = 48
+
             cell.configureCell(true)
 
             if let image = item.image {
                 cell.circleImageView.image = image
+                cell.tintView.alpha = 0.5
+
             } else {
                 cell.circleImageView.image = UIImage()
                 cell.tintView.alpha = 1
