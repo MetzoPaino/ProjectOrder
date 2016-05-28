@@ -116,6 +116,22 @@ class CloudKitManager {
             fetchedCollection["Description"] = collection.descriptionString
             fetchedCollection["DateCreated"] = collection.dateCreated
             
+            if let image = collection.image {
+                
+                do {
+                    
+                    let url = NSURL(fileURLWithPath: NSTemporaryDirectory()).URLByAppendingPathComponent(collection.name.trim())
+                    let data = UIImagePNGRepresentation(image)!
+                    
+                    try data.writeToURL(url, options: NSDataWritingOptions.AtomicWrite)
+                    let asset = CKAsset(fileURL: url)
+                    fetchedCollection.setObject(asset, forKey: "Image")
+                }
+                catch {
+                    print("Error writing data", error)
+                }
+            }
+
             self.database.saveRecord(fetchedCollection) { savedRecord, savedError in
                 print(error)
                 
