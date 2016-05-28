@@ -27,6 +27,7 @@ extension String {
     
     func trim() -> String {
         
-        return self.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+        let components = self.componentsSeparatedByCharactersInSet(NSCharacterSet.whitespaceCharacterSet()).filter { !$0.isEmpty }
+        return components.joinWithSeparator("")
     }
 }
