@@ -67,6 +67,19 @@ class TitleCell: UITableViewCell {
     }
 }
 
+class ImageCell: UITableViewCell {
+    
+    @IBOutlet weak var summaryImageView: UIImageView!
+    @IBOutlet weak var summaryImageViewWidthConstraint: NSLayoutConstraint!
+    @IBOutlet weak var button: UIButton!
+    
+    func configureCell() {
+        summaryImageView.backgroundColor = UIColor.disabledColor()
+        summaryImageView.layer.cornerRadius = summaryImageViewWidthConstraint.constant / 2
+        summaryImageView.clipsToBounds = true
+    }
+}
+
 class DescriptionCell: UITableViewCell {
     
     @IBOutlet weak var label: UILabel!

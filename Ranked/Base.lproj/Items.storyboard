@@ -190,32 +190,44 @@
                                             <outlet property="titleLabelLeadingConstraint" destination="n5x-Xz-Khj" id="VQC-v8-u7w"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ImageCell" rowHeight="63" id="0yX-mA-QQm" customClass="TitleCell" customModule="_" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="343" width="600" height="63"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ImageCell" rowHeight="96" id="0yX-mA-QQm" customClass="ImageCell" customModule="_" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="343" width="600" height="96"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="0yX-mA-QQm" id="fd0-7H-MAo">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="62.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="95.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="DavidBowie" translatesAutoresizingMaskIntoConstraints="NO" id="C6S-ta-Oju">
-                                                    <rect key="frame" x="277" y="8" width="46.5" height="46.5"/>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="900" translatesAutoresizingMaskIntoConstraints="NO" id="C6S-ta-Oju">
+                                                    <rect key="frame" x="276.5" y="8" width="48" height="48"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="C6S-ta-Oju" secondAttribute="height" multiplier="1:1" id="Aui-3n-lOO"/>
-                                                        <constraint firstAttribute="height" relation="lessThanOrEqual" constant="64" id="wRM-Gw-KD9"/>
+                                                        <constraint firstAttribute="width" constant="80" id="RfI-ab-Lca"/>
                                                     </constraints>
                                                 </imageView>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TDO-vx-3qZ">
+                                                    <rect key="frame" x="276.5" y="8" width="48" height="48"/>
+                                                    <state key="normal" image="PlusButton"/>
+                                                    <connections>
+                                                        <action selector="addImageButtonPressed:" destination="nlL-AF-Rd4" eventType="touchUpInside" id="AfG-uJ-MnB"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="TDO-vx-3qZ" firstAttribute="width" secondItem="C6S-ta-Oju" secondAttribute="width" id="AfC-QC-NCi"/>
+                                                <constraint firstItem="TDO-vx-3qZ" firstAttribute="height" secondItem="C6S-ta-Oju" secondAttribute="height" id="FoC-3E-1k9"/>
+                                                <constraint firstItem="TDO-vx-3qZ" firstAttribute="centerX" secondItem="C6S-ta-Oju" secondAttribute="centerX" id="HfX-2R-RuW"/>
                                                 <constraint firstAttribute="bottom" secondItem="C6S-ta-Oju" secondAttribute="bottom" constant="8" id="RYk-dp-TDt"/>
                                                 <constraint firstItem="C6S-ta-Oju" firstAttribute="top" secondItem="fd0-7H-MAo" secondAttribute="top" constant="8" id="VCG-PJ-viN"/>
+                                                <constraint firstItem="TDO-vx-3qZ" firstAttribute="centerY" secondItem="C6S-ta-Oju" secondAttribute="centerY" id="v9p-Es-Jcl"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <constraints>
                                             <constraint firstItem="C6S-ta-Oju" firstAttribute="centerX" secondItem="0yX-mA-QQm" secondAttribute="centerX" id="3fq-MJ-vDO"/>
                                         </constraints>
                                         <connections>
-                                            <outlet property="summaryImageView" destination="C6S-ta-Oju" id="hXW-N7-eux"/>
-                                            <outlet property="summaryImageViewHeightConstraint" destination="wRM-Gw-KD9" id="e33-rz-49k"/>
+                                            <outlet property="button" destination="TDO-vx-3qZ" id="iG8-Zq-YEg"/>
+                                            <outlet property="summaryImageView" destination="C6S-ta-Oju" id="Zkv-u9-J6x"/>
+                                            <outlet property="summaryImageViewWidthConstraint" destination="RfI-ab-Lca" id="c6E-9J-Ua4"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -322,7 +334,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="DavidBowie" width="750" height="750"/>
         <image name="PlusButton" width="48" height="48"/>
     </resources>
     <inferredMetricsTieBreakers>

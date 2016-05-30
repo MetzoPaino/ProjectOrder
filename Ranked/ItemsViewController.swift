@@ -42,7 +42,6 @@ class ItemsViewController: UIViewController, Injectable {
     
     weak var delegate: ItemsViewControllerDelegate?
 
-    
     var inEditingMode: Bool?
     var newCollection: Bool!
     
@@ -50,11 +49,13 @@ class ItemsViewController: UIViewController, Injectable {
     
     let tapGesture = UITapGestureRecognizer()
     
-    let editingCellOrder = [CellType.title, CellType.description, CellType.addItem]
+    let editingCellOrder = [CellType.image, CellType.title, CellType.description, CellType.addItem]
     var displayCellOrder = [CellType]()
 
     typealias AssociatedObject = CollectionModel
     var collection: CollectionModel!
+    
+    let imagePicker = UIImagePickerController()
     
     // MARK: - Load View
     
@@ -62,9 +63,19 @@ class ItemsViewController: UIViewController, Injectable {
         self.tableView.reloadData()
     }
 
+    @IBAction func addImageButtonPressed(sender: UIButton) {
+        
+        presentViewController(imagePicker, animated: true, completion: nil)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         assertDependencies()
+        
+        imagePicker.delegate = self
+        imagePicker.allowsEditing = false
+        imagePicker.sourceType = .PhotoLibrary
+        imagePicker.navigationBar.tintColor = .primaryColor()
         
         let notificationCenter = NSNotificationCenter.defaultCenter()
         notificationCenter.addObserver(self, selector: #selector(ItemsViewController.receivedKeyboardNotification(_:)), name: UIKeyboardDidShowNotification, object: nil)
@@ -564,7 +575,7 @@ extension TableViewDataSource: UITableViewDataSource {
             
             var cellCounter = 0
             
-            if let _ = collection.image {
+            if collection.image != nil || collection.premade == false {
 
                 cellCounter = cellCounter + 1
                 displayCellOrder.append(CellType.image)
@@ -575,7 +586,7 @@ extension TableViewDataSource: UITableViewDataSource {
 
             if inEditingMode == nil || inEditingMode == true {
                 displayCellOrder = editingCellOrder
-                return 3
+                return editingCellOrder.count
             } else {
                 if collection.descriptionString != "" {
                     cellCounter = cellCounter + 1
@@ -695,14 +706,27 @@ extension ItemsViewController {
     
     func createImageCell(image:UIImage?, indexPath:NSIndexPath, inEditingMode: Bool) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCellWithIdentifier("ImageCell", forIndexPath: indexPath) as! TitleCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("ImageCell", forIndexPath: indexPath) as! ImageCell
         cell.separatorInset = UIEdgeInsetsMake(0, Helper.largestDeviceSide(), 0, 0);
         
         if let image = image {
             cell.summaryImageView.image = image
+            cell.button.hidden = true
+        } else if collection.premade == false {
+            cell.button.hidden = false
         }
         cell.configureCell()
+        cell.selectionStyle = .None
         return cell
+    }
+    
+    func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        
+        if indexPath.section == 0 && indexPath.row == 0 {
+            return 96
+        } else {
+            return UITableViewAutomaticDimension
+        }
     }
     
     func createTitleCell(text: String, indexPath:NSIndexPath, inEditingMode: Bool) -> UITableViewCell {
@@ -776,6 +800,23 @@ extension ItemsViewController {
         cell.layoutMargins = UIEdgeInsetsZero;
         
         return cell
+    }
+}
+
+extension ItemsViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+        if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            collection.image = pickedImage
+        }
+        
+        dismissViewControllerAnimated(true) { 
+            self.tableView.reloadData()
+        }
+    }
+    
+    func imagePickerControllerDidCancel(picker: UIImagePickerController) {
+        dismissViewControllerAnimated(true, completion: nil)
     }
 }
 
