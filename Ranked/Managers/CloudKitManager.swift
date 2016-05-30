@@ -180,6 +180,22 @@ class CloudKitManager {
             record.setObject(item.sorted, forKey: "Sorted")
             record.setObject(item.dateCreated, forKey: "DateCreated")
             
+            if let image = item.image {
+                
+                do {
+                    
+                    let url = NSURL(fileURLWithPath: NSTemporaryDirectory()).URLByAppendingPathComponent(collection.name.trim() + item.text.trim())
+                    let data = UIImagePNGRepresentation(image)!
+                    
+                    try data.writeToURL(url, options: NSDataWritingOptions.AtomicWrite)
+                    let asset = CKAsset(fileURL: url)
+                    record.setObject(asset, forKey: "Image")
+                }
+                catch {
+                    print("Error writing data", error)
+                }
+            }
+            
             let reference = CKReference(record: collection.record, action: .DeleteSelf)
             record.setObject(reference, forKey: "Collection")
             recordsArray.append(record)
@@ -329,6 +345,13 @@ class CloudKitManager {
                 let dateCreated = fetchedCollection["DateCreated"] as! NSDate
                 
                 let collection = CollectionModel (name: name, description: description, dateCreated: dateCreated)
+                
+                if let asset = fetchedCollection["Image"] as? CKAsset,
+                    data = NSData(contentsOfURL: asset.fileURL),
+                    image = UIImage(data: data) {
+                    collection.image = image
+                }
+                
                 self.delegate?.updateCollectionWithReference(collection, reference: recordID.recordName)
             }
         }
@@ -353,6 +376,13 @@ class CloudKitManager {
             let dateCreated = fetchedItem["DateCreated"] as! NSDate
             
             let item = ItemModel(string: name, dateCreated: dateCreated)
+            
+            if let asset = fetchedItem["Image"] as? CKAsset,
+                data = NSData(contentsOfURL: asset.fileURL),
+                image = UIImage(data: data) {
+                item.image = image
+            }
+            
             item.record = CKRecord(recordType: "Item", recordID: recordID)
             item.sorted = sorted
             self.delegate?.newCloudItemFromCollectionReference(item, reference: collection.recordID.recordName)
@@ -378,6 +408,13 @@ class CloudKitManager {
                 let dateCreated = fetchedItem["DateCreated"] as! NSDate
                 
                 let item = ItemModel(string: name, dateCreated: dateCreated)
+                
+                if let asset = fetchedItem["Image"] as? CKAsset,
+                    data = NSData(contentsOfURL: asset.fileURL),
+                    image = UIImage(data: data) {
+                    item.image = image
+                }
+                
                 item.sorted = sorted
                 self.delegate?.updateItemWithReference(item, reference: recordID.recordName)
             }
