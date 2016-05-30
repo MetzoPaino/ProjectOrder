@@ -714,8 +714,12 @@ extension ItemsViewController {
             cell.button.hidden = true
         } else if collection.premade == false {
             cell.button.hidden = false
+            cell.button.imageView!.image = UIImage(named: "PlusButton" )?.imageWithRenderingMode(.AlwaysTemplate)
+            cell.button.imageView!.tintColor = .whiteColor()
         }
         cell.configureCell()
+        
+        
         cell.selectionStyle = .None
         return cell
     }

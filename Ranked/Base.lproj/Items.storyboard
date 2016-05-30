@@ -198,14 +198,14 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="900" translatesAutoresizingMaskIntoConstraints="NO" id="C6S-ta-Oju">
-                                                    <rect key="frame" x="276.5" y="8" width="48" height="48"/>
+                                                    <rect key="frame" x="260" y="8" width="80" height="80"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="C6S-ta-Oju" secondAttribute="height" multiplier="1:1" id="Aui-3n-lOO"/>
                                                         <constraint firstAttribute="width" constant="80" id="RfI-ab-Lca"/>
                                                     </constraints>
                                                 </imageView>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TDO-vx-3qZ">
-                                                    <rect key="frame" x="276.5" y="8" width="48" height="48"/>
+                                                    <rect key="frame" x="260" y="8" width="80" height="80"/>
                                                     <state key="normal" image="PlusButton"/>
                                                     <connections>
                                                         <action selector="addImageButtonPressed:" destination="nlL-AF-Rd4" eventType="touchUpInside" id="AfG-uJ-MnB"/>
