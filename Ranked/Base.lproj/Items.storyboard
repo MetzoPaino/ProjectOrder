@@ -83,7 +83,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Add Item" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="aow-7k-eef">
-                                                    <rect key="frame" x="56" y="16" width="528" height="79"/>
+                                                    <rect key="frame" x="72" y="16" width="512" height="79"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
@@ -92,10 +92,10 @@
                                                     <rect key="frame" x="180" y="-8" width="240" height="128"/>
                                                 </imageView>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UvR-Kj-mjB">
-                                                    <rect key="frame" x="16" y="39" width="32" height="32"/>
+                                                    <rect key="frame" x="16" y="31" width="48" height="48"/>
                                                     <subviews>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="PlusButton" translatesAutoresizingMaskIntoConstraints="NO" id="IM8-VS-hhf">
-                                                            <rect key="frame" x="4" y="4" width="24" height="24"/>
+                                                            <rect key="frame" x="12" y="12" width="24" height="24"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="24" id="9yI-EY-7GD"/>
                                                                 <constraint firstAttribute="width" secondItem="IM8-VS-hhf" secondAttribute="height" multiplier="1:1" id="MKz-4R-a73"/>
@@ -105,9 +105,9 @@
                                                     <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstItem="IM8-VS-hhf" firstAttribute="centerX" secondItem="UvR-Kj-mjB" secondAttribute="centerX" id="BqJ-Pk-EJ0"/>
-                                                        <constraint firstAttribute="height" constant="32" id="aMH-0h-Pys"/>
                                                         <constraint firstItem="IM8-VS-hhf" firstAttribute="centerY" secondItem="UvR-Kj-mjB" secondAttribute="centerY" id="pn2-9G-t7K"/>
                                                         <constraint firstAttribute="width" secondItem="UvR-Kj-mjB" secondAttribute="height" multiplier="1:1" id="sXi-6h-tWV"/>
+                                                        <constraint firstAttribute="width" constant="48" id="ssU-BJ-c3z"/>
                                                     </constraints>
                                                 </view>
                                             </subviews>
@@ -131,6 +131,7 @@
                                         <connections>
                                             <outlet property="addImageView" destination="IM8-VS-hhf" id="n5V-7m-XV3"/>
                                             <outlet property="circleView" destination="UvR-Kj-mjB" id="eGc-nx-SYr"/>
+                                            <outlet property="circleViewWidthConstraint" destination="ssU-BJ-c3z" id="vQU-E4-0gu"/>
                                             <outlet property="textField" destination="aow-7k-eef" id="Yhy-oK-eIN"/>
                                         </connections>
                                     </tableViewCell>
@@ -218,6 +219,11 @@
                                                 <constraint firstItem="C6S-ta-Oju" firstAttribute="top" secondItem="fd0-7H-MAo" secondAttribute="top" constant="8" id="VCG-PJ-viN"/>
                                                 <constraint firstItem="TDO-vx-3qZ" firstAttribute="centerY" secondItem="C6S-ta-Oju" secondAttribute="centerY" id="v9p-Es-Jcl"/>
                                             </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="RYk-dp-TDt"/>
+                                                </mask>
+                                            </variation>
                                         </tableViewCellContentView>
                                         <constraints>
                                             <constraint firstItem="C6S-ta-Oju" firstAttribute="centerX" secondItem="0yX-mA-QQm" secondAttribute="centerX" id="3fq-MJ-vDO"/>

@@ -56,15 +56,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: NSData) {
-        print("Registered for Push notifications with token: \(deviceToken)")
+        //print("Registered for Push notifications with token: \(deviceToken)")
     }
     
     func application(application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
-        print("Push subscription failed: \(error)")
+        //print("Push subscription failed: \(error)")
     }
     
     func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
-        print("Got notification \(userInfo)")
+        //print("Got notification \(userInfo)")
         
         if let pushInfo = userInfo as? [String: NSObject] {
             let notification = CKQueryNotification(fromRemoteNotificationDictionary: pushInfo)

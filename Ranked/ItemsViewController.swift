@@ -50,6 +50,8 @@ class ItemsViewController: UIViewController, Injectable {
     let tapGesture = UITapGestureRecognizer()
     
     let editingCellOrder = [CellType.image, CellType.title, CellType.description, CellType.addItem]
+    //let editingCellOrder = [CellType.title, CellType.description, CellType.addItem]
+
     var displayCellOrder = [CellType]()
 
     typealias AssociatedObject = CollectionModel
@@ -724,8 +726,16 @@ extension ItemsViewController {
         return cell
     }
     
-    func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        
+//    func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+//        
+//        if indexPath.section == 0 && indexPath.row == 0 {
+//            return 96
+//        } else {
+//            return UITableViewAutomaticDimension
+//        }
+//    }
+    
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if indexPath.section == 0 && indexPath.row == 0 {
             return 96
         } else {

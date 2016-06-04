@@ -75,6 +75,10 @@ class ImageCell: UITableViewCell {
     
     func configureCell() {
         summaryImageView.backgroundColor = UIColor.disabledColor()
+
+    }
+    
+    override func layoutSubviews() {
         summaryImageView.layer.cornerRadius = summaryImageViewWidthConstraint.constant / 2
         summaryImageView.clipsToBounds = true
     }
@@ -153,6 +157,7 @@ class AddItemTableViewCell: UITableViewCell {
     @IBOutlet weak var textField: UITextField!
     @IBOutlet weak var addImageView: UIImageView!
     @IBOutlet weak var circleView: UIView!
+    @IBOutlet weak var circleViewWidthConstraint: NSLayoutConstraint!
     
     weak var delegate: AddItemTableViewCellDelegate?
     
@@ -162,7 +167,7 @@ class AddItemTableViewCell: UITableViewCell {
         textField.attributedPlaceholder = NSAttributedString(string: textField.placeholder!, attributes: [NSForegroundColorAttributeName: UIColor.backgroundColor()])
         
         circleView.backgroundColor = .primaryColor()
-        circleView.layer.cornerRadius = 32 / 2
+        circleView.layer.cornerRadius = circleViewWidthConstraint.constant / 2
         circleView.clipsToBounds = true
         
         addImageView.image = UIImage(named: "PlusButton" )?.imageWithRenderingMode(.AlwaysTemplate)

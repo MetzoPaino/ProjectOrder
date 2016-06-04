@@ -57,7 +57,7 @@ class DataManager {
                 let unarchiver = NSKeyedUnarchiver(forReadingWithData: data)
                 if let unarchivedCollections = unarchiver.decodeObjectForKey("Collections") as? [CollectionModel] {
                     
-                    print("Found Collections")
+                    //print("Found Collections")
                     collections = unarchivedCollections
                     
                 } else {
