@@ -59,15 +59,12 @@ class ItemsViewController: UIViewController, Injectable {
     
     let imagePicker = UIImagePickerController()
     
+    var itemImage: UIImage?
+    
     // MARK: - Load View
     
     func newItem() {
         self.tableView.reloadData()
-    }
-
-    @IBAction func addImageButtonPressed(sender: UIButton) {
-        
-        presentViewController(imagePicker, animated: true, completion: nil)
     }
     
     override func viewDidLoad() {
@@ -105,23 +102,6 @@ class ItemsViewController: UIViewController, Injectable {
     func assertDependencies() {
         assert(collection != nil)
     }
-    
-//    func newCollection() {
-//        
-//        dispatch_async(dispatch_get_main_queue(), {
-//            self.tableView.reloadData()
-//        })
-//        
-//    }
-//    
-//    func newItem() {
-//        
-//        dispatch_async(dispatch_get_main_queue(), {
-//            self.tableView.reloadData()
-//
-//        })
-//        
-//    }
 
     // MARK: - Style View
     
@@ -180,6 +160,18 @@ class ItemsViewController: UIViewController, Injectable {
         tableView.separatorInset = UIEdgeInsetsZero
         tableView.backgroundColor = .whiteColor()
         tableView.separatorColor = .backgroundColor()
+    }
+    
+    // MARK: - IBActions
+    
+    @IBAction func addImageButtonPressed(sender: UIButton) {
+        imagePicker.view.tag = 1
+        presentViewController(imagePicker, animated: true, completion: nil)
+    }
+    
+    @IBAction func addItemImageButtonPressed(sender: UIButton) {
+        imagePicker.view.tag = 2
+        presentViewController(imagePicker, animated: true, completion: nil)
     }
     
     // MARK: - Navigation
@@ -486,10 +478,15 @@ extension AddItemDelegate: AddItemTableViewCellDelegate {
         
         // Inserting causes a crash, but would look nicer
         let item = ItemModel(string: text, dateCreated: NSDate())
+        
+        if let image = itemImage {
+            item.image = image
+            itemImage = nil
+        }
         collection.items.insert(item, atIndex: 0)
         tableView.reloadData()
         
-        let addItemIndex = NSIndexPath(forRow: 2, inSection: 0)
+        let addItemIndex = NSIndexPath(forRow: 3, inSection: 0)
         if let cell = tableView.cellForRowAtIndexPath(addItemIndex) as? AddItemTableViewCell {
             cell.textField.becomeFirstResponder()
         }
@@ -726,17 +723,9 @@ extension ItemsViewController {
         return cell
     }
     
-//    func tableView(tableView: UITableView, estimatedHeightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-//        
-//        if indexPath.section == 0 && indexPath.row == 0 {
-//            return 96
-//        } else {
-//            return UITableViewAutomaticDimension
-//        }
-//    }
-    
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if indexPath.section == 0 && indexPath.row == 0 {
+            
             return 96
         } else {
             return UITableViewAutomaticDimension
@@ -810,6 +799,13 @@ extension ItemsViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("AddItemCell", forIndexPath: indexPath) as! AddItemTableViewCell
         cell.delegate = self
         cell.configureCell()
+        
+        if let image = itemImage {
+            cell.addImageView.image = image
+        } else {
+            cell.addImageView.image = UIImage()
+        }
+        
         cell.selectionStyle = .None
         cell.layoutMargins = UIEdgeInsetsZero;
         
@@ -820,16 +816,26 @@ extension ItemsViewController {
 extension ItemsViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+        
         if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
-            collection.image = pickedImage
+            
+            if imagePicker.view.tag == 2 {
+                
+                itemImage = pickedImage
+                
+            } else {
+                collection.image = pickedImage
+            }
         }
         
-        dismissViewControllerAnimated(true) { 
+        dismissViewControllerAnimated(true) {
+            self.imagePicker.view.tag = 0
             self.tableView.reloadData()
         }
     }
     
     func imagePickerControllerDidCancel(picker: UIImagePickerController) {
+        imagePicker.view.tag = 0
         dismissViewControllerAnimated(true, completion: nil)
     }
 }

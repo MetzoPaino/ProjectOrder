@@ -75,10 +75,6 @@ class ImageCell: UITableViewCell {
     
     func configureCell() {
         summaryImageView.backgroundColor = UIColor.disabledColor()
-
-    }
-    
-    override func layoutSubviews() {
         summaryImageView.layer.cornerRadius = summaryImageViewWidthConstraint.constant / 2
         summaryImageView.clipsToBounds = true
     }
@@ -156,6 +152,8 @@ class AddItemTableViewCell: UITableViewCell {
     
     @IBOutlet weak var textField: UITextField!
     @IBOutlet weak var addImageView: UIImageView!
+    @IBOutlet weak var button: UIButton!
+
     @IBOutlet weak var circleView: UIView!
     @IBOutlet weak var circleViewWidthConstraint: NSLayoutConstraint!
     
@@ -170,8 +168,8 @@ class AddItemTableViewCell: UITableViewCell {
         circleView.layer.cornerRadius = circleViewWidthConstraint.constant / 2
         circleView.clipsToBounds = true
         
-        addImageView.image = UIImage(named: "PlusButton" )?.imageWithRenderingMode(.AlwaysTemplate)
-        addImageView.tintColor = .whiteColor()
+        button.imageView!.image = UIImage(named: "PlusButton" )?.imageWithRenderingMode(.AlwaysTemplate)
+        button.imageView!.tintColor = .whiteColor()
     }
 }
 
@@ -186,7 +184,6 @@ extension AddItemTableViewCell: UITextFieldDelegate {
             let whitespaceSet = NSCharacterSet.whitespaceCharacterSet()
             if !string.stringByTrimmingCharactersInSet(whitespaceSet).isEmpty {
                 
-                print("Not whitespace")
                 self.delegate?.createdNewItemWithText(textField.text!)
                 textField.text = ""
                 
