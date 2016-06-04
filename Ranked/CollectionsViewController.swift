@@ -49,7 +49,7 @@ class CollectionsViewController: UIViewController, Injectable {
         
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), forBarMetrics: UIBarMetrics.Default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
-        self.navigationController?.navigationBar.translucent = true
+        self.navigationController?.navigationBar.translucent = false
         self.navigationController?.view.backgroundColor = UIColor.whiteColor()
     }
     

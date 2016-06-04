@@ -575,7 +575,7 @@ extension TableViewDataSource: UITableViewDataSource {
             
             var cellCounter = 0
             
-            if collection.image != nil || collection.premade == false {
+            if collection.image != nil {
 
                 cellCounter = cellCounter + 1
                 displayCellOrder.append(CellType.image)
