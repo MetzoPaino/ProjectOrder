@@ -723,9 +723,17 @@ extension ItemsViewController {
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        
+//        if tableView.cellForRowAtIndexPath(indexPath) is ImageCell {
+//            return 96
+//        } else {
+//            return UITableViewAutomaticDimension
+//        }
+        
         if indexPath.section == 0 && indexPath.row == 0 {
             
-            return 96
+          return 96
+            
         } else {
             return UITableViewAutomaticDimension
         }
