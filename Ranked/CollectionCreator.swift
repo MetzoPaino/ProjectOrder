@@ -13,7 +13,7 @@ import CloudKit
 
 func createPreMadeCollectionsArray() -> [CollectionModel] {
     
-    return [createDavidBowieCollection(), createStarWarsCollection(), createHarryPotterCollection(),createInternetBrowserCollection(), createDesktopOSCollection(), createMobileOSCollection(), createMarioCharactersCollection(), createHottestHobbitsCollection(), createFinalFantasyCollection()]
+    return [createDavidBowieCollection(), createStarWarsCollection(), createHarryPotterCollection(),createInternetBrowserCollection(), createDesktopOSCollection(), createMobileOSCollection(), createMarioCharactersCollection(), createHottestHobbitsCollection(), createFinalFantasyCollection(), createTarantinoCollection()]
 }
 
 //createFinalFantasyCollection()

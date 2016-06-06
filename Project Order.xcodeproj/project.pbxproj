@@ -28,6 +28,7 @@
 		0A9A16811C5CDD260000E436 /* TournamentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9A16801C5CDD260000E436 /* TournamentManager.swift */; };
 		0ADF5C0E1CBA9D7400BC74AA /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADF5C0D1CBA9D7400BC74AA /* Helpers.swift */; };
 		0AE0C83C1CC2AD960085FE30 /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE0C83B1CC2AD960085FE30 /* LaunchViewController.swift */; };
+		0AE9C1351D05A6060069CDF3 /* Tarantino.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE9C1341D05A6060069CDF3 /* Tarantino.swift */; };
 		0AF64FA11C4A8129003F8519 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF64FA01C4A8129003F8519 /* AppDelegate.swift */; };
 		0AF64FA61C4A812A003F8519 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0AF64FA41C4A812A003F8519 /* Main.storyboard */; };
 		0AF64FA81C4A812A003F8519 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0AF64FA71C4A812A003F8519 /* Assets.xcassets */; };
@@ -61,6 +62,7 @@
 		0A9A16801C5CDD260000E436 /* TournamentManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TournamentManager.swift; sourceTree = "<group>"; };
 		0ADF5C0D1CBA9D7400BC74AA /* Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Helpers.swift; path = Helpers/Helpers.swift; sourceTree = "<group>"; };
 		0AE0C83B1CC2AD960085FE30 /* LaunchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
+		0AE9C1341D05A6060069CDF3 /* Tarantino.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Tarantino.swift; path = PremadeCollections/Tarantino.swift; sourceTree = "<group>"; };
 		0AF64F9D1C4A8129003F8519 /* >.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ">.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0AF64FA01C4A8129003F8519 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0AF64FA51C4A812A003F8519 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -99,6 +101,7 @@
 				0ADF5C0D1CBA9D7400BC74AA /* Helpers.swift */,
 				0AF64FB81C4A859B003F8519 /* CollectionCreator.swift */,
 				0A22D63A1CF1C626005B82EC /* FinalFantasy.swift */,
+				0AE9C1341D05A6060069CDF3 /* Tarantino.swift */,
 			);
 			name = Managers;
 			sourceTree = "<group>";
@@ -272,6 +275,7 @@
 			files = (
 				0AF64FB91C4A859B003F8519 /* CollectionCreator.swift in Sources */,
 				0AE0C83C1CC2AD960085FE30 /* LaunchViewController.swift in Sources */,
+				0AE9C1351D05A6060069CDF3 /* Tarantino.swift in Sources */,
 				0A7B50811CE74BA30083CCCF /* AddListsViewController.swift in Sources */,
 				0A04E6AB1CB9455B006A80E5 /* DataManager.swift in Sources */,
 				0A9A16811C5CDD260000E436 /* TournamentManager.swift in Sources */,
