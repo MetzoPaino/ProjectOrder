@@ -267,9 +267,11 @@ extension TableViewDataSource: UITableViewDataSource {
                 if let image = collection.image {
                     cell.summaryImageViewWidthConstraint.constant = 48
                     cell.summaryImageView.image = image
+                    cell.summaryImageViewLeadingConstraint.constant = 16
                     cell.configureCell()
                 } else {
                     cell.summaryImageViewWidthConstraint.constant = 0
+                    cell.summaryImageViewLeadingConstraint.constant = 8
                 }
                 
                 return cell
