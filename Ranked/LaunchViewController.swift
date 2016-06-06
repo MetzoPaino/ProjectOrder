@@ -25,15 +25,24 @@ class LaunchViewController: UIViewController, Injectable {
         repeat {
             
             let fileName = "SortingAnimation_" + String(index)
-            let image = UIImage(named: fileName)
-            
-            if image != nil {
+            if let image = UIImage(named: fileName) {
+                
                 foundImage = true
                 
-                animationArray.append(image!.CGImage!)
+                animationArray.append(image.CGImage!)
             } else {
+                
                 foundImage = false
+
             }
+            
+//            if image != nil {
+//                foundImage = true
+//                
+//                animationArray.append(image!.CGImage!)
+//            } else {
+//                foundImage = false
+//            }
             index = index + 1
             
         } while foundImage
