@@ -160,11 +160,14 @@ class ItemModel: NSObject, NSCoding {
         self.dateCreated = dateCreated
     }
     
-    convenience init(name: String, image: String) {
+    convenience init(name: String, image: String?) {
         
         self.init(string: name, dateCreated: NSDate())
         record = createRecordOfTypeWithUniqueIdentifier("Item", uniqueIdentifier: name.trim())
-        self.image = UIImage(named: image)
+        
+        if let image = image {
+            self.image = UIImage(named: image)
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {
