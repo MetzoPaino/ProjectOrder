@@ -243,9 +243,7 @@ extension TableViewDataSource: UITableViewDataSource {
             showGetStartedView = false
             toggleGetStarted()
         }
-        
         return dataManager.collections.count
-
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {

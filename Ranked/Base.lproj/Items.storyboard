@@ -91,12 +91,11 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UvR-Kj-mjB">
                                                     <rect key="frame" x="16" y="31" width="48" height="48"/>
                                                     <subviews>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cbK-Gg-gli">
-                                                            <rect key="frame" x="-96" y="-40" width="240" height="128"/>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cbK-Gg-gli">
+                                                            <rect key="frame" x="0.0" y="0.0" width="48" height="48"/>
                                                         </imageView>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qTl-kc-CeI">
                                                             <rect key="frame" x="0.0" y="0.0" width="48" height="48"/>
-                                                            <state key="normal" image="PlusButton"/>
                                                             <connections>
                                                                 <action selector="addItemImageButtonPressed:" destination="nlL-AF-Rd4" eventType="touchUpInside" id="Bi7-PO-D3s"/>
                                                             </connections>

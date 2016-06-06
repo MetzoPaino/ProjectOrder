@@ -351,7 +351,6 @@ extension IBActions {
         doneBarButton = createBarButton(.done)
         navigationItem.rightBarButtonItems = [doneBarButton]
         
-//        let colorPickerIndex = NSIndexPath(forRow: 2, inSection: 0)
         let addItemIndex = NSIndexPath(forRow: 2, inSection: 0)
         
         tableView.beginUpdates()
@@ -798,10 +797,13 @@ extension ItemsViewController {
         
         let cell = tableView.dequeueReusableCellWithIdentifier("AddItemCell", forIndexPath: indexPath) as! AddItemTableViewCell
         cell.delegate = self
+        cell.button.imageView!.tintColor = .whiteColor()
+
         cell.configureCell()
         
         if let image = itemImage {
             cell.addImageView.image = image
+            
         } else {
             cell.addImageView.image = UIImage()
         }
