@@ -724,19 +724,13 @@ extension ItemsViewController {
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         
-//        if tableView.cellForRowAtIndexPath(indexPath) is ImageCell {
-//            return 96
-//        } else {
-//            return UITableViewAutomaticDimension
-//        }
-        
         if indexPath.section == 0 && indexPath.row == 0 {
             
-          return 96
-            
-        } else {
-            return UITableViewAutomaticDimension
+            if collection.image != nil || inEditingMode == true || inEditingMode == nil {
+                return 96
+            }
         }
+        return UITableViewAutomaticDimension
     }
     
     func createTitleCell(text: String, indexPath:NSIndexPath, inEditingMode: Bool) -> UITableViewCell {
