@@ -25,16 +25,16 @@ class CollectionModel: NSObject, NSCoding {
     var name = ""
     var descriptionString = ""
     var sorted = false
-    var dateCreated: NSDate
+    var dateCreated: Date
     var image: UIImage?
     
     var premade = false
     
     var items = [ItemModel]()
     
-    private let uuid = NSUUID().UUIDString
+    private let uuid = UUID().uuidString
     
-    init(name: String, description: String, dateCreated: NSDate) {
+    init(name: String, description: String, dateCreated: Date) {
         
         self.name = name
         self.descriptionString = description
@@ -43,7 +43,7 @@ class CollectionModel: NSObject, NSCoding {
     
     required init?(coder aDecoder: NSCoder) {
         
-        if let decodedName = aDecoder.decodeObjectForKey(nameKey) as? String {
+        if let decodedName = aDecoder.decodeObject(forKey: nameKey) as? String {
             
             name = decodedName
             
@@ -51,7 +51,7 @@ class CollectionModel: NSObject, NSCoding {
             name = "Unable to decode Collection name"
         }
         
-        if let decodedDescription = aDecoder.decodeObjectForKey(descriptionKey) as? String {
+        if let decodedDescription = aDecoder.decodeObject(forKey: descriptionKey) as? String {
             
             descriptionString = decodedDescription
             
@@ -59,12 +59,12 @@ class CollectionModel: NSObject, NSCoding {
             descriptionString = "Unable to decode Collection description"
         }
         
-        if let decodedMotifs = aDecoder.decodeObjectForKey(itemsKey) as? [ItemModel] {
+        if let decodedMotifs = aDecoder.decodeObject(forKey: itemsKey) as? [ItemModel] {
             
             items = decodedMotifs
         }
         
-        if let decodedName = aDecoder.decodeObjectForKey(nameKey) as? String {
+        if let decodedName = aDecoder.decodeObject(forKey: nameKey) as? String {
             
             name = decodedName
             
@@ -72,33 +72,33 @@ class CollectionModel: NSObject, NSCoding {
             name = "Unable to decode Collection name"
         }
         
-        if let decodedDateCreated = aDecoder.decodeObjectForKey(dateCreatedKey) as? NSDate {
+        if let decodedDateCreated = aDecoder.decodeObject(forKey: dateCreatedKey) as? Date {
             
             dateCreated = decodedDateCreated
         } else {
-            dateCreated = NSDate()
+            dateCreated = Date()
         }
         
-        if let decodedSorted = aDecoder.decodeObjectForKey(sortedKey) as? Bool {
+        if let decodedSorted = aDecoder.decodeObject(forKey: sortedKey) as? Bool {
             
             sorted = decodedSorted
         } else {
             sorted = false
         }
         
-        if let decodedRecord = aDecoder.decodeObjectForKey(recordKey) as? CKRecord {
+        if let decodedRecord = aDecoder.decodeObject(forKey: recordKey) as? CKRecord {
             
             record = decodedRecord
         }
         
-        if let decodedPremade = aDecoder.decodeObjectForKey(premadeKey) as? Bool {
+        if let decodedPremade = aDecoder.decodeObject(forKey: premadeKey) as? Bool {
             
             premade = decodedPremade
         } else {
             premade = false
         }
         
-        if let decodedImage = aDecoder.decodeObjectForKey(imageKey) as? UIImage {
+        if let decodedImage = aDecoder.decodeObject(forKey: imageKey) as? UIImage {
             
             image = decodedImage
         }
@@ -106,19 +106,19 @@ class CollectionModel: NSObject, NSCoding {
         super.init()
     }
     
-    func encodeWithCoder(aCoder: NSCoder) {
+    func encode(with aCoder: NSCoder) {
         
-        aCoder.encodeObject(name, forKey: nameKey)
-        aCoder.encodeObject(descriptionString, forKey: descriptionKey)
-        aCoder.encodeObject(items, forKey: itemsKey)
-        aCoder.encodeObject(dateCreated, forKey: dateCreatedKey)
-        aCoder.encodeObject(sorted, forKey: sortedKey)
-        aCoder.encodeObject(record, forKey: recordKey)
-        aCoder.encodeObject(premade, forKey: premadeKey)
-        aCoder.encodeObject(image, forKey: imageKey)
+        aCoder.encode(name, forKey: nameKey)
+        aCoder.encode(descriptionString, forKey: descriptionKey)
+        aCoder.encode(items, forKey: itemsKey)
+        aCoder.encode(dateCreated, forKey: dateCreatedKey)
+        aCoder.encode(sorted, forKey: sortedKey)
+        aCoder.encode(record, forKey: recordKey)
+        aCoder.encode(premade, forKey: premadeKey)
+        aCoder.encode(image, forKey: imageKey)
     }
     
-    func returnArrayOfItems(sorted: Bool) -> [ItemModel] {
+    func returnArrayOfItems(_ sorted: Bool) -> [ItemModel] {
         
         var requestedItems = [ItemModel]()
         
@@ -140,29 +140,31 @@ class CollectionModel: NSObject, NSCoding {
 class ItemModel: NSObject, NSCoding {
     
     private let textKey = "text"
-    private let pointsKey = "points"
+    private let scoreKey = "score"
     private let sortedKey = "sorted"
     private var recordKey = "record"
     private let dateCreatedKey = "dateCreated"
     private var imageKey = "image"
+    private var collectionReferenceKey = "collectionReference"
 
     var text: String
     var tag = Int()
     var sorted = false
-    var points = 0
-    var dateCreated: NSDate
+    var score = 0
+    var dateCreated: Date
     var image: UIImage?
 
     var record = CKRecord(recordType: "Item")
+    var collectionReference = ""
     
-    init(string: String, dateCreated: NSDate) {
+    init(string: String, dateCreated: Date) {
         text = string
         self.dateCreated = dateCreated
     }
     
     convenience init(name: String, image: String?) {
         
-        self.init(string: name, dateCreated: NSDate())
+        self.init(string: name, dateCreated: Date())
         record = createRecordOfTypeWithUniqueIdentifier("Item", uniqueIdentifier: name.trim())
         
         if let image = image {
@@ -172,7 +174,7 @@ class ItemModel: NSObject, NSCoding {
     
     required init?(coder aDecoder: NSCoder) {
         
-        if let decodedText = aDecoder.decodeObjectForKey(textKey) as? String {
+        if let decodedText = aDecoder.decodeObject(forKey: textKey) as? String {
             
             text = decodedText
             
@@ -180,46 +182,53 @@ class ItemModel: NSObject, NSCoding {
             text = "Unable to decode Item text"
         }
         
-        if let decodedPoints = aDecoder.decodeObjectForKey(pointsKey) as? Int {
+        if let decodedScore = aDecoder.decodeObject(forKey: scoreKey) as? Int {
             
-            points = decodedPoints
+            score = decodedScore
             
         } else {
-            points = 0
+            score = 0
         }
         
-        if let decodedSorted = aDecoder.decodeObjectForKey(sortedKey) as? Bool {
+        if let decodedSorted = aDecoder.decodeObject(forKey: sortedKey) as? Bool {
             
             sorted = decodedSorted
         }
         
-        if let decodedRecord = aDecoder.decodeObjectForKey(recordKey) as? CKRecord {
+        if let decodedRecord = aDecoder.decodeObject(forKey: recordKey) as? CKRecord {
             
             record = decodedRecord
         }
         
-        if let decodedDateCreated = aDecoder.decodeObjectForKey(dateCreatedKey) as? NSDate {
+        if let decodedDateCreated = aDecoder.decodeObject(forKey: dateCreatedKey) as? Date {
             
             dateCreated = decodedDateCreated
         } else {
-            dateCreated = NSDate()
+            dateCreated = Date()
         }
         
-        if let decodedImage = aDecoder.decodeObjectForKey(imageKey) as? UIImage {
+        if let decodedImage = aDecoder.decodeObject(forKey: imageKey) as? UIImage {
             
             image = decodedImage
         }
         
+        if let decodedCollectionReference = aDecoder.decodeObject(forKey: collectionReferenceKey) as? String {
+            
+            collectionReference = decodedCollectionReference
+        }
+        
+        
         super.init()
     }
     
-    func encodeWithCoder(aCoder: NSCoder) {
+    func encode(with aCoder: NSCoder) {
         
-        aCoder.encodeObject(text, forKey: textKey)
-        aCoder.encodeObject(points, forKey: pointsKey)
-        aCoder.encodeObject(sorted, forKey: sortedKey)
-        aCoder.encodeObject(record, forKey: recordKey)
-        aCoder.encodeObject(dateCreated, forKey: dateCreatedKey)
-        aCoder.encodeObject(image, forKey: imageKey)
+        aCoder.encode(text, forKey: textKey)
+        aCoder.encode(score, forKey: scoreKey)
+        aCoder.encode(sorted, forKey: sortedKey)
+        aCoder.encode(record, forKey: recordKey)
+        aCoder.encode(dateCreated, forKey: dateCreatedKey)
+        aCoder.encode(image, forKey: imageKey)
+        aCoder.encode(collectionReference, forKey: collectionReferenceKey)
     }
 }

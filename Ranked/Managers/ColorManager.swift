@@ -97,11 +97,11 @@ extension UIColor {
     
     public class func sortingNeutralBackgroundColor() -> UIColor {
         
-        return .whiteColor()
+        return .white()
     }
     
     public class func sortingPreferredBackgroundColor() -> UIColor {
-        return .whiteColor()
+        return .white()
 
 //        return UIColor(red: 230/255, green: 252/255, blue: 252/255, alpha: 1.0)
     }
@@ -109,7 +109,7 @@ extension UIColor {
 
 extension UIColor {
     
-    class func colorFromPercentageInRange(percentage: Float, startColor: UIColor, endColor: UIColor) -> UIColor {
+    class func colorFromPercentageInRange(_ percentage: Float, startColor: UIColor, endColor: UIColor) -> UIColor {
         
         let coreImage1 = startColor.coreImageColor
         let coreImage2 = endColor.coreImageColor
@@ -132,7 +132,7 @@ extension UIColor {
 
         } else {
             
-            return .whiteColor()
+            return .white()
         }
     }
 }

@@ -11,21 +11,25 @@ import CloudKit
 import UIKit
 
 protocol CloudKitManagerDelegate: class {
-    func newCloudCollection(collection:CollectionModel)
-    func deleteCollectionWithReference(reference:String)
-    func updateCollectionWithReference(updatedCollection: CollectionModel, reference:String)
+    func newCloudCollection(_ collection:CollectionModel)
+    func deleteCollectionWithReference(_ reference:String)
+    func updateCollectionWithReference(_ updatedCollection: CollectionModel, reference:String)
     
-    func newCloudItemFromCollectionReference(item:ItemModel, reference: String)
-    func deleteItemWithReference(reference:String)
-    func updateItemWithReference(updatedItem: ItemModel, reference:String)
+    func newCloudItemFromCollectionReference(_ item:ItemModel, reference: String)
+    func deleteItemWithReference(_ reference:String)
+    func updateItemWithReference(_ updatedItem: ItemModel, reference:String)
+    
+    func cloudCollections(_ cloudCollections: [CollectionModel])
+    func cloudItemsWithCollectionRecordNames(_ itemsWithCollectionRecordNames: [(ItemModel, String)])
 }
 
-class CloudKitManager {
+class CloudKitManager: NSObject, NSCoding {
     
     weak var delegate: CloudKitManagerDelegate?
 
-    let database = CKContainer.defaultContainer().privateCloudDatabase
-    
+    private let publicDatabase = CKContainer.default().publicCloudDatabase
+    private let privateDatabase = CKContainer.default().privateCloudDatabase
+
     var subscribedToCollections = false
     var subscribedToItems = false
     
@@ -41,11 +45,38 @@ class CloudKitManager {
         case items
     }
     
+    override init() {
+        
+        super.init()
+        // Init CloudKitManager
+       // subscribeToCollectionUpdates()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+
+        super.init()
+
+        if let decodedSubscription = aDecoder.decodeObject(forKey: "SubscribedToCollections") as? Bool {
+            
+            subscribedToCollections = decodedSubscription
+            
+        }
+        
+        
+        subscribeToCollectionUpdates()
+    }
+    
+    func encode(with aCoder: NSCoder) {
+        
+        print(subscribedToCollections)
+        aCoder.encode(true, forKey: "SubscribedToCollections")
+    }
+    
     //MARK: - To Cloud
     
     //MARK: Collections
     
-    func saveCollectionToCloudKit(collection: CollectionModel) {
+    func saveCollectionToCloudKit(_ collection: CollectionModel) {
         
         let record = CKRecord(recordType: "Collection", recordID: collection.record.recordID)
         record.setObject(collection.name, forKey: "Name")
@@ -56,10 +87,10 @@ class CloudKitManager {
             
             do {
                 
-                let url = NSURL(fileURLWithPath: NSTemporaryDirectory()).URLByAppendingPathComponent(collection.name.trim())
+                let url = try! URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(collection.name.trim())
                 let data = UIImagePNGRepresentation(image)!
                 
-                try data.writeToURL(url, options: NSDataWritingOptions.AtomicWrite)
+                try data.write(to: url, options: NSData.WritingOptions.atomicWrite)
                 let asset = CKAsset(fileURL: url)
                 record.setObject(asset, forKey: "Image")
             }
@@ -68,7 +99,7 @@ class CloudKitManager {
             }
         }
     
-        database.saveRecord(record) { savedRecord, error in
+        privateDatabase.save(record) { savedRecord, error in
             print(error)
             
             if error == nil {
@@ -90,9 +121,9 @@ class CloudKitManager {
                     if let retryAfter = userInfo[CKErrorRetryAfterKey] as? NSNumber {
                         
                         let delay = retryAfter.doubleValue * Double(NSEC_PER_SEC)
-                        let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+                        let time = DispatchTime.now() + Double(Int64(delay)) / Double(NSEC_PER_SEC)
                         
-                        dispatch_after(time, dispatch_get_main_queue()) {
+                        DispatchQueue.main.after(when: time) {
                             
                             self.saveCollectionToCloudKit(collection)
                         }
@@ -103,9 +134,9 @@ class CloudKitManager {
         }
     }
     
-    func editCollectionInCloudKit(collection: CollectionModel) {
+    func editCollectionInCloudKit(_ collection: CollectionModel) {
         
-        database.fetchRecordWithID(collection.record.recordID) { fetchedCollection, error in
+        privateDatabase.fetch(withRecordID: collection.record.recordID) { fetchedCollection, error in
             
             guard let fetchedCollection = fetchedCollection else {
                 // handle errors here
@@ -120,11 +151,11 @@ class CloudKitManager {
                 
                 do {
                     
-                    let url = NSURL(fileURLWithPath: NSTemporaryDirectory()).URLByAppendingPathComponent(collection.name.trim())
+                    let url = NSURL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(collection.name.trim())
                     let data = UIImagePNGRepresentation(image)!
                     
-                    try data.writeToURL(url, options: NSDataWritingOptions.AtomicWrite)
-                    let asset = CKAsset(fileURL: url)
+                    try data.write(to: url!, options: NSData.WritingOptions.atomicWrite)
+                    let asset = CKAsset(fileURL: url!)
                     fetchedCollection.setObject(asset, forKey: "Image")
                 }
                 catch {
@@ -132,7 +163,7 @@ class CloudKitManager {
                 }
             }
 
-            self.database.saveRecord(fetchedCollection) { savedRecord, savedError in
+            self.privateDatabase.save(fetchedCollection) { savedRecord, savedError in
                 print(error)
                 
                 if error == nil {
@@ -153,12 +184,11 @@ class CloudKitManager {
                         if let retryAfter = userInfo[CKErrorRetryAfterKey] as? NSNumber {
                             
                             let delay = retryAfter.doubleValue * Double(NSEC_PER_SEC)
-                            let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
                             
-                            dispatch_after(time, dispatch_get_main_queue()) {
+                            DispatchQueue.main.after(when: .now() + delay, execute: {
                                 
                                 self.editCollectionInCloudKit(collection)
-                            }
+                            })
                             return
                         }
                     }
@@ -169,7 +199,7 @@ class CloudKitManager {
     
     //MARK: Items
     
-    private func saveItemsToCloudKit(collection: CollectionModel) {
+    private func saveItemsToCloudKit(_ collection: CollectionModel) {
         
         var recordsArray = [CKRecord]()
         
@@ -184,10 +214,10 @@ class CloudKitManager {
                 
                 do {
                     
-                    let url = NSURL(fileURLWithPath: NSTemporaryDirectory()).URLByAppendingPathComponent(collection.name.trim() + item.text.trim())
+                    let url = try! URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(collection.name.trim() + item.text.trim())
                     let data = UIImagePNGRepresentation(image)!
                     
-                    try data.writeToURL(url, options: NSDataWritingOptions.AtomicWrite)
+                    try data.write(to: url, options: NSData.WritingOptions.atomicWrite)
                     let asset = CKAsset(fileURL: url)
                     record.setObject(asset, forKey: "Image")
                 }
@@ -196,14 +226,14 @@ class CloudKitManager {
                 }
             }
             
-            let reference = CKReference(record: collection.record, action: .DeleteSelf)
+            let reference = CKReference(record: collection.record, action: .deleteSelf)
             record.setObject(reference, forKey: "Collection")
             recordsArray.append(record)
         }
         
         let saveRecordsOperation = CKModifyRecordsOperation()
         saveRecordsOperation.recordsToSave = recordsArray
-        saveRecordsOperation.savePolicy = .IfServerRecordUnchanged
+        saveRecordsOperation.savePolicy = .ifServerRecordUnchanged
         saveRecordsOperation.perRecordCompletionBlock = {
             record, error in
             
@@ -221,9 +251,9 @@ class CloudKitManager {
                     if let retryAfter = userInfo[CKErrorRetryAfterKey] as? NSNumber {
                         
                         let delay = retryAfter.doubleValue * Double(NSEC_PER_SEC)
-                        let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+                        let time = DispatchTime.now() + Double(Int64(delay)) / Double(NSEC_PER_SEC)
                         
-                        dispatch_after(time, dispatch_get_main_queue()) {
+                        DispatchQueue.main.after(when: time) {
                             
                             self.saveItemsToCloudKit(collection)
                         }
@@ -242,14 +272,14 @@ class CloudKitManager {
                 print("Saved Themes & Motifs")
             }
         }
-        self.database.addOperation(saveRecordsOperation)
+        self.privateDatabase.add(saveRecordsOperation)
     }
     
     //MARK: Generic
     
-    func deleteFromCloudKit(recordID: CKRecordID) {
+    func deleteFromCloudKit(_ recordID: CKRecordID) {
         
-        database.deleteRecordWithID(recordID) {
+        privateDatabase.delete(withRecordID: recordID) {
             (record, error) in
             
             if error != nil {
@@ -266,12 +296,12 @@ class CloudKitManager {
                     if let retryAfter = userInfo[CKErrorRetryAfterKey] as? NSNumber {
                         
                         let delay = retryAfter.doubleValue * Double(NSEC_PER_SEC)
-                        let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
                         
-                        dispatch_after(time, dispatch_get_main_queue()) {
+                        DispatchQueue.main.after(when: .now() + delay, execute: {
                             
                             self.deleteFromCloudKit(recordID)
-                        }
+                        })
+                        
                         return
                     }
                 }
@@ -281,11 +311,93 @@ class CloudKitManager {
     
     //MARK: - From Cloud
     
+    func fetchAllFromDatabase(_ usePublicDatabase: Bool) {
+        
+        let predicate = Predicate(value: true)
+        let query = CKQuery(recordType: "Collection", predicate: predicate)
+        
+        var database: CKDatabase
+        
+        if usePublicDatabase {
+            
+            database = publicDatabase
+        } else {
+            database = privateDatabase
+        }
+        
+        database.perform(query, inZoneWith: nil) { (records, error) in
+            
+            if let records = records {
+                
+                var cloudCollections = [CollectionModel]()
+                
+                for record in records {
+                    
+                    if ((record["Name"] as? String) != nil) {
+                        
+                        let name = record["Name"] as! String
+                        
+                        var dateCreated = Date()
+                        
+                        if let date = record["DateCreated"] as? Date {
+                            dateCreated = date
+                        }
+                        
+                        var description = ""
+                        if ((record["Description"] as? String) != nil) {
+                            
+                            description = record["Description"] as! String
+                        }
+                        
+                        let collection = CollectionModel (name: name, description: description, dateCreated: dateCreated)
+                        
+                        if let asset = record["Image"] as? CKAsset,
+                            data = try? Data(contentsOf: asset.fileURL),
+                            image = UIImage(data: data) {
+                            collection.image = image
+                        }
+                        
+                        collection.record = record
+                        
+                        cloudCollections.append(collection)
+                    }
+                }
+                
+                if cloudCollections.count > 0 {
+                    
+                    self.delegate?.cloudCollections(cloudCollections)
+                }
+                
+                let itemQuery = CKQuery(recordType: "Item", predicate: predicate)
+                
+                var cloudItemsWithCollectionRecordNames = [(ItemModel, String)]()
+                
+                database.perform(itemQuery, inZoneWith: nil) { (records, error) in
+                    
+                    if let records = records {
+                        
+                        for record in records {
+                            
+                            cloudItemsWithCollectionRecordNames.append(self.createItemFromRecordWithCollectionRecordName(record: record))
+                        }
+                        
+                        if cloudItemsWithCollectionRecordNames.count > 0 {
+                            
+                           self.delegate?.cloudItemsWithCollectionRecordNames(cloudItemsWithCollectionRecordNames)
+                        }
+                    }
+                }
+                
+                // Then need to get all items, dump the dupes
+            }
+        }
+    }
+    
     //MARK: Collections
     
-    func addCollectionFromCloudKit(recordID: CKRecordID) {
+    func addCollectionFromCloudKit(_ recordID: CKRecordID) {
         
-        database.fetchRecordWithID(recordID) { fetchedCollection, error in
+        privateDatabase.fetch(withRecordID: recordID) { fetchedCollection, error in
             
             guard let fetchedCollection = fetchedCollection else {
                 // handle errors here
@@ -304,28 +416,30 @@ class CloudKitManager {
                     description = fetchedCollection["Description"] as! String
                 }
                 
-                let dateCreated = fetchedCollection["DateCreated"] as! NSDate
+                let dateCreated = fetchedCollection["DateCreated"] as! Date
                 
                 let collection = CollectionModel (name: name, description: description, dateCreated: dateCreated)
                 
                 if let asset = fetchedCollection["Image"] as? CKAsset,
-                    data = NSData(contentsOfURL: asset.fileURL),
-                    image = UIImage(data: data) {
+                    data = NSData.init(contentsOf: asset.fileURL),
+                    image = UIImage(data: data as Data) {
                     collection.image = image
                 }
+                
+                collection.record = fetchedCollection
                 
                 self.delegate?.newCloudCollection(collection)
             }
         }
     }
     
-    func deleteLocalCollection(recordID: CKRecordID) {
+    func deleteLocalCollection(_ recordID: CKRecordID) {
         self.delegate?.deleteCollectionWithReference(recordID.recordName)
     }
     
-    func updateLocalCollection(recordID:CKRecordID) {
+    func updateLocalCollection(_ recordID:CKRecordID) {
         
-        database.fetchRecordWithID(recordID) { fetchedCollection, error in
+        privateDatabase.fetch(withRecordID: recordID) { fetchedCollection, error in
             
             guard let fetchedCollection = fetchedCollection else {
                 // handle errors here
@@ -342,15 +456,17 @@ class CloudKitManager {
                     description = fetchedCollection["Description"] as! String
                 }
                 
-                let dateCreated = fetchedCollection["DateCreated"] as! NSDate
+                let dateCreated = fetchedCollection["DateCreated"] as! Date
                 
                 let collection = CollectionModel (name: name, description: description, dateCreated: dateCreated)
                 
                 if let asset = fetchedCollection["Image"] as? CKAsset,
-                    data = NSData(contentsOfURL: asset.fileURL),
-                    image = UIImage(data: data) {
+                    data = NSData.init(contentsOf: asset.fileURL),
+                    image = UIImage(data: data as Data) {
                     collection.image = image
                 }
+                
+                collection.record = fetchedCollection
                 
                 self.delegate?.updateCollectionWithReference(collection, reference: recordID.recordName)
             }
@@ -359,9 +475,9 @@ class CloudKitManager {
     
     //MARK: Items
     
-    func addItemFromCloudKit(recordID: CKRecordID) {
+    func addItemFromCloudKit(_ recordID: CKRecordID) {
         
-        database.fetchRecordWithID(recordID) { fetchedItem, error in
+        privateDatabase.fetch(withRecordID: recordID) { fetchedItem, error in
             
             guard let fetchedItem = fetchedItem else {
                 // handle errors here
@@ -370,52 +486,45 @@ class CloudKitManager {
                 return
             }
             
-            let name = fetchedItem["Name"] as! String
-            let collection = fetchedItem["Collection"] as! CKReference
-            let sorted = fetchedItem["Sorted"] as! Bool
-            let dateCreated = fetchedItem["DateCreated"] as! NSDate
+            let itemAndRecord = self.createItemFromRecordWithCollectionRecordName(record: fetchedItem)
             
-            let item = ItemModel(string: name, dateCreated: dateCreated)
-            
-            if let asset = fetchedItem["Image"] as? CKAsset,
-                data = NSData(contentsOfURL: asset.fileURL),
-                image = UIImage(data: data) {
-                item.image = image
-            }
-            
-            item.record = CKRecord(recordType: "Item", recordID: recordID)
-            item.sorted = sorted
-            self.delegate?.newCloudItemFromCollectionReference(item, reference: collection.recordID.recordName)
+            let item = itemAndRecord.item
+
+            self.delegate?.newCloudItemFromCollectionReference(item, reference: itemAndRecord.collectionRecordName)
         }
     }
     
-    func deleteLocalItem(recordID: CKRecordID) {
+    func deleteLocalItem(_ recordID: CKRecordID) {
         self.delegate?.deleteItemWithReference(recordID.recordName)
     }
     
-    func updateLocalItem(recordID: CKRecordID) {
+    func updateLocalItem(_ recordID: CKRecordID) {
         
-        database.fetchRecordWithID(recordID) { fetchedItem, error in
+        privateDatabase.fetch(withRecordID: recordID) { fetchedItem, error in
             
             guard let fetchedItem = fetchedItem else {
                 return
             }
             
+            
+            
             if ((fetchedItem["Name"] as? String) != nil) {
                 
                 let name = fetchedItem["Name"] as! String
                 let sorted = fetchedItem["Sorted"] as! Bool
-                let dateCreated = fetchedItem["DateCreated"] as! NSDate
+                let dateCreated = fetchedItem["DateCreated"] as! Date
                 
                 let item = ItemModel(string: name, dateCreated: dateCreated)
                 
                 if let asset = fetchedItem["Image"] as? CKAsset,
-                    data = NSData(contentsOfURL: asset.fileURL),
-                    image = UIImage(data: data) {
+                    data = NSData.init(contentsOf: asset.fileURL),
+                    image = UIImage(data: data as Data) {
                     item.image = image
                 }
                 
                 item.sorted = sorted
+                item.record = fetchedItem
+                
                 self.delegate?.updateItemWithReference(item, reference: recordID.recordName)
             }
         }
@@ -430,9 +539,9 @@ class CloudKitManager {
             return
         }
         
-        let predicate = NSPredicate(value: true)
+        let predicate = Predicate(value: true)
             
-        let options: CKSubscriptionOptions = [.FiresOnRecordDeletion, .FiresOnRecordUpdate, .FiresOnRecordCreation]
+        let options: CKSubscriptionOptions = [.firesOnRecordDeletion, .firesOnRecordUpdate, .firesOnRecordCreation]
 
         let subscription = CKSubscription(recordType: "Collection", predicate: predicate, options: options)
         
@@ -441,7 +550,7 @@ class CloudKitManager {
         notification.alertBody = "Collection"
         subscription.notificationInfo = notification
         
-        database.saveSubscription(subscription) { (subscription, error) in
+        privateDatabase.save(subscription) { (subscription, error) in
             if error != nil {
                 print(error!.localizedDescription)
                 
@@ -461,7 +570,7 @@ class CloudKitManager {
                 itemNotification.alertBody = "Item"
                 itemSubscription.notificationInfo = itemNotification
                 
-                self.database.saveSubscription(itemSubscription) { (itemSubscription, error) in
+                self.privateDatabase.save(itemSubscription) { (itemSubscription, error) in
                     if error != nil {
                         print(error!.localizedDescription)
                         
@@ -482,21 +591,21 @@ class CloudKitManager {
     
     //MARK: - Notifications
     
-    func handleNotification(note: CKQueryNotification) {
+    func handleNotification(_ note: CKQueryNotification) {
         let recordID = note.recordID
         
         if note.alertBody == "Collection" {
             
             switch note.queryNotificationReason {
-            case .RecordDeleted:
+            case .recordDeleted:
                 print("Collection Deleted")
                 deleteLocalCollection(recordID!)
                 
-            case .RecordCreated:
+            case .recordCreated:
                 print("Collection Created")
                 addCollectionFromCloudKit(recordID!)
                 
-            case .RecordUpdated:
+            case .recordUpdated:
                 print("Collection Updated")
                 updateLocalCollection(recordID!)
             }
@@ -504,15 +613,15 @@ class CloudKitManager {
         } else if note.alertBody == "Item" {
             
             switch note.queryNotificationReason {
-            case .RecordDeleted:
+            case .recordDeleted:
                 print("Item Deleted")
                 deleteLocalItem(recordID!)
                 
-            case .RecordCreated:
+            case .recordCreated:
                 print("Item Created")
                 addItemFromCloudKit(recordID!)
                 
-            case .RecordUpdated:
+            case .recordUpdated:
                 print("Item Updated")
                 updateLocalItem(recordID!)
             }
@@ -535,14 +644,14 @@ class CloudKitManager {
                 print("error fetching notifications \(error)") }
         }
         
-        CKContainer.defaultContainer().addOperation(op) }
+        CKContainer.default().add(op) }
     
-    func markNotificationAsRead(notes:[CKNotificationID]) {
+    func markNotificationAsRead(_ notes:[CKNotificationID]) {
         let markOp = CKMarkNotificationsReadOperation(notificationIDsToMarkRead: notes)
-        CKContainer.defaultContainer().addOperation(markOp)
+        CKContainer.default().add(markOp)
     }
     
-    func isRetryableCKError(error:NSError?) -> Bool {
+    func isRetryableCKError(_ error:NSError?) -> Bool {
         
         var isRetryable = false
 
@@ -550,8 +659,8 @@ class CloudKitManager {
             
             let errorCode: Int = err.code
             
-            let isUnavailable = CKErrorCode.ServiceUnavailable.rawValue
-            let isRateLimited = CKErrorCode.RequestRateLimited.rawValue
+            let isUnavailable = CKErrorCode.serviceUnavailable.rawValue
+            let isRateLimited = CKErrorCode.requestRateLimited.rawValue
             
             if errorCode == isUnavailable || errorCode == isRateLimited {
                 
@@ -560,4 +669,6 @@ class CloudKitManager {
         }
         return isRetryable
     }
+    
+
 }

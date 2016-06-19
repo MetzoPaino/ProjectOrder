@@ -15,10 +15,10 @@ class LabelCell: UITableViewCell {
     @IBOutlet weak var circleImageView: UIImageView!
     @IBOutlet weak var circleImageViewWidthConstraint: NSLayoutConstraint!
     
-    func configureCell(hasImage:Bool) {
+    func configureCell(_ hasImage:Bool) {
         
         layoutMargins = UIEdgeInsetsZero;
-        selectionStyle = .None
+        selectionStyle = .none
         
         if hasImage {
             titleLabelLeadingConstraint.constant = 8
@@ -59,7 +59,7 @@ class TitleCell: UITableViewCell {
     @IBOutlet weak var summaryImageView: UIImageView!
     @IBOutlet weak var summaryImageViewHeightConstraint: NSLayoutConstraint!
 
-    let textViewValues = (color: UIColor.blackColor(), placeholderColor: UIColor.lightGrayColor(), placeholderText: "Title")
+    let textViewValues = (color: UIColor.black(), placeholderColor: UIColor.lightGray(), placeholderText: "Title")
     
     func configureCell() {
         summaryImageView.layer.cornerRadius = 64 / 2
@@ -112,18 +112,18 @@ class UnsortedItemTableViewCell: UITableViewCell {
     @IBOutlet weak var circleImageViewLeadingConstraint: NSLayoutConstraint!
     @IBOutlet weak var circleImageViewWidthConstraint: NSLayoutConstraint!
 
-    func configureCell(sorted:Bool) {
+    func configureCell(_ sorted:Bool) {
         
         layoutMargins = UIEdgeInsetsZero;
-        selectionStyle = .None
+        selectionStyle = .none
         
-        numberLabel.textColor = .whiteColor()
+        numberLabel.textColor = .white()
         titleLabel.textColor = .titleColor()
 
         if sorted {
             
             titleLabelLeadingConstraint.constant = 8
-            numberLabel.hidden = false
+            numberLabel.isHidden = false
 
             circleImageView.layer.cornerRadius = circleImageViewWidthConstraint.constant / 2
             tintView.layer.cornerRadius = circleImageViewWidthConstraint.constant / 2
@@ -136,7 +136,7 @@ class UnsortedItemTableViewCell: UITableViewCell {
         } else {
             
 
-            numberLabel.hidden = true
+            numberLabel.isHidden = true
         }
         
 
@@ -144,7 +144,7 @@ class UnsortedItemTableViewCell: UITableViewCell {
 }
 
 protocol AddItemTableViewCellDelegate: class {
-    func createdNewItemWithText(text: String)
+    func createdNewItemWithText(_ text: String)
 }
 
 
@@ -162,27 +162,27 @@ class AddItemTableViewCell: UITableViewCell {
     func configureCell() {
         
         textField.delegate = self
-        textField.attributedPlaceholder = NSAttributedString(string: textField.placeholder!, attributes: [NSForegroundColorAttributeName: UIColor.backgroundColor()])
+        textField.attributedPlaceholder = AttributedString(string: textField.placeholder!, attributes: [NSForegroundColorAttributeName: UIColor.backgroundColor()])
         
         circleView.backgroundColor = .primaryColor()
         circleView.layer.cornerRadius = circleViewWidthConstraint.constant / 2
         circleView.clipsToBounds = true
         
-        button.imageView!.image = UIImage(named: "PlusButton" )?.imageWithRenderingMode(.AlwaysTemplate)
-        button.imageView!.tintColor = .whiteColor()
+        button.imageView!.image = UIImage(named: "PlusButton" )?.withRenderingMode(.alwaysTemplate)
+        button.imageView!.tintColor = .white()
     }
 }
 
 extension AddItemTableViewCell: UITextFieldDelegate {
     
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
                 
         let string = textField.text! as NSString
         
         if string.length > 0 {
             
-            let whitespaceSet = NSCharacterSet.whitespaceCharacterSet()
-            if !string.stringByTrimmingCharactersInSet(whitespaceSet).isEmpty {
+            let whitespaceSet = CharacterSet.whitespaces
+            if !string.trimmingCharacters(in: whitespaceSet).isEmpty {
                 
                 self.delegate?.createdNewItemWithText(textField.text!)
                 textField.text = ""

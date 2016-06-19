@@ -9,7 +9,7 @@
 import UIKit
 
 protocol SettingsViewControllerDelegate: class {
-    func appendPreMadeCollections(collections: [CollectionModel])
+    func appendPreMadeCollections(_ collections: [CollectionModel])
 }
 
 class SettingsViewController: UIViewController {
@@ -29,10 +29,10 @@ class SettingsViewController: UIViewController {
     }
 
     func styleNavBar() {
-        navigationController?.navigationBar.setBackgroundImage(nil, forBarMetrics: UIBarMetrics.Default)
+        navigationController?.navigationBar.setBackgroundImage(nil, for: UIBarMetrics.default)
         navigationController?.navigationBar.shadowImage = nil
-        navigationController?.navigationBar.translucent = false
-        navigationController?.view.backgroundColor = UIColor.whiteColor()
+        navigationController?.navigationBar.isTranslucent = false
+        navigationController?.view.backgroundColor = UIColor.white()
         navigationController?.navigationBar.tintColor = .primaryColor()
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.primaryColor()]
     }
@@ -48,7 +48,7 @@ class SettingsViewController: UIViewController {
     
     // MARK: - Navigation
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: AnyObject?) {
         
         let backItem = UIBarButtonItem()
         backItem.title = ""
@@ -63,35 +63,35 @@ class SettingsViewController: UIViewController {
     
     // MARK: - IBActions
 
-    @IBAction func closeBarButtonPressed(sender: UIBarButtonItem) {
+    @IBAction func closeBarButtonPressed(_ sender: UIBarButtonItem) {
         
-        self.navigationController?.dismissViewControllerAnimated(true, completion: nil)
+        self.navigationController?.dismiss(animated: true, completion: nil)
     }
 }
 
 extension SettingsViewController: UITableViewDelegate {
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
 
 extension SettingsViewController: UITableViewDataSource {
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         return 2
         
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        if indexPath.row == 0 {
-            let cell = tableView.dequeueReusableCellWithIdentifier("AddListsCell", forIndexPath: indexPath)
+        if (indexPath as NSIndexPath).row == 0 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "AddListsCell", for: indexPath)
             return cell
         } else {
-            let cell = tableView.dequeueReusableCellWithIdentifier("AboutCell", forIndexPath: indexPath)
+            let cell = tableView.dequeueReusableCell(withIdentifier: "AboutCell", for: indexPath)
             return cell
         }
     }
@@ -99,9 +99,9 @@ extension SettingsViewController: UITableViewDataSource {
 
 extension SettingsViewController: AddListsViewControllerDelegate {
     
-    func finishedPickingCollections(collections: [CollectionModel]) {
+    func finishedPickingCollections(_ collections: [CollectionModel]) {
         
-        self.collections.appendContentsOf(collections)
+        self.collections.append(contentsOf: collections)
         self.delegate?.appendPreMadeCollections(collections)
     }
 }

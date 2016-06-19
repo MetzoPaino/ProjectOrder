@@ -29,7 +29,7 @@ class LaunchViewController: UIViewController, Injectable {
                 
                 foundImage = true
                 
-                animationArray.append(image.CGImage!)
+                animationArray.append(image.cgImage!)
             } else {
                 
                 foundImage = false
@@ -48,7 +48,7 @@ class LaunchViewController: UIViewController, Injectable {
         } while foundImage
     }
     
-    func inject(dataManager: AssociatedObject) {
+    func inject(_ dataManager: AssociatedObject) {
         self.dataManager = dataManager
     }
     
@@ -56,33 +56,32 @@ class LaunchViewController: UIViewController, Injectable {
         assert(dataManager != nil)
     }
     
-    override func animationDidStop(anim: CAAnimation, finished flag: Bool) {
+    override func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
         
-        performSegueWithIdentifier("Start", sender: self)
+        performSegue(withIdentifier: "Start", sender: self)
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         
         let animation = CAKeyframeAnimation(keyPath: "contents")
         animation.calculationMode = kCAAnimationDiscrete
         animation.duration = 0.5
-        animation.values = animationArray.reverse()
+        animation.values = animationArray.reversed()
         animation.repeatCount = 1
-        animation.removedOnCompletion = false
+        animation.isRemovedOnCompletion = false
         animation.fillMode = kCAFillModeForwards
         animation.delegate = self
-        imageView.layer.addAnimation(animation, forKey: "animation")
+        imageView.layer.add(animation, forKey: "animation")
     }
     
     // MARK: - Navigation
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: AnyObject?) {
         
         if let navigationController = segue.destinationViewController as? UINavigationController {
     
             let controller = navigationController.topViewController as! CollectionsViewController
                 controller.inject(dataManager)
-                controller
             }
     }
 }

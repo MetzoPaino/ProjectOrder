@@ -29,10 +29,10 @@ class AboutViewController: UIViewController {
     
     func styleNavBar() {
         
-        navigationController?.navigationBar.setBackgroundImage(nil, forBarMetrics: UIBarMetrics.Default)
+        navigationController?.navigationBar.setBackgroundImage(nil, for: UIBarMetrics.default)
         navigationController?.navigationBar.shadowImage = nil
-        navigationController?.navigationBar.translucent = false
-        navigationController?.view.backgroundColor = UIColor.whiteColor()
+        navigationController?.navigationBar.isTranslucent = false
+        navigationController?.view.backgroundColor = UIColor.white()
         navigationController?.navigationBar.tintColor = .primaryColor()
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.primaryColor()]
     }
@@ -51,25 +51,25 @@ class AboutViewController: UIViewController {
 
         let order = Int(arc4random_uniform(UInt32(2)))
         
-        let nameAttributes = [NSForegroundColorAttributeName: UIColor.headingColor(), NSFontAttributeName: UIFont.systemFontOfSize(22, weight: UIFontWeightRegular)]
-        let linkAttributes = [NSForegroundColorAttributeName: UIColor.primaryColor(), NSFontAttributeName: UIFont.systemFontOfSize(16, weight: UIFontWeightLight)]
-        let breakString = NSAttributedString(string: "\n")
+        let nameAttributes = [NSForegroundColorAttributeName: UIColor.headingColor(), NSFontAttributeName: UIFont.systemFont(ofSize: 22, weight: UIFontWeightRegular)]
+        let linkAttributes = [NSForegroundColorAttributeName: UIColor.primaryColor(), NSFontAttributeName: UIFont.systemFont(ofSize: 16, weight: UIFontWeightLight)]
+        let breakString = AttributedString(string: "\n")
 
         switch order {
         case 0:
             
-            let topNameString = NSAttributedString(string: williamString, attributes: nameAttributes)
-            let bottomNameString = NSAttributedString(string: robynString, attributes: nameAttributes)
-            let topLinkString = NSAttributedString(string: williamLink, attributes: linkAttributes)
-            let bottomLinkString = NSAttributedString(string: robynLink, attributes: linkAttributes)
+            let topNameString = AttributedString(string: williamString, attributes: nameAttributes)
+            let bottomNameString = AttributedString(string: robynString, attributes: nameAttributes)
+            let topLinkString = AttributedString(string: williamLink, attributes: linkAttributes)
+            let bottomLinkString = AttributedString(string: robynLink, attributes: linkAttributes)
             
             let topString = NSMutableAttributedString(attributedString: topNameString)
-            topString.appendAttributedString(breakString)
-            topString.appendAttributedString(topLinkString)
+            topString.append(breakString)
+            topString.append(topLinkString)
             
             let bottomString = NSMutableAttributedString(attributedString: bottomNameString)
-            bottomString.appendAttributedString(breakString)
-            bottomString.appendAttributedString(bottomLinkString)
+            bottomString.append(breakString)
+            bottomString.append(bottomLinkString)
             
             person1Label.attributedText = topString
             person1ImageView.image = UIImage(named: "William")
@@ -78,18 +78,18 @@ class AboutViewController: UIViewController {
 
         default:
             
-            let topNameString = NSAttributedString(string: robynString, attributes: nameAttributes)
-            let bottomNameString = NSAttributedString(string: williamString, attributes: nameAttributes)
-            let topLinkString = NSAttributedString(string: robynLink, attributes: linkAttributes)
-            let bottomLinkString = NSAttributedString(string: williamLink, attributes: linkAttributes)
+            let topNameString = AttributedString(string: robynString, attributes: nameAttributes)
+            let bottomNameString = AttributedString(string: williamString, attributes: nameAttributes)
+            let topLinkString = AttributedString(string: robynLink, attributes: linkAttributes)
+            let bottomLinkString = AttributedString(string: williamLink, attributes: linkAttributes)
             
             let topString = NSMutableAttributedString(attributedString: topNameString)
-            topString.appendAttributedString(breakString)
-            topString.appendAttributedString(topLinkString)
+            topString.append(breakString)
+            topString.append(topLinkString)
             
             let bottomString = NSMutableAttributedString(attributedString: bottomNameString)
-            bottomString.appendAttributedString(breakString)
-            bottomString.appendAttributedString(bottomLinkString)
+            bottomString.append(breakString)
+            bottomString.append(bottomLinkString)
             
             person1Label.attributedText = topString
             person1ImageView.image = UIImage(named: "Robyn")
@@ -97,7 +97,7 @@ class AboutViewController: UIViewController {
             person2ImageView.image = UIImage(named: "William")
         }
 
-        if let versionString = NSBundle.mainBundle().infoDictionary?["CFBundleShortVersionString"] as? String {
+        if let versionString = Bundle.main().infoDictionary?["CFBundleShortVersionString"] as? String {
             
             versionLabel.text = "Version: " + versionString
         }

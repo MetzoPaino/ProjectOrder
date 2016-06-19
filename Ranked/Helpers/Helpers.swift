@@ -12,8 +12,8 @@ class Helper {
     
     static func largestDeviceSide() -> CGFloat {
     
-        let height = UIScreen.mainScreen().bounds.height
-        let width = UIScreen.mainScreen().bounds.width
+        let height = UIScreen.main().bounds.height
+        let width = UIScreen.main().bounds.width
     
         if height > width {
             return height
@@ -27,7 +27,7 @@ extension String {
     
     func trim() -> String {
         
-        let components = self.componentsSeparatedByCharactersInSet(NSCharacterSet.whitespaceCharacterSet()).filter { !$0.isEmpty }
-        return components.joinWithSeparator("")
+        let components = self.components(separatedBy: CharacterSet.whitespaces).filter { !$0.isEmpty }
+        return components.joined(separator: "")
     }
 }

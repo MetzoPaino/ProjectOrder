@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CloudKit
 
 class CollectionsViewController: UIViewController, Injectable {
     
@@ -34,42 +35,42 @@ class CollectionsViewController: UIViewController, Injectable {
         
         styleTableView()
         styleView()
-        
+                
         let logo = UIImage(named: "SortingAnimation_100")
         let imageView = UIImageView(image:logo)
-        imageView.bounds = CGRectMake(0, 0, 32, 32)
-        imageView.contentMode = .ScaleAspectFit
+        imageView.bounds = CGRect(x: 0, y: 0, width: 32, height: 32)
+        imageView.contentMode = .scaleAspectFit
         self.navigationItem.titleView = imageView
     }
     
-    override func viewWillDisappear(animated: Bool)  {
+    override func viewWillDisappear(_ animated: Bool)  {
         super.viewWillDisappear(animated)
         
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default().removeObserver(self)
         
-        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), forBarMetrics: UIBarMetrics.Default)
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
-        self.navigationController?.navigationBar.translucent = false
-        self.navigationController?.view.backgroundColor = UIColor.whiteColor()
+        self.navigationController?.navigationBar.isTranslucent = false
+        self.navigationController?.view.backgroundColor = UIColor.white()
     }
     
-    override func viewDidDisappear(animated: Bool) {
+    override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         tableView.reloadData()
         
-        navigationController?.navigationBar.setBackgroundImage(nil, forBarMetrics: UIBarMetrics.Default)
+        navigationController?.navigationBar.setBackgroundImage(nil, for: UIBarMetrics.default)
         navigationController?.navigationBar.shadowImage = nil
-        navigationController?.navigationBar.translucent = false
-        navigationController?.view.backgroundColor = UIColor.whiteColor()
+        navigationController?.navigationBar.isTranslucent = false
+        navigationController?.view.backgroundColor = UIColor.white()
         navigationController?.navigationBar.tintColor = .primaryColor()
     }
     
-    func inject(dataManager: AssociatedObject) {
+    func inject(_ dataManager: AssociatedObject) {
         self.dataManager = dataManager
         self.dataManager.delegate = self
     }
@@ -80,15 +81,16 @@ class CollectionsViewController: UIViewController, Injectable {
 
     func styleView() {
         
+        deleteItemFromCloudKit(recordID: CKRecordID(recordName: "l"))
         addButton.backgroundColor = .primaryColor()
         addButton.layer.cornerRadius = self.addButtonHeightConstraint.constant / 2
-        addButton.setImage(UIImage(named: "PlusButton" )?.imageWithRenderingMode(.AlwaysTemplate), forState: .Normal)
-        addButton.tintColor = .whiteColor()
+        addButton.setImage(UIImage(named: "PlusButton" )?.withRenderingMode(.alwaysTemplate), for: UIControlState())
+        addButton.tintColor = .white()
         
-        addButton.layer.shadowColor = UIColor.blackColor().CGColor;
+        addButton.layer.shadowColor = UIColor.black().cgColor;
         addButton.layer.shadowOpacity = 0.25
         addButton.layer.shadowRadius = 2
-        addButton.layer.shadowOffset = CGSizeMake(0.0, 2.0)
+        addButton.layer.shadowOffset = CGSize(width: 0.0, height: 2.0)
         addButton.layer.masksToBounds = false
     }
     
@@ -109,8 +111,13 @@ class CollectionsViewController: UIViewController, Injectable {
             view.insertSubview(getStartedContainerView, belowSubview: addButton)
             
         } else {
-            view.sendSubviewToBack(getStartedContainerView)
+            view.sendSubview(toBack: getStartedContainerView)
         }
+    }
+    
+    @IBAction func syncButtonPressed(_ sender: UIBarButtonItem) {
+        
+        dataManager.cloudKitManager.fetchAllFromDatabase(true)
     }
 }
 
@@ -118,13 +125,13 @@ class CollectionsViewController: UIViewController, Injectable {
 private typealias Navigation = CollectionsViewController
 extension Navigation {
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: AnyObject?) {
         
         if let controller = segue.destinationViewController as? ItemsViewController {
             
             if segue.identifier == "CreateCollection" {
                 
-                controller.inject(CollectionModel(name: "", description: "", dateCreated: NSDate()))
+                controller.inject(CollectionModel(name: "", description: "", dateCreated: Date()))
                 controller.delegate = self
                 controller.newCollection = true
                 
@@ -132,7 +139,7 @@ extension Navigation {
                 
                 if let selectedIndexPath = tableView.indexPathForSelectedRow {
                     
-                    controller.inject(dataManager.collections[selectedIndexPath.row])
+                    controller.inject(dataManager.collections[(selectedIndexPath as NSIndexPath).row])
                     controller.inEditingMode = false
                     controller.newCollection = false
                     controller.delegate = self
@@ -176,23 +183,27 @@ extension Navigation {
 // MARK: - TableView Protocols
 private typealias TableViewDelegate = CollectionsViewController
 extension TableViewDelegate: UITableViewDelegate {
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
         //        performSegueWithIdentifier("ShowCollection", sender: collectionsArray[indexPath.row])
     }
     
-    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         
-        if dataManager.collections[indexPath.row].premade {
+        if dataManager.collections[(indexPath as NSIndexPath).row].premade {
             
-            let deleteAction = UITableViewRowAction(style: .Destructive, title: "Delete") {
-                (rowAction:UITableViewRowAction, indexPath:NSIndexPath) -> Void in
+            let deleteAction = UITableViewRowAction(style: .default, title: "Delete") {
+                (rowAction:UITableViewRowAction, indexPath:IndexPath) -> Void in
                 
-                CloudKitManager().deleteFromCloudKit(self.dataManager.collections[indexPath.row].record.recordID)
-                self.dataManager.collections.removeAtIndex(indexPath.row)
+                // Delete, we shouldn't be initialising CloudKitManager every time
+                //CloudKitManager().deleteFromCloudKit(self.dataManager.collections[(indexPath as NSIndexPath).row].record.recordID)
+                
+                self.dataManager.deleteCollectionFromCloudKit(recordID: self.dataManager.collections[(indexPath as NSIndexPath).row].record.recordID)
+                
+                self.dataManager.collections.remove(at: (indexPath as NSIndexPath).row)
                 tableView.beginUpdates()
-                tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+                tableView.deleteRows(at: [indexPath], with: .automatic)
                 tableView.endUpdates()
                 
             }
@@ -202,22 +213,26 @@ extension TableViewDelegate: UITableViewDelegate {
             
         } else {
           
-            let editAction = UITableViewRowAction(style: .Normal, title: "Edit") {
-                (rowAction:UITableViewRowAction, indexPath:NSIndexPath) -> Void in
+            let editAction = UITableViewRowAction(style: .normal, title: "Edit") {
+                (rowAction:UITableViewRowAction, indexPath:IndexPath) -> Void in
                 
-                self.performSegueWithIdentifier("ShowEditCollection", sender: indexPath.row)
+                self.performSegue(withIdentifier: "ShowEditCollection", sender: (indexPath as NSIndexPath).row)
                 
             }
             editAction.backgroundColor = UIColor.secondaryColor()
             
             
-            let deleteAction = UITableViewRowAction(style: .Destructive, title: "Delete") {
-                (rowAction:UITableViewRowAction, indexPath:NSIndexPath) -> Void in
+            let deleteAction = UITableViewRowAction(style: .default, title: "Delete") {
+                (rowAction:UITableViewRowAction, indexPath:IndexPath) -> Void in
                 
-                CloudKitManager().deleteFromCloudKit(self.dataManager.collections[indexPath.row].record.recordID)
-                self.dataManager.collections.removeAtIndex(indexPath.row)
+                // Delete, we shouldn't be initialising CloudKitManager every time
+                //CloudKitManager().deleteFromCloudKit(self.dataManager.collections[(indexPath as NSIndexPath).row].record.recordID)
+                
+                self.dataManager.deleteCollectionFromCloudKit(recordID: self.dataManager.collections[(indexPath as NSIndexPath).row].record.recordID)
+                
+                self.dataManager.collections.remove(at: (indexPath as NSIndexPath).row)
                 tableView.beginUpdates()
-                tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+                tableView.deleteRows(at: [indexPath], with: .automatic)
                 tableView.endUpdates()
                 
             }
@@ -231,7 +246,7 @@ extension TableViewDelegate: UITableViewDelegate {
 private typealias TableViewDataSource = CollectionsViewController
 extension TableViewDataSource: UITableViewDataSource {
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if dataManager.collections.count == 0 {
             
@@ -246,20 +261,20 @@ extension TableViewDataSource: UITableViewDataSource {
         return dataManager.collections.count
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if dataManager.collections.count > 0 {
             
-            let collection = dataManager.collections[indexPath.row];
+            let collection = dataManager.collections[(indexPath as NSIndexPath).row];
             
             if collection.sorted {
                 
-                let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! CollectionTableViewCell
+                let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! CollectionTableViewCell
                 cell.titleLabel.text = collection.name
                 cell.titleLabel.textColor = UIColor.headingColor()
                 cell.descriptionLabel.textColor = UIColor.subHeadingColor()
                 cell.layoutMargins = UIEdgeInsetsZero;
-                collection.items = collection.items.sort({ $0.points > $1.points })
+                collection.items = collection.items.sorted(isOrderedBefore: { $0.score > $1.score })
                 cell.descriptionLabel.text = "1. " + collection.items.first!.text
                 
                 if let image = collection.image {
@@ -276,7 +291,7 @@ extension TableViewDataSource: UITableViewDataSource {
                 
             } else {
                 
-                let cell = tableView.dequeueReusableCellWithIdentifier("UnsortedCell", forIndexPath: indexPath) as! CollectionTableViewCell
+                let cell = tableView.dequeueReusableCell(withIdentifier: "UnsortedCell", for: indexPath) as! CollectionTableViewCell
                 cell.titleLabel.text = collection.name
                 cell.titleLabel.textColor = UIColor.headingColor()
                 cell.layoutMargins = UIEdgeInsetsZero
@@ -298,7 +313,7 @@ extension TableViewDataSource: UITableViewDataSource {
             
         } else {
             
-            let cell = tableView.dequeueReusableCellWithIdentifier("NoContentCell", forIndexPath: indexPath)
+            let cell = tableView.dequeueReusableCell(withIdentifier: "NoContentCell", for: indexPath)
             return cell
         }        
     }
@@ -313,18 +328,24 @@ extension ItemsDelegate: ItemsViewControllerDelegate {
         tableView.reloadData()
     }
     
-    func collectionUpdated(collection: CollectionModel, new: Bool) {
+    func collectionUpdated(_ collection: CollectionModel, new: Bool) {
         
         // How does this work when not new?
         if new {
-            dataManager.collections.insert(collection, atIndex: 0)
-            CloudKitManager().saveCollectionToCloudKit(collection)
+            dataManager.collections.insert(collection, at: 0)
+            //CloudKitManager().saveCollectionToCloudKit(collection)
+            dataManager.saveCollectionToCloudKit(collection: collection)
         } else {
             
-            CloudKitManager().editCollectionInCloudKit(collection)
+            //CloudKitManager().editCollectionInCloudKit(collection)
+            dataManager.editCollectionToCloudKit(collection: collection)
         }
         
         tableView.reloadData()
+    }
+    
+    func deleteItemFromCloudKit(recordID: CKRecordID) {
+        dataManager.deleteItemFromCloudKit(recordID: recordID)
     }
 }
 
@@ -335,31 +356,31 @@ extension CollectionsViewController: DataManagerDelegate {
     
     func newCollection() {
         
-        dispatch_async(dispatch_get_main_queue(), {
+        DispatchQueue.main.async(execute: {
             self.tableView.reloadData()
         })
     }
     
-    func deleteLocalCollection(collection: CollectionModel) {
+    func deleteLocalCollection(_ collection: CollectionModel) {
         
-        dispatch_async(dispatch_get_main_queue(), {
+        DispatchQueue.main.async(execute: {
             
             if self.presentedViewController is CustomNavigationController {
                 
-                self.navigationController?.dismissViewControllerAnimated(true, completion: {
-                    self.navigationController?.popToRootViewControllerAnimated(true)
+                self.navigationController?.dismiss(animated: true, completion: {
+                    self.navigationController?.popToRootViewController(animated: true)
                     self.tableView.reloadData()
                 })
             } else {
-                self.navigationController?.popToRootViewControllerAnimated(true)
+                self.navigationController?.popToRootViewController(animated: true)
                 self.tableView.reloadData()
             }
         })
     }
     
-    func updateLocalCollection(collection: CollectionModel) {
+    func updateLocalCollection(_ collection: CollectionModel) {
         
-        dispatch_async(dispatch_get_main_queue(), {
+        DispatchQueue.main.async(execute: {
             
             if self.navigationController?.topViewController is ItemsViewController {
                 
@@ -371,13 +392,13 @@ extension CollectionsViewController: DataManagerDelegate {
                 }
             } else {
                 
-                self.navigationController?.popToRootViewControllerAnimated(true)
+                self.navigationController?.popToRootViewController(animated: true)
                 self.tableView.reloadData()
             }
             
             if self.presentedViewController is CustomNavigationController {
                 
-                self.navigationController?.dismissViewControllerAnimated(true, completion: {
+                self.navigationController?.dismiss(animated: true, completion: {
                 })
             }
         })
@@ -385,9 +406,9 @@ extension CollectionsViewController: DataManagerDelegate {
     
     // MARK: Items
     
-    func newItem(reference: String) {
+    func newItem(_ reference: String) {
         
-        dispatch_async(dispatch_get_main_queue(), {
+        DispatchQueue.main.async(execute: {
             
             if self.navigationController?.topViewController is ItemsViewController {
                 
@@ -400,9 +421,9 @@ extension CollectionsViewController: DataManagerDelegate {
         })
     }
     
-    func deleteLocalItemFromCollection(collection: CollectionModel) {
+    func deleteLocalItemFromCollection(_ collection: CollectionModel) {
         
-        dispatch_async(dispatch_get_main_queue(), {
+        DispatchQueue.main.async(execute: {
             
             if self.navigationController?.topViewController is ItemsViewController {
                 
@@ -412,20 +433,20 @@ extension CollectionsViewController: DataManagerDelegate {
                     itemsViewController.tableView.reloadData()
                 }
             } else if self.navigationController?.topViewController is DescriptionViewController {
-                self.navigationController?.popToRootViewControllerAnimated(true)
+                self.navigationController?.popToRootViewController(animated: true)
             }
             
             if self.presentedViewController is CustomNavigationController {
                 
-                self.navigationController?.dismissViewControllerAnimated(true, completion: {
+                self.navigationController?.dismiss(animated: true, completion: {
                 })
             }
         })
     }
     
-    func updateLocalItemInCollection(item: ItemModel, collection: CollectionModel) {
+    func updateLocalItemInCollection(_ item: ItemModel, collection: CollectionModel) {
         
-        dispatch_async(dispatch_get_main_queue(), {
+        DispatchQueue.main.async(execute: {
             
             if self.navigationController?.topViewController is ItemsViewController {
                 
@@ -435,12 +456,12 @@ extension CollectionsViewController: DataManagerDelegate {
                     itemsViewController.tableView.reloadData()
                 }
             } else if self.navigationController?.topViewController is DescriptionViewController {
-                self.navigationController?.popToRootViewControllerAnimated(true)
+                self.navigationController?.popToRootViewController(animated: true)
             }
             
             if self.presentedViewController is CustomNavigationController {
                 
-                self.navigationController?.dismissViewControllerAnimated(true, completion: {
+                self.navigationController?.dismiss(animated: true, completion: {
                 })
             }
         })
@@ -449,35 +470,38 @@ extension CollectionsViewController: DataManagerDelegate {
 
 extension CollectionsViewController: GetStartedViewControllerDelegate {
     
-    func finishedPickingCollections(collections: [CollectionModel]) {
+    func finishedPickingCollections(_ collections: [CollectionModel]) {
         
-        dataManager.collections.appendContentsOf(collections)
+        dataManager.collections.append(contentsOf: collections)
 
         for collection in collections {
-            CloudKitManager().saveCollectionToCloudKit(collection)
+            //CloudKitManager().saveCollectionToCloudKit(collection)
+            dataManager.saveCollectionToCloudKit(collection: collection)
+
         }
         
-        let lastRow = tableView.numberOfRowsInSection(0)
+        let lastRow = tableView.numberOfRows(inSection: 0)
 
-        var indexPaths = [NSIndexPath]()
+        var indexPaths = [IndexPath]()
         
-        for (index, _) in collections.enumerate() {
+        for (index, _) in collections.enumerated() {
             
-            let indexPath = NSIndexPath(forRow: lastRow + index, inSection: 0)
+            let indexPath = IndexPath(row: lastRow + index, section: 0)
             indexPaths.append(indexPath)
         }
-        tableView.insertRowsAtIndexPaths(indexPaths, withRowAnimation: .Top)
+        tableView.insertRows(at: indexPaths, with: .top)
     }
 }
 
 extension CollectionsViewController: SettingsViewControllerDelegate {
     
-    func appendPreMadeCollections(collections: [CollectionModel]) {
+    func appendPreMadeCollections(_ collections: [CollectionModel]) {
         
-        dataManager.collections.appendContentsOf(collections)
+        dataManager.collections.append(contentsOf: collections)
         
         for collection in collections {
-            CloudKitManager().saveCollectionToCloudKit(collection)
+            //CloudKitManager().saveCollectionToCloudKit(collection)
+            dataManager.saveCollectionToCloudKit(collection: collection)
         }
     }
 }

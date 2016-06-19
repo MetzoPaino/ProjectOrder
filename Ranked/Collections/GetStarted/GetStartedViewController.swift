@@ -9,7 +9,7 @@
 import UIKit
 
 protocol GetStartedViewControllerDelegate: class {
-    func finishedPickingCollections(collections: [CollectionModel])
+    func finishedPickingCollections(_ collections: [CollectionModel])
 }
 
 class GetStartedViewController: UIViewController {
@@ -67,9 +67,9 @@ class GetStartedViewController: UIViewController {
     
     func reset() {
         
-        option1View.hidden = false
-        option2View.hidden = false
-        option3View.hidden = false
+        option1View.isHidden = false
+        option2View.isHidden = false
+        option3View.isHidden = false
 
         collections = createPreMadeCollectionsArray()
         pickedCollections = [CollectionModel]()
@@ -89,37 +89,37 @@ class GetStartedViewController: UIViewController {
             view.layer.masksToBounds = true
             view.backgroundColor = .blockNeutralColor()
 
-            view.layer.shadowColor = UIColor.blackColor().CGColor;
+            view.layer.shadowColor = UIColor.black().cgColor;
             view.layer.shadowOpacity = 0.25
             view.layer.shadowRadius = 2
-            view.layer.shadowOffset = CGSizeMake(0.0, 2.0)
+            view.layer.shadowOffset = CGSize(width: 0.0, height: 2.0)
             view.layer.masksToBounds = false
         }
         
         for label in optionLabelCollection {
             
-            label.textColor = .whiteColor()
+            label.textColor = .white()
         }
         
         for button in buttonCollection {
             
             button.layer.cornerRadius = 48 / 2
-            button.tintColor = .whiteColor()
+            button.tintColor = .white()
             
-            button.layer.shadowColor = UIColor.blackColor().CGColor;
+            button.layer.shadowColor = UIColor.black().cgColor;
             button.layer.shadowOpacity = 0.25
             button.layer.shadowRadius = 2
-            button.layer.shadowOffset = CGSizeMake(0.0, 2.0)
+            button.layer.shadowOffset = CGSize(width: 0.0, height: 2.0)
             button.layer.masksToBounds = false
         }
         
         doneButton.backgroundColor = .disabledColor()
-        doneButton.userInteractionEnabled = false
-        doneButton.setImage(UIImage(named: "Tick")?.imageWithRenderingMode(.AlwaysTemplate), forState: .Normal)
+        doneButton.isUserInteractionEnabled = false
+        doneButton.setImage(UIImage(named: "Tick")?.withRenderingMode(.alwaysTemplate), for: UIControlState())
         doneButton.tintColor = .backgroundColor()
 
         refreshButton.backgroundColor = .primaryColor()
-        refreshButton.setImage(UIImage(named: "Refresh")?.imageWithRenderingMode(.AlwaysTemplate), forState: .Normal)
+        refreshButton.setImage(UIImage(named: "Refresh")?.withRenderingMode(.alwaysTemplate), for: UIControlState())
 
         infoLabel.textColor = .subHeadingColor()
     }
@@ -133,7 +133,7 @@ class GetStartedViewController: UIViewController {
         } else {
             
             option1Index = nil
-            option1View.hidden = true
+            option1View.isHidden = true
             doneButtonPressed(doneButton)
         }
         
@@ -146,7 +146,7 @@ class GetStartedViewController: UIViewController {
         } else {
             
             option2Index = nil
-            option2View.hidden = true
+            option2View.isHidden = true
 
         }
         
@@ -159,17 +159,17 @@ class GetStartedViewController: UIViewController {
         } else {
             
             option3Index = nil
-            option3View.hidden = true
+            option3View.isHidden = true
 
         }
         
         if pickedCollections.count > 0 {
             
-            UIView.animateWithDuration(0.25, animations: { 
+            UIView.animate(withDuration: 0.25, animations: { 
                 
                 self.doneButton.backgroundColor = .secondaryColor()
-                self.doneButton.userInteractionEnabled = true
-                self.doneButton.tintColor = .whiteColor()
+                self.doneButton.isUserInteractionEnabled = true
+                self.doneButton.tintColor = .white()
             })
         }
     }
@@ -212,7 +212,7 @@ class GetStartedViewController: UIViewController {
         option2CenterConstraint.constant = 0 + view.bounds.width
         option3CenterConstraint.constant = 0 - view.bounds.width
         
-        UIView.animateWithDuration(0.25, delay: 0.0, options: UIViewAnimationOptions.CurveEaseIn, animations: {
+        UIView.animate(withDuration: 0.25, delay: 0.0, options: UIViewAnimationOptions.curveEaseIn, animations: {
             
             self.option1View.layoutIfNeeded()
             self.option2View.layoutIfNeeded()
@@ -231,7 +231,7 @@ class GetStartedViewController: UIViewController {
             self.option2CenterConstraint.constant = 0
             self.option3CenterConstraint.constant = 0
             
-            UIView.animateWithDuration(0.5, delay: 0.25, usingSpringWithDamping: 0.75, initialSpringVelocity: 1.0, options: UIViewAnimationOptions.CurveEaseInOut, animations: { () -> Void in
+            UIView.animate(withDuration: 0.5, delay: 0.25, usingSpringWithDamping: 0.75, initialSpringVelocity: 1.0, options: UIViewAnimationOptions(), animations: { () -> Void in
                 
                 self.option1View.layoutIfNeeded()
                 self.option2View.layoutIfNeeded()
@@ -250,7 +250,7 @@ class GetStartedViewController: UIViewController {
         doneButtonBottomConstraint.constant = 16
         refreshButtonBottomConstraint.constant = 16
         
-        UIView.animateWithDuration(0.5, delay: 0.5, usingSpringWithDamping: 0.75, initialSpringVelocity: 1.0, options: UIViewAnimationOptions.CurveEaseInOut, animations: { () -> Void in
+        UIView.animate(withDuration: 0.5, delay: 0.5, usingSpringWithDamping: 0.75, initialSpringVelocity: 1.0, options: UIViewAnimationOptions(), animations: { () -> Void in
             
             self.infoLabel.alpha = 1
             self.option1View.layoutIfNeeded()
@@ -264,7 +264,7 @@ class GetStartedViewController: UIViewController {
     
     // MARK: - IBActions
     
-    @IBAction func optionButtonPressed(sender: UIButton) {
+    @IBAction func optionButtonPressed(_ sender: UIButton) {
         
         var selectedIndex: Int
         var selectedView: UIView
@@ -285,19 +285,19 @@ class GetStartedViewController: UIViewController {
 
         }
         
-        UIView.animateWithDuration(0.25, delay: 0.0, options: UIViewAnimationOptions.CurveLinear, animations: {
+        UIView.animate(withDuration: 0.25, delay: 0.0, options: UIViewAnimationOptions.curveLinear, animations: {
             
             selectedView.backgroundColor = .blockPreferredColor()
             
         }, completion: nil)
         
         pickedCollections.append(collections[selectedIndex])
-        collections.removeAtIndex(selectedIndex)
+        collections.remove(at: selectedIndex)
         
         presentNewOptions()
     }
     
-    @IBAction func refreshButtonPressed(sender: UIButton) {
+    @IBAction func refreshButtonPressed(_ sender: UIButton) {
         
         option1CenterConstraint.constant = 0 - view.bounds.width
         option2CenterConstraint.constant = 0 + view.bounds.width
@@ -309,10 +309,10 @@ class GetStartedViewController: UIViewController {
         rotateAnimation.duration = 0.25
         
         refreshButton.imageView!.clipsToBounds = false;
-        refreshButton.imageView!.contentMode = .Center;
-        refreshButton.imageView!.layer.addAnimation(rotateAnimation, forKey: "rotationAnimation");
+        refreshButton.imageView!.contentMode = .center;
+        refreshButton.imageView!.layer.add(rotateAnimation, forKey: "rotationAnimation");
 
-        UIView.animateWithDuration(0.25, delay: 0.0, options: UIViewAnimationOptions.CurveEaseIn, animations: {
+        UIView.animate(withDuration: 0.25, delay: 0.0, options: UIViewAnimationOptions.curveEaseIn, animations: {
             
             self.option1View.layoutIfNeeded()
             self.option2View.layoutIfNeeded()
@@ -331,7 +331,7 @@ class GetStartedViewController: UIViewController {
                 self.option2CenterConstraint.constant = 0
                 self.option3CenterConstraint.constant = 0
                 
-                UIView.animateWithDuration(0.5, delay: 0.25, usingSpringWithDamping: 0.75, initialSpringVelocity: 1.0, options: UIViewAnimationOptions.CurveEaseInOut, animations: { () -> Void in
+                UIView.animate(withDuration: 0.5, delay: 0.25, usingSpringWithDamping: 0.75, initialSpringVelocity: 1.0, options: UIViewAnimationOptions(), animations: { () -> Void in
                     
                     self.option1View.layoutIfNeeded()
                     self.option2View.layoutIfNeeded()
@@ -341,7 +341,7 @@ class GetStartedViewController: UIViewController {
         }
     }
     
-    @IBAction func doneButtonPressed(sender: UIButton) {
+    @IBAction func doneButtonPressed(_ sender: UIButton) {
         
         option1CenterConstraint.constant = 0 - view.bounds.width
         option2CenterConstraint.constant = 0 + view.bounds.width
@@ -350,7 +350,7 @@ class GetStartedViewController: UIViewController {
         doneButtonBottomConstraint.constant = 0 - 16 - 48
         refreshButtonBottomConstraint.constant = 0 - 16 - 48
         
-        UIView.animateWithDuration(0.25, delay: 0.0, usingSpringWithDamping: 0.75, initialSpringVelocity: 1.0, options: UIViewAnimationOptions.CurveEaseInOut, animations: { () -> Void in
+        UIView.animate(withDuration: 0.25, delay: 0.0, usingSpringWithDamping: 0.75, initialSpringVelocity: 1.0, options: UIViewAnimationOptions(), animations: { () -> Void in
             
             self.infoLabel.alpha = 0
 

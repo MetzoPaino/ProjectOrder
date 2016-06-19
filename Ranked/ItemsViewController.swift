@@ -8,10 +8,12 @@
 
 import UIKit
 import MessageUI
+import CloudKit
 
 protocol ItemsViewControllerDelegate: class {
     func sortingFinished()
-    func collectionUpdated(collection:CollectionModel, new: Bool)
+    func collectionUpdated(_ collection:CollectionModel, new: Bool)
+    func deleteItemFromCloudKit(recordID: CKRecordID)
 }
 
 enum BarButtonType {
@@ -45,7 +47,7 @@ class ItemsViewController: UIViewController, Injectable {
     var inEditingMode: Bool?
     var newCollection: Bool!
     
-    var indexPathToEdit: NSIndexPath?
+    var indexPathToEdit: IndexPath?
     
     let tapGesture = UITapGestureRecognizer()
     
@@ -73,29 +75,29 @@ class ItemsViewController: UIViewController, Injectable {
         
         imagePicker.delegate = self
         imagePicker.allowsEditing = false
-        imagePicker.sourceType = .PhotoLibrary
+        imagePicker.sourceType = .photoLibrary
         imagePicker.navigationBar.tintColor = .primaryColor()
         
-        let notificationCenter = NSNotificationCenter.defaultCenter()
-        notificationCenter.addObserver(self, selector: #selector(ItemsViewController.receivedKeyboardNotification(_:)), name: UIKeyboardDidShowNotification, object: nil)
+        let notificationCenter = NotificationCenter.default()
+        notificationCenter.addObserver(self, selector: #selector(ItemsViewController.receivedKeyboardNotification(_:)), name: NSNotification.Name.UIKeyboardDidShow, object: nil)
 
         tapGesture.addTarget(self, action: #selector(ItemsViewController.receivedGestureNotification(_:)))
         styleView()
         styleTableView()
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         
         super.viewWillAppear(animated)
         tableView.reloadData()
     }
     
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default().removeObserver(self)
     }
     
-    func inject(collection: AssociatedObject) {
+    func inject(_ collection: AssociatedObject) {
         self.collection = collection
     }
     
@@ -130,16 +132,16 @@ class ItemsViewController: UIViewController, Injectable {
         
         navigationItem.backBarButtonItem?.tintColor = .primaryColor()
         
-        sortButton.tintColor = .whiteColor()
+        sortButton.tintColor = .white()
         sortButton.layer.cornerRadius = self.sortButtonHeightConstraint.constant / 2
-        sortButton.setImage(UIImage(named: "GreaterThan")?.imageWithRenderingMode(.AlwaysTemplate), forState: .Normal)
+        sortButton.setImage(UIImage(named: "GreaterThan")?.withRenderingMode(.alwaysTemplate), for: UIControlState())
 //        sortButton.imageEdgeInsets = UIEdgeInsetsMake(0, 4, 0, 0)
         sortButton.backgroundColor = .primaryColor()
         
-        sortButton.layer.shadowColor = UIColor.blackColor().CGColor;
+        sortButton.layer.shadowColor = UIColor.black().cgColor;
         sortButton.layer.shadowOpacity = 0.25
         sortButton.layer.shadowRadius = 2
-        sortButton.layer.shadowOffset = CGSizeMake(0.0, 2.0)
+        sortButton.layer.shadowOffset = CGSize(width: 0.0, height: 2.0)
         sortButton.layer.masksToBounds = false
         
         if collection.items.count < 2 || inEditingMode == nil || inEditingMode == true {
@@ -158,25 +160,25 @@ class ItemsViewController: UIViewController, Injectable {
         tableView.estimatedRowHeight = 112
         tableView.tableFooterView = UIView()
         tableView.separatorInset = UIEdgeInsetsZero
-        tableView.backgroundColor = .whiteColor()
+        tableView.backgroundColor = .white()
         tableView.separatorColor = .backgroundColor()
     }
     
     // MARK: - IBActions
     
-    @IBAction func addImageButtonPressed(sender: UIButton) {
+    @IBAction func addImageButtonPressed(_ sender: UIButton) {
         imagePicker.view.tag = 1
-        presentViewController(imagePicker, animated: true, completion: nil)
+        present(imagePicker, animated: true, completion: nil)
     }
     
-    @IBAction func addItemImageButtonPressed(sender: UIButton) {
+    @IBAction func addItemImageButtonPressed(_ sender: UIButton) {
         imagePicker.view.tag = 2
-        presentViewController(imagePicker, animated: true, completion: nil)
+        present(imagePicker, animated: true, completion: nil)
     }
     
     // MARK: - Navigation
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: AnyObject?) {
         
         view.endEditing(true)
         
@@ -222,11 +224,11 @@ class ItemsViewController: UIViewController, Injectable {
             
         } else if let navigationController = segue.destinationViewController as? UINavigationController, controller = navigationController.topViewController as? SortingViewController {
             
-            navigationController.navigationBar.setBackgroundImage(nil, forBarMetrics: UIBarMetrics.Default)
+            navigationController.navigationBar.setBackgroundImage(nil, for: UIBarMetrics.default)
             navigationController.navigationBar.shadowImage = nil
-            navigationController.navigationBar.translucent = false
-            navigationController.view.backgroundColor = UIColor.whiteColor()
-            navigationController.navigationBar.tintColor = .blackColor()
+            navigationController.navigationBar.isTranslucent = false
+            navigationController.view.backgroundColor = UIColor.white()
+            navigationController.navigationBar.tintColor = .black()
         
             if let image = collection.image {
                 controller.image = image
@@ -238,9 +240,9 @@ class ItemsViewController: UIViewController, Injectable {
     
     // MARK: - Internal
     
-    func createBarButton(barButtonType: BarButtonType) -> UIBarButtonItem {
+    func createBarButton(_ barButtonType: BarButtonType) -> UIBarButtonItem {
         
-        var action = Selector()
+        var action: Selector
         var title: String
         
         switch barButtonType {
@@ -261,21 +263,21 @@ class ItemsViewController: UIViewController, Injectable {
         
         if barButtonType == .share {
             
-            let barButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Action, target: self, action: action)
+            let barButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.action, target: self, action: action)
             barButton.tintColor = .primaryColor()
             return barButton
             
         } else {
             
-            let barButton = UIBarButtonItem(title: title, style: UIBarButtonItemStyle.Plain, target: self, action: action)
+            let barButton = UIBarButtonItem(title: title, style: UIBarButtonItemStyle.plain, target: self, action: action)
             barButton.tintColor = .primaryColor()
 
             if barButtonType == .done {
                 
                 if collection.name != "" {
-                    barButton.enabled = true
+                    barButton.isEnabled = true
                 } else {
-                    barButton.enabled = false
+                    barButton.isEnabled = false
                 }
             }
             
@@ -283,9 +285,9 @@ class ItemsViewController: UIViewController, Injectable {
         }
     }
     
-    @IBAction func sortBarButtonPressed(sender: UIButton) {
+    @IBAction func sortBarButtonPressed(_ sender: UIButton) {
         
-        performSegueWithIdentifier("PresentSort", sender: self)
+        performSegue(withIdentifier: "PresentSort", sender: self)
     }
 }
 
@@ -293,17 +295,17 @@ class ItemsViewController: UIViewController, Injectable {
 private typealias Notifications = ItemsViewController
 extension Notifications {
     
-    func receivedKeyboardNotification(notification: NSNotification) {
+    func receivedKeyboardNotification(_ notification: Notification) {
         
-        if notification.name == UIKeyboardDidShowNotification {
+        if notification.name == NSNotification.Name.UIKeyboardDidShow {
             
             view.addGestureRecognizer(tapGesture)
-            tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 2, inSection: 0), atScrollPosition: .Middle, animated: true)
+            tableView.scrollToRow(at: IndexPath(row: 2, section: 0), at: .middle, animated: true)
 
         }
     }
     
-    func receivedGestureNotification(gesture: UITapGestureRecognizer) {
+    func receivedGestureNotification(_ gesture: UITapGestureRecognizer) {
         
         view.removeGestureRecognizer(tapGesture)
         view.endEditing(true)
@@ -315,34 +317,34 @@ extension Notifications {
 private typealias IBActions = ItemsViewController
 extension IBActions {
     
-    @IBAction func shareButtonPressed(sender: UIBarButtonItem) {
+    @IBAction func shareButtonPressed(_ sender: UIBarButtonItem) {
         
-        tableView.backgroundColor = UIColor.whiteColor()
+        tableView.backgroundColor = UIColor.white()
         
-        let fullFrame = CGRectMake(tableView.frame.origin.x, tableView.frame.origin.y, tableView.frame.size.width, tableView.contentSize.height)
+        let fullFrame = CGRect(x: tableView.frame.origin.x, y: tableView.frame.origin.y, width: tableView.frame.size.width, height: tableView.contentSize.height)
         tableView.frame = fullFrame
-        tableView.scrollToRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0), atScrollPosition: UITableViewScrollPosition.Top, animated: false)
+        tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: UITableViewScrollPosition.top, animated: false)
 
 //        UIGraphicsBeginImageContext(tableView.contentSize);
         UIGraphicsBeginImageContextWithOptions(tableView.contentSize, false, 0.0)
 
-        tableView.layer.renderInContext(UIGraphicsGetCurrentContext()!)
+        tableView.layer.render(in: UIGraphicsGetCurrentContext()!)
         
 //        tableView.drawViewHierarchyInRect(tableView.frame, afterScreenUpdates: false)
         
-        let image:UIImage = UIGraphicsGetImageFromCurrentImageContext()
+        let image:UIImage = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext();
         
-        tableView.backgroundColor = .clearColor()
+        tableView.backgroundColor = .clear()
         
         let activityViewController = UIActivityViewController(activityItems: [image], applicationActivities: nil)
-        navigationController?.presentViewController(activityViewController, animated: true) {
+        navigationController?.present(activityViewController, animated: true) {
             // ...
         }
         tableView.layoutIfNeeded()
     }
     
-    @IBAction func editButtonPressed(sender: UIBarButtonItem) {
+    @IBAction func editButtonPressed(_ sender: UIBarButtonItem) {
         
         if let inEditingMode = inEditingMode {
             self.inEditingMode = !inEditingMode
@@ -351,17 +353,17 @@ extension IBActions {
         doneBarButton = createBarButton(.done)
         navigationItem.rightBarButtonItems = [doneBarButton]
         
-        let addItemIndex = NSIndexPath(forRow: 2, inSection: 0)
+        let addItemIndex = IndexPath(row: 2, section: 0)
         
         tableView.beginUpdates()
-        tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: .Fade)
-        tableView.insertRowsAtIndexPaths([addItemIndex], withRowAnimation: .Fade)
+        tableView.reloadSections(IndexSet(integer: 0), with: .fade)
+        tableView.insertRows(at: [addItemIndex], with: .fade)
         tableView.endUpdates()
         
         animateSortButton(false)
     }
     
-    @IBAction func doneButtonPressed(sender: UIBarButtonItem) {
+    @IBAction func doneButtonPressed(_ sender: UIBarButtonItem) {
         
         inEditingMode = false
         
@@ -369,16 +371,16 @@ extension IBActions {
         shareBarButton = createBarButton(.share)
         navigationItem.rightBarButtonItems = [shareBarButton, editBarButton]
         
-        let addItemIndex = NSIndexPath(forRow: 2, inSection: 0)
+        let addItemIndex = IndexPath(row: 2, section: 0)
 
-        if let addItemCell = tableView.cellForRowAtIndexPath(addItemIndex) as? AddItemTableViewCell {
+        if let addItemCell = tableView.cellForRow(at: addItemIndex) as? AddItemTableViewCell {
             
             addItemCell.textFieldShouldReturn(addItemCell.textField)
         }
         
         tableView.beginUpdates()
-        tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: .Fade)
-        tableView.deleteRowsAtIndexPaths([addItemIndex], withRowAnimation: .Fade)
+        tableView.reloadSections(IndexSet(integer: 0), with: .fade)
+        tableView.deleteRows(at: [addItemIndex], with: .fade)
         tableView.endUpdates()
         
         animateSortButton(true)
@@ -396,7 +398,7 @@ extension IBActions {
 
 extension ItemsViewController {
     
-    func animateSortButton(onScreen: Bool) {
+    func animateSortButton(_ onScreen: Bool) {
         
         // Animate on or off screen. If there is nothing to sort, never go on screen
         
@@ -409,7 +411,7 @@ extension ItemsViewController {
             time = 0.5
         }
         
-        UIView.animateWithDuration(time, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 1.0, options: UIViewAnimationOptions.CurveEaseInOut, animations: { () -> Void in
+        UIView.animate(withDuration: time, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 1.0, options: UIViewAnimationOptions(), animations: { () -> Void in
             
             self.sortButtonBottomConstraint.constant = constant
             self.view.layoutIfNeeded()
@@ -423,31 +425,31 @@ extension ItemsViewController {
 private typealias DescriptionDelegate = ItemsViewController
 extension DescriptionDelegate: DescriptionViewControllerDelegate {
     
-    func newTitle(text: String) {
+    func newTitle(_ text: String) {
         collection.name = text
         tableView.reloadData()
         
         if text != "" {
-            doneBarButton.enabled = true
+            doneBarButton.isEnabled = true
         } else {
-            doneBarButton.enabled = false
+            doneBarButton.isEnabled = false
         }
     }
     
-    func newItem(text: String) {
+    func newItem(_ text: String) {
         
         if let indexPath = indexPathToEdit {
             
             tableView.beginUpdates()
-            collection.items[indexPath.row].text = text
-            tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+            collection.items[(indexPath as NSIndexPath).row].text = text
+            tableView.reloadRows(at: [indexPath], with: .fade)
             tableView.endUpdates()
 
             indexPathToEdit = nil
         }
     }
     
-    func newDescription(text: String) {
+    func newDescription(_ text: String) {
         collection.descriptionString = text
         tableView.reloadData()
     }
@@ -455,7 +457,7 @@ extension DescriptionDelegate: DescriptionViewControllerDelegate {
 
 extension ItemsViewController: SortingViewControllerDelegate {
     
-    func sortingFinished(items: [ItemModel]) {
+    func sortingFinished(_ items: [ItemModel]) {
         
         collection.sorted = true
         
@@ -463,7 +465,7 @@ extension ItemsViewController: SortingViewControllerDelegate {
             
             item.sorted = true
         }
-        collection.items = items.sort({ $0.points > $1.points })
+        collection.items = items.sorted(isOrderedBefore: { $0.score > $1.score })
         tableView.reloadData()
         self.delegate?.sortingFinished()
     }
@@ -473,20 +475,20 @@ extension ItemsViewController: SortingViewControllerDelegate {
 private typealias AddItemDelegate = ItemsViewController
 extension AddItemDelegate: AddItemTableViewCellDelegate {
     
-    func createdNewItemWithText(text: String) {
+    func createdNewItemWithText(_ text: String) {
         
         // Inserting causes a crash, but would look nicer
-        let item = ItemModel(string: text, dateCreated: NSDate())
+        let item = ItemModel(string: text, dateCreated: Date())
         
         if let image = itemImage {
             item.image = image
             itemImage = nil
         }
-        collection.items.insert(item, atIndex: 0)
+        collection.items.insert(item, at: 0)
         tableView.reloadData()
         
-        let addItemIndex = NSIndexPath(forRow: 3, inSection: 0)
-        if let cell = tableView.cellForRowAtIndexPath(addItemIndex) as? AddItemTableViewCell {
+        let addItemIndex = IndexPath(row: 3, section: 0)
+        if let cell = tableView.cellForRow(at: addItemIndex) as? AddItemTableViewCell {
             cell.textField.becomeFirstResponder()
         }
     }
@@ -496,19 +498,19 @@ extension AddItemDelegate: AddItemTableViewCellDelegate {
 private typealias TableViewDelegate = ItemsViewController
 extension TableViewDelegate: UITableViewDelegate {
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        if let cell = tableView.cellForRowAtIndexPath(indexPath) as? AddItemTableViewCell {
+        if let cell = tableView.cellForRow(at: indexPath) as? AddItemTableViewCell {
             
             cell.textField.becomeFirstResponder()
         }
         
-        tableView.deselectRowAtIndexPath(indexPath, animated: false)
+        tableView.deselectRow(at: indexPath, animated: false)
     }
     
-    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+    @objc(tableView:canEditRowAtIndexPath:) func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         
-        if indexPath.section == 0 {
+        if (indexPath as NSIndexPath).section == 0 {
             return false
         } else {
             
@@ -520,9 +522,9 @@ extension TableViewDelegate: UITableViewDelegate {
         }
     }
     
-    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         
-        if indexPath.section == 0 {
+        if (indexPath as NSIndexPath).section == 0 {
             return nil
         } else {
             
@@ -530,25 +532,28 @@ extension TableViewDelegate: UITableViewDelegate {
             
             if !collection.premade {
             
-                let editAction = UITableViewRowAction(style: .Normal, title: "Edit") { (rowAction:UITableViewRowAction, indexPath:NSIndexPath) -> Void in
+                let editAction = UITableViewRowAction(style: .normal, title: "Edit") { (rowAction:UITableViewRowAction, indexPath:IndexPath) -> Void in
                 
                     self.indexPathToEdit = indexPath
-                    self.performSegueWithIdentifier("ShowItem", sender: tableView.cellForRowAtIndexPath(indexPath))
+                    self.performSegue(withIdentifier: "ShowItem", sender: tableView.cellForRow(at: indexPath))
                 
                 }
                 editAction.backgroundColor = UIColor.secondaryColor()
                 actionArray.append(editAction)
             
             
-                let deleteAction = UITableViewRowAction(style: .Destructive, title: "Delete") { (rowAction:UITableViewRowAction, indexPath:NSIndexPath) -> Void in
+                let deleteAction = UITableViewRowAction(style: .default, title: "Delete") { (rowAction:UITableViewRowAction, indexPath:IndexPath) -> Void in
                     
-                    CloudKitManager().deleteFromCloudKit(self.collection.items[indexPath.row].record.recordID)
-                    self.collection.items.removeAtIndex(indexPath.row)
-                    tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+                    // Delete, we shouldn't be initialising CloudKitManager every time
+                    //CloudKitManager().deleteFromCloudKit(self.collection.items[(indexPath as NSIndexPath).row].record.recordID)
+                    
+                    self.delegate?.deleteItemFromCloudKit(recordID: self.collection.items[(indexPath as NSIndexPath).row].record.recordID)
+                    self.collection.items.remove(at: (indexPath as NSIndexPath).row)
+                    tableView.deleteRows(at: [indexPath], with: .automatic)
                     tableView.reloadData()
                 }
                 deleteAction.backgroundColor = UIColor.warningColor()
-                actionArray.insert(deleteAction, atIndex: 0)
+                actionArray.insert(deleteAction, at: 0)
 
                 return actionArray
             } else {
@@ -561,11 +566,11 @@ extension TableViewDelegate: UITableViewDelegate {
 private typealias TableViewDataSource = ItemsViewController
 extension TableViewDataSource: UITableViewDataSource {
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         
         return 3
     }
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if section == 0 {
             
@@ -604,9 +609,9 @@ extension TableViewDataSource: UITableViewDataSource {
         }
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        if indexPath.section == 0 {
+        if (indexPath as NSIndexPath).section == 0 {
             
             var editing = false
             
@@ -614,23 +619,23 @@ extension TableViewDataSource: UITableViewDataSource {
                 editing = true
             }
             
-            if displayCellOrder[indexPath.row] == CellType.image {
+            if displayCellOrder[(indexPath as NSIndexPath).row] == CellType.image {
                 return createImageCell(collection.image, indexPath: indexPath, inEditingMode: editing)
-            } else if displayCellOrder[indexPath.row] == CellType.title {
+            } else if displayCellOrder[(indexPath as NSIndexPath).row] == CellType.title {
                 return createTitleCell(collection.name, indexPath: indexPath, inEditingMode: editing)
-            } else if displayCellOrder[indexPath.row] == CellType.addItem {
+            } else if displayCellOrder[(indexPath as NSIndexPath).row] == CellType.addItem {
                 return createAddItemCell(indexPath)
             } else {
                 return createDescriptionCell(collection.descriptionString, indexPath: indexPath, inEditingMode: editing)
             }
             
-        } else if indexPath.section == 1 {
+        } else if (indexPath as NSIndexPath).section == 1 {
             
-            let item = collection.returnArrayOfItems(true)[indexPath.row]
+            let item = collection.returnArrayOfItems(true)[(indexPath as NSIndexPath).row]
             
-            let cell = tableView.dequeueReusableCellWithIdentifier("UnsortedCell", forIndexPath: indexPath) as! UnsortedItemTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "UnsortedCell", for: indexPath) as! UnsortedItemTableViewCell
             
-            cell.numberLabel.text = "\(indexPath.row + 1)"
+            cell.numberLabel.text = "\((indexPath as NSIndexPath).row + 1)"
             cell.titleLabel.text = item.text
 
             cell.circleImageViewWidthConstraint.constant = 48
@@ -647,7 +652,7 @@ extension TableViewDataSource: UITableViewDataSource {
             }
 
             
-            switch indexPath.row {
+            switch (indexPath as NSIndexPath).row {
             case 0:
                 cell.tintView.backgroundColor = .primaryColor()
             case 1:
@@ -664,9 +669,9 @@ extension TableViewDataSource: UITableViewDataSource {
             
         } else {
             
-            let item = collection.returnArrayOfItems(false)[indexPath.row]
+            let item = collection.returnArrayOfItems(false)[(indexPath as NSIndexPath).row]
             
-            let cell = tableView.dequeueReusableCellWithIdentifier("UnsortedCell", forIndexPath: indexPath) as! UnsortedItemTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: "UnsortedCell", for: indexPath) as! UnsortedItemTableViewCell
             
             cell.titleLabel.text = item.text
 
@@ -702,29 +707,29 @@ extension TableViewDataSource: UITableViewDataSource {
 
 extension ItemsViewController {
     
-    func createImageCell(image:UIImage?, indexPath:NSIndexPath, inEditingMode: Bool) -> UITableViewCell {
+    func createImageCell(_ image:UIImage?, indexPath:IndexPath, inEditingMode: Bool) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCellWithIdentifier("ImageCell", forIndexPath: indexPath) as! ImageCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ImageCell", for: indexPath) as! ImageCell
         cell.separatorInset = UIEdgeInsetsMake(0, Helper.largestDeviceSide(), 0, 0);
         
         if let image = image {
             cell.summaryImageView.image = image
-            cell.button.hidden = true
+            cell.button.isHidden = true
         } else if collection.premade == false {
-            cell.button.hidden = false
-            cell.button.imageView!.image = UIImage(named: "PlusButton" )?.imageWithRenderingMode(.AlwaysTemplate)
-            cell.button.imageView!.tintColor = .whiteColor()
+            cell.button.isHidden = false
+            cell.button.imageView!.image = UIImage(named: "PlusButton" )?.withRenderingMode(.alwaysTemplate)
+            cell.button.imageView!.tintColor = .white()
         }
         cell.configureCell()
         
         
-        cell.selectionStyle = .None
+        cell.selectionStyle = .none
         return cell
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    @objc(tableView:heightForRowAtIndexPath:) func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
-        if indexPath.section == 0 && indexPath.row == 0 {
+        if (indexPath as NSIndexPath).section == 0 && (indexPath as NSIndexPath).row == 0 {
             
             if collection.image != nil || inEditingMode == true || inEditingMode == nil {
                 return 96
@@ -733,21 +738,21 @@ extension ItemsViewController {
         return UITableViewAutomaticDimension
     }
     
-    func createTitleCell(text: String, indexPath:NSIndexPath, inEditingMode: Bool) -> UITableViewCell {
+    func createTitleCell(_ text: String, indexPath:IndexPath, inEditingMode: Bool) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCellWithIdentifier("TitleCell", forIndexPath: indexPath) as! TitleCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "TitleCell", for: indexPath) as! TitleCell
         cell.separatorInset = UIEdgeInsetsMake(0, Helper.largestDeviceSide(), 0, 0);
         
         if inEditingMode == true {
             
-            cell.userInteractionEnabled = true
-            cell.accessoryType = .DisclosureIndicator
+            cell.isUserInteractionEnabled = true
+            cell.accessoryType = .disclosureIndicator
             cell.label.text = "Title"
             cell.label.textColor = .backgroundColor()
             
         } else {
-            cell.userInteractionEnabled = false
-            cell.accessoryType = .None
+            cell.isUserInteractionEnabled = false
+            cell.accessoryType = .none
             cell.label.textColor = .headingColor()
         }
         
@@ -764,21 +769,21 @@ extension ItemsViewController {
         return cell
     }
     
-    func createDescriptionCell(text: String, indexPath:NSIndexPath, inEditingMode: Bool) -> UITableViewCell {
+    func createDescriptionCell(_ text: String, indexPath:IndexPath, inEditingMode: Bool) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCellWithIdentifier("DescriptionCell", forIndexPath: indexPath) as! DescriptionCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "DescriptionCell", for: indexPath) as! DescriptionCell
         cell.separatorInset = UIEdgeInsetsMake(0, Helper.largestDeviceSide(), 0, 0);
         
         if inEditingMode == true {
             
-            cell.userInteractionEnabled = true
-            cell.accessoryType = .DisclosureIndicator
+            cell.isUserInteractionEnabled = true
+            cell.accessoryType = .disclosureIndicator
             cell.label.text = "Description"
             cell.label.textColor = .backgroundColor()
             
         } else {
-            cell.userInteractionEnabled = false
-            cell.accessoryType = .None
+            cell.isUserInteractionEnabled = false
+            cell.accessoryType = .none
             cell.label.textColor = .subHeadingColor()
         }
         
@@ -795,11 +800,11 @@ extension ItemsViewController {
         return cell
     }
     
-    func createAddItemCell(indexPath:NSIndexPath) -> UITableViewCell {
+    func createAddItemCell(_ indexPath:IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCellWithIdentifier("AddItemCell", forIndexPath: indexPath) as! AddItemTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "AddItemCell", for: indexPath) as! AddItemTableViewCell
         cell.delegate = self
-        cell.button.imageView!.tintColor = .whiteColor()
+        cell.button.imageView!.tintColor = .white()
 
         cell.configureCell()
         
@@ -810,7 +815,7 @@ extension ItemsViewController {
             cell.addImageView.image = UIImage()
         }
         
-        cell.selectionStyle = .None
+        cell.selectionStyle = .none
         cell.layoutMargins = UIEdgeInsetsZero;
         
         return cell
@@ -819,7 +824,7 @@ extension ItemsViewController {
 
 extension ItemsViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         
         if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
             
@@ -832,15 +837,15 @@ extension ItemsViewController: UIImagePickerControllerDelegate, UINavigationCont
             }
         }
         
-        dismissViewControllerAnimated(true) {
+        dismiss(animated: true) {
             self.imagePicker.view.tag = 0
             self.tableView.reloadData()
         }
     }
     
-    func imagePickerControllerDidCancel(picker: UIImagePickerController) {
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         imagePicker.view.tag = 0
-        dismissViewControllerAnimated(true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
 }
 

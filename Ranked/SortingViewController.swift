@@ -10,7 +10,7 @@ import UIKit
 import QuartzCore
 
 protocol SortingViewControllerDelegate: class {
-    func sortingFinished(items: [ItemModel])
+    func sortingFinished(_ items: [ItemModel])
 }
 
 enum PanGestureInUse {
@@ -108,7 +108,7 @@ class SortingViewController: UIViewController {
         repeat {
             
             let fileName = "ChooseLaterAnimation_" + String(index)
-            let image = UIImage(named: fileName)?.imageWithRenderingMode(.AlwaysTemplate)
+            let image = UIImage(named: fileName)?.withRenderingMode(.alwaysTemplate)
             
             if image != nil {
                 foundImage = true
@@ -121,13 +121,13 @@ class SortingViewController: UIViewController {
         } while foundImage
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         
         super.viewWillAppear(animated)
         navigationController?.navigationBar.tintColor = .primaryColor()
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         animateViewsToArriveOrDepart(true)
         
         // First time setting middleConstant via viewDidLayoutSubviews is incorrect. Don't know why
@@ -144,12 +144,12 @@ class SortingViewController: UIViewController {
         if let image = image {
             
             let imageView = UIImageView(image:image)
-            imageView.bounds = CGRectMake(0, 0, 32, 32)
+            imageView.bounds = CGRect(x: 0, y: 0, width: 32, height: 32)
             imageView.clipsToBounds = true
             imageView.layer.cornerRadius = 18
             //
             //imageView.layer.masksToBounds = true
-            imageView.contentMode = .ScaleAspectFit
+            imageView.contentMode = .scaleAspectFit
 
             //self.navigationItem.titleView = imageView
         }
@@ -175,8 +175,8 @@ class SortingViewController: UIViewController {
         
         topView.backgroundColor = .blockNeutralColor()
         bottomView.backgroundColor = .blockNeutralColor()
-        topLabel.textColor = .whiteColor()
-        bottomLabel.textColor = .whiteColor()
+        topLabel.textColor = .white()
+        bottomLabel.textColor = .white()
         
         topImageView.layer.cornerRadius = 64 / 2
         bottomImageView.layer.cornerRadius = 64 / 2
@@ -184,45 +184,45 @@ class SortingViewController: UIViewController {
         topImageView.layer.masksToBounds = true
         bottomImageView.layer.masksToBounds = true
 
-        topView.layer.shadowColor = UIColor.blackColor().CGColor;
+        topView.layer.shadowColor = UIColor.black().cgColor;
         topView.layer.shadowOpacity = 0.25
         topView.layer.shadowRadius = 2
-        topView.layer.shadowOffset = CGSizeMake(0.0, 2.0)
+        topView.layer.shadowOffset = CGSize(width: 0.0, height: 2.0)
         topView.layer.masksToBounds = false
         
-        bottomView.layer.shadowColor = UIColor.blackColor().CGColor;
+        bottomView.layer.shadowColor = UIColor.black().cgColor;
         bottomView.layer.shadowOpacity = 0.25
         bottomView.layer.shadowRadius = 2
-        bottomView.layer.shadowOffset = CGSizeMake(0.0, 2.0)
+        bottomView.layer.shadowOffset = CGSize(width: 0.0, height: 2.0)
         bottomView.layer.masksToBounds = false
         
     
         
         decideLaterImage = UIImageView(image: UIImage(named: "ChooseLaterAnimation_0"))
-        decideLaterImage.tintColor = .greenColor()
+        decideLaterImage.tintColor = .green()
         decideLaterImage.animationImages = chooseLaterAnimationArray
         
-        let button = UIButton(type: .Custom)
+        let button = UIButton(type: .custom)
         button.bounds = decideLaterImage.bounds
-        button.addTarget(self, action: #selector(SortingViewController.decideLaterButtonPressed(_:)), forControlEvents: .TouchUpInside)
+        button.addTarget(self, action: #selector(SortingViewController.decideLaterButtonPressed(_:)), for: .touchUpInside)
         button.addSubview(decideLaterImage)
-        button.tintColor = .greenColor()
+        button.tintColor = .green()
         decideLaterBarButton.customView = button
-        decideLaterBarButton.tintColor = .greenColor()
+        decideLaterBarButton.tintColor = .green()
 
     }
     
     // MARK: - IBAction
-    @IBAction func cancelButtonPressed(sender: UIBarButtonItem) {
-        self.dismissViewControllerAnimated(true, completion: nil)
+    @IBAction func cancelButtonPressed(_ sender: UIBarButtonItem) {
+        self.dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func decideLaterButtonPressed(sender: UIBarButtonItem) {
+    @IBAction func decideLaterButtonPressed(_ sender: UIBarButtonItem) {
 
         if tournamentManager.isTournamentResolved() {
             
             self.delegate?.sortingFinished(tournamentManager.participants)
-            dismissViewControllerAnimated(true, completion: nil)
+            dismiss(animated: true, completion: nil)
             
         } else {
             
@@ -231,7 +231,7 @@ class SortingViewController: UIViewController {
             decideLaterImage.animationRepeatCount = 1
             decideLaterImage.startAnimating()
             
-            UIView.animateWithDuration(0.25, delay: 0.0, options: UIViewAnimationOptions.CurveEaseIn, animations: { () -> Void in
+            UIView.animate(withDuration: 0.25, delay: 0.0, options: UIViewAnimationOptions.curveEaseIn, animations: { () -> Void in
                 
                 self.topViewTopConstraint.constant = 0 - self.view.bounds.size.height
                 self.bottomViewBottomConstraint.constant = 0 - self.view.bounds.size.height
@@ -263,12 +263,12 @@ class SortingViewController: UIViewController {
                 topImageView.image = image
                 topImageViewWidthConstraint.constant = 64
                 topLabelLeadingConstraint.constant = 16
-                topLabel.textAlignment = .Left
+                topLabel.textAlignment = .left
 
             } else {
                 topImageViewWidthConstraint.constant = 0
                 topLabelLeadingConstraint.constant = 0
-                topLabel.textAlignment = .Center
+                topLabel.textAlignment = .center
 
             }
             
@@ -279,14 +279,14 @@ class SortingViewController: UIViewController {
                 bottomImageView.image = image
                 bottomImageViewWidthConstraint.constant = 64
                 bottomLabelTrailingConstraint.constant = 16
-                bottomLabel.textAlignment = .Right
+                bottomLabel.textAlignment = .right
             } else {
                 bottomImageViewWidthConstraint.constant = 0
                 bottomLabelTrailingConstraint.constant = 0
-                bottomLabel.textAlignment = .Center
+                bottomLabel.textAlignment = .center
             }
             
-        } catch PickBattleError.AlreadyTakenPlace {
+        } catch PickBattleError.alreadyTakenPlace {
             
             setupBattle()
             
@@ -296,7 +296,7 @@ class SortingViewController: UIViewController {
 
     }
     
-    @IBAction func panGestureAction(sender: UIPanGestureRecognizer) {
+    @IBAction func panGestureAction(_ sender: UIPanGestureRecognizer) {
         
         var panGesture: PanGestureInUse
         var constraintToEdit = NSLayoutConstraint()
@@ -324,11 +324,11 @@ class SortingViewController: UIViewController {
             return
         }
         
-        decideLaterBarButton.enabled = false
+        decideLaterBarButton.isEnabled = false
         
-        if sender.state == .Ended {
+        if sender.state == .ended {
             
-            decideLaterBarButton.enabled = true
+            decideLaterBarButton.isEnabled = true
 
             let y = constraintToEdit.constant + view.bounds.height
             
@@ -342,17 +342,17 @@ class SortingViewController: UIViewController {
                 if tournamentManager.isTournamentResolved() {
                     
                     self.delegate?.sortingFinished(tournamentManager.participants)
-                    dismissViewControllerAnimated(true, completion: nil)
+                    dismiss(animated: true, completion: nil)
                     
                 } else {
                     
                     imageView.image = animationArray.first
-                    imageView.animationImages = animationArray.reverse()
+                    imageView.animationImages = animationArray.reversed()
                     imageView.animationDuration = 0.25
                     imageView.animationRepeatCount = 1
                     imageView.startAnimating()
                     
-                    UIView.animateWithDuration(0.25, delay: 0.0, options: UIViewAnimationOptions.CurveEaseInOut, animations: { () -> Void in
+                    UIView.animate(withDuration: 0.25, delay: 0.0, options: UIViewAnimationOptions(), animations: { () -> Void in
                         
                         self.topViewTopConstraint.constant = 0 - self.view.bounds.size.height
                         self.bottomViewBottomConstraint.constant = 0 - self.view.bounds.size.height
@@ -386,7 +386,7 @@ class SortingViewController: UIViewController {
                 }
                 
                 imageView.image = animationArray.first
-                imageView.animationImages = shortenedAnimationArray.reverse()
+                imageView.animationImages = shortenedAnimationArray.reversed()
                 imageView.animationDuration = 0.25
                 imageView.animationRepeatCount = 1
                 imageView.startAnimating()
@@ -398,7 +398,7 @@ class SortingViewController: UIViewController {
 
         } else {
             
-            let velocity = sender.velocityInView(playingFieldView)
+            let velocity = sender.velocity(in: playingFieldView)
             
             if velocity.y > 0 || velocity.y < 0 {
                 
@@ -426,7 +426,7 @@ class SortingViewController: UIViewController {
                     
                     imageView.image = animationArray[Int(animationIndex)]
                     
-                    newConstant = sender.locationInView(playingFieldView).y - topView.bounds.height
+                    newConstant = sender.location(in: playingFieldView).y - topView.bounds.height
                     
                     if newConstant < 0 {
                         newConstant = 0
@@ -458,7 +458,7 @@ class SortingViewController: UIViewController {
                     
                     imageView.image = animationArray[Int(animationIndex)]
                     
-                    newConstant = (playingFieldView.bounds.size.height - sender.locationInView(playingFieldView).y) + self.constantConstant - bottomView.bounds.size.height
+                    newConstant = (playingFieldView.bounds.size.height - sender.location(in: playingFieldView).y) + self.constantConstant - bottomView.bounds.size.height
                     
                     if newConstant < self.constantConstant {
                         newConstant = self.constantConstant
@@ -475,7 +475,7 @@ class SortingViewController: UIViewController {
         }
     }
     
-    func animateViewsToArriveOrDepart(arrive: Bool) {
+    func animateViewsToArriveOrDepart(_ arrive: Bool) {
         
         var constant = 0 as CGFloat
         
@@ -484,7 +484,7 @@ class SortingViewController: UIViewController {
             constant = 0 - self.view.bounds.size.height
         }
         
-        UIView.animateWithDuration(0.25, delay: 0.0, usingSpringWithDamping: 0.75, initialSpringVelocity: 1.0, options: UIViewAnimationOptions.CurveEaseInOut, animations: { () -> Void in
+        UIView.animate(withDuration: 0.25, delay: 0.0, usingSpringWithDamping: 0.75, initialSpringVelocity: 1.0, options: UIViewAnimationOptions(), animations: { () -> Void in
             
             self.topViewTopConstraint.constant = constant
             self.bottomViewBottomConstraint.constant = constant
@@ -509,7 +509,7 @@ class SortingViewController: UIViewController {
 
 extension SortingViewController: TournamentManagerDelegate {
     
-    func percentageCompleteValueChanged(percentage: Double) {
+    func percentageCompleteValueChanged(_ percentage: Double) {
         
         let fractionalPercentage = Float(percentage) / 100
         

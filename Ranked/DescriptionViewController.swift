@@ -9,9 +9,9 @@
 import UIKit
 
 protocol DescriptionViewControllerDelegate: class {
-    func newTitle(text: String)
-    func newItem(text: String)
-    func newDescription(text: String)
+    func newTitle(_ text: String)
+    func newItem(_ text: String)
+    func newDescription(_ text: String)
 }
 
 enum Context {
@@ -32,33 +32,33 @@ class DescriptionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let notificationCenter = NSNotificationCenter.defaultCenter()
-        notificationCenter.addObserver(self, selector: #selector(DescriptionViewController.receivedKeyboardNotification(_:)), name: UIKeyboardDidShowNotification, object: nil)
-        notificationCenter.addObserver(self, selector: #selector(DescriptionViewController.receivedKeyboardNotification(_:)), name: UIKeyboardDidHideNotification, object: nil)
+        let notificationCenter = NotificationCenter.default()
+        notificationCenter.addObserver(self, selector: #selector(DescriptionViewController.receivedKeyboardNotification(_:)), name: NSNotification.Name.UIKeyboardDidShow, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(DescriptionViewController.receivedKeyboardNotification(_:)), name: NSNotification.Name.UIKeyboardDidHide, object: nil)
         
         textView.textContainerInset = UIEdgeInsetsMake(0, 16, 0, 16)
         textView.text = providedDescription
         
         if context == .title {
-            textView.font = UIFont.preferredFontForTextStyle(UIFontTextStyleTitle1)
+            textView.font = UIFont.preferredFont(forTextStyle: UIFontTextStyleTitle1)
         } else {
-            textView.font = UIFont.preferredFontForTextStyle(UIFontTextStyleBody)
+            textView.font = UIFont.preferredFont(forTextStyle: UIFontTextStyleBody)
         }
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         textView.becomeFirstResponder()
     }
     
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         
         super.viewWillDisappear(animated)
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default().removeObserver(self)
         
         if isMovingFromParentViewController() {
             
@@ -74,20 +74,20 @@ class DescriptionViewController: UIViewController {
     
     // MARK: - NSNotification
     
-    func receivedKeyboardNotification(notification: NSNotification) {
+    func receivedKeyboardNotification(_ notification: Notification) {
         
-        let info = notification.userInfo! as Dictionary
+        let info = (notification as NSNotification).userInfo! as Dictionary
         
-        if notification.name == UIKeyboardDidShowNotification {
+        if notification.name == NSNotification.Name.UIKeyboardDidShow {
             
-            if let keyboardSize = info[UIKeyboardFrameEndUserInfoKey]?.CGRectValue.size {
+            if let keyboardSize = info[UIKeyboardFrameEndUserInfoKey]?.cgRectValue.size {
                 
                 textView.contentInset = UIEdgeInsetsMake(0, 0, keyboardSize.height, 0)
                 textView.scrollIndicatorInsets = textView.contentInset
 
             }
             
-        } else if notification.name == UIKeyboardDidHideNotification {
+        } else if notification.name == NSNotification.Name.UIKeyboardDidHide {
             
             textView.contentInset = UIEdgeInsetsZero
             textView.scrollIndicatorInsets = textView.contentInset

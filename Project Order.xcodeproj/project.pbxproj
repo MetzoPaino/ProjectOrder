@@ -21,6 +21,8 @@
 		0A3D6EFB1CD4F650003F5C42 /* GetStarted.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A3D6EF91CD4F650003F5C42 /* GetStarted.storyboard */; };
 		0A3D6EFD1CD4F8F5003F5C42 /* GetStartedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3D6EFC1CD4F8F5003F5C42 /* GetStartedViewController.swift */; };
 		0A47D52A1C6642F200DC7296 /* ItemsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A47D5291C6642F200DC7296 /* ItemsViewController.swift */; };
+		0A4EC11A1D158DAF00D6A6EF /* CloudKitRecordMaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4EC1191D158DAF00D6A6EF /* CloudKitRecordMaker.swift */; };
+		0A4EC11D1D15BDAC00D6A6EF /* StarWars.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A4EC11C1D15BDAC00D6A6EF /* StarWars.swift */; };
 		0A71708B1CB80316005126B4 /* Sorting.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A7170891CB80316005126B4 /* Sorting.storyboard */; };
 		0A77D7DA1C67900C00792403 /* DescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A77D7D91C67900C00792403 /* DescriptionViewController.swift */; };
 		0A7B50811CE74BA30083CCCF /* AddListsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7B50801CE74BA30083CCCF /* AddListsViewController.swift */; };
@@ -55,6 +57,8 @@
 		0A3D6EFA1CD4F650003F5C42 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/GetStarted.storyboard; sourceTree = "<group>"; };
 		0A3D6EFC1CD4F8F5003F5C42 /* GetStartedViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GetStartedViewController.swift; path = Collections/GetStarted/GetStartedViewController.swift; sourceTree = "<group>"; };
 		0A47D5291C6642F200DC7296 /* ItemsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemsViewController.swift; sourceTree = "<group>"; };
+		0A4EC1191D158DAF00D6A6EF /* CloudKitRecordMaker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CloudKitRecordMaker.swift; path = Helpers/CloudKitRecordMaker.swift; sourceTree = "<group>"; };
+		0A4EC11C1D15BDAC00D6A6EF /* StarWars.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StarWars.swift; path = PremadeCollections/StarWars.swift; sourceTree = "<group>"; };
 		0A71708A1CB80316005126B4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Sorting.storyboard; sourceTree = "<group>"; };
 		0A77D7D91C67900C00792403 /* DescriptionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DescriptionViewController.swift; sourceTree = "<group>"; };
 		0A7B50801CE74BA30083CCCF /* AddListsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AddListsViewController.swift; path = Settings/AddListsViewController.swift; sourceTree = "<group>"; };
@@ -94,7 +98,7 @@
 			children = (
 				0AF64FB41C4A830B003F8519 /* Models.swift */,
 				0A04E6AA1CB9455B006A80E5 /* DataManager.swift */,
-				0AF6739E1CCB966C002F2ED5 /* CloudKitManager.swift */,
+				0A4EC11B1D15948500D6A6EF /* CloudKit */,
 				0A04E6AC1CB94572006A80E5 /* ColorManager.swift */,
 				0A9A16801C5CDD260000E436 /* TournamentManager.swift */,
 				0A04E6A81CB93894006A80E5 /* ProtocolManager.swift */,
@@ -102,6 +106,7 @@
 				0AF64FB81C4A859B003F8519 /* CollectionCreator.swift */,
 				0A22D63A1CF1C626005B82EC /* FinalFantasy.swift */,
 				0AE9C1341D05A6060069CDF3 /* Tarantino.swift */,
+				0A4EC11C1D15BDAC00D6A6EF /* StarWars.swift */,
 			);
 			name = Managers;
 			sourceTree = "<group>";
@@ -132,6 +137,15 @@
 				0A77D7D91C67900C00792403 /* DescriptionViewController.swift */,
 			);
 			name = Items;
+			sourceTree = "<group>";
+		};
+		0A4EC11B1D15948500D6A6EF /* CloudKit */ = {
+			isa = PBXGroup;
+			children = (
+				0AF6739E1CCB966C002F2ED5 /* CloudKitManager.swift */,
+				0A4EC1191D158DAF00D6A6EF /* CloudKitRecordMaker.swift */,
+			);
+			name = CloudKit;
 			sourceTree = "<group>";
 		};
 		0A952AE11C9D836E00ED76D7 /* Storyboards */ = {
@@ -212,12 +226,13 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0720;
-				LastUpgradeCheck = 0720;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = "William Robinson";
 				TargetAttributes = {
 					0AF64F9C1C4A8129003F8519 = {
 						CreatedOnToolsVersion = 7.2;
 						DevelopmentTeam = XEN7DUD59Z;
+						LastSwiftMigration = 0800;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -281,6 +296,7 @@
 				0A9A16811C5CDD260000E436 /* TournamentManager.swift in Sources */,
 				0AF64FB31C4A8294003F8519 /* CollectionsViewController.swift in Sources */,
 				0A2535861C52BFF100579102 /* SortingViewController.swift in Sources */,
+				0A4EC11A1D158DAF00D6A6EF /* CloudKitRecordMaker.swift in Sources */,
 				0A47D52A1C6642F200DC7296 /* ItemsViewController.swift in Sources */,
 				0A04E6AD1CB94572006A80E5 /* ColorManager.swift in Sources */,
 				0AF6739F1CCB966C002F2ED5 /* CloudKitManager.swift in Sources */,
@@ -288,6 +304,7 @@
 				0A77D7DA1C67900C00792403 /* DescriptionViewController.swift in Sources */,
 				0AF64FA11C4A8129003F8519 /* AppDelegate.swift in Sources */,
 				0AF64FB51C4A830B003F8519 /* Models.swift in Sources */,
+				0A4EC11D1D15BDAC00D6A6EF /* StarWars.swift in Sources */,
 				0ADF5C0E1CBA9D7400BC74AA /* Helpers.swift in Sources */,
 				0A22D63B1CF1C626005B82EC /* FinalFantasy.swift in Sources */,
 				0A04E6A91CB93894006A80E5 /* ProtocolManager.swift in Sources */,
@@ -456,6 +473,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = me.williamrobinson.greaterthan;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -473,6 +491,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = me.williamrobinson.greaterthan;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

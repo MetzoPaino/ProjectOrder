@@ -9,7 +9,7 @@
 import UIKit
 
 protocol AddListsViewControllerDelegate: class {
-    func finishedPickingCollections(collections: [CollectionModel])
+    func finishedPickingCollections(_ collections: [CollectionModel])
 }
 
 class AddListsViewController: UIViewController {
@@ -32,7 +32,7 @@ class AddListsViewController: UIViewController {
         
         usedRecordNames = createArrayOfUsedPremadeCollectionRecordNames()
         
-        premadeCollections.sortInPlace( { $0.name < $1.name })
+        premadeCollections.sort( isOrderedBefore: { $0.name < $1.name })
         
         for _ in premadeCollections {
             selectedArray.append(false)
@@ -43,15 +43,15 @@ class AddListsViewController: UIViewController {
         
         doneButton.layer.cornerRadius = 48 / 2
         
-        doneButton.layer.shadowColor = UIColor.blackColor().CGColor;
+        doneButton.layer.shadowColor = UIColor.black().cgColor;
         doneButton.layer.shadowOpacity = 0.25
         doneButton.layer.shadowRadius = 2
-        doneButton.layer.shadowOffset = CGSizeMake(0.0, 2.0)
+        doneButton.layer.shadowOffset = CGSize(width: 0.0, height: 2.0)
         doneButton.layer.masksToBounds = false
         
         doneButton.backgroundColor = .disabledColor()
-        doneButton.userInteractionEnabled = false
-        doneButton.setImage(UIImage(named: "Tick")?.imageWithRenderingMode(.AlwaysTemplate), forState: .Normal)
+        doneButton.isUserInteractionEnabled = false
+        doneButton.setImage(UIImage(named: "Tick")?.withRenderingMode(.alwaysTemplate), for: UIControlState())
         doneButton.tintColor = .backgroundColor()
     }
 
@@ -76,11 +76,11 @@ class AddListsViewController: UIViewController {
         return usedRecordNames
     }
     
-    @IBAction func doneButtonPressed(sender: UIButton) {
+    @IBAction func doneButtonPressed(_ sender: UIButton) {
         
         var pickedCollections = [CollectionModel]()
         
-        for (index, bool) in selectedArray.enumerate() {
+        for (index, bool) in selectedArray.enumerated() {
             
             if bool == true {
                 pickedCollections.append(premadeCollections[index])
@@ -88,35 +88,35 @@ class AddListsViewController: UIViewController {
         }
         
         self.delegate?.finishedPickingCollections(pickedCollections)
-        self.navigationController?.popViewControllerAnimated(true)
+        self.navigationController?.popViewController(animated: true)
     }
 }
 
 extension AddListsViewController: UITableViewDelegate {
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        if selectedArray[indexPath.row] == true {
-            selectedArray[indexPath.row] = false
+        if selectedArray[(indexPath as NSIndexPath).row] == true {
+            selectedArray[(indexPath as NSIndexPath).row] = false
         } else {
-            selectedArray[indexPath.row] = true
+            selectedArray[(indexPath as NSIndexPath).row] = true
         }
-        tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .None)
+        tableView.reloadRows(at: [indexPath], with: .none)
         
         if selectedArray.contains(true) {
             
-            UIView.animateWithDuration(0.25, animations: {
+            UIView.animate(withDuration: 0.25, animations: {
                 
                 self.doneButton.backgroundColor = .secondaryColor()
-                self.doneButton.userInteractionEnabled = true
-                self.doneButton.tintColor = .whiteColor()
+                self.doneButton.isUserInteractionEnabled = true
+                self.doneButton.tintColor = .white()
             })
         } else {
             
-            UIView.animateWithDuration(0.25, animations: {
+            UIView.animate(withDuration: 0.25, animations: {
                 
                 self.doneButton.backgroundColor = .disabledColor()
-                self.doneButton.userInteractionEnabled = false
+                self.doneButton.isUserInteractionEnabled = false
                 self.doneButton.tintColor = .backgroundColor()
             })
         }
@@ -125,17 +125,17 @@ extension AddListsViewController: UITableViewDelegate {
 
 extension AddListsViewController: UITableViewDataSource {
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         return premadeCollections.count
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! LabelCell
-        cell.titleLabel.text = premadeCollections[indexPath.row].name
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! LabelCell
+        cell.titleLabel.text = premadeCollections[(indexPath as NSIndexPath).row].name
         
-        if let image = premadeCollections[indexPath.row].image {
+        if let image = premadeCollections[(indexPath as NSIndexPath).row].image {
             cell.circleImageViewWidthConstraint.constant = 48
             cell.circleImageView.image = image
             cell.configureCell(true)
@@ -144,22 +144,22 @@ extension AddListsViewController: UITableViewDataSource {
             cell.configureCell(false)
         }
         
-        cell.selected = selectedArray[indexPath.row]
+        cell.isSelected = selectedArray[(indexPath as NSIndexPath).row]
 
-        if cell.selected {
+        if cell.isSelected {
             cell.backgroundColor = .secondaryColor()
         } else {
-            cell.backgroundColor = .whiteColor()
+            cell.backgroundColor = .white()
         }
         
-        cell.userInteractionEnabled = true;
+        cell.isUserInteractionEnabled = true;
         
         for string in usedRecordNames {
             
-            if string.containsString(premadeCollections[indexPath.row].name.trim()) {
+            if string.contains(premadeCollections[(indexPath as NSIndexPath).row].name.trim()) {
                 cell.backgroundColor = .disabledColor()
-                cell.userInteractionEnabled = false;
-                cell.titleLabel.textColor = .lightGrayColor()
+                cell.isUserInteractionEnabled = false;
+                cell.titleLabel.textColor = .lightGray()
                 cell.circleImageView.alpha = 0.5
                 break
             }

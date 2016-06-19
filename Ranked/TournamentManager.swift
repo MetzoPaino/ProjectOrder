@@ -9,7 +9,7 @@
 import Foundation
 
 protocol TournamentManagerDelegate: class {
-    func percentageCompleteValueChanged(percentage: Double)
+    func percentageCompleteValueChanged(_ percentage: Double)
 }
 
 class Battle {
@@ -25,9 +25,9 @@ class Battle {
     }
 }
 
-enum PickBattleError: ErrorType {
+enum PickBattleError: ErrorProtocol {
     
-    case AlreadyTakenPlace
+    case alreadyTakenPlace
 }
 
 class TournamentManager {
@@ -39,14 +39,14 @@ class TournamentManager {
     
     weak var delegate: TournamentManagerDelegate?
     
-    func createTournament(items:[ItemModel]) {
+    func createTournament(_ items:[ItemModel]) {
         
         participants = items
         
-        for (index, participant) in participants.enumerate() {
+        for (index, participant) in participants.enumerated() {
             
             participant.tag = index
-            participant.points = 0
+            participant.score = 0
         }
         
         var itterator = 0
@@ -99,7 +99,7 @@ class TournamentManager {
         
         if battle.winner != nil {
             
-            throw PickBattleError.AlreadyTakenPlace
+            throw PickBattleError.alreadyTakenPlace
             
         } else {
             
@@ -118,11 +118,11 @@ class TournamentManager {
         }
     }
     
-    func assignPointsForCompletedBattle(winner:ItemModel, loser:ItemModel) {
+    func assignPointsForCompletedBattle(_ winner:ItemModel, loser:ItemModel) {
         
         tournament[currentBattleIndex].winner = participants[winner.tag]
         tournament[currentBattleIndex].loser = participants[loser.tag]
-        participants[winner.tag].points += 1
+        participants[winner.tag].score += 1
         
         autoResolveBattlesFromWinnerAndLoserInTournament(winner, loser: loser)
 
@@ -147,12 +147,12 @@ class TournamentManager {
         
     }
     
-    func randomNumberInRange(range: Int) -> Int {
+    func randomNumberInRange(_ range: Int) -> Int {
         
         return Int(arc4random_uniform(UInt32(range)))
     }
     
-    func autoResolveBattlesFromWinnerAndLoserInTournament(winner: ItemModel, loser: ItemModel) {
+    func autoResolveBattlesFromWinnerAndLoserInTournament(_ winner: ItemModel, loser: ItemModel) {
         
         // A superLoser has lost to the Loser
         var superLoser: ItemModel
@@ -165,7 +165,7 @@ class TournamentManager {
                 
                 superLoser = loserBattle.loser!
                 
-                for (index, unresolvedBattle) in tournament.enumerate() {
+                for (index, unresolvedBattle) in tournament.enumerated() {
                     
                     if unresolvedBattle.winner == nil {
                         
@@ -178,7 +178,7 @@ class TournamentManager {
                             
                             tournament[index].winner = winner
                             tournament[index].loser = superLoser
-                            participants[winner.tag].points += 1
+                            participants[winner.tag].score += 1
                             
                             outputState()
                             printTournamentOverview()
@@ -188,7 +188,6 @@ class TournamentManager {
             }
         }
     }
-
 }
 
 extension TournamentManager {
@@ -242,7 +241,7 @@ extension TournamentManager {
         printString(" ")
     }
     
-    func printString(string: String) {
+    func printString(_ string: String) {
         
         if printDetails {
             
@@ -252,7 +251,7 @@ extension TournamentManager {
 }
 
 extension Array {
-    func containsReference(obj: AnyObject) -> Bool {
+    func containsReference(_ obj: AnyObject) -> Bool {
         for ownedItem in self {
             if let ownedObject: AnyObject = ownedItem as? AnyObject {
                 if (ownedObject === obj) {

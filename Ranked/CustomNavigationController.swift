@@ -13,10 +13,10 @@ class CustomNavigationController: UINavigationController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationBar.setBackgroundImage(UIImage(), forBarMetrics: UIBarMetrics.Default)
+        navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         navigationBar.shadowImage = UIImage()
-        navigationBar.translucent = true
-        view.backgroundColor = UIColor.clearColor()
+        navigationBar.isTranslucent = true
+        view.backgroundColor = UIColor.clear()
         navigationController?.navigationItem.backBarButtonItem?.tintColor = .primaryColor()
         navigationBar.barTintColor = .primaryColor()
     }

@@ -14,7 +14,7 @@ private let itemRecordType = "Item"
 
 func createTarantinoCollection() -> CollectionModel {
     
-    let collection = CollectionModel(name: "Tarantino", description: "From Pulp Fiction to The Hateful Eight because it's so much fun Jan!", dateCreated: NSDate())
+    let collection = CollectionModel(name: "Tarantino", description: "From Pulp Fiction to The Hateful Eight because it's so much fun Jan!", dateCreated: Date())
     collection.record = CKRecord(recordType: "Collection", recordID: CKRecordID(recordName: collection.name.trim()))
     collection.premade = true
     //collection.image = UIImage(named: "")
