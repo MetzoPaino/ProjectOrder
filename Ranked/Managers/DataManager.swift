@@ -84,6 +84,7 @@ class DataManager {
             collections = [CollectionModel]()
             lostItems = [ItemModel]()
             cloudKitManager = CloudKitManager()
+            cloudKitManager.fetchAllFromDatabase(false)
         }
         
         // Need to hook up the delegate every time        
