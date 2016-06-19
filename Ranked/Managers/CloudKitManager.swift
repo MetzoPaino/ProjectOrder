@@ -82,6 +82,7 @@ class CloudKitManager: NSObject, NSCoding {
         record.setObject(collection.name, forKey: "Name")
         record.setObject(collection.descriptionString, forKey: "Description")
         record.setObject(collection.dateCreated, forKey: "DateCreated")
+        record.setObject(collection.premade.hashValue, forKey: "Premade")
         
         if let image = collection.image {
             
@@ -146,7 +147,8 @@ class CloudKitManager: NSObject, NSCoding {
             fetchedCollection["Name"] = collection.name
             fetchedCollection["Description"] = collection.descriptionString
             fetchedCollection["DateCreated"] = collection.dateCreated
-            
+            fetchedCollection["Premade"] = collection.premade
+
             if let image = collection.image {
                 
                 do {
@@ -351,6 +353,10 @@ class CloudKitManager: NSObject, NSCoding {
                         
                         let collection = CollectionModel (name: name, description: description, dateCreated: dateCreated)
                         
+                        if let premade = record["Premade"] as? Bool {
+                            collection.premade = premade
+                        }
+                        
                         if let asset = record["Image"] as? CKAsset,
                             data = try? Data(contentsOf: asset.fileURL),
                             image = UIImage(data: data) {
@@ -420,6 +426,10 @@ class CloudKitManager: NSObject, NSCoding {
                 
                 let collection = CollectionModel (name: name, description: description, dateCreated: dateCreated)
                 
+                if let premade = fetchedCollection["Premade"] as? Bool {
+                    collection.premade = premade
+                }
+                
                 if let asset = fetchedCollection["Image"] as? CKAsset,
                     data = NSData.init(contentsOf: asset.fileURL),
                     image = UIImage(data: data as Data) {
@@ -459,6 +469,10 @@ class CloudKitManager: NSObject, NSCoding {
                 let dateCreated = fetchedCollection["DateCreated"] as! Date
                 
                 let collection = CollectionModel (name: name, description: description, dateCreated: dateCreated)
+                
+                if let premade = fetchedCollection["Premade"] as? Bool {
+                    collection.premade = premade
+                }
                 
                 if let asset = fetchedCollection["Image"] as? CKAsset,
                     data = NSData.init(contentsOf: asset.fileURL),
@@ -505,8 +519,6 @@ class CloudKitManager: NSObject, NSCoding {
             guard let fetchedItem = fetchedItem else {
                 return
             }
-            
-            
             
             if ((fetchedItem["Name"] as? String) != nil) {
                 

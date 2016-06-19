@@ -195,7 +195,6 @@ extension DataManager: CloudKitManagerDelegate {
         collections.append(collection)
         
         let lostItemsCopy = lostItems
-        lostItems.removeAll()
         
         for item in lostItemsCopy {
             
@@ -301,6 +300,16 @@ extension DataManager: CloudKitManagerDelegate {
                 
                 collectionExists = true
                 collection.items.insert(item, at: 0)
+                
+                for (index, lostItem) in lostItems.enumerated() {
+                    
+                    if lostItem.record.recordID.recordName == item.record.recordID.recordName {
+                        
+                        lostItems.remove(at: index)
+                        break
+                    }
+                }
+            
                 self.delegate?.newItem(reference)
             }
         }
@@ -309,7 +318,21 @@ extension DataManager: CloudKitManagerDelegate {
             
             print("We never found it")
             item.collectionReference = reference
-            lostItems.append(item)
+            
+            var alreadyALostItem = false
+            
+            for lostItem in lostItems {
+                
+                if lostItem.record.recordID.recordName == item.record.recordID.recordName {
+                    
+                    alreadyALostItem = true
+                }
+            }
+            
+            if alreadyALostItem == false {
+                
+                lostItems.append(item)
+            }
         }
     }
     

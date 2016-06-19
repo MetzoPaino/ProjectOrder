@@ -14,6 +14,8 @@ import UIKit
 
 extension CloudKitManager {
     
+    
+    
     func createItemFromRecordWithCollectionRecordName(record: CKRecord) -> (item: ItemModel, collectionRecordName: String) {
         
         let name = record["Name"] as! String
