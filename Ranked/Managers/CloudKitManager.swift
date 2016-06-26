@@ -101,7 +101,6 @@ class CloudKitManager: NSObject, NSCoding {
         }
     
         privateDatabase.save(record) { savedRecord, error in
-            print(error)
             
             if error == nil {
                 
@@ -109,6 +108,8 @@ class CloudKitManager: NSObject, NSCoding {
                 self.saveItemsToCloudKit(collection)
                 
             } else {
+                
+                print(error)
                 
                 self.saveCollectionToCloudKitCounter = self.saveCollectionToCloudKitCounter + 1
                 
@@ -207,29 +208,7 @@ class CloudKitManager: NSObject, NSCoding {
         
         for item in collection.items {
             
-            let record = CKRecord(recordType: "Item", recordID: item.record.recordID)
-            record.setObject(item.text, forKey: "Name")
-            record.setObject(item.sorted, forKey: "Sorted")
-            record.setObject(item.dateCreated, forKey: "DateCreated")
-            
-            if let image = item.image {
-                
-                do {
-                    
-                    let url = try! URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(collection.name.trim() + item.text.trim())
-                    let data = UIImagePNGRepresentation(image)!
-                    
-                    try data.write(to: url, options: NSData.WritingOptions.atomicWrite)
-                    let asset = CKAsset(fileURL: url)
-                    record.setObject(asset, forKey: "Image")
-                }
-                catch {
-                    print("Error writing data", error)
-                }
-            }
-            
-            let reference = CKReference(record: collection.record, action: .deleteSelf)
-            record.setObject(reference, forKey: "Collection")
+            let record = self.createRecordFromItemInCollection(item: item, collection: collection)
             recordsArray.append(record)
         }
         
@@ -523,7 +502,6 @@ class CloudKitManager: NSObject, NSCoding {
             if ((fetchedItem["Name"] as? String) != nil) {
                 
                 let name = fetchedItem["Name"] as! String
-                let sorted = fetchedItem["Sorted"] as! Bool
                 let dateCreated = fetchedItem["DateCreated"] as! Date
                 
                 let item = ItemModel(string: name, dateCreated: dateCreated)
@@ -534,7 +512,6 @@ class CloudKitManager: NSObject, NSCoding {
                     item.image = image
                 }
                 
-                item.sorted = sorted
                 item.record = fetchedItem
                 
                 self.delegate?.updateItemWithReference(item, reference: recordID.recordName)

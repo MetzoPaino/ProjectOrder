@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
-        UserDefaults.standard().setValue(false, forKey: "_UIConstraintBasedLayoutLogUnsatisfiable")
+        UserDefaults.standard().setValue(true, forKey: "_UIConstraintBasedLayoutLogUnsatisfiable")
 
         if let controller = window!.rootViewController as? LaunchViewController {
         

@@ -363,7 +363,6 @@ extension DataManager: CloudKitManagerDelegate {
                     
                     print(item.record.recordID.recordName)
                     collection.items[index].text = updatedItem.text
-                    collection.items[index].sorted = updatedItem.sorted
                     self.delegate?.updateLocalItemInCollection(collection.items[index], collection: collection)
                 }
             }

@@ -11,7 +11,7 @@ import MessageUI
 import CloudKit
 
 protocol ItemsViewControllerDelegate: class {
-    func sortingFinished()
+    func sortingFinished(collection: CollectionModel)
     func collectionUpdated(_ collection:CollectionModel, new: Bool)
     func deleteItemFromCloudKit(recordID: CKRecordID)
 }
@@ -72,6 +72,12 @@ class ItemsViewController: UIViewController, Injectable {
     override func viewDidLoad() {
         super.viewDidLoad()
         assertDependencies()
+
+        if collection.sorted == true {
+            collection.sortCollection(sortType: .score)
+        } else {
+            collection.sortCollection(sortType: .date)
+        }
         
         imagePicker.delegate = self
         imagePicker.allowsEditing = false
@@ -463,11 +469,12 @@ extension ItemsViewController: SortingViewControllerDelegate {
         
         for item in collection.items {
             
-            item.sorted = true
+//            item.sorted = true
         }
         collection.items = items.sorted(isOrderedBefore: { $0.score > $1.score })
+        
         tableView.reloadData()
-        self.delegate?.sortingFinished()
+        self.delegate?.sortingFinished(collection: collection)
     }
 }
 
@@ -601,11 +608,11 @@ extension TableViewDataSource: UITableViewDataSource {
             
         } else if section == 1 {
             
-            return collection.returnArrayOfItems(true).count
+            return collection.returnArrayOfItems(sorted: true).count
             
         } else {
             
-            return collection.returnArrayOfItems(false).count
+            return collection.returnArrayOfItems(sorted: false).count
         }
     }
     
@@ -631,7 +638,7 @@ extension TableViewDataSource: UITableViewDataSource {
             
         } else if (indexPath as NSIndexPath).section == 1 {
             
-            let item = collection.returnArrayOfItems(true)[(indexPath as NSIndexPath).row]
+            let item = collection.returnArrayOfItems(sorted: true)[(indexPath as NSIndexPath).row]
             
             let cell = tableView.dequeueReusableCell(withIdentifier: "UnsortedCell", for: indexPath) as! UnsortedItemTableViewCell
             
@@ -669,7 +676,7 @@ extension TableViewDataSource: UITableViewDataSource {
             
         } else {
             
-            let item = collection.returnArrayOfItems(false)[(indexPath as NSIndexPath).row]
+            let item = collection.returnArrayOfItems(sorted: false)[(indexPath as NSIndexPath).row]
             
             let cell = tableView.dequeueReusableCell(withIdentifier: "UnsortedCell", for: indexPath) as! UnsortedItemTableViewCell
             

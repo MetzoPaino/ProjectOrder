@@ -81,7 +81,6 @@ class CollectionsViewController: UIViewController, Injectable {
 
     func styleView() {
         
-        deleteItemFromCloudKit(recordID: CKRecordID(recordName: "l"))
         addButton.backgroundColor = .primaryColor()
         addButton.layer.cornerRadius = self.addButtonHeightConstraint.constant / 2
         addButton.setImage(UIImage(named: "PlusButton" )?.withRenderingMode(.alwaysTemplate), for: UIControlState())
@@ -113,11 +112,6 @@ class CollectionsViewController: UIViewController, Injectable {
         } else {
             view.sendSubview(toBack: getStartedContainerView)
         }
-    }
-    
-    @IBAction func syncButtonPressed(_ sender: UIBarButtonItem) {
-        
-        dataManager.cloudKitManager.fetchAllFromDatabase(true)
     }
 }
 
@@ -323,8 +317,9 @@ extension TableViewDataSource: UITableViewDataSource {
 private typealias ItemsDelegate = CollectionsViewController
 extension ItemsDelegate: ItemsViewControllerDelegate {
     
-    func sortingFinished() {
+    func sortingFinished(collection: CollectionModel) {
         
+        dataManager.editCollectionToCloudKit(collection: collection)
         tableView.reloadData()
     }
     
@@ -493,6 +488,8 @@ extension CollectionsViewController: GetStartedViewControllerDelegate {
     }
 }
 
+//MARK: SettingsViewControllerDelegate
+
 extension CollectionsViewController: SettingsViewControllerDelegate {
     
     func appendPreMadeCollections(_ collections: [CollectionModel]) {
@@ -503,5 +500,9 @@ extension CollectionsViewController: SettingsViewControllerDelegate {
             //CloudKitManager().saveCollectionToCloudKit(collection)
             dataManager.saveCollectionToCloudKit(collection: collection)
         }
+    }
+    
+    func performFulliCloudSync() {
+        dataManager.cloudKitManager.fetchAllFromDatabase(true)
     }
 }

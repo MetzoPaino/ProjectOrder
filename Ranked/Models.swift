@@ -9,6 +9,11 @@
 import UIKit
 import CloudKit
 
+enum sortBy {
+    case date
+    case score
+}
+
 class CollectionModel: NSObject, NSCoding {
     
     private let nameKey = "name"
@@ -27,7 +32,6 @@ class CollectionModel: NSObject, NSCoding {
     var sorted = false
     var dateCreated: Date
     var image: UIImage?
-    
     var premade = false
     
     var items = [ItemModel]()
@@ -94,8 +98,6 @@ class CollectionModel: NSObject, NSCoding {
         if let decodedPremade = aDecoder.decodeObject(forKey: premadeKey) as? Bool {
             
             premade = decodedPremade
-        } else {
-            premade = false
         }
         
         if let decodedImage = aDecoder.decodeObject(forKey: imageKey) as? UIImage {
@@ -118,22 +120,42 @@ class CollectionModel: NSObject, NSCoding {
         aCoder.encode(image, forKey: imageKey)
     }
     
-    func returnArrayOfItems(_ sorted: Bool) -> [ItemModel] {
+    func returnArrayOfItems(sorted: Bool) -> [ItemModel] {
         
         var requestedItems = [ItemModel]()
         
         for item in self.items {
             
-            if sorted && item.sorted{
+            if sorted == true {
                 
-                requestedItems.append(item)
+                if let _ = item.score {
+                    
+                    requestedItems.append(item)
+                }
                 
-            } else if !sorted && !item.sorted {
+            } else {
                 
-                requestedItems.append(item)
+                if item.score == nil {
+                    requestedItems.append(item)
+                }
             }
         }
+        
         return requestedItems
+    }
+    
+    func sortCollection(sortType: sortBy) {
+        
+        switch sortType {
+        case .date:
+            self.items = self.items.sorted(isOrderedBefore: { $0.dateCreated < $1.dateCreated })
+            break
+        case .score:
+            self.items = self.items.sorted(isOrderedBefore: { $0.score > $1.score })
+            break
+        default:
+            break
+        }
     }
 }
 
@@ -141,7 +163,6 @@ class ItemModel: NSObject, NSCoding {
     
     private let textKey = "text"
     private let scoreKey = "score"
-    private let sortedKey = "sorted"
     private var recordKey = "record"
     private let dateCreatedKey = "dateCreated"
     private var imageKey = "image"
@@ -149,8 +170,7 @@ class ItemModel: NSObject, NSCoding {
 
     var text: String
     var tag = Int()
-    var sorted = false
-    var score = 0
+    var score: Int?
     var dateCreated: Date
     var image: UIImage?
 
@@ -185,14 +205,6 @@ class ItemModel: NSObject, NSCoding {
         if let decodedScore = aDecoder.decodeObject(forKey: scoreKey) as? Int {
             
             score = decodedScore
-            
-        } else {
-            score = 0
-        }
-        
-        if let decodedSorted = aDecoder.decodeObject(forKey: sortedKey) as? Bool {
-            
-            sorted = decodedSorted
         }
         
         if let decodedRecord = aDecoder.decodeObject(forKey: recordKey) as? CKRecord {
@@ -217,7 +229,6 @@ class ItemModel: NSObject, NSCoding {
             collectionReference = decodedCollectionReference
         }
         
-        
         super.init()
     }
     
@@ -225,7 +236,6 @@ class ItemModel: NSObject, NSCoding {
         
         aCoder.encode(text, forKey: textKey)
         aCoder.encode(score, forKey: scoreKey)
-        aCoder.encode(sorted, forKey: sortedKey)
         aCoder.encode(record, forKey: recordKey)
         aCoder.encode(dateCreated, forKey: dateCreatedKey)
         aCoder.encode(image, forKey: imageKey)

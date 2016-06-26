@@ -23,6 +23,7 @@ class LabelCell: UITableViewCell {
         if hasImage {
             titleLabelLeadingConstraint.constant = 8
             circleImageView.layer.cornerRadius = circleImageViewWidthConstraint.constant / 2
+            circleImageView.clipsToBounds = true
         } else {
             titleLabelLeadingConstraint.constant = 0
         }

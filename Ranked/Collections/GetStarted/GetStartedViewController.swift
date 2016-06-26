@@ -55,14 +55,22 @@ class GetStartedViewController: UIViewController {
     
     var firstTime = true
     
+    var laidOutSubviews = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         moveEverythingOffScreen()
         styleView()
-
-        pickOptions()
-        updateOptions()
-        presentOptions()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        
+        if laidOutSubviews == false {
+            pickOptions()
+            updateOptions()
+            presentOptions()
+            laidOutSubviews = true
+        }
     }
     
     func reset() {

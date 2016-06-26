@@ -13,14 +13,11 @@ import UIKit
 //MARK: - Create
 
 extension CloudKitManager {
-    
-    
-    
+        
     func createItemFromRecordWithCollectionRecordName(record: CKRecord) -> (item: ItemModel, collectionRecordName: String) {
         
         let name = record["Name"] as! String
         let collection = record["Collection"] as! CKReference
-        let sorted = record["Sorted"] as! Bool
         let dateCreated = record["DateCreated"] as! Date
         
         let item = ItemModel(string: name, dateCreated: dateCreated)
@@ -37,9 +34,39 @@ extension CloudKitManager {
             item.image = image
         }
         
-        item.sorted = sorted
-        
         return (item, collection.recordID.recordName)
+    }
+    
+    func createRecordFromItemInCollection(item: ItemModel, collection: CollectionModel) -> (CKRecord) {
+        
+        let record = item.record
+        record.setObject(item.text, forKey: "Name")
+        record.setObject(item.dateCreated, forKey: "DateCreated")
+        
+        if let image = item.image {
+            
+            do {
+                
+                let url = try! URL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(collection.name.trim() + item.text.trim())
+                let data = UIImagePNGRepresentation(image)!
+                
+                try data.write(to: url, options: NSData.WritingOptions.atomicWrite)
+                let asset = CKAsset(fileURL: url)
+                record.setObject(asset, forKey: "Image")
+            }
+            catch {
+                print("Error writing data", error)
+            }
+        }
+        
+        if let score = item.score {
+            record.setObject(score, forKey: "Score")
+        }
+        
+        let reference = CKReference(record: collection.record, action: .deleteSelf)
+        record.setObject(reference, forKey: "Collection")
+        
+        return record
     }
 }
 

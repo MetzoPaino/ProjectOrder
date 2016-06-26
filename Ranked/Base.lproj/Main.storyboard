@@ -42,7 +42,7 @@
                                         <frame key="frameInset" minY="28" width="375" height="88"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="UdF-AQ-jmU" id="aHo-Th-TY5">
-                                            <frame key="frameInset" width="375" height="87.5"/>
+                                            <frame key="frameInset" width="375" height="87"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dP3-5p-akq">
@@ -89,7 +89,7 @@
                                         <frame key="frameInset" minY="116" width="375" height="88"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Xmj-EK-g6M" id="vyz-cj-9PS">
-                                            <frame key="frameInset" width="375" height="87.5"/>
+                                            <frame key="frameInset" width="375" height="87"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="eqe-Y7-jbM">
@@ -172,11 +172,6 @@
                         <barButtonItem key="leftBarButtonItem" image="Settings" id="9ra-hz-ajf">
                             <connections>
                                 <segue destination="DF5-da-shk" kind="presentation" identifier="PresentSettings" id="gTP-vc-Bdf"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Sync" id="ydY-Sn-tR9">
-                            <connections>
-                                <action selector="syncButtonPressed:" destination="nmk-1J-1qM" id="Myb-H1-Wiu"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

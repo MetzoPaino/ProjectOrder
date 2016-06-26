@@ -46,7 +46,7 @@ class TournamentManager {
         for (index, participant) in participants.enumerated() {
             
             participant.tag = index
-            participant.score = 0
+            //participant.score = 0
         }
         
         var itterator = 0
@@ -122,7 +122,13 @@ class TournamentManager {
         
         tournament[currentBattleIndex].winner = participants[winner.tag]
         tournament[currentBattleIndex].loser = participants[loser.tag]
-        participants[winner.tag].score += 1
+        
+        if let score = participants[winner.tag].score {
+            
+            participants[winner.tag].score =  score + 1
+        } else {
+            participants[winner.tag].score = 1
+        }
         
         autoResolveBattlesFromWinnerAndLoserInTournament(winner, loser: loser)
 
@@ -178,8 +184,14 @@ class TournamentManager {
                             
                             tournament[index].winner = winner
                             tournament[index].loser = superLoser
-                            participants[winner.tag].score += 1
-                            
+
+                            if let score = participants[winner.tag].score {
+                                
+                                participants[winner.tag].score =  score + 1
+                            } else {
+                                participants[winner.tag].score = 1
+                            }
+        
                             outputState()
                             printTournamentOverview()
                         }
