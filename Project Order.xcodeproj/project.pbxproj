@@ -167,7 +167,7 @@
 			children = (
 				0AF6739C1CCB878D002F2ED5 /* CloudKit.framework */,
 				0AF6739B1CCB876F002F2ED5 /* >.entitlements */,
-				0AF64F9F1C4A8129003F8519 /* Ranked */,
+				0AF64F9F1C4A8129003F8519 /* Project Order */,
 				0AF64F9E1C4A8129003F8519 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -180,7 +180,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		0AF64F9F1C4A8129003F8519 /* Ranked */ = {
+		0AF64F9F1C4A8129003F8519 /* Project Order */ = {
 			isa = PBXGroup;
 			children = (
 				0AF64FA01C4A8129003F8519 /* AppDelegate.swift */,
@@ -196,6 +196,7 @@
 				0AF64FA71C4A812A003F8519 /* Assets.xcassets */,
 				0AF64FAC1C4A812A003F8519 /* Info.plist */,
 			);
+			name = "Project Order";
 			path = Ranked;
 			sourceTree = "<group>";
 		};
