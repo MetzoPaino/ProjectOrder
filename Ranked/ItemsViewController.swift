@@ -381,7 +381,7 @@ extension IBActions {
 
         if let addItemCell = tableView.cellForRow(at: addItemIndex) as? AddItemTableViewCell {
             
-            addItemCell.textFieldShouldReturn(addItemCell.textField)
+            _ = addItemCell.textFieldShouldReturn(addItemCell.textField)
         }
         
         tableView.beginUpdates()
@@ -467,10 +467,10 @@ extension ItemsViewController: SortingViewControllerDelegate {
         
         collection.sorted = true
         
-        for item in collection.items {
-            
+//        for item in collection.items {
+//            
 //            item.sorted = true
-        }
+//        }
         collection.items = items.sorted(isOrderedBefore: { $0.score > $1.score })
         
         tableView.reloadData()

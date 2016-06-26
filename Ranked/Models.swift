@@ -153,8 +153,6 @@ class CollectionModel: NSObject, NSCoding {
         case .score:
             self.items = self.items.sorted(isOrderedBefore: { $0.score > $1.score })
             break
-        default:
-            break
         }
     }
 }

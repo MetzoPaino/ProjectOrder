@@ -363,11 +363,11 @@ extension CollectionsViewController: DataManagerDelegate {
             if self.presentedViewController is CustomNavigationController {
                 
                 self.navigationController?.dismiss(animated: true, completion: {
-                    self.navigationController?.popToRootViewController(animated: true)
+                    _ = self.navigationController?.popToRootViewController(animated: true)
                     self.tableView.reloadData()
                 })
             } else {
-                self.navigationController?.popToRootViewController(animated: true)
+                _ = self.navigationController?.popToRootViewController(animated: true)
                 self.tableView.reloadData()
             }
         })
@@ -387,7 +387,7 @@ extension CollectionsViewController: DataManagerDelegate {
                 }
             } else {
                 
-                self.navigationController?.popToRootViewController(animated: true)
+                _ = self.navigationController?.popToRootViewController(animated: true)
                 self.tableView.reloadData()
             }
             
@@ -428,7 +428,7 @@ extension CollectionsViewController: DataManagerDelegate {
                     itemsViewController.tableView.reloadData()
                 }
             } else if self.navigationController?.topViewController is DescriptionViewController {
-                self.navigationController?.popToRootViewController(animated: true)
+                _ = self.navigationController?.popToRootViewController(animated: true)
             }
             
             if self.presentedViewController is CustomNavigationController {
@@ -451,7 +451,7 @@ extension CollectionsViewController: DataManagerDelegate {
                     itemsViewController.tableView.reloadData()
                 }
             } else if self.navigationController?.topViewController is DescriptionViewController {
-                self.navigationController?.popToRootViewController(animated: true)
+                _ = self.navigationController?.popToRootViewController(animated: true)
             }
             
             if self.presentedViewController is CustomNavigationController {

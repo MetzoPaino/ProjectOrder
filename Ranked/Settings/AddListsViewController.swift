@@ -88,7 +88,7 @@ class AddListsViewController: UIViewController {
         }
         
         self.delegate?.finishedPickingCollections(pickedCollections)
-        self.navigationController?.popViewController(animated: true)
+        _ = self.navigationController?.popViewController(animated: true)
     }
 }
 
