@@ -308,6 +308,9 @@ class CloudKitManager: NSObject, NSCoding {
         
         database.perform(query, inZoneWith: nil) { (records, error) in
             
+            //Let spinners know we are done
+            NotificationCenter.default.post(name: "iCloudSyncFinished" as NSNotification.Name, object: self)
+            
             if let records = records {
                 
                 var cloudCollections = [CollectionModel]()

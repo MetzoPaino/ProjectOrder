@@ -49,6 +49,11 @@ class CollectionTableViewCell: UITableViewCell {
         
         summaryImageView.layer.cornerRadius = summaryImageViewWidthConstraint.constant / 2
         summaryImageView.clipsToBounds = true
+        
+        let backgroundView = UIView()
+        backgroundView.backgroundColor = .primaryColor()
+        
+        selectedBackgroundView = backgroundView
     }
 }
 
@@ -194,5 +199,19 @@ extension AddItemTableViewCell: UITextFieldDelegate {
             }
         }
         return false
+    }
+}
+
+class SyncingTableViewCell: UITableViewCell {
+    
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
+    func configureCell(syncing: Bool) {
+        
+        if syncing == true {
+            activityIndicator.startAnimating()
+        } else {
+            activityIndicator.stopAnimating()
+        }
     }
 }

@@ -21,17 +21,26 @@ class SettingsViewController: UIViewController {
     weak var delegate: SettingsViewControllerDelegate?
     
     var collections: [CollectionModel]!
+    var appIsSyncing = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         styleNavBar()
         styleTableView()
+
+        NotificationCenter.default.addObserver(self, selector: #selector(SettingsViewController.receivedNotification(notification:)), name: "iCloudSyncFinished" as NSNotification.Name, object: nil)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        
+        super.viewWillDisappear(animated)
+        NotificationCenter.default.removeObserver(self)
     }
 
     func styleNavBar() {
-        navigationController?.navigationBar.setBackgroundImage(nil, for: UIBarMetrics.default)
-        navigationController?.navigationBar.shadowImage = nil
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+        navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.isTranslucent = false
         navigationController?.view.backgroundColor = UIColor.white()
         navigationController?.navigationBar.tintColor = .primaryColor()
@@ -45,6 +54,14 @@ class SettingsViewController: UIViewController {
         tableView.separatorInset = UIEdgeInsetsZero
         tableView.separatorColor = .backgroundColor()
         tableView.backgroundColor = .backgroundColor()
+    }
+    
+    func receivedNotification(notification: NSNotification) {
+        
+        if notification.name == "iCloudSyncFinished" as NSNotification.Name {
+            appIsSyncing = false
+            tableView.reloadData()
+        }
     }
     
     // MARK: - Navigation
@@ -76,6 +93,8 @@ extension SettingsViewController: UITableViewDelegate {
         
         if indexPath.row == 0 {
             self.delegate?.performFulliCloudSync()
+            appIsSyncing = true
+            tableView.reloadData()
         }
         
         tableView.deselectRow(at: indexPath, animated: true)
@@ -92,7 +111,8 @@ extension SettingsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if (indexPath as NSIndexPath).row == 0 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "iCloudCell", for: indexPath)
+            let cell = tableView.dequeueReusableCell(withIdentifier: "iCloudCell", for: indexPath) as! SyncingTableViewCell
+            cell.configureCell(syncing: appIsSyncing)
             return cell
         } else if (indexPath as NSIndexPath).row == 1 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "AddListsCell", for: indexPath)
