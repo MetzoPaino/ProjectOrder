@@ -148,8 +148,10 @@ extension AddListsViewController: UITableViewDataSource {
 
         if cell.isSelected {
             cell.backgroundColor = .secondaryColor()
+            cell.titleLabel.textColor = .white()
         } else {
             cell.backgroundColor = .white()
+            cell.titleLabel.textColor = .black()
         }
         
         cell.isUserInteractionEnabled = true;
