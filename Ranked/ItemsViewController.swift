@@ -701,9 +701,7 @@ extension TableViewDataSource: UITableViewDataSource {
             } else {
                 
                 cell.titleLabelLeadingConstraint.constant = 0
-
             }
-
             
             cell.tintView.alpha = 0
             
@@ -719,16 +717,21 @@ extension ItemsViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ImageCell", for: indexPath) as! ImageCell
         cell.separatorInset = UIEdgeInsetsMake(0, Helper.largestDeviceSide(), 0, 0);
         
+        // Don't need an else, because cell isn't shown if no image
         if let image = image {
             cell.summaryImageView.image = image
-            cell.button.isHidden = true
-        } else if collection.premade == false {
+        }
+        
+        if inEditingMode == true && collection.premade == false {
+            
             cell.button.isHidden = false
             cell.button.imageView!.image = UIImage(named: "PlusButton" )?.withRenderingMode(.alwaysTemplate)
             cell.button.imageView!.tintColor = .white()
+        } else {
+            cell.button.isHidden = true
         }
+
         cell.configureCell()
-        
         
         cell.selectionStyle = .none
         return cell
