@@ -32,7 +32,7 @@ class DescriptionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let notificationCenter = NotificationCenter.default()
+        let notificationCenter = NotificationCenter.default
         notificationCenter.addObserver(self, selector: #selector(DescriptionViewController.receivedKeyboardNotification(_:)), name: NSNotification.Name.UIKeyboardDidShow, object: nil)
         notificationCenter.addObserver(self, selector: #selector(DescriptionViewController.receivedKeyboardNotification(_:)), name: NSNotification.Name.UIKeyboardDidHide, object: nil)
         
@@ -58,7 +58,7 @@ class DescriptionViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         
         super.viewWillDisappear(animated)
-        NotificationCenter.default().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
         
         if isMovingFromParentViewController() {
             

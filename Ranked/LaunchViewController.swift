@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LaunchViewController: UIViewController, Injectable {
+class LaunchViewController: UIViewController, CAAnimationDelegate, Injectable {
 
     @IBOutlet weak var imageView: UIImageView!
     var animationArray = [CGImage]()
@@ -56,7 +56,7 @@ class LaunchViewController: UIViewController, Injectable {
         assert(dataManager != nil)
     }
     
-    override func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
+    func animationDidStop(_ anim: CAAnimation, finished flag: Bool) {
         
         performSegue(withIdentifier: "Start", sender: self)
     }

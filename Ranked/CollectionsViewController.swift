@@ -46,7 +46,7 @@ class CollectionsViewController: UIViewController, Injectable {
     override func viewWillDisappear(_ animated: Bool)  {
         super.viewWillDisappear(animated)
         
-        NotificationCenter.default().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
         
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
@@ -63,8 +63,8 @@ class CollectionsViewController: UIViewController, Injectable {
         
         tableView.reloadData()
         
-        navigationController?.navigationBar.setBackgroundImage(nil, for: UIBarMetrics.default)
-        navigationController?.navigationBar.shadowImage = nil
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+        navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.isTranslucent = false
         navigationController?.view.backgroundColor = UIColor.white()
         navigationController?.navigationBar.tintColor = .primaryColor()
@@ -178,6 +178,8 @@ extension Navigation {
 private typealias TableViewDelegate = CollectionsViewController
 extension TableViewDelegate: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        
         
         tableView.deselectRow(at: indexPath, animated: true)
         //        performSegueWithIdentifier("ShowCollection", sender: collectionsArray[indexPath.row])

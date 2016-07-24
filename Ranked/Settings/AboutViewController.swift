@@ -29,8 +29,8 @@ class AboutViewController: UIViewController {
     
     func styleNavBar() {
         
-        navigationController?.navigationBar.setBackgroundImage(nil, for: UIBarMetrics.default)
-        navigationController?.navigationBar.shadowImage = nil
+        navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+        navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.isTranslucent = false
         navigationController?.view.backgroundColor = UIColor.white()
         navigationController?.navigationBar.tintColor = .primaryColor()
@@ -97,7 +97,7 @@ class AboutViewController: UIViewController {
             person2ImageView.image = UIImage(named: "William")
         }
 
-        if let versionString = Bundle.main().infoDictionary?["CFBundleShortVersionString"] as? String {
+        if let versionString = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
             
             versionLabel.text = "Version: " + versionString
         }

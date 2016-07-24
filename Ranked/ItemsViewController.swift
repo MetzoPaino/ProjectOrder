@@ -84,7 +84,7 @@ class ItemsViewController: UIViewController, Injectable {
         imagePicker.sourceType = .photoLibrary
         imagePicker.navigationBar.tintColor = .primaryColor()
         
-        let notificationCenter = NotificationCenter.default()
+        let notificationCenter = NotificationCenter.default
         notificationCenter.addObserver(self, selector: #selector(ItemsViewController.receivedKeyboardNotification(_:)), name: NSNotification.Name.UIKeyboardDidShow, object: nil)
 
         tapGesture.addTarget(self, action: #selector(ItemsViewController.receivedGestureNotification(_:)))
@@ -100,7 +100,7 @@ class ItemsViewController: UIViewController, Injectable {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        NotificationCenter.default().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
     }
     
     func inject(_ collection: AssociatedObject) {
@@ -819,7 +819,9 @@ extension ItemsViewController {
             cell.addImageView.image = image
             
         } else {
-            cell.addImageView.image = UIImage()
+            
+            cell.addImageView.image = UIImage(named: "PlusButton")?.withRenderingMode(.alwaysTemplate)
+            cell.addImageView.tintColor = .white()
         }
         
         cell.selectionStyle = .none

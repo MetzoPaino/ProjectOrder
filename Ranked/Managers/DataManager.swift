@@ -34,7 +34,7 @@ class DataManager {
         let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true) as [String]
         let path = paths[0] + "/ProjectOrder.plist"
         
-        if FileManager.default().fileExists(atPath: path) {
+        if FileManager.default.fileExists(atPath: path) {
             if let data = try? Data(contentsOf: URL(fileURLWithPath: path)) {
                 let unarchiver = NSKeyedUnarchiver(forReadingWith: data)
                 
