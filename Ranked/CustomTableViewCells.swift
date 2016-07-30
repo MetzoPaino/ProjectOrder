@@ -45,14 +45,15 @@ class CollectionTableViewCell: UITableViewCell {
     @IBOutlet weak var masterStackViewBottomConstraint: NSLayoutConstraint!
     @IBOutlet weak var masterStackViewTopConstraint: NSLayoutConstraint!
     
-    func configureCell() {
+    func configureCell(withImage: Bool) {
         
-        summaryImageView.layer.cornerRadius = summaryImageViewWidthConstraint.constant / 2
-        summaryImageView.clipsToBounds = true
-        
+        if withImage {
+            summaryImageView.layer.cornerRadius = summaryImageViewWidthConstraint.constant / 2
+            summaryImageView.clipsToBounds = true
+        }
+
         let backgroundView = UIView()
         backgroundView.backgroundColor = .primaryColor()
-        
         selectedBackgroundView = backgroundView
     }
 }

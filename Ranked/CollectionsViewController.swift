@@ -94,6 +94,8 @@ class CollectionsViewController: UIViewController, Injectable {
     }
     
     func styleTableView() {
+        
+        tableView.delegate = self
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 88
         tableView.tableFooterView = UIView()
@@ -177,12 +179,19 @@ extension Navigation {
 // MARK: - TableView Protocols
 private typealias TableViewDelegate = CollectionsViewController
 extension TableViewDelegate: UITableViewDelegate {
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        
-        
-        tableView.deselectRow(at: indexPath, animated: true)
-        //        performSegueWithIdentifier("ShowCollection", sender: collectionsArray[indexPath.row])
+        tableView.deselectRow(at: indexPath, animated: false)
+    }
+    
+    func tableView(_ tableView: UITableView, didHighlightRowAt indexPath: IndexPath) {
+        let cell = tableView.cellForRow(at: indexPath) as! CollectionTableViewCell
+        cell.titleLabel.textColor = .white()
+    }
+    
+    func tableView(_ tableView: UITableView, didUnhighlightRowAt indexPath: IndexPath) {
+        let cell = tableView.cellForRow(at: indexPath) as! CollectionTableViewCell
+        cell.titleLabel.textColor = .headingColor()
     }
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
@@ -267,7 +276,7 @@ extension TableViewDataSource: UITableViewDataSource {
                 
                 let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! CollectionTableViewCell
                 cell.titleLabel.text = collection.name
-                cell.titleLabel.textColor = UIColor.headingColor()
+                cell.titleLabel.textColor = .white()
                 cell.descriptionLabel.textColor = UIColor.subHeadingColor()
                 cell.layoutMargins = UIEdgeInsetsZero;
                 collection.items = collection.items.sorted(isOrderedBefore: { $0.score > $1.score })
@@ -277,10 +286,11 @@ extension TableViewDataSource: UITableViewDataSource {
                     cell.summaryImageViewWidthConstraint.constant = 48
                     cell.summaryImageView.image = image
                     cell.summaryImageViewLeadingConstraint.constant = 16
-                    cell.configureCell()
+                    cell.configureCell(withImage: true)
                 } else {
                     cell.summaryImageViewWidthConstraint.constant = 0
                     cell.summaryImageViewLeadingConstraint.constant = 8
+                    cell.configureCell(withImage: false)
                 }
                 
                 return cell
@@ -289,18 +299,26 @@ extension TableViewDataSource: UITableViewDataSource {
                 
                 let cell = tableView.dequeueReusableCell(withIdentifier: "UnsortedCell", for: indexPath) as! CollectionTableViewCell
                 cell.titleLabel.text = collection.name
-                cell.titleLabel.textColor = UIColor.headingColor()
                 cell.layoutMargins = UIEdgeInsetsZero
+                
+                
+                if cell.isHighlighted {
+                    cell.titleLabel.textColor = .white()
+
+                } else {
+                    cell.titleLabel.textColor = .headingColor()
+                }
                 
                 if let image = collection.image {
                     cell.summaryImageViewWidthConstraint.constant = 48
                     cell.summaryImageViewLeadingConstraint.constant = 16
 
                     cell.summaryImageView.image = image
-                    cell.configureCell()
+                    cell.configureCell(withImage: true)
                 } else {
                     cell.summaryImageViewWidthConstraint.constant = 0
                     cell.summaryImageViewLeadingConstraint.constant = 8
+                    cell.configureCell(withImage: false)
                 }
                 
                 return cell
