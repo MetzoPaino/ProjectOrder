@@ -99,9 +99,10 @@ class CollectionsViewController: UIViewController, Injectable {
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 88
         tableView.tableFooterView = UIView()
-        tableView.separatorInset = UIEdgeInsetsZero
+        //tableView.separatorInset = UIEdgeInsetsZero
         tableView.separatorColor = .backgroundColor()
         tableView.backgroundColor = .backgroundColor()
+        tableView.backgroundColor = .white()
     }
     
     func toggleGetStarted() {
@@ -278,7 +279,9 @@ extension TableViewDataSource: UITableViewDataSource {
                 cell.titleLabel.text = collection.name
                 cell.titleLabel.textColor = .white()
                 cell.descriptionLabel.textColor = UIColor.subHeadingColor()
-                cell.layoutMargins = UIEdgeInsetsZero;
+                //cell.layoutMargins = UIEdgeInsetsZero;
+                cell.layoutMargins = UIEdgeInsetsMake(0, 42, 0, 0);
+
                 collection.items = collection.items.sorted(isOrderedBefore: { $0.score > $1.score })
                 cell.descriptionLabel.text = "1. " + collection.items.first!.text
                 
@@ -299,8 +302,8 @@ extension TableViewDataSource: UITableViewDataSource {
                 
                 let cell = tableView.dequeueReusableCell(withIdentifier: "UnsortedCell", for: indexPath) as! CollectionTableViewCell
                 cell.titleLabel.text = collection.name
-                cell.layoutMargins = UIEdgeInsetsZero
-                
+                //cell.layoutMargins = UIEdgeInsetsZero
+                cell.layoutMargins = UIEdgeInsetsMake(0, 64, 0, 0);
                 
                 if cell.isHighlighted {
                     cell.titleLabel.textColor = .white()
