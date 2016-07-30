@@ -476,6 +476,11 @@ extension ItemsViewController: SortingViewControllerDelegate {
         tableView.reloadData()
         self.delegate?.sortingFinished(collection: collection)
     }
+    
+    func sortingCancelled() {
+        
+        collection.sorted = false
+    }
 }
 
 // MARK: - AddItemTableViewCell Delegate
@@ -643,7 +648,7 @@ extension TableViewDataSource: UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: "UnsortedCell", for: indexPath) as! UnsortedItemTableViewCell
             
             cell.numberLabel.text = "\((indexPath as NSIndexPath).row + 1)"
-            cell.titleLabel.text = item.text
+            cell.titleLabel.text = "\((indexPath as NSIndexPath).row + 1)." + " " + item.text
 
             cell.circleImageViewWidthConstraint.constant = 48
 
@@ -657,7 +662,10 @@ extension TableViewDataSource: UITableViewDataSource {
                 cell.circleImageView.image = UIImage()
                 cell.tintView.alpha = 1
             }
-
+//            cell.tintView.isHidden = true
+//            cell.circleImageView.mask = cell.numberLabel
+            //cell.circleImageView.layer
+            //cell.circleImageView.mask =
             
             switch (indexPath as NSIndexPath).row {
             case 0:
@@ -671,6 +679,8 @@ extension TableViewDataSource: UITableViewDataSource {
             default:
                 cell.tintView.backgroundColor = .loserColor()
             }
+            cell.numberLabel.isHidden = true
+            cell.tintView.isHidden = true
 
             return cell
             
@@ -694,8 +704,11 @@ extension TableViewDataSource: UITableViewDataSource {
             // This is messy, fix it properly
             if let _ = item.image {
                 
-                cell.circleImageView.layer.cornerRadius = cell.circleImageViewWidthConstraint.constant / 2
+//                cell.circleImageView.layer.cornerRadius = cell.circleImageViewWidthConstraint.constant / 2
+//                cell.circleImageView.layer.masksToBounds = true
+                cell.circleImageView.layer.mask = cell.numberLabel.layer.mask
                 cell.circleImageView.layer.masksToBounds = true
+                
                 cell.titleLabelLeadingConstraint.constant = 8
                 
             } else {

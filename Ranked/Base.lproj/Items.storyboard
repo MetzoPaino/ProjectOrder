@@ -150,24 +150,25 @@
                                                 <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4RD-2N-A3q">
                                                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </view>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0" textAlignment="center" lineBreakMode="tailTruncation" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="uLT-CU-Ddi">
-                                                    <frame key="frameInset" minX="16" minY="7" width="48" height="48"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="28"/>
-                                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="uLT-CU-Ddi">
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="48"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="uLT-CU-Ddi" firstAttribute="width" secondItem="FjM-mx-WmT" secondAttribute="width" id="0Es-F9-fqU"/>
                                                 <constraint firstItem="FjM-mx-WmT" firstAttribute="centerY" secondItem="7Ls-k3-2C6" secondAttribute="centerY" id="AYl-sp-gdG"/>
                                                 <constraint firstAttribute="trailing" secondItem="chk-KZ-TAJ" secondAttribute="trailing" constant="8" id="Hmg-ut-uMf"/>
                                                 <constraint firstItem="4RD-2N-A3q" firstAttribute="centerX" secondItem="FjM-mx-WmT" secondAttribute="centerX" id="Jke-gN-hiW"/>
+                                                <constraint firstItem="uLT-CU-Ddi" firstAttribute="centerY" secondItem="FjM-mx-WmT" secondAttribute="centerY" id="Nm9-8e-USy"/>
                                                 <constraint firstItem="chk-KZ-TAJ" firstAttribute="top" secondItem="7Ls-k3-2C6" secondAttribute="top" constant="16" id="ReV-sa-EnJ"/>
                                                 <constraint firstItem="4RD-2N-A3q" firstAttribute="width" secondItem="FjM-mx-WmT" secondAttribute="width" id="XKZ-jt-he5"/>
                                                 <constraint firstAttribute="bottom" secondItem="chk-KZ-TAJ" secondAttribute="bottom" constant="16" id="bBC-ga-qzS"/>
+                                                <constraint firstItem="uLT-CU-Ddi" firstAttribute="height" secondItem="FjM-mx-WmT" secondAttribute="height" id="jde-zG-afE"/>
                                                 <constraint firstItem="chk-KZ-TAJ" firstAttribute="leading" secondItem="FjM-mx-WmT" secondAttribute="trailing" constant="8" id="n5x-Xz-Khj"/>
                                                 <constraint firstItem="4RD-2N-A3q" firstAttribute="height" secondItem="FjM-mx-WmT" secondAttribute="height" id="ofO-Mm-UBc"/>
                                                 <constraint firstItem="4RD-2N-A3q" firstAttribute="centerY" secondItem="FjM-mx-WmT" secondAttribute="centerY" id="t1X-9a-XcH"/>
+                                                <constraint firstItem="uLT-CU-Ddi" firstAttribute="centerX" secondItem="FjM-mx-WmT" secondAttribute="centerX" id="twJ-My-u5T"/>
                                                 <constraint firstItem="FjM-mx-WmT" firstAttribute="leading" secondItem="7Ls-k3-2C6" secondAttribute="leadingMargin" constant="8" id="xvd-hc-LR3"/>
                                             </constraints>
                                         </tableViewCellContentView>

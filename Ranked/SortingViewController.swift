@@ -11,6 +11,7 @@ import QuartzCore
 
 protocol SortingViewControllerDelegate: class {
     func sortingFinished(_ items: [ItemModel])
+    func sortingCancelled()
 }
 
 enum PanGestureInUse {
@@ -139,6 +140,8 @@ class SortingViewController: UIViewController {
         middleConstant = playingFieldView.bounds.size.height / 2
     }
     
+    //MARK: - Style
+    
     func styleNavBar() {
         
         if let image = image {
@@ -214,6 +217,8 @@ class SortingViewController: UIViewController {
     
     // MARK: - IBAction
     @IBAction func cancelButtonPressed(_ sender: UIBarButtonItem) {
+        tournamentManager.wipeTournamentProgress()
+        self.delegate?.sortingCancelled()
         self.dismiss(animated: true, completion: nil)
     }
     

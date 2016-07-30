@@ -205,6 +205,14 @@ class TournamentManager {
             }
         }
     }
+    
+    func wipeTournamentProgress() {
+        
+        for participant in participants {
+            
+            participant.score = nil
+        }
+    }
 }
 
 extension TournamentManager {

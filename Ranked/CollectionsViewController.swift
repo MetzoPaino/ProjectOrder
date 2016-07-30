@@ -285,6 +285,13 @@ extension TableViewDataSource: UITableViewDataSource {
                 collection.items = collection.items.sorted(isOrderedBefore: { $0.score > $1.score })
                 cell.descriptionLabel.text = "1. " + collection.items.first!.text
                 
+                if cell.isHighlighted {
+                    cell.titleLabel.textColor = .white()
+                    
+                } else {
+                    cell.titleLabel.textColor = .headingColor()
+                }
+                
                 if let image = collection.image {
                     cell.summaryImageViewWidthConstraint.constant = 48
                     cell.summaryImageView.image = image

@@ -61,7 +61,7 @@ class AddListsViewController: UIViewController {
         tableView.tableFooterView = UIView()
         tableView.separatorInset = UIEdgeInsetsZero
         tableView.separatorColor = .backgroundColor()
-        tableView.backgroundColor = .backgroundColor()
+        tableView.backgroundColor = .white()
     }
     
     func createArrayOfUsedPremadeCollectionRecordNames() -> [String] {
