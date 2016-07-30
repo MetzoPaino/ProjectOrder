@@ -114,7 +114,6 @@ class UnsortedItemTableViewCell: UITableViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var titleLabelLeadingConstraint: NSLayoutConstraint!
     @IBOutlet weak var numberLabel: UILabel!
-    @IBOutlet weak var tintView: UIView!
     @IBOutlet weak var circleImageView: UIImageView!
     @IBOutlet weak var circleImageViewLeadingConstraint: NSLayoutConstraint!
     @IBOutlet weak var circleImageViewWidthConstraint: NSLayoutConstraint!
@@ -133,16 +132,11 @@ class UnsortedItemTableViewCell: UITableViewCell {
             numberLabel.isHidden = false
 
             circleImageView.layer.cornerRadius = circleImageViewWidthConstraint.constant / 2
-            tintView.layer.cornerRadius = circleImageViewWidthConstraint.constant / 2
             
             circleImageView.clipsToBounds = true
-            tintView.clipsToBounds = true
-            
-            tintView.alpha = 0.5
             
         } else {
             
-
             numberLabel.isHidden = true
         }
         

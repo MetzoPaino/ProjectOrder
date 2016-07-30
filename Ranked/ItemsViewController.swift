@@ -648,19 +648,21 @@ extension TableViewDataSource: UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: "UnsortedCell", for: indexPath) as! UnsortedItemTableViewCell
             
             cell.numberLabel.text = "\((indexPath as NSIndexPath).row + 1)"
-            cell.titleLabel.text = "\((indexPath as NSIndexPath).row + 1)." + " " + item.text
+            cell.titleLabel.text = item.text
 
             cell.circleImageViewWidthConstraint.constant = 48
 
             cell.configureCell(true)
 
             if let image = item.image {
+                cell.circleImageViewWidthConstraint.constant = 48
+                cell.circleImageViewLeadingConstraint.constant = 8
                 cell.circleImageView.image = image
-                cell.tintView.alpha = 0.5
 
             } else {
+                cell.circleImageViewWidthConstraint.constant = 0
+                cell.circleImageViewLeadingConstraint.constant = 0
                 cell.circleImageView.image = UIImage()
-                cell.tintView.alpha = 1
             }
 //            cell.tintView.isHidden = true
 //            cell.circleImageView.mask = cell.numberLabel
@@ -669,18 +671,16 @@ extension TableViewDataSource: UITableViewDataSource {
             
             switch (indexPath as NSIndexPath).row {
             case 0:
-                cell.tintView.backgroundColor = .primaryColor()
+                cell.numberLabel.textColor = .primaryColor()
             case 1:
-                cell.tintView.backgroundColor = .secondaryColor()
+                cell.numberLabel.textColor = .secondaryColor()
             case 2:
-                cell.tintView.backgroundColor = .secondColor()
+                cell.numberLabel.textColor = .secondColor()
             case 3:
-                cell.tintView.backgroundColor = .thirdColor()
+                cell.numberLabel.textColor = .thirdColor()
             default:
-                cell.tintView.backgroundColor = .loserColor()
+                cell.numberLabel.textColor = .loserColor()
             }
-            cell.numberLabel.isHidden = true
-            cell.tintView.isHidden = true
 
             return cell
             
@@ -715,9 +715,7 @@ extension TableViewDataSource: UITableViewDataSource {
                 
                 cell.titleLabelLeadingConstraint.constant = 0
             }
-            
-            cell.tintView.alpha = 0
-            
+                        
             return cell
         }
     }
