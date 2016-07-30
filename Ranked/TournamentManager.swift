@@ -130,6 +130,11 @@ class TournamentManager {
             participants[winner.tag].score = 1
         }
         
+        // If we don't do below then ultimate loser will never have been given a score & therefore be unranked
+        if participants[loser.tag].score == nil {
+            participants[loser.tag].score = 0
+        }
+        
         autoResolveBattlesFromWinnerAndLoserInTournament(winner, loser: loser)
 
         calculatePercentageComplete()
