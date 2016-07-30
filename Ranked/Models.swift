@@ -83,11 +83,9 @@ class CollectionModel: NSObject, NSCoding {
             dateCreated = Date()
         }
         
-        if let decodedSorted = aDecoder.decodeObject(forKey: sortedKey) as? Bool {
+        if let decodedSorted = aDecoder.decodeObject(forKey: sortedKey) as? NSNumber {
             
-            sorted = decodedSorted
-        } else {
-            sorted = false
+            sorted = decodedSorted.boolValue
         }
         
         if let decodedRecord = aDecoder.decodeObject(forKey: recordKey) as? CKRecord {
@@ -95,9 +93,9 @@ class CollectionModel: NSObject, NSCoding {
             record = decodedRecord
         }
         
-        if let decodedPremade = aDecoder.decodeObject(forKey: premadeKey) as? Bool {
+        if let decodedPremade = aDecoder.decodeObject(forKey: premadeKey) as? NSNumber {
             
-            premade = decodedPremade
+            premade = decodedPremade.boolValue
         }
         
         if let decodedImage = aDecoder.decodeObject(forKey: imageKey) as? UIImage {
@@ -110,14 +108,17 @@ class CollectionModel: NSObject, NSCoding {
     
     func encode(with aCoder: NSCoder) {
         
+        let sortedNumber = NSNumber(booleanLiteral: sorted)
+        let premadeNumber = NSNumber(booleanLiteral: premade)
+        
         aCoder.encode(name, forKey: nameKey)
         aCoder.encode(descriptionString, forKey: descriptionKey)
         aCoder.encode(items, forKey: itemsKey)
         aCoder.encode(dateCreated, forKey: dateCreatedKey)
-        aCoder.encode(sorted, forKey: sortedKey)
         aCoder.encode(record, forKey: recordKey)
-        aCoder.encode(premade, forKey: premadeKey)
         aCoder.encode(image, forKey: imageKey)
+        aCoder.encode(premadeNumber, forKey: premadeKey)
+        aCoder.encode(sortedNumber, forKey: sortedKey)
     }
     
     func returnArrayOfItems(sorted: Bool) -> [ItemModel] {
