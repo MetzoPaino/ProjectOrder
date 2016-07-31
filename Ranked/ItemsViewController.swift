@@ -165,7 +165,7 @@ class ItemsViewController: UIViewController, Injectable {
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 112
         tableView.tableFooterView = UIView()
-        tableView.separatorInset = UIEdgeInsetsZero
+        //tableView.separatorInset = UIEdgeInsetsZero
         tableView.backgroundColor = .white()
         tableView.separatorColor = .backgroundColor()
     }
@@ -179,7 +179,14 @@ class ItemsViewController: UIViewController, Injectable {
     
     @IBAction func addItemImageButtonPressed(_ sender: UIButton) {
         imagePicker.view.tag = 2
+    }
+    
+    @IBAction func addImageForItemButtonPressed(_ sender: UIButton) {
+        
+        imagePicker.view.tag = sender.tag + 10
         present(imagePicker, animated: true, completion: nil)
+        
+       // parent!.present(imagePicker, animated: true, completion: nil)
     }
     
     // MARK: - Navigation
@@ -365,7 +372,7 @@ extension IBActions {
         tableView.reloadSections(IndexSet(integer: 0), with: .fade)
         tableView.insertRows(at: [addItemIndex], with: .fade)
         tableView.endUpdates()
-        
+        tableView.reloadData()
         animateSortButton(false)
     }
     
@@ -388,7 +395,8 @@ extension IBActions {
         tableView.reloadSections(IndexSet(integer: 0), with: .fade)
         tableView.deleteRows(at: [addItemIndex], with: .fade)
         tableView.endUpdates()
-        
+        tableView.reloadData()
+
         animateSortButton(true)
         
         if newCollection == true {
@@ -653,36 +661,59 @@ extension TableViewDataSource: UITableViewDataSource {
             cell.circleImageViewWidthConstraint.constant = 48
 
             cell.configureCell(true)
-
-            if let image = item.image {
+            
+            if inEditingMode == true {
+                
+                if let image = item.image {
+                    cell.circleImageView.image = image
+                    
+                } else {
+                    cell.circleImageView.image = UIImage()
+                }
+                
                 cell.circleImageViewWidthConstraint.constant = 48
                 cell.circleImageViewLeadingConstraint.constant = 28
-                cell.circleImageView.image = image
+                cell.circleImageView.backgroundColor = .disabledColor()
 
+                cell.addButton.isHidden = false
+                cell.addButton.imageView!.image = UIImage(named: "PlusButton" )!.withRenderingMode(.alwaysTemplate)
+                cell.addButton.imageView!.tintColor = .white()
+                cell.addButton.tag = indexPath.row
+                
+                cell.numberLabel.text = ""
+                
+                cell.titleLabelLeadingConstraint.constant = 8
+                cell.circleImageViewLeadingConstraint.constant = 16
+                
             } else {
-                cell.circleImageViewWidthConstraint.constant = 0
-                cell.circleImageViewLeadingConstraint.constant = 28 - 8
-                cell.circleImageView.image = UIImage()
+                
+                cell.addButton.isHidden = true
+
+                if let image = item.image {
+                    cell.circleImageViewWidthConstraint.constant = 48
+                    cell.circleImageViewLeadingConstraint.constant = 28
+                    cell.circleImageView.image = image
+                    
+                } else {
+                    cell.circleImageViewWidthConstraint.constant = 0
+                    cell.circleImageViewLeadingConstraint.constant = 28 - 8
+                    cell.circleImageView.image = UIImage()
+                }
+                
+                switch (indexPath as NSIndexPath).row {
+                case 0:
+                    cell.numberLabel.textColor = .primaryColor()
+                case 1:
+                    cell.numberLabel.textColor = .secondaryColor()
+                case 2:
+                    cell.numberLabel.textColor = .secondColor()
+                case 3:
+                    cell.numberLabel.textColor = .thirdColor()
+                default:
+                    cell.numberLabel.textColor = .loserColor()
+                }
             }
-//            cell.tintView.isHidden = true
-//            cell.circleImageView.mask = cell.numberLabel
-            //cell.circleImageView.layer
-            //cell.circleImageView.mask =
             
-            switch (indexPath as NSIndexPath).row {
-            case 0:
-                cell.numberLabel.textColor = .primaryColor()
-            case 1:
-                cell.numberLabel.textColor = .secondaryColor()
-            case 2:
-                cell.numberLabel.textColor = .secondColor()
-            case 3:
-                cell.numberLabel.textColor = .thirdColor()
-            default:
-                cell.numberLabel.textColor = .loserColor()
-            }
-            
-            //cell.numberLabelLeadingConstraint.constant = 16
             
             return cell
             
@@ -704,6 +735,10 @@ extension TableViewDataSource: UITableViewDataSource {
             
             cell.configureCell(false)
             
+            if inEditingMode == true {
+                print("Editing")
+            }
+            
             // This is messy, fix it properly
             if let _ = item.image {
                 
@@ -721,8 +756,6 @@ extension TableViewDataSource: UITableViewDataSource {
                 cell.circleImageViewLeadingConstraint.constant = 16
             }
             
-           // cell.numberLabelLeadingConstraint.constant = 0
-           // cell.numberLabelWidthConstraint.constant = 0
             cell.numberLabel.text = ""
             
             return cell
@@ -860,13 +893,30 @@ extension ItemsViewController: UIImagePickerControllerDelegate, UINavigationCont
         
         if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
             
-            if imagePicker.view.tag == 2 {
+            if imagePicker.view.tag >= 10 {
                 
-                itemImage = pickedImage
+                let row = imagePicker.view.tag - 10
+                collection.items[row].image = pickedImage
+                tableView.beginUpdates()
+                
+                let indexPath = IndexPath(item: row, section: 1)
+                
+                tableView.reloadRows(at: [indexPath], with: UITableViewRowAnimation.fade)
+//                //tableView.reloadSections(IndexSet(integer: 1), with: .fade)
+                tableView.endUpdates()
                 
             } else {
-                collection.image = pickedImage
+                
+                if imagePicker.view.tag == 2 {
+                    
+                    itemImage = pickedImage
+                    
+                } else {
+                    collection.image = pickedImage
+                }
             }
+            
+
         }
         
         dismiss(animated: true) {

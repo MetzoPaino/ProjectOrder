@@ -107,7 +107,7 @@ extension AddListsViewController: UITableViewDelegate {
             
             UIView.animate(withDuration: 0.25, animations: {
                 
-                self.doneButton.backgroundColor = .secondaryColor()
+                self.doneButton.backgroundColor = .primaryColor()
                 self.doneButton.isUserInteractionEnabled = true
                 self.doneButton.tintColor = .white()
             })

@@ -148,6 +148,13 @@
                                                         <constraint firstAttribute="width" secondItem="FjM-mx-WmT" secondAttribute="height" multiplier="1:1" id="xW5-L4-tNZ"/>
                                                     </constraints>
                                                 </imageView>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zfT-aB-QfI">
+                                                    <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <state key="normal" image="PlusButton"/>
+                                                    <connections>
+                                                        <action selector="addImageForItemButtonPressed:" destination="nlL-AF-Rd4" eventType="touchUpInside" id="xBL-Gs-4cf"/>
+                                                    </connections>
+                                                </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="wordWrap" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="uLT-CU-Ddi">
                                                     <constraints>
                                                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="16" id="gMN-6B-QS2"/>
@@ -165,12 +172,16 @@
                                             <constraints>
                                                 <constraint firstItem="uLT-CU-Ddi" firstAttribute="centerY" secondItem="7Ls-k3-2C6" secondAttribute="centerY" id="05B-sg-d2E"/>
                                                 <constraint firstItem="uLT-CU-Ddi" firstAttribute="centerX" secondItem="7Ls-k3-2C6" secondAttribute="leading" constant="16" id="0Lt-Lb-6dR"/>
+                                                <constraint firstItem="zfT-aB-QfI" firstAttribute="width" secondItem="FjM-mx-WmT" secondAttribute="width" id="9I5-md-RZQ"/>
                                                 <constraint firstItem="FjM-mx-WmT" firstAttribute="centerY" secondItem="7Ls-k3-2C6" secondAttribute="centerY" id="AYl-sp-gdG"/>
                                                 <constraint firstAttribute="trailing" secondItem="chk-KZ-TAJ" secondAttribute="trailing" constant="8" id="Hmg-ut-uMf"/>
+                                                <constraint firstItem="zfT-aB-QfI" firstAttribute="height" secondItem="FjM-mx-WmT" secondAttribute="height" id="L2g-5n-pgG"/>
                                                 <constraint firstItem="chk-KZ-TAJ" firstAttribute="top" secondItem="7Ls-k3-2C6" secondAttribute="top" constant="16" id="ReV-sa-EnJ"/>
+                                                <constraint firstItem="zfT-aB-QfI" firstAttribute="centerX" secondItem="FjM-mx-WmT" secondAttribute="centerX" id="TLb-VV-e9N"/>
                                                 <constraint firstAttribute="bottom" secondItem="chk-KZ-TAJ" secondAttribute="bottom" constant="16" id="bBC-ga-qzS"/>
                                                 <constraint firstItem="FjM-mx-WmT" firstAttribute="leading" secondItem="7Ls-k3-2C6" secondAttribute="leading" constant="24" id="ctg-ch-IrP"/>
                                                 <constraint firstItem="FjM-mx-WmT" firstAttribute="leading" secondItem="uLT-CU-Ddi" secondAttribute="trailing" constant="8" id="dIL-0U-TY2"/>
+                                                <constraint firstItem="zfT-aB-QfI" firstAttribute="centerY" secondItem="FjM-mx-WmT" secondAttribute="centerY" id="ijC-v7-yCe"/>
                                                 <constraint firstItem="chk-KZ-TAJ" firstAttribute="leading" secondItem="FjM-mx-WmT" secondAttribute="trailing" constant="8" id="n5x-Xz-Khj"/>
                                             </constraints>
                                             <variation key="default">
@@ -180,6 +191,7 @@
                                             </variation>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="addButton" destination="zfT-aB-QfI" id="g8D-z4-UHU"/>
                                             <outlet property="circleImageView" destination="FjM-mx-WmT" id="rq5-eW-Qvh"/>
                                             <outlet property="circleImageViewLeadingConstraint" destination="ctg-ch-IrP" id="7J1-m3-GRZ"/>
                                             <outlet property="circleImageViewWidthConstraint" destination="aIZ-bD-GSF" id="nOp-Nb-64A"/>

@@ -53,7 +53,7 @@ class CollectionTableViewCell: UITableViewCell {
         }
 
         let backgroundView = UIView()
-        backgroundView.backgroundColor = .primaryColor()
+        backgroundView.backgroundColor = .secondaryColor()
         selectedBackgroundView = backgroundView
     }
 }
@@ -119,6 +119,7 @@ class UnsortedItemTableViewCell: UITableViewCell {
     @IBOutlet weak var circleImageView: UIImageView!
     @IBOutlet weak var circleImageViewLeadingConstraint: NSLayoutConstraint!
     @IBOutlet weak var circleImageViewWidthConstraint: NSLayoutConstraint!
+    @IBOutlet weak var addButton: UIButton!
 
     func configureCell(_ sorted:Bool) {
         
@@ -167,7 +168,7 @@ class AddItemTableViewCell: UITableViewCell {
         textField.delegate = self
         textField.attributedPlaceholder = AttributedString(string: textField.placeholder!, attributes: [NSForegroundColorAttributeName: UIColor.backgroundColor()])
         
-        circleView.backgroundColor = .primaryColor()
+        circleView.backgroundColor = .disabledColor()
         circleView.layer.cornerRadius = circleViewWidthConstraint.constant / 2
         circleView.clipsToBounds = true
         
