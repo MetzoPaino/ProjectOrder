@@ -656,12 +656,12 @@ extension TableViewDataSource: UITableViewDataSource {
 
             if let image = item.image {
                 cell.circleImageViewWidthConstraint.constant = 48
-                cell.circleImageViewLeadingConstraint.constant = 8
+                cell.circleImageViewLeadingConstraint.constant = 28
                 cell.circleImageView.image = image
 
             } else {
                 cell.circleImageViewWidthConstraint.constant = 0
-                cell.circleImageViewLeadingConstraint.constant = 0
+                cell.circleImageViewLeadingConstraint.constant = 28 - 8
                 cell.circleImageView.image = UIImage()
             }
 //            cell.tintView.isHidden = true
@@ -681,7 +681,9 @@ extension TableViewDataSource: UITableViewDataSource {
             default:
                 cell.numberLabel.textColor = .loserColor()
             }
-
+            
+            //cell.numberLabelLeadingConstraint.constant = 16
+            
             return cell
             
         } else {
@@ -699,23 +701,30 @@ extension TableViewDataSource: UITableViewDataSource {
             } else {
                 cell.circleImageViewWidthConstraint.constant = 0
             }
+            
             cell.configureCell(false)
             
             // This is messy, fix it properly
             if let _ = item.image {
                 
-//                cell.circleImageView.layer.cornerRadius = cell.circleImageViewWidthConstraint.constant / 2
-//                cell.circleImageView.layer.masksToBounds = true
+                cell.circleImageView.layer.cornerRadius = cell.circleImageViewWidthConstraint.constant / 2
+                cell.circleImageView.layer.masksToBounds = true
                 cell.circleImageView.layer.mask = cell.numberLabel.layer.mask
                 cell.circleImageView.layer.masksToBounds = true
                 
                 cell.titleLabelLeadingConstraint.constant = 8
-                
+                cell.circleImageViewLeadingConstraint.constant = 16
+
             } else {
                 
                 cell.titleLabelLeadingConstraint.constant = 0
+                cell.circleImageViewLeadingConstraint.constant = 16
             }
-                        
+            
+           // cell.numberLabelLeadingConstraint.constant = 0
+           // cell.numberLabelWidthConstraint.constant = 0
+            cell.numberLabel.text = ""
+            
             return cell
         }
     }

@@ -113,6 +113,8 @@ class UnsortedItemTableViewCell: UITableViewCell {
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var titleLabelLeadingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var numberLabelLeadingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var numberLabelWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var numberLabel: UILabel!
     @IBOutlet weak var circleImageView: UIImageView!
     @IBOutlet weak var circleImageViewLeadingConstraint: NSLayoutConstraint!
@@ -137,7 +139,7 @@ class UnsortedItemTableViewCell: UITableViewCell {
             
         } else {
             
-            numberLabel.isHidden = true
+            //numberLabel.isHidden = true
         }
         
 
