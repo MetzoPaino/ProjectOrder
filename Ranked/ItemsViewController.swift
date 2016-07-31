@@ -183,8 +183,38 @@ class ItemsViewController: UIViewController, Injectable {
     
     @IBAction func addImageForItemButtonPressed(_ sender: UIButton) {
         
-        imagePicker.view.tag = sender.tag + 10
-        present(imagePicker, animated: true, completion: nil)
+        let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        
+        let photoAction = UIAlertAction(title: "Choose Photo", style: .default, handler: {
+            (alert: UIAlertAction!) -> Void in
+            
+            self.imagePicker.view.tag = sender.tag + 10
+            self.present(self.imagePicker, animated: true, completion: nil)
+
+        })
+        
+        let deleteAction = UIAlertAction(title: "Remove Photo", style: .destructive, handler: {
+            (alert: UIAlertAction!) -> Void in
+            
+            self.collection.items[sender.tag].image = nil
+            self.tableView.beginUpdates()
+            
+            let indexPath = IndexPath(item: sender.tag, section: 1)
+            
+            self.tableView.reloadRows(at: [indexPath], with: UITableViewRowAnimation.fade)
+            self.tableView.endUpdates()
+        })
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: {
+            (alert: UIAlertAction!) -> Void in
+            
+        })
+        
+        actionSheet.addAction(photoAction)
+        actionSheet.addAction(deleteAction)
+        actionSheet.addAction(cancelAction)
+
+        present(actionSheet, animated: true, completion: nil)
         
        // parent!.present(imagePicker, animated: true, completion: nil)
     }
