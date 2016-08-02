@@ -274,7 +274,7 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lbR-dX-btJ">
                                 <color key="backgroundColor" red="0.75686274509999996" green="0.1764705882" blue="0.4431372549" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="48" id="T5F-dy-OhK"/>
+                                    <constraint firstAttribute="height" constant="64" id="T5F-dy-OhK"/>
                                     <constraint firstAttribute="width" secondItem="lbR-dX-btJ" secondAttribute="height" multiplier="1:1" id="yKx-K8-YNL"/>
                                 </constraints>
                                 <state key="normal">

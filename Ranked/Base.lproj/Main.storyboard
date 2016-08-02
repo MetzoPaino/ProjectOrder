@@ -138,7 +138,7 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hMM-LV-o62">
                                 <color key="backgroundColor" red="0.75686274509999996" green="0.1764705882" blue="0.4431372549" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="48" id="OYV-7h-IgU"/>
+                                    <constraint firstAttribute="height" constant="64" id="OYV-7h-IgU"/>
                                     <constraint firstAttribute="width" secondItem="hMM-LV-o62" secondAttribute="height" multiplier="1:1" id="tig-CO-mCO"/>
                                 </constraints>
                                 <state key="normal">

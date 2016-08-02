@@ -888,11 +888,7 @@ extension ItemsViewController {
             if collection.image != nil || inEditingMode == true || inEditingMode == nil {
                 return 96
             }
-        } else if inEditingMode == true && (indexPath as NSIndexPath).section == 0 && (indexPath as NSIndexPath).row == 2 {
-            
-            return 12
         }
-        
         
         return UITableViewAutomaticDimension
     }
@@ -986,7 +982,7 @@ extension ItemsViewController {
         }
         
         cell.selectionStyle = .none
-        cell.layoutMargins = UIEdgeInsetsZero;
+        cell.layoutMargins = UIEdgeInsetsMake(0, 64, 0, 0);
         
         return cell
     }
