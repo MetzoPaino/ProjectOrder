@@ -123,7 +123,7 @@ class UnsortedItemTableViewCell: UITableViewCell {
 
     func configureCell(_ sorted:Bool) {
         
-        layoutMargins = UIEdgeInsetsZero;
+        //layoutMargins = UIEdgeInsetsZero;
         selectionStyle = .none
         
         numberLabel.textColor = .white()

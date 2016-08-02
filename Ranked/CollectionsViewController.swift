@@ -85,7 +85,7 @@ class CollectionsViewController: UIViewController, Injectable {
         addButton.layer.cornerRadius = self.addButtonHeightConstraint.constant / 2
         addButton.setImage(UIImage(named: "PlusButton" )?.withRenderingMode(.alwaysTemplate), for: UIControlState())
         addButton.tintColor = .white()
-        
+
         addButton.layer.shadowColor = UIColor.black().cgColor;
         addButton.layer.shadowOpacity = 0.25
         addButton.layer.shadowRadius = 2
@@ -188,11 +188,20 @@ extension TableViewDelegate: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didHighlightRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath) as! CollectionTableViewCell
         cell.titleLabel.textColor = .white()
+        
+        if cell.descriptionLabel != nil {
+            cell.descriptionLabel.textColor = .white()
+        }
+
     }
     
     func tableView(_ tableView: UITableView, didUnhighlightRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath) as! CollectionTableViewCell
         cell.titleLabel.textColor = .headingColor()
+        
+        if cell.descriptionLabel != nil {
+            cell.descriptionLabel.textColor = .subHeadingColor()
+        }
     }
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
@@ -280,16 +289,17 @@ extension TableViewDataSource: UITableViewDataSource {
                 cell.titleLabel.textColor = .white()
                 cell.descriptionLabel.textColor = UIColor.subHeadingColor()
                 //cell.layoutMargins = UIEdgeInsetsZero;
-                cell.layoutMargins = UIEdgeInsetsMake(0, 42, 0, 0);
 
                 collection.items = collection.items.sorted(isOrderedBefore: { $0.score > $1.score })
                 cell.descriptionLabel.text = "1. " + collection.items.first!.text
                 
                 if cell.isHighlighted {
                     cell.titleLabel.textColor = .white()
-                    
+                    cell.descriptionLabel.textColor = .white()
+
                 } else {
                     cell.titleLabel.textColor = .headingColor()
+                    cell.descriptionLabel.textColor = .subHeadingColor()
                 }
                 
                 if let image = collection.image {
@@ -297,10 +307,13 @@ extension TableViewDataSource: UITableViewDataSource {
                     cell.summaryImageView.image = image
                     cell.summaryImageViewLeadingConstraint.constant = 16
                     cell.configureCell(withImage: true)
+                    cell.layoutMargins = UIEdgeInsetsMake(0, 64, 0, 0);
+
                 } else {
                     cell.summaryImageViewWidthConstraint.constant = 0
                     cell.summaryImageViewLeadingConstraint.constant = 8
                     cell.configureCell(withImage: false)
+                    cell.layoutMargins = UIEdgeInsets()
                 }
                 
                 return cell
@@ -310,7 +323,7 @@ extension TableViewDataSource: UITableViewDataSource {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "UnsortedCell", for: indexPath) as! CollectionTableViewCell
                 cell.titleLabel.text = collection.name
                 //cell.layoutMargins = UIEdgeInsetsZero
-                cell.layoutMargins = UIEdgeInsetsMake(0, 64, 0, 0);
+                //cell.layoutMargins = UIEdgeInsetsMake(0, 64, 0, 0);
                 
                 if cell.isHighlighted {
                     cell.titleLabel.textColor = .white()
@@ -325,10 +338,13 @@ extension TableViewDataSource: UITableViewDataSource {
 
                     cell.summaryImageView.image = image
                     cell.configureCell(withImage: true)
+                    cell.layoutMargins = UIEdgeInsetsMake(0, 64, 0, 0);
                 } else {
                     cell.summaryImageViewWidthConstraint.constant = 0
                     cell.summaryImageViewLeadingConstraint.constant = 8
                     cell.configureCell(withImage: false)
+                    cell.layoutMargins = UIEdgeInsets()
+
                 }
                 
                 return cell

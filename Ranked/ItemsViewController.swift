@@ -29,6 +29,7 @@ enum CellType {
     case title
     case description
     case addItem
+    case padding
 }
 
 class ItemsViewController: UIViewController, Injectable {
@@ -51,7 +52,7 @@ class ItemsViewController: UIViewController, Injectable {
     
     let tapGesture = UITapGestureRecognizer()
     
-    let editingCellOrder = [CellType.image, CellType.title, CellType.description, CellType.addItem]
+    let editingCellOrder = [CellType.image, CellType.title, CellType.description, CellType.padding, CellType.addItem]
     //let editingCellOrder = [CellType.title, CellType.description, CellType.addItem]
 
     var displayCellOrder = [CellType]()
@@ -165,9 +166,9 @@ class ItemsViewController: UIViewController, Injectable {
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 112
         tableView.tableFooterView = UIView()
-        //tableView.separatorInset = UIEdgeInsetsZero
         tableView.backgroundColor = .white()
         tableView.separatorColor = .backgroundColor()
+        
     }
     
     // MARK: - IBActions
@@ -517,7 +518,7 @@ extension ItemsViewController: SortingViewControllerDelegate {
     
     func sortingCancelled() {
         
-        collection.sorted = false
+        //collection.sorted = false
     }
 }
 
@@ -556,6 +557,30 @@ extension TableViewDelegate: UITableViewDelegate {
         }
         
         tableView.deselectRow(at: indexPath, animated: false)
+    }
+    
+    func tableView(_ tableView: UITableView, didHighlightRowAt indexPath: IndexPath) {
+        
+        if let cell = tableView.cellForRow(at: indexPath) as? TitleCell {
+            
+            cell.label.textColor = .white()
+            
+        } else if let cell = tableView.cellForRow(at: indexPath) as? DescriptionCell {
+            
+            cell.label.textColor = .white()
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didUnhighlightRowAt indexPath: IndexPath) {
+        
+        if let cell = tableView.cellForRow(at: indexPath) as? TitleCell {
+            
+            cell.label.textColor = .backgroundColor()
+            
+        } else if let cell = tableView.cellForRow(at: indexPath) as? DescriptionCell {
+            
+            cell.label.textColor = .backgroundColor()
+        }
     }
     
     @objc(tableView:canEditRowAtIndexPath:) func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -645,6 +670,8 @@ extension TableViewDataSource: UITableViewDataSource {
                     cellCounter = cellCounter + 1
                     displayCellOrder.append(CellType.description)
                 }
+                cellCounter = cellCounter + 1
+                displayCellOrder.append(CellType.padding)
             }
             
             return cellCounter
@@ -675,8 +702,10 @@ extension TableViewDataSource: UITableViewDataSource {
                 return createTitleCell(collection.name, indexPath: indexPath, inEditingMode: editing)
             } else if displayCellOrder[(indexPath as NSIndexPath).row] == CellType.addItem {
                 return createAddItemCell(indexPath)
-            } else {
+            } else if displayCellOrder[(indexPath as NSIndexPath).row] == CellType.description {
                 return createDescriptionCell(collection.descriptionString, indexPath: indexPath, inEditingMode: editing)
+            } else {
+                return createPaddingCell(indexPath: indexPath)
             }
             
         } else if (indexPath as NSIndexPath).section == 1 {
@@ -687,7 +716,8 @@ extension TableViewDataSource: UITableViewDataSource {
             
             cell.numberLabel.text = "\((indexPath as NSIndexPath).row + 1)"
             cell.titleLabel.text = item.text
-
+            cell.layoutMargins = UIEdgeInsetsMake(0, 64, 0, 0);
+            
             cell.circleImageViewWidthConstraint.constant = 48
 
             cell.configureCell(true)
@@ -726,7 +756,7 @@ extension TableViewDataSource: UITableViewDataSource {
                     
                 } else {
                     cell.circleImageViewWidthConstraint.constant = 0
-                    cell.circleImageViewLeadingConstraint.constant = 28 - 8
+                    cell.circleImageViewLeadingConstraint.constant = 28
                     cell.circleImageView.image = UIImage()
                 }
                 
@@ -754,6 +784,7 @@ extension TableViewDataSource: UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: "UnsortedCell", for: indexPath) as! UnsortedItemTableViewCell
             
             cell.titleLabel.text = item.text
+            //cell.layoutMargins = UIEdgeInsetsMake(0, 42, 0, 0);
 
             if let image = item.image {
                 cell.circleImageViewWidthConstraint.constant = 48
@@ -797,6 +828,8 @@ extension TableViewDataSource: UITableViewDataSource {
                 cell.circleImageViewLeadingConstraint.constant = 16
                 
             } else {
+                
+                cell.addButton.isHidden = true
                 
                 // This is messy, fix it properly
                 if let _ = item.image {
@@ -855,7 +888,12 @@ extension ItemsViewController {
             if collection.image != nil || inEditingMode == true || inEditingMode == nil {
                 return 96
             }
+        } else if inEditingMode == true && (indexPath as NSIndexPath).section == 0 && (indexPath as NSIndexPath).row == 2 {
+            
+            return 12
         }
+        
+        
         return UITableViewAutomaticDimension
     }
     
@@ -869,8 +907,14 @@ extension ItemsViewController {
             cell.isUserInteractionEnabled = true
             cell.accessoryType = .disclosureIndicator
             cell.label.text = "Title"
-            cell.label.textColor = .backgroundColor()
             
+            if cell.isHighlighted {
+                cell.label.textColor = .white()
+                
+            } else {
+                cell.label.textColor = .backgroundColor()
+            }
+                        
         } else {
             cell.isUserInteractionEnabled = false
             cell.accessoryType = .none
@@ -887,6 +931,9 @@ extension ItemsViewController {
             cell.label.textColor = .backgroundColor()
             
         }
+        
+
+        
         return cell
     }
     
@@ -942,6 +989,13 @@ extension ItemsViewController {
         cell.layoutMargins = UIEdgeInsetsZero;
         
         return cell
+    }
+    
+    func createPaddingCell(indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "PaddingCell", for: indexPath)
+        return cell
+
     }
 }
 

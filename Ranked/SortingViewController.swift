@@ -217,7 +217,12 @@ class SortingViewController: UIViewController {
     
     // MARK: - IBAction
     @IBAction func cancelButtonPressed(_ sender: UIBarButtonItem) {
-        tournamentManager.wipeTournamentProgress()
+        
+//        if userHasMadeChanges {
+//            tournamentManager.wipeTournamentProgress()
+//        }
+        
+
         self.delegate?.sortingCancelled()
         self.dismiss(animated: true, completion: nil)
     }
