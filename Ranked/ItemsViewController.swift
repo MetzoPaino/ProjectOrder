@@ -266,7 +266,7 @@ class ItemsViewController: UIViewController, Injectable {
             backItem.title = ""
             navigationItem.backBarButtonItem = backItem
             
-        } else if let navigationController = segue.destinationViewController as? UINavigationController, controller = navigationController.topViewController as? SortingViewController {
+        } else if let navigationController = segue.destinationViewController as? UINavigationController, let controller = navigationController.topViewController as? SortingViewController {
             
             navigationController.navigationBar.setBackgroundImage(nil, for: UIBarMetrics.default)
             navigationController.navigationBar.shadowImage = nil
@@ -710,147 +710,233 @@ extension TableViewDataSource: UITableViewDataSource {
             
         } else if (indexPath as NSIndexPath).section == 1 {
             
+            // Sorted cells
+            
             let item = collection.returnArrayOfItems(sorted: true)[(indexPath as NSIndexPath).row]
-            
-            let cell = tableView.dequeueReusableCell(withIdentifier: "UnsortedCell", for: indexPath) as! UnsortedItemTableViewCell
-            
-            cell.numberLabel.text = "\((indexPath as NSIndexPath).row + 1)"
-            cell.titleLabel.text = item.text
-            cell.layoutMargins = UIEdgeInsetsMake(0, 64, 0, 0);
-            
-            cell.circleImageViewWidthConstraint.constant = 48
-
-            cell.configureCell(true)
             
             if inEditingMode == true {
                 
-                if let image = item.image {
-                    cell.circleImageView.image = image
-                    
-                } else {
-                    cell.circleImageView.image = UIImage()
-                }
-                
-                cell.circleImageViewWidthConstraint.constant = 48
-                cell.circleImageViewLeadingConstraint.constant = 28
-                cell.circleImageView.backgroundColor = .disabledColor()
-
-                cell.addButton.isHidden = false
-                cell.addButton.imageView!.image = UIImage(named: "PlusButton" )!.withRenderingMode(.alwaysTemplate)
-                cell.addButton.imageView!.tintColor = .white()
-                cell.addButton.tag = indexPath.row
-                
-                cell.numberLabel.text = ""
-                
-                cell.titleLabelLeadingConstraint.constant = 8
-                cell.circleImageViewLeadingConstraint.constant = 16
-                
+                return self.createUnsortedEditingCell(indexPath: indexPath, item: item)
             } else {
-                
-                cell.addButton.isHidden = true
-
-                if let image = item.image {
-                    cell.circleImageViewWidthConstraint.constant = 48
-                    cell.circleImageViewLeadingConstraint.constant = 28
-                    cell.circleImageView.image = image
-                    
-                } else {
-                    cell.circleImageViewWidthConstraint.constant = 0
-                    cell.circleImageViewLeadingConstraint.constant = 28
-                    cell.circleImageView.image = UIImage()
-                }
-                
-                switch (indexPath as NSIndexPath).row {
-                case 0:
-                    cell.numberLabel.textColor = .primaryColor()
-                case 1:
-                    cell.numberLabel.textColor = .secondaryColor()
-                case 2:
-                    cell.numberLabel.textColor = .secondColor()
-                case 3:
-                    cell.numberLabel.textColor = .thirdColor()
-                default:
-                    cell.numberLabel.textColor = .loserColor()
-                }
+                return self.createSortedCell(indexPath: indexPath, item: item)
             }
             
-            
-            return cell
+//            let cell = tableView.dequeueReusableCell(withIdentifier: "UnsortedCell", for: indexPath) as! UnsortedItemTableViewCell
+//            
+//            cell.numberLabel.text = "\((indexPath as NSIndexPath).row + 1)"
+//            cell.titleLabel.text = item.text
+//            cell.layoutMargins = UIEdgeInsetsMake(0, 64, 0, 0);
+//            
+//            cell.circleImageViewWidthConstraint.constant = 48
+//
+//            cell.configureCell(true)
+//            
+//            if inEditingMode == true {
+//                
+//                if let image = item.image {
+//                    cell.circleImageView.image = image
+//                    
+//                } else {
+//                    cell.circleImageView.image = UIImage()
+//                }
+//                
+//                cell.circleImageViewWidthConstraint.constant = 48
+//                cell.circleImageViewLeadingConstraint.constant = 28
+//                cell.circleImageView.backgroundColor = .disabledColor()
+//
+//                cell.addButton.isHidden = false
+//                cell.addButton.imageView!.image = UIImage(named: "PlusButton" )!.withRenderingMode(.alwaysTemplate)
+//                cell.addButton.imageView!.tintColor = .white()
+//                cell.addButton.tag = indexPath.row
+//                
+//                cell.numberLabel.text = ""
+//                
+//                cell.titleLabelLeadingConstraint.constant = 8
+//                cell.circleImageViewLeadingConstraint.constant = 16
+//                
+//            } else {
+//                
+//                cell.addButton.isHidden = true
+//
+//                if let image = item.image {
+//                    cell.circleImageViewWidthConstraint.constant = 48
+//                    cell.circleImageViewLeadingConstraint.constant = 28
+//                    cell.circleImageView.image = image
+//                    
+//                } else {
+//                    cell.circleImageViewWidthConstraint.constant = 0
+//                    cell.circleImageViewLeadingConstraint.constant = 28
+//                    cell.circleImageView.image = UIImage()
+//                }
+//                
+//                switch (indexPath as NSIndexPath).row {
+//                case 0:
+//                    cell.numberLabel.textColor = .primaryColor()
+//                case 1:
+//                    cell.numberLabel.textColor = .secondaryColor()
+//                case 2:
+//                    cell.numberLabel.textColor = .secondColor()
+//                case 3:
+//                    cell.numberLabel.textColor = .thirdColor()
+//                default:
+//                    cell.numberLabel.textColor = .loserColor()
+//                }
+//            }
+//            
+//            
+//            return cell
             
         } else {
             
             let item = collection.returnArrayOfItems(sorted: false)[(indexPath as NSIndexPath).row]
-            
-            let cell = tableView.dequeueReusableCell(withIdentifier: "UnsortedCell", for: indexPath) as! UnsortedItemTableViewCell
-            
-            cell.titleLabel.text = item.text
-            //cell.layoutMargins = UIEdgeInsetsMake(0, 42, 0, 0);
-
-            if let image = item.image {
-                cell.circleImageViewWidthConstraint.constant = 48
-                cell.circleImageView.image = image
-                
-            } else {
-                cell.circleImageViewWidthConstraint.constant = 0
-            }
-            
-            cell.configureCell(false)
-            
-            if inEditingMode == true {
-                print("Editing")
-            }
-            
-
-            
-            cell.numberLabel.text = ""
-            
+                        
             if inEditingMode == true {
                 
-                if let image = item.image {
-                    cell.circleImageView.image = image
-                    
-                } else {
-                    cell.circleImageView.image = UIImage()
-                }
-                
-                cell.circleImageViewWidthConstraint.constant = 48
-                cell.circleImageViewLeadingConstraint.constant = 28
-                cell.circleImageView.backgroundColor = .disabledColor()
-                cell.circleImageView.layer.cornerRadius = cell.circleImageViewWidthConstraint.constant / 2
-                cell.circleImageView.clipsToBounds = true
-                
-                cell.addButton.isHidden = false
-                cell.addButton.imageView!.image = UIImage(named: "PlusButton" )!.withRenderingMode(.alwaysTemplate)
-                cell.addButton.imageView!.tintColor = .white()
-                cell.addButton.tag = indexPath.row
-                
-                cell.titleLabelLeadingConstraint.constant = 8
-                cell.circleImageViewLeadingConstraint.constant = 16
-                
+                return self.createUnsortedEditingCell(indexPath: indexPath, item: item)
             } else {
-                
-                cell.addButton.isHidden = true
-                
-                // This is messy, fix it properly
-                if let _ = item.image {
-                    
-                    cell.circleImageView.layer.cornerRadius = cell.circleImageViewWidthConstraint.constant / 2
-                    cell.circleImageView.layer.masksToBounds = true
-                    cell.circleImageView.layer.mask = cell.numberLabel.layer.mask
-                    cell.circleImageView.layer.masksToBounds = true
-                    
-                    cell.titleLabelLeadingConstraint.constant = 8
-                    cell.circleImageViewLeadingConstraint.constant = 16
-                    
-                } else {
-                    
-                    cell.titleLabelLeadingConstraint.constant = 0
-                    cell.circleImageViewLeadingConstraint.constant = 16
-                }
+                return self.createUnsortedCell(indexPath: indexPath, item: item)
+
             }
-            
-            return cell
         }
+    }
+    
+    func createSortedCell(indexPath: IndexPath, item: ItemModel) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "UnsortedCell", for: indexPath) as! UnsortedItemTableViewCell
+        cell.selectionStyle = .none
+
+        cell.titleLabel.textColor = .titleColor()
+        cell.titleLabel.text = item.text
+
+        cell.numberLabel.text = "\((indexPath as NSIndexPath).row + 1)"
+        cell.numberLabel.isHidden = false
+        switch (indexPath as NSIndexPath).row {
+        case 0:
+            cell.numberLabel.textColor = .primaryColor()
+        case 1:
+            cell.numberLabel.textColor = .secondaryColor()
+        case 2:
+            cell.numberLabel.textColor = .secondColor()
+        case 3:
+            cell.numberLabel.textColor = .thirdColor()
+        default:
+            cell.numberLabel.textColor = .loserColor()
+        }
+        
+        // Circle image
+        
+        if let image = item.image {
+            
+            cell.circleImageView.isHidden = false
+            cell.circleImageViewWidthConstraint.constant = 48
+            cell.circleImageViewLeadingConstraint.constant = 28
+            cell.circleImageView.backgroundColor = .disabledColor()
+            cell.circleImageView.layer.cornerRadius = cell.circleImageViewWidthConstraint.constant / 2
+            cell.circleImageView.clipsToBounds = true
+            cell.circleImageView.image = image
+            
+            cell.titleLabelLeadingConstraint.constant = 16
+            
+            cell.layoutMargins = UIEdgeInsetsMake(0, 64, 0, 0);
+            
+        } else {
+            
+            cell.circleImageView.isHidden = true
+            cell.circleImageViewWidthConstraint.constant = 0
+            cell.circleImageViewLeadingConstraint.constant = 0
+            
+            cell.titleLabelLeadingConstraint.constant = 28
+            
+            cell.layoutMargins = UIEdgeInsets()
+        }
+
+        // Add button
+        
+        cell.addButton.isHidden = true
+        return cell
+
+    }
+    
+    func createUnsortedCell(indexPath: IndexPath, item: ItemModel) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "UnsortedCell", for: indexPath) as! UnsortedItemTableViewCell
+        cell.selectionStyle = .none
+
+        cell.titleLabel.textColor = .titleColor()
+        cell.titleLabel.text = item.text
+        cell.titleLabelLeadingConstraint.constant = 16
+
+        cell.numberLabel.text = ""
+        cell.numberLabel.isHidden = true
+
+        // Circle image
+        
+        if let image = item.image {
+            
+            cell.circleImageView.isHidden = false
+            cell.circleImageViewWidthConstraint.constant = 48
+            cell.circleImageViewLeadingConstraint.constant = 28
+            cell.circleImageView.backgroundColor = .disabledColor()
+            cell.circleImageView.layer.cornerRadius = cell.circleImageViewWidthConstraint.constant / 2
+            cell.circleImageView.clipsToBounds = true
+            cell.circleImageView.image = image
+            
+            cell.layoutMargins = UIEdgeInsetsMake(0, 64, 0, 0);
+            
+        } else {
+            
+            cell.circleImageView.isHidden = true
+            cell.circleImageViewWidthConstraint.constant = 0
+            cell.circleImageViewLeadingConstraint.constant = 0
+            
+            cell.layoutMargins = UIEdgeInsets()
+        }
+        
+        // Add button
+        
+        cell.addButton.isHidden = true
+        
+        return cell
+    }
+    
+    func createUnsortedEditingCell(indexPath: IndexPath, item: ItemModel) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "UnsortedCell", for: indexPath) as! UnsortedItemTableViewCell
+        cell.selectionStyle = .none
+        cell.layoutMargins = UIEdgeInsetsMake(0, 64, 0, 0);
+
+        cell.titleLabel.textColor = .titleColor()
+        cell.titleLabel.text = item.text
+        cell.titleLabelLeadingConstraint.constant = 16
+
+        cell.numberLabel.text = ""
+        cell.numberLabel.isHidden = true
+        
+        // Circle image
+        
+        cell.circleImageView.isHidden = false
+        cell.circleImageViewWidthConstraint.constant = 48
+        cell.circleImageViewLeadingConstraint.constant = 16
+        cell.circleImageView.backgroundColor = .disabledColor()
+        cell.circleImageView.layer.cornerRadius = cell.circleImageViewWidthConstraint.constant / 2
+        cell.circleImageView.clipsToBounds = true
+        
+        if let image = item.image {
+            cell.circleImageView.image = image
+            
+        } else {
+            cell.circleImageView.image = UIImage()
+        }
+        
+        // Add button
+        
+        cell.addButton.isHidden = false
+        cell.addButton.imageView!.image = UIImage(named: "PlusButton" )!.withRenderingMode(.alwaysTemplate)
+        cell.addButton.imageView!.tintColor = .white()
+        cell.addButton.tintColor = .white()
+        cell.addButton.tag = indexPath.row
+                
+        return cell
     }
 }
 
@@ -993,6 +1079,8 @@ extension ItemsViewController {
         return cell
 
     }
+    
+
 }
 
 extension ItemsViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
@@ -1023,8 +1111,6 @@ extension ItemsViewController: UIImagePickerControllerDelegate, UINavigationCont
                     collection.image = pickedImage
                 }
             }
-            
-
         }
         
         dismiss(animated: true) {

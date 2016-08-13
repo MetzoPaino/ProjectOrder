@@ -60,7 +60,11 @@ class SortingViewController: UIViewController {
     
     var decideLaterImage: UIImageView!
 
+    var blockColor = UIColor(red:0.16, green:0.71, blue:0.63, alpha:1.00)
+ 
     
+    //Downy = UIColor(red:0.38, green:0.84, blue:0.79, alpha:1.00)
+    //Light sea green = UIColor(red:0.16, green:0.71, blue:0.63, alpha:1.00)
     
     let constantConstant = 0 as CGFloat
     
@@ -176,8 +180,9 @@ class SortingViewController: UIViewController {
         bottomView.layer.cornerRadius = 12
         bottomView.layer.masksToBounds = true
         
-        topView.backgroundColor = .blockNeutralColor()
-        bottomView.backgroundColor = .blockNeutralColor()
+        topView.backgroundColor = blockColor
+        bottomView.backgroundColor = blockColor
+
         topLabel.textColor = .white()
         bottomLabel.textColor = .white()
         
@@ -198,8 +203,6 @@ class SortingViewController: UIViewController {
         bottomView.layer.shadowRadius = 2
         bottomView.layer.shadowOffset = CGSize(width: 0.0, height: 2.0)
         bottomView.layer.masksToBounds = false
-        
-    
         
         decideLaterImage = UIImageView(image: UIImage(named: "ChooseLaterAnimation_0"))
         decideLaterImage.tintColor = .green()
@@ -245,8 +248,9 @@ class SortingViewController: UIViewController {
                 
                 self.topViewTopConstraint.constant = 0 - self.view.bounds.size.height
                 self.bottomViewBottomConstraint.constant = 0 - self.view.bounds.size.height
-                self.topView.backgroundColor = .blockNeutralColor()
-                self.bottomView.backgroundColor = .blockNeutralColor()
+
+                self.topView.backgroundColor = self.blockColor
+                self.bottomView.backgroundColor = self.blockColor
                 
                 self.view.layoutIfNeeded()
                 
@@ -254,9 +258,7 @@ class SortingViewController: UIViewController {
                     
                     self.setupBattle()
                     self.animateViewsToArriveOrDepart(true)
-                    
             })
-            
         }
     }
 
@@ -366,8 +368,8 @@ class SortingViewController: UIViewController {
                         
                         self.topViewTopConstraint.constant = 0 - self.view.bounds.size.height
                         self.bottomViewBottomConstraint.constant = 0 - self.view.bounds.size.height
-                        self.topView.backgroundColor = .blockNeutralColor()
-                        self.bottomView.backgroundColor = .blockNeutralColor()
+                        self.topView.backgroundColor = self.blockColor
+                        self.bottomView.backgroundColor = self.blockColor
                         
                         self.view.layoutIfNeeded()
                         
@@ -422,13 +424,10 @@ class SortingViewController: UIViewController {
                     var animationIndex = animationArray.count * Int(animationPercentage) / 100
                     
                     holdingView.backgroundColor = UIColor.colorFromPercentageInRange(Float(percentage), startColor: .sortingNeutralBackgroundColor(), endColor: .sortingPreferredBackgroundColor())
-
-//                    let takeAway = CGFloat((100 - percentage) / 100) + 0.2
-//                    bottomView.alpha = takeAway
                     
-                    bottomView.backgroundColor = UIColor.colorFromPercentageInRange(Float(percentage), startColor: .blockNeutralColor(), endColor: .blockLosingColor())
+                    bottomView.backgroundColor = UIColor.colorFromPercentageInRange(Float(percentage), startColor: self.blockColor, endColor: .blockLosingColor())
                     
-                    topView.backgroundColor = UIColor.colorFromPercentageInRange(Float(percentage), startColor: .blockNeutralColor(), endColor: .blockPreferredColor())
+                    topView.backgroundColor = UIColor.colorFromPercentageInRange(Float(percentage), startColor: self.blockColor, endColor: .blockPreferredColor())
                     
                     if animationIndex >= animationArray.count - 1 {
                         animationIndex = animationArray.count - 1
@@ -457,11 +456,10 @@ class SortingViewController: UIViewController {
                     let animationPercentage = (bottomViewBottomConstraint.constant / (fullAlpha - 70)) * 100
                     var animationIndex = animationArray.count * Int(animationPercentage) / 100
                     
-//                    let takeAway = CGFloat((100 - percentage) / 100) + 0.2
+                    topView.backgroundColor = UIColor.colorFromPercentageInRange(Float(percentage), startColor: self.blockColor, endColor: .blockLosingColor())
                     
-                    topView.backgroundColor = UIColor.colorFromPercentageInRange(Float(percentage), startColor: .blockNeutralColor(), endColor: .blockLosingColor())
+                    bottomView.backgroundColor = UIColor.colorFromPercentageInRange(Float(percentage), startColor: self.blockColor, endColor: .blockPreferredColor())
                     
-                    bottomView.backgroundColor = UIColor.colorFromPercentageInRange(Float(percentage), startColor: .blockNeutralColor(), endColor: .blockPreferredColor())
                     if animationIndex >= animationArray.count - 1 {
                         animationIndex = animationArray.count - 1
                     }
@@ -498,8 +496,10 @@ class SortingViewController: UIViewController {
             
             self.topViewTopConstraint.constant = constant
             self.bottomViewBottomConstraint.constant = constant
-            self.topView.backgroundColor = .blockNeutralColor()
-            self.bottomView.backgroundColor = .blockNeutralColor()
+            
+            self.topView.backgroundColor = self.blockColor
+            self.bottomView.backgroundColor = self.blockColor
+            
             self.holdingView.backgroundColor = .sortingNeutralBackgroundColor()
             
             self.view.layoutIfNeeded()
@@ -511,8 +511,9 @@ class SortingViewController: UIViewController {
         
         topViewTopConstraint.constant = 0 - self.view.bounds.size.height
         bottomViewBottomConstraint.constant = 0 - self.view.bounds.size.height
-        topView.backgroundColor = .blockNeutralColor()
-        bottomView.backgroundColor = .blockNeutralColor()
+        
+        topView.backgroundColor = self.blockColor
+        bottomView.backgroundColor = self.blockColor
         view.layoutIfNeeded()
     }
 }

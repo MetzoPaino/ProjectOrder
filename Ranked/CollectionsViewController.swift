@@ -22,7 +22,7 @@ class CollectionsViewController: UIViewController, Injectable {
     var backgroundImage: UIImage!
     
     var showGetStartedView = false
-    
+    var showingGetStartedView = false
     
     typealias AssociatedObject = DataManager
     private var dataManager: DataManager!
@@ -109,7 +109,12 @@ class CollectionsViewController: UIViewController, Injectable {
         
         if showGetStartedView {
             
-            getStartedViewController.reset()
+            if showingGetStartedView == false {
+                showingGetStartedView = true
+                getStartedViewController.reset()
+
+            }
+            
             view.insertSubview(getStartedContainerView, belowSubview: addButton)
             
         } else {
@@ -131,7 +136,8 @@ extension Navigation {
                 controller.inject(CollectionModel(name: "", description: "", dateCreated: Date()))
                 controller.delegate = self
                 controller.newCollection = true
-                
+                controller.inEditingMode = true
+
             } else if segue.identifier == "ShowCollection" {
                 
                 if let selectedIndexPath = tableView.indexPathForSelectedRow {
@@ -271,7 +277,7 @@ extension TableViewDataSource: UITableViewDataSource {
         } else {
             
             showGetStartedView = false
-            toggleGetStarted()
+            //toggleGetStarted()
         }
         return dataManager.collections.count
     }
@@ -520,6 +526,9 @@ extension CollectionsViewController: GetStartedViewControllerDelegate {
             dataManager.saveCollectionToCloudKit(collection: collection)
 
         }
+        
+        showGetStartedView = false
+        toggleGetStarted()
         
         let lastRow = tableView.numberOfRows(inSection: 0)
 
