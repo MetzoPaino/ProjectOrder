@@ -21,6 +21,9 @@ class AboutViewController: UIViewController {
     @IBOutlet weak var person2Label: UILabel!
     @IBOutlet weak var versionLabel: UILabel!
     
+    @IBOutlet weak var topButton: UIButton!
+    @IBOutlet weak var bottomButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         styleNavBar()
@@ -75,6 +78,10 @@ class AboutViewController: UIViewController {
             person1ImageView.image = UIImage(named: "William")
             person2Label.attributedText = bottomString
             person2ImageView.image = UIImage(named: "Robyn")
+            
+            topButton.tag = 0
+            bottomButton.tag = 1
+
 
         default:
             
@@ -95,11 +102,47 @@ class AboutViewController: UIViewController {
             person1ImageView.image = UIImage(named: "Robyn")
             person2Label.attributedText = bottomString
             person2ImageView.image = UIImage(named: "William")
+            
+            topButton.tag = 1
+            bottomButton.tag = 0
         }
 
         if let versionString = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
             
             versionLabel.text = "Version: " + versionString
+        }
+    }
+    
+    @IBAction func buttonPressed(_ sender: UIButton) {
+        
+        var url: URL
+        
+        if sender.tag == 0 {
+            
+            // William
+            url = URL(string: "twitter://user?screen_name=metzopaino")!
+            
+        } else {
+            
+            // Robyn
+            url = URL(string: "twitter://user?screen_name=greenseaweed")!
+        }
+        
+        if UIApplication.shared().canOpenURL(url) {
+            UIApplication.shared().open(url, options: [:], completionHandler: nil)
+        } else {
+            
+            if sender.tag == 0 {
+                
+                // William
+                url = URL(string: "https://www.twitter.com/metzopaino")!
+                
+            } else {
+                
+                // Robyn
+                url = URL(string: "https://www.twitter.com/greenseaweed")!
+            }
+            UIApplication.shared().open(url, options: [:], completionHandler: nil)
         }
     }
 }

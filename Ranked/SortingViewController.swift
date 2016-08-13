@@ -60,8 +60,10 @@ class SortingViewController: UIViewController {
     
     var decideLaterImage: UIImageView!
 
-    var blockColor = UIColor(red:0.16, green:0.71, blue:0.63, alpha:1.00)
+    var blockColor = UIColor.secondaryColor()
  
+    var originalSortedItems = [ItemModel]()
+    var originallySorted = false
     
     //Downy = UIColor(red:0.38, green:0.84, blue:0.79, alpha:1.00)
     //Light sea green = UIColor(red:0.16, green:0.71, blue:0.63, alpha:1.00)
@@ -82,6 +84,10 @@ class SortingViewController: UIViewController {
         
         styleView()
         styleNavBar()
+        
+        if originallySorted {
+            originalSortedItems = itemArray
+        }
         
         tournamentManager.delegate = self
         tournamentManager.createTournament(itemArray)
@@ -221,10 +227,11 @@ class SortingViewController: UIViewController {
     // MARK: - IBAction
     @IBAction func cancelButtonPressed(_ sender: UIBarButtonItem) {
         
-//        if userHasMadeChanges {
-//            tournamentManager.wipeTournamentProgress()
-//        }
-        
+        if originallySorted {
+            itemArray = originalSortedItems
+        } else {
+            tournamentManager.wipeTournamentProgress()
+        }
 
         self.delegate?.sortingCancelled()
         self.dismiss(animated: true, completion: nil)
@@ -425,7 +432,7 @@ class SortingViewController: UIViewController {
                     
                     holdingView.backgroundColor = UIColor.colorFromPercentageInRange(Float(percentage), startColor: .sortingNeutralBackgroundColor(), endColor: .sortingPreferredBackgroundColor())
                     
-                    bottomView.backgroundColor = UIColor.colorFromPercentageInRange(Float(percentage), startColor: self.blockColor, endColor: .blockLosingColor())
+                    bottomView.backgroundColor = UIColor.colorFromPercentageInRange(Float(percentage), startColor: self.blockColor, endColor: UIColor(red:0.16, green:0.71, blue:0.63, alpha:1.0))
                     
                     topView.backgroundColor = UIColor.colorFromPercentageInRange(Float(percentage), startColor: self.blockColor, endColor: .blockPreferredColor())
                     
@@ -456,7 +463,7 @@ class SortingViewController: UIViewController {
                     let animationPercentage = (bottomViewBottomConstraint.constant / (fullAlpha - 70)) * 100
                     var animationIndex = animationArray.count * Int(animationPercentage) / 100
                     
-                    topView.backgroundColor = UIColor.colorFromPercentageInRange(Float(percentage), startColor: self.blockColor, endColor: .blockLosingColor())
+                    topView.backgroundColor = UIColor.colorFromPercentageInRange(Float(percentage), startColor: self.blockColor, endColor: UIColor(red:0.16, green:0.71, blue:0.63, alpha:1.0))
                     
                     bottomView.backgroundColor = UIColor.colorFromPercentageInRange(Float(percentage), startColor: self.blockColor, endColor: .blockPreferredColor())
                     

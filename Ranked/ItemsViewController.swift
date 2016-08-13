@@ -52,7 +52,7 @@ class ItemsViewController: UIViewController, Injectable {
     
     let tapGesture = UITapGestureRecognizer()
     
-    let editingCellOrder = [CellType.image, CellType.title, CellType.description, CellType.padding, CellType.addItem]
+    let editingCellOrder = [CellType.title, CellType.description, CellType.padding, CellType.addItem]
     //let editingCellOrder = [CellType.title, CellType.description, CellType.addItem]
 
     var displayCellOrder = [CellType]()
@@ -180,6 +180,7 @@ class ItemsViewController: UIViewController, Injectable {
     
     @IBAction func addItemImageButtonPressed(_ sender: UIButton) {
         imagePicker.view.tag = 2
+        present(imagePicker, animated: true, completion: nil)
     }
     
     @IBAction func addImageForItemButtonPressed(_ sender: UIButton) {
@@ -218,6 +219,83 @@ class ItemsViewController: UIViewController, Injectable {
         present(actionSheet, animated: true, completion: nil)
         
        // parent!.present(imagePicker, animated: true, completion: nil)
+    }
+    
+    @IBAction func shareButtonPressed(_ sender: UIBarButtonItem) {
+        
+        tableView.backgroundColor = UIColor.white()
+        
+        let fullFrame = CGRect(x: tableView.frame.origin.x, y: tableView.frame.origin.y, width: tableView.frame.size.width, height: tableView.contentSize.height)
+        tableView.frame = fullFrame
+        tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: UITableViewScrollPosition.top, animated: false)
+        
+        //        UIGraphicsBeginImageContext(tableView.contentSize);
+        UIGraphicsBeginImageContextWithOptions(tableView.contentSize, false, 0.0)
+        
+        tableView.layer.render(in: UIGraphicsGetCurrentContext()!)
+        
+        //        tableView.drawViewHierarchyInRect(tableView.frame, afterScreenUpdates: false)
+        
+        let image:UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext();
+        
+        tableView.backgroundColor = .clear()
+        
+        let activityViewController = UIActivityViewController(activityItems: [image], applicationActivities: nil)
+        navigationController?.present(activityViewController, animated: true) {
+            // ...
+        }
+        tableView.layoutIfNeeded()
+    }
+    
+    @IBAction func editButtonPressed(_ sender: UIBarButtonItem) {
+        
+        if let inEditingMode = inEditingMode {
+            self.inEditingMode = !inEditingMode
+        }
+        
+        doneBarButton = createBarButton(.done)
+        navigationItem.rightBarButtonItems = [doneBarButton]
+        
+        let addItemIndex = IndexPath(row: 2, section: 0)
+        
+        tableView.beginUpdates()
+        tableView.reloadSections(IndexSet(integer: 0), with: .fade)
+        tableView.insertRows(at: [addItemIndex], with: .fade)
+        tableView.endUpdates()
+        tableView.reloadData()
+        animateSortButton(false)
+    }
+    
+    @IBAction func doneButtonPressed(_ sender: UIBarButtonItem) {
+        
+        inEditingMode = false
+        
+        editBarButton = createBarButton(.edit)
+        shareBarButton = createBarButton(.share)
+        navigationItem.rightBarButtonItems = [shareBarButton, editBarButton]
+        
+        let addItemIndex = IndexPath(row: 2, section: 0)
+        
+        if let addItemCell = tableView.cellForRow(at: addItemIndex) as? AddItemTableViewCell {
+            
+            _ = addItemCell.textFieldShouldReturn(addItemCell.textField)
+        }
+        
+        tableView.beginUpdates()
+        tableView.reloadSections(IndexSet(integer: 0), with: .fade)
+        tableView.deleteRows(at: [addItemIndex], with: .fade)
+        tableView.endUpdates()
+        tableView.reloadData()
+        
+        animateSortButton(true)
+        
+        if newCollection == true {
+            self.delegate?.collectionUpdated(collection, new: true)
+            newCollection = false
+        } else {
+            self.delegate?.collectionUpdated(collection, new: false)
+        }
     }
     
     // MARK: - Navigation
@@ -277,6 +355,8 @@ class ItemsViewController: UIViewController, Injectable {
             if let image = collection.image {
                 controller.image = image
             }
+            
+            controller.originallySorted = collection.sorted
             controller.itemArray = collection.items
             controller.delegate = self
         }
@@ -353,89 +433,6 @@ extension Notifications {
         
         view.removeGestureRecognizer(tapGesture)
         view.endEditing(true)
-    }
-}
-
-// MARK: - IBActions
-
-private typealias IBActions = ItemsViewController
-extension IBActions {
-    
-    @IBAction func shareButtonPressed(_ sender: UIBarButtonItem) {
-        
-        tableView.backgroundColor = UIColor.white()
-        
-        let fullFrame = CGRect(x: tableView.frame.origin.x, y: tableView.frame.origin.y, width: tableView.frame.size.width, height: tableView.contentSize.height)
-        tableView.frame = fullFrame
-        tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: UITableViewScrollPosition.top, animated: false)
-
-//        UIGraphicsBeginImageContext(tableView.contentSize);
-        UIGraphicsBeginImageContextWithOptions(tableView.contentSize, false, 0.0)
-
-        tableView.layer.render(in: UIGraphicsGetCurrentContext()!)
-        
-//        tableView.drawViewHierarchyInRect(tableView.frame, afterScreenUpdates: false)
-        
-        let image:UIImage = UIGraphicsGetImageFromCurrentImageContext()!
-        UIGraphicsEndImageContext();
-        
-        tableView.backgroundColor = .clear()
-        
-        let activityViewController = UIActivityViewController(activityItems: [image], applicationActivities: nil)
-        navigationController?.present(activityViewController, animated: true) {
-            // ...
-        }
-        tableView.layoutIfNeeded()
-    }
-    
-    @IBAction func editButtonPressed(_ sender: UIBarButtonItem) {
-        
-        if let inEditingMode = inEditingMode {
-            self.inEditingMode = !inEditingMode
-        }
-        
-        doneBarButton = createBarButton(.done)
-        navigationItem.rightBarButtonItems = [doneBarButton]
-        
-        let addItemIndex = IndexPath(row: 2, section: 0)
-        
-        tableView.beginUpdates()
-        tableView.reloadSections(IndexSet(integer: 0), with: .fade)
-        tableView.insertRows(at: [addItemIndex], with: .fade)
-        tableView.endUpdates()
-        tableView.reloadData()
-        animateSortButton(false)
-    }
-    
-    @IBAction func doneButtonPressed(_ sender: UIBarButtonItem) {
-        
-        inEditingMode = false
-        
-        editBarButton = createBarButton(.edit)
-        shareBarButton = createBarButton(.share)
-        navigationItem.rightBarButtonItems = [shareBarButton, editBarButton]
-        
-        let addItemIndex = IndexPath(row: 2, section: 0)
-
-        if let addItemCell = tableView.cellForRow(at: addItemIndex) as? AddItemTableViewCell {
-            
-            _ = addItemCell.textFieldShouldReturn(addItemCell.textField)
-        }
-        
-        tableView.beginUpdates()
-        tableView.reloadSections(IndexSet(integer: 0), with: .fade)
-        tableView.deleteRows(at: [addItemIndex], with: .fade)
-        tableView.endUpdates()
-        tableView.reloadData()
-
-        animateSortButton(true)
-        
-        if newCollection == true {
-            self.delegate?.collectionUpdated(collection, new: true)
-            newCollection = false
-        } else {
-            self.delegate?.collectionUpdated(collection, new: false)
-        }
     }
 }
 
@@ -804,50 +801,59 @@ extension TableViewDataSource: UITableViewDataSource {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "UnsortedCell", for: indexPath) as! UnsortedItemTableViewCell
         cell.selectionStyle = .none
-
+        cell.layoutMargins = UIEdgeInsetsMake(0, 64, 0, 0);
+        
         cell.titleLabel.textColor = .titleColor()
         cell.titleLabel.text = item.text
 
         cell.numberLabel.text = "\((indexPath as NSIndexPath).row + 1)"
         cell.numberLabel.isHidden = false
-        switch (indexPath as NSIndexPath).row {
-        case 0:
-            cell.numberLabel.textColor = .primaryColor()
-        case 1:
-            cell.numberLabel.textColor = .secondaryColor()
-        case 2:
-            cell.numberLabel.textColor = .secondColor()
-        case 3:
-            cell.numberLabel.textColor = .thirdColor()
-        default:
-            cell.numberLabel.textColor = .loserColor()
-        }
+        cell.numberLabel.textColor = .white()
         
         // Circle image
         
-        if let image = item.image {
-            
-            cell.circleImageView.isHidden = false
-            cell.circleImageViewWidthConstraint.constant = 48
-            cell.circleImageViewLeadingConstraint.constant = 28
-            cell.circleImageView.backgroundColor = .disabledColor()
-            cell.circleImageView.layer.cornerRadius = cell.circleImageViewWidthConstraint.constant / 2
-            cell.circleImageView.clipsToBounds = true
-            cell.circleImageView.image = image
-            
-            cell.titleLabelLeadingConstraint.constant = 16
-            
-            cell.layoutMargins = UIEdgeInsetsMake(0, 64, 0, 0);
-            
-        } else {
-            
-            cell.circleImageView.isHidden = true
-            cell.circleImageViewWidthConstraint.constant = 0
-            cell.circleImageViewLeadingConstraint.constant = 0
-            
-            cell.titleLabelLeadingConstraint.constant = 28
-            
-            cell.layoutMargins = UIEdgeInsets()
+//        if let image = item.image {
+//            
+//            cell.circleImageView.isHidden = false
+//            cell.circleImageViewWidthConstraint.constant = 48
+//            cell.circleImageViewLeadingConstraint.constant = 28
+//            cell.circleImageView.backgroundColor = .disabledColor()
+//            cell.circleImageView.layer.cornerRadius = cell.circleImageViewWidthConstraint.constant / 2
+//            cell.circleImageView.clipsToBounds = true
+//            cell.circleImageView.image = image
+//            
+//            cell.titleLabelLeadingConstraint.constant = 16
+//            
+//            cell.layoutMargins = UIEdgeInsetsMake(0, 64, 0, 0);
+//            
+//        } else {
+//            
+//            cell.circleImageView.isHidden = true
+//            cell.circleImageViewWidthConstraint.constant = 0
+//            cell.circleImageViewLeadingConstraint.constant = 0
+//            
+//            cell.titleLabelLeadingConstraint.constant = 28
+//            
+//            cell.layoutMargins = UIEdgeInsets()
+//        }
+        
+        cell.circleImageView.isHidden = false
+        cell.circleImageViewWidthConstraint.constant = 48
+        cell.circleImageViewLeadingConstraint.constant = 16
+        cell.circleImageView.layer.cornerRadius = cell.circleImageViewWidthConstraint.constant / 2
+        cell.circleImageView.clipsToBounds = true
+
+        switch (indexPath as NSIndexPath).row {
+        case 0:
+            cell.circleImageView.backgroundColor = .primaryColor()
+        case 1:
+            cell.circleImageView.backgroundColor = .secondaryColor()
+        case 2:
+            cell.circleImageView.backgroundColor = .secondColor()
+        case 3:
+            cell.circleImageView.backgroundColor = .thirdColor()
+        default:
+            cell.circleImageView.backgroundColor = .loserColor()
         }
 
         // Add button
@@ -871,26 +877,32 @@ extension TableViewDataSource: UITableViewDataSource {
 
         // Circle image
         
-        if let image = item.image {
-            
-            cell.circleImageView.isHidden = false
-            cell.circleImageViewWidthConstraint.constant = 48
-            cell.circleImageViewLeadingConstraint.constant = 28
-            cell.circleImageView.backgroundColor = .disabledColor()
-            cell.circleImageView.layer.cornerRadius = cell.circleImageViewWidthConstraint.constant / 2
-            cell.circleImageView.clipsToBounds = true
-            cell.circleImageView.image = image
-            
-            cell.layoutMargins = UIEdgeInsetsMake(0, 64, 0, 0);
-            
-        } else {
-            
-            cell.circleImageView.isHidden = true
-            cell.circleImageViewWidthConstraint.constant = 0
-            cell.circleImageViewLeadingConstraint.constant = 0
-            
-            cell.layoutMargins = UIEdgeInsets()
-        }
+//        if let image = item.image {
+//            
+//            cell.circleImageView.isHidden = false
+//            cell.circleImageViewWidthConstraint.constant = 48
+//            cell.circleImageViewLeadingConstraint.constant = 28
+//            cell.circleImageView.backgroundColor = .disabledColor()
+//            cell.circleImageView.layer.cornerRadius = cell.circleImageViewWidthConstraint.constant / 2
+//            cell.circleImageView.clipsToBounds = true
+//            cell.circleImageView.image = image
+//            
+//            cell.layoutMargins = UIEdgeInsetsMake(0, 64, 0, 0);
+//            
+//        } else {
+//            
+//            cell.circleImageView.isHidden = true
+//            cell.circleImageViewWidthConstraint.constant = 0
+//            cell.circleImageViewLeadingConstraint.constant = 0
+//            
+//            cell.layoutMargins = UIEdgeInsets()
+//        }
+        
+        cell.circleImageView.isHidden = true
+        cell.circleImageViewWidthConstraint.constant = 0
+        cell.circleImageViewLeadingConstraint.constant = 0
+        
+        cell.layoutMargins = UIEdgeInsets()
         
         // Add button
         
@@ -914,19 +926,25 @@ extension TableViewDataSource: UITableViewDataSource {
         
         // Circle image
         
-        cell.circleImageView.isHidden = false
-        cell.circleImageViewWidthConstraint.constant = 48
-        cell.circleImageViewLeadingConstraint.constant = 16
-        cell.circleImageView.backgroundColor = .disabledColor()
-        cell.circleImageView.layer.cornerRadius = cell.circleImageViewWidthConstraint.constant / 2
-        cell.circleImageView.clipsToBounds = true
+//        cell.circleImageView.isHidden = false
+//        cell.circleImageViewWidthConstraint.constant = 48
+//        cell.circleImageViewLeadingConstraint.constant = 16
+//        cell.circleImageView.backgroundColor = .disabledColor()
+//        cell.circleImageView.layer.cornerRadius = cell.circleImageViewWidthConstraint.constant / 2
+//        cell.circleImageView.clipsToBounds = true
+//        
+//        if let image = item.image {
+//            cell.circleImageView.image = image
+//            
+//        } else {
+//            cell.circleImageView.image = UIImage()
+//        }
         
-        if let image = item.image {
-            cell.circleImageView.image = image
-            
-        } else {
-            cell.circleImageView.image = UIImage()
-        }
+        cell.circleImageView.isHidden = true
+        cell.circleImageViewWidthConstraint.constant = 0
+        cell.circleImageViewLeadingConstraint.constant = 0
+        
+        cell.layoutMargins = UIEdgeInsets()
         
         // Add button
         
@@ -1055,17 +1073,11 @@ extension ItemsViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "AddItemCell", for: indexPath) as! AddItemTableViewCell
         cell.delegate = self
         cell.button.imageView!.tintColor = .white()
-
+        cell.button.isUserInteractionEnabled = false
         cell.configureCell()
         
-        if let image = itemImage {
-            cell.addImageView.image = image
-            
-        } else {
-            
-            cell.addImageView.image = UIImage(named: "PlusButton")?.withRenderingMode(.alwaysTemplate)
-            cell.addImageView.tintColor = .white()
-        }
+        cell.addImageView.image = UIImage(named: "PlusButton")?.withRenderingMode(.alwaysTemplate)
+        cell.addImageView.tintColor = .white()
         
         cell.selectionStyle = .none
         cell.layoutMargins = UIEdgeInsetsMake(0, 64, 0, 0);
@@ -1079,8 +1091,6 @@ extension ItemsViewController {
         return cell
 
     }
-    
-
 }
 
 extension ItemsViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
@@ -1095,7 +1105,7 @@ extension ItemsViewController: UIImagePickerControllerDelegate, UINavigationCont
                 collection.items[row].image = pickedImage
                 tableView.beginUpdates()
                 
-                let indexPath = IndexPath(item: row, section: 1)
+                let indexPath = IndexPath(item: row, section: 2)
                 
                 tableView.reloadRows(at: [indexPath], with: UITableViewRowAnimation.fade)
 //                //tableView.reloadSections(IndexSet(integer: 1), with: .fade)
