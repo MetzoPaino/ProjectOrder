@@ -96,8 +96,70 @@ extension SettingsViewController: UITableViewDelegate {
             appIsSyncing = true
             tableView.reloadData()
         }
-        
+
+
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    func tableView(_ tableView: UITableView, didHighlightRowAt indexPath: IndexPath) {
+        
+        if let cell = tableView.cellForRow(at: indexPath) as? SettingsTableViewCell {
+            
+            var imageName: String
+            
+            switch cell.tag {
+            case 1:
+                imageName = "Sync"
+            case 2:
+                imageName = "AddPremade"
+            case 3:
+                imageName = "About"
+            default:
+                imageName = ""
+            }
+            cell.titleLabel.textColor = .white()
+            cell.descriptionImageView.image = UIImage(named:imageName)?.withRenderingMode(.alwaysTemplate)
+            cell.descriptionImageView.tintColor = .white()
+            
+            if cell.accessoryImageView != nil {
+                cell.accessoryImageView.image = UIImage(named:"ForwardArrow")?.withRenderingMode(.alwaysTemplate)
+                cell.accessoryImageView.tintColor = .white()
+            }
+
+        }
+        
+//        let cell = tableView.cellForRow(at: indexPath)
+//        cell?.backgroundColor = .secondaryColor()
+//        cell?.contentView.backgroundColor = .secondaryColor()
+//        cell?.accessoryView?.tintColor = .white()
+//        cell?.tintColor = .white()
+    }
+    
+    func tableView(_ tableView: UITableView, didUnhighlightRowAt indexPath: IndexPath) {
+
+        if let cell = tableView.cellForRow(at: indexPath) as? SettingsTableViewCell {
+            
+            var imageName: String
+            
+            switch cell.tag {
+            case 1:
+                imageName = "Sync"
+            case 2:
+                imageName = "AddPremade"
+            case 3:
+                imageName = "About"
+            default:
+                imageName = ""
+            }
+            cell.titleLabel.textColor = .headingColor()
+            cell.descriptionImageView.image = UIImage(named:imageName)?.withRenderingMode(.alwaysTemplate)
+            cell.descriptionImageView.tintColor = .primaryColor()
+            
+            if cell.accessoryImageView != nil {
+                cell.accessoryImageView.image = UIImage(named:"ForwardArrow")?.withRenderingMode(.alwaysTemplate)
+                cell.accessoryImageView.tintColor = .primaryColor()
+            }
+        }
     }
 }
 
@@ -112,13 +174,21 @@ extension SettingsViewController: UITableViewDataSource {
         
         if (indexPath as NSIndexPath).row == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "iCloudCell", for: indexPath) as! SyncingTableViewCell
+            cell.configureCell()
             cell.configureCell(syncing: appIsSyncing)
+            cell.tag = 1
+
             return cell
         } else if (indexPath as NSIndexPath).row == 1 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "AddListsCell", for: indexPath)
+            let cell = tableView.dequeueReusableCell(withIdentifier: "AddListsCell", for: indexPath) as! SettingsTableViewCell
+            cell.configureCell()
+            cell.tag = 2
+
             return cell
         } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "AboutCell", for: indexPath)
+            let cell = tableView.dequeueReusableCell(withIdentifier: "AboutCell", for: indexPath) as! SettingsTableViewCell
+            cell.configureCell()
+            cell.tag = 3
             return cell
         }
     }

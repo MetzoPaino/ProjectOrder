@@ -845,15 +845,25 @@ extension TableViewDataSource: UITableViewDataSource {
 
         switch (indexPath as NSIndexPath).row {
         case 0:
-            cell.circleImageView.backgroundColor = .primaryColor()
+            cell.circleImageView.backgroundColor = .first()
         case 1:
-            cell.circleImageView.backgroundColor = .secondaryColor()
+            cell.circleImageView.backgroundColor = .second()
         case 2:
-            cell.circleImageView.backgroundColor = .secondColor()
+            cell.circleImageView.backgroundColor = .third()
         case 3:
-            cell.circleImageView.backgroundColor = .thirdColor()
+            cell.circleImageView.backgroundColor = .fourth()
+        case 4:
+            cell.circleImageView.backgroundColor = .fifth()
+        case 5:
+            cell.circleImageView.backgroundColor = .sixth()
+        case 6:
+            cell.circleImageView.backgroundColor = .seventh()
+        case 7:
+            cell.circleImageView.backgroundColor = .eighth()
+        case 8:
+            cell.circleImageView.backgroundColor = .ninth()
         default:
-            cell.circleImageView.backgroundColor = .loserColor()
+            cell.circleImageView.backgroundColor = .tenth()
         }
 
         // Add button

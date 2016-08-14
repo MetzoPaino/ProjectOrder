@@ -200,7 +200,7 @@ extension AddItemTableViewCell: UITextFieldDelegate {
     }
 }
 
-class SyncingTableViewCell: UITableViewCell {
+class SyncingTableViewCell: SettingsTableViewCell {
     
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
@@ -211,5 +211,21 @@ class SyncingTableViewCell: UITableViewCell {
         } else {
             activityIndicator.stopAnimating()
         }
+    }
+}
+
+class SettingsTableViewCell: UITableViewCell {
+    
+    @IBOutlet weak var descriptionImageView: UIImageView!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var accessoryImageView: UIImageView!
+
+    func configureCell() {
+        
+        titleLabel.textColor = .headingColor()
+
+        let backgroundView = UIView()
+        backgroundView.backgroundColor = .secondaryColor()
+        selectedBackgroundView = backgroundView
     }
 }

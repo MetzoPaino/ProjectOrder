@@ -22,11 +22,11 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="bcD-4b-fcV">
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="AboutCell" id="vOo-Jh-Xkv">
-                                        <frame key="frameInset" minY="28" width="375" height="44"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="AboutCell" rowHeight="85" id="vOo-Jh-Xkv" customClass="SettingsTableViewCell" customModule="_" customModuleProvider="target">
+                                        <frame key="frameInset" minY="28" width="375" height="85"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="vOo-Jh-Xkv" id="Ecv-nF-oEg">
-                                            <frame key="frameInset" width="342" height="43"/>
+                                            <frame key="frameInset" width="375" height="84"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="About" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ho4-PX-ZSP">
@@ -34,23 +34,44 @@
                                                     <color key="textColor" red="0.11372549019607843" green="0.11372549019607843" blue="0.11372549019607843" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="About" translatesAutoresizingMaskIntoConstraints="NO" id="CR9-BS-JDX">
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="44" id="Cek-7S-lQg"/>
+                                                        <constraint firstAttribute="width" secondItem="CR9-BS-JDX" secondAttribute="height" multiplier="1:1" id="OW3-hl-VWh"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ForwardArrow" translatesAutoresizingMaskIntoConstraints="NO" id="2Ry-5I-azT">
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" secondItem="2Ry-5I-azT" secondAttribute="height" multiplier="1:1" id="Zh7-4t-QP7"/>
+                                                        <constraint firstAttribute="width" constant="14" id="t2t-sM-7Id"/>
+                                                    </constraints>
+                                                </imageView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="ho4-PX-ZSP" secondAttribute="trailing" constant="16" id="IDt-KU-Z7c"/>
-                                                <constraint firstItem="ho4-PX-ZSP" firstAttribute="leading" secondItem="Ecv-nF-oEg" secondAttribute="leading" constant="16" id="dEY-WC-zcR"/>
+                                                <constraint firstItem="2Ry-5I-azT" firstAttribute="leading" secondItem="ho4-PX-ZSP" secondAttribute="trailing" constant="8" id="SKG-Rt-sE2"/>
+                                                <constraint firstItem="CR9-BS-JDX" firstAttribute="width" secondItem="CR9-BS-JDX" secondAttribute="height" multiplier="1:1" id="USc-tU-MeU"/>
+                                                <constraint firstItem="CR9-BS-JDX" firstAttribute="centerY" secondItem="ho4-PX-ZSP" secondAttribute="centerY" id="ZzJ-X6-KP5"/>
+                                                <constraint firstAttribute="trailing" secondItem="2Ry-5I-azT" secondAttribute="trailing" constant="16" id="ary-NP-M6v"/>
+                                                <constraint firstItem="CR9-BS-JDX" firstAttribute="leading" secondItem="Ecv-nF-oEg" secondAttribute="leading" constant="16" id="gvj-z1-1wi"/>
+                                                <constraint firstItem="ho4-PX-ZSP" firstAttribute="leading" secondItem="CR9-BS-JDX" secondAttribute="trailing" constant="8" id="hqa-0b-VRY"/>
+                                                <constraint firstItem="2Ry-5I-azT" firstAttribute="centerY" secondItem="ho4-PX-ZSP" secondAttribute="centerY" id="ik2-pl-mSr"/>
                                                 <constraint firstAttribute="bottom" secondItem="ho4-PX-ZSP" secondAttribute="bottom" constant="16" id="srA-XR-Esy"/>
                                                 <constraint firstItem="ho4-PX-ZSP" firstAttribute="top" secondItem="Ecv-nF-oEg" secondAttribute="top" constant="16" id="swN-cT-cuT"/>
+                                                <constraint firstItem="CR9-BS-JDX" firstAttribute="width" secondItem="CR9-BS-JDX" secondAttribute="height" multiplier="1:1" id="wn2-L6-hfI"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="accessoryImageView" destination="2Ry-5I-azT" id="oJJ-wn-fob"/>
+                                            <outlet property="descriptionImageView" destination="CR9-BS-JDX" id="lsM-cT-tUG"/>
+                                            <outlet property="titleLabel" destination="ho4-PX-ZSP" id="N1d-Dv-8FI"/>
                                             <segue destination="wlv-EI-kwn" kind="show" id="SdT-H3-LOs"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="AddListsCell" rowHeight="107" id="8fM-S5-1xX">
-                                        <frame key="frameInset" minY="72" width="375" height="107"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="AddListsCell" rowHeight="107" id="8fM-S5-1xX" customClass="SettingsTableViewCell" customModule="_" customModuleProvider="target">
+                                        <frame key="frameInset" minY="113" width="375" height="107"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="8fM-S5-1xX" id="y0B-lk-uvu">
-                                            <frame key="frameInset" width="342" height="106"/>
+                                            <frame key="frameInset" width="375" height="106"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Add pre-made lists" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xrm-qi-n1P">
@@ -58,23 +79,44 @@
                                                     <color key="textColor" red="0.1137254902" green="0.1137254902" blue="0.1137254902" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ForwardArrow" translatesAutoresizingMaskIntoConstraints="NO" id="e9w-rQ-9Wa">
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" secondItem="e9w-rQ-9Wa" secondAttribute="height" multiplier="1:1" id="Dyn-oP-Cid"/>
+                                                        <constraint firstAttribute="width" constant="14" id="Jct-Uh-06j"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AddPremade" translatesAutoresizingMaskIntoConstraints="NO" id="5dq-GQ-Utn">
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" secondItem="5dq-GQ-Utn" secondAttribute="height" multiplier="1:1" id="5Bg-3A-BR5"/>
+                                                        <constraint firstAttribute="width" constant="44" id="Wj7-Rn-eJ5"/>
+                                                    </constraints>
+                                                </imageView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="xrm-qi-n1P" firstAttribute="leading" secondItem="y0B-lk-uvu" secondAttribute="leading" constant="16" id="E9N-cp-Cl6"/>
+                                                <constraint firstItem="e9w-rQ-9Wa" firstAttribute="leading" secondItem="xrm-qi-n1P" secondAttribute="trailing" constant="8" id="4d6-PQ-QWD"/>
                                                 <constraint firstItem="xrm-qi-n1P" firstAttribute="top" secondItem="y0B-lk-uvu" secondAttribute="top" constant="16" id="Fk6-Ry-xMb"/>
+                                                <constraint firstItem="xrm-qi-n1P" firstAttribute="leading" secondItem="5dq-GQ-Utn" secondAttribute="trailing" constant="8" id="Ilq-WK-mbg"/>
+                                                <constraint firstItem="e9w-rQ-9Wa" firstAttribute="width" secondItem="e9w-rQ-9Wa" secondAttribute="height" multiplier="1:1" id="Iro-nG-6fH"/>
+                                                <constraint firstItem="5dq-GQ-Utn" firstAttribute="width" secondItem="5dq-GQ-Utn" secondAttribute="height" multiplier="1:1" id="aIH-OW-DM8"/>
                                                 <constraint firstAttribute="bottom" secondItem="xrm-qi-n1P" secondAttribute="bottom" constant="16" id="cGg-st-2AE"/>
-                                                <constraint firstAttribute="trailing" secondItem="xrm-qi-n1P" secondAttribute="trailing" constant="16" id="o4F-7e-WK4"/>
+                                                <constraint firstItem="5dq-GQ-Utn" firstAttribute="centerY" secondItem="xrm-qi-n1P" secondAttribute="centerY" id="cvn-UM-U9V"/>
+                                                <constraint firstItem="5dq-GQ-Utn" firstAttribute="leading" secondItem="y0B-lk-uvu" secondAttribute="leading" constant="16" id="lqU-WI-vwE"/>
+                                                <constraint firstItem="e9w-rQ-9Wa" firstAttribute="centerY" secondItem="xrm-qi-n1P" secondAttribute="centerY" id="lvO-pO-8x2"/>
+                                                <constraint firstAttribute="trailing" secondItem="e9w-rQ-9Wa" secondAttribute="trailing" constant="16" id="zLO-pB-CRr"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="accessoryImageView" destination="e9w-rQ-9Wa" id="jRr-fF-CkC"/>
+                                            <outlet property="descriptionImageView" destination="5dq-GQ-Utn" id="7bb-8z-aG1"/>
+                                            <outlet property="titleLabel" destination="xrm-qi-n1P" id="Tbz-N8-ovT"/>
                                             <segue destination="Fgi-NN-G6L" kind="show" id="166-zP-sBX"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="iCloudCell" id="M63-lN-T2k" customClass="SyncingTableViewCell" customModule="_" customModuleProvider="target">
-                                        <frame key="frameInset" minY="179" width="375" height="44"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="iCloudCell" rowHeight="65" id="M63-lN-T2k" customClass="SyncingTableViewCell" customModule="_" customModuleProvider="target">
+                                        <frame key="frameInset" minY="220" width="375" height="65"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="M63-lN-T2k" id="hVl-eV-8vX">
-                                            <frame key="frameInset" width="375" height="43"/>
+                                            <frame key="frameInset" width="375" height="64"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sync iCloud" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bJC-0a-m7w">
@@ -88,18 +130,28 @@
                                                         <constraint firstAttribute="height" constant="20" id="it6-wq-4CF"/>
                                                     </constraints>
                                                 </activityIndicatorView>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Sync" translatesAutoresizingMaskIntoConstraints="NO" id="HtG-X1-Abu">
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" secondItem="HtG-X1-Abu" secondAttribute="height" multiplier="1:1" id="CBS-Nj-uQt"/>
+                                                        <constraint firstAttribute="width" constant="44" id="I4q-lJ-43i"/>
+                                                    </constraints>
+                                                </imageView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="bJC-0a-m7w" firstAttribute="leading" secondItem="hVl-eV-8vX" secondAttribute="leading" constant="16" id="5kp-5z-3zq"/>
                                                 <constraint firstAttribute="bottom" secondItem="bJC-0a-m7w" secondAttribute="bottom" constant="16" id="9RM-Gp-69r"/>
                                                 <constraint firstAttribute="trailing" secondItem="9aM-mh-B8k" secondAttribute="trailing" constant="16" id="IuW-jY-VG5"/>
+                                                <constraint firstItem="bJC-0a-m7w" firstAttribute="leading" secondItem="HtG-X1-Abu" secondAttribute="trailing" constant="8" id="W8N-d0-K14"/>
                                                 <constraint firstAttribute="trailing" secondItem="bJC-0a-m7w" secondAttribute="trailing" constant="16" id="eiy-Y3-0x2"/>
+                                                <constraint firstItem="HtG-X1-Abu" firstAttribute="leading" secondItem="hVl-eV-8vX" secondAttribute="leading" constant="16" id="guM-UA-LTl"/>
                                                 <constraint firstItem="9aM-mh-B8k" firstAttribute="centerY" secondItem="bJC-0a-m7w" secondAttribute="centerY" id="m4I-7A-BGJ"/>
                                                 <constraint firstItem="bJC-0a-m7w" firstAttribute="top" secondItem="hVl-eV-8vX" secondAttribute="top" constant="16" id="pVS-sa-swC"/>
+                                                <constraint firstItem="HtG-X1-Abu" firstAttribute="centerY" secondItem="bJC-0a-m7w" secondAttribute="centerY" id="uHw-z9-B75"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="activityIndicator" destination="9aM-mh-B8k" id="itn-RG-owA"/>
+                                            <outlet property="descriptionImageView" destination="HtG-X1-Abu" id="Xvo-6Z-YXY"/>
+                                            <outlet property="titleLabel" destination="bJC-0a-m7w" id="2VB-cb-iEz"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -277,7 +329,7 @@
                                         <frame key="frameInset" minY="28" width="375" height="96"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="nz6-i7-GsZ" id="mnC-PA-eDN">
-                                            <frame key="frameInset" width="375" height="95"/>
+                                            <frame key="frameInset" width="375" height="95.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PDL-Ty-Mcj">
@@ -369,7 +421,11 @@
         </scene>
     </scenes>
     <resources>
+        <image name="About" width="48" height="48"/>
+        <image name="AddPremade" width="48" height="48"/>
+        <image name="ForwardArrow" width="48" height="48"/>
         <image name="SortingAnimation_100" width="68" height="68"/>
+        <image name="Sync" width="48" height="48"/>
     </resources>
     <color key="tintColor" red="1" green="0.1019607843" blue="0.45098039220000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>

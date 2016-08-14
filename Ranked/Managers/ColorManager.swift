@@ -50,6 +50,7 @@ extension UIColor {
         return UIColor(red: 31/255, green: 31/255, blue: 31/255, alpha: 1.0)
     }
     
+    
     public class func secondColor() -> UIColor {
         
         return UIColor(red: 103/255, green: 169/255, blue: 178/255, alpha: 1.0)
@@ -70,6 +71,56 @@ extension UIColor {
         //return UIColor(red: 226/255, green: 47/255, blue: 117/255, alpha: 1.0)
         return UIColor(red: 66/255, green: 77/255, blue: 116/255, alpha: 1.0)
 
+    }
+    
+    public class func first() -> UIColor {
+        
+        return UIColor.primaryColor()
+    }
+    
+    public class func second() -> UIColor {
+        
+        return UIColor(red: 0.87, green: 0.22, blue: 0.48, alpha: 1.0)
+    }
+    
+    public class func third() -> UIColor {
+        
+        return UIColor(red: 0.74, green: 0.36, blue: 0.55, alpha: 1.0)
+    }
+    
+    public class func fourth() -> UIColor {
+        
+        return UIColor(red: 0.61, green: 0.51, blue: 0.63, alpha: 1.0)
+    }
+    
+    public class func fifth() -> UIColor {
+        
+        return UIColor(red: 0.49, green: 0.67, blue: 0.71, alpha: 1.0)
+    }
+    
+    public class func sixth() -> UIColor {
+        
+        return UIColor.secondaryColor()
+    }
+    
+    public class func seventh() -> UIColor {
+        
+        return UIColor(red: 0.27, green: 0.74, blue: 0.67, alpha: 1.0)
+    }
+    
+    public class func eighth() -> UIColor {
+        
+        return UIColor(red: 0.22, green: 0.69, blue: 0.61, alpha: 1.0)
+    }
+    
+    public class func ninth() -> UIColor {
+        
+        return UIColor(red: 0.16, green: 0.64, blue: 0.55, alpha: 1.0)
+    }
+    
+    public class func tenth() -> UIColor {
+        
+        return UIColor(red: 0.12, green: 0.59, blue: 0.49, alpha: 1.0)
     }
     
     public class func blockPreferredColor() -> UIColor {
