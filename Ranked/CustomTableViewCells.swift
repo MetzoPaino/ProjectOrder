@@ -168,7 +168,7 @@ class AddItemTableViewCell: UITableViewCell {
         textField.delegate = self
         textField.attributedPlaceholder = AttributedString(string: textField.placeholder!, attributes: [NSForegroundColorAttributeName: UIColor.backgroundColor()])
         
-        circleView.backgroundColor = .disabledColor()
+        circleView.backgroundColor = .primaryColor()
         circleView.layer.cornerRadius = circleViewWidthConstraint.constant / 2
         circleView.clipsToBounds = true
         
@@ -222,10 +222,17 @@ class SettingsTableViewCell: UITableViewCell {
 
     func configureCell() {
         
-        titleLabel.textColor = .headingColor()
-
+        if isHighlighted {
+            titleLabel.textColor = .white()
+            
+        } else {
+            titleLabel.textColor = .headingColor()
+        }
+        
         let backgroundView = UIView()
         backgroundView.backgroundColor = .secondaryColor()
         selectedBackgroundView = backgroundView
+        
+
     }
 }

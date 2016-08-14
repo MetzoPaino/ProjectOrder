@@ -52,7 +52,7 @@ class ItemsViewController: UIViewController, Injectable {
     
     let tapGesture = UITapGestureRecognizer()
     
-    let editingCellOrder = [CellType.title, CellType.description, CellType.padding, CellType.addItem]
+    let editingCellOrder = [CellType.title, CellType.description, CellType.addItem]
     //let editingCellOrder = [CellType.title, CellType.description, CellType.addItem]
 
     var displayCellOrder = [CellType]()
@@ -667,8 +667,8 @@ extension TableViewDataSource: UITableViewDataSource {
                     cellCounter = cellCounter + 1
                     displayCellOrder.append(CellType.description)
                 }
-                cellCounter = cellCounter + 1
-                displayCellOrder.append(CellType.padding)
+//                cellCounter = cellCounter + 1
+//                displayCellOrder.append(CellType.padding)
             }
             
             return cellCounter
@@ -997,12 +997,12 @@ extension ItemsViewController {
     
     @objc(tableView:heightForRowAtIndexPath:) func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
-        if (indexPath as NSIndexPath).section == 0 && (indexPath as NSIndexPath).row == 0 {
-            
-            if collection.image != nil || inEditingMode == true || inEditingMode == nil {
-                return 96
-            }
-        }
+//        if (indexPath as NSIndexPath).section == 0 && (indexPath as NSIndexPath).row == 0 {
+//            
+//            if collection.image != nil || inEditingMode == true || inEditingMode == nil {
+//                return 96
+//            }
+//        }
         
         return UITableViewAutomaticDimension
     }
@@ -1069,7 +1069,7 @@ extension ItemsViewController {
             
             cell.label.text = text
             cell.label.textColor = .subHeadingColor()
-            
+
         } else {
             cell.label.text = "Description"
             cell.label.textColor = .backgroundColor()

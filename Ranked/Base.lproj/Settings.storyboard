@@ -7,7 +7,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Settings-->
+        <!--Settings View Controller-->
         <scene sceneID="H8K-s4-My7">
             <objects>
                 <viewController automaticallyAdjustsScrollViewInsets="NO" id="CI7-K8-7VF" customClass="SettingsViewController" customModule="_" customModuleProvider="target" sceneMemberID="viewController">
@@ -169,7 +169,7 @@
                             <constraint firstItem="3Jz-Gh-42b" firstAttribute="top" secondItem="bcD-4b-fcV" secondAttribute="bottom" id="uit-34-vAw"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Settings" id="M9g-We-xCM">
+                    <navigationItem key="navigationItem" id="M9g-We-xCM">
                         <barButtonItem key="leftBarButtonItem" systemItem="stop" id="7J4-jV-5FM">
                             <connections>
                                 <action selector="closeBarButtonPressed:" destination="CI7-K8-7VF" id="04b-14-oz3"/>
@@ -185,7 +185,7 @@
             </objects>
             <point key="canvasLocation" x="3360.8000000000002" y="-2283.5082458770617"/>
         </scene>
-        <!--About-->
+        <!--About View Controller-->
         <scene sceneID="wBv-5G-z4w">
             <objects>
                 <viewController id="wlv-EI-kwn" customClass="AboutViewController" customModule="_" customModuleProvider="target" sceneMemberID="viewController">
@@ -292,7 +292,7 @@
                             <constraint firstItem="7fU-62-caw" firstAttribute="centerX" secondItem="kld-0o-Jow" secondAttribute="centerX" id="z5l-mc-fRY"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="About" id="dGc-zN-TVV"/>
+                    <navigationItem key="navigationItem" id="dGc-zN-TVV"/>
                     <connections>
                         <outlet property="bottomButton" destination="LW0-4o-At2" id="47s-JV-MwD"/>
                         <outlet property="imageView" destination="ytx-2x-k7G" id="7Iv-8d-4pe"/>
@@ -310,7 +310,7 @@
             </objects>
             <point key="canvasLocation" x="4032" y="-2283"/>
         </scene>
-        <!--Premade Lists-->
+        <!--Add Lists View Controller-->
         <scene sceneID="WLR-Ru-FbS">
             <objects>
                 <viewController automaticallyAdjustsScrollViewInsets="NO" id="Fgi-NN-G6L" customClass="AddListsViewController" customModule="_" customModuleProvider="target" sceneMemberID="viewController">
@@ -391,7 +391,7 @@
                             <constraint firstItem="ZDf-7V-Ocd" firstAttribute="width" secondItem="ZDf-7V-Ocd" secondAttribute="height" multiplier="1:1" id="t57-OY-VgD"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Premade Lists" id="aEh-tc-iNS"/>
+                    <navigationItem key="navigationItem" id="aEh-tc-iNS"/>
                     <connections>
                         <outlet property="doneButton" destination="ZDf-7V-Ocd" id="Q1g-62-E9O"/>
                         <outlet property="tableView" destination="hE9-RU-8FN" id="4ty-VB-Ip5"/>

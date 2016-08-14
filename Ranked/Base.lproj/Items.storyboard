@@ -64,9 +64,9 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="wQB-2z-5h8" firstAttribute="leading" secondItem="GOf-zs-mhE" secondAttribute="leading" constant="16" id="EqX-0C-gYr"/>
-                                                <constraint firstItem="wQB-2z-5h8" firstAttribute="top" secondItem="GOf-zs-mhE" secondAttribute="top" constant="4" id="az8-10-Cet"/>
+                                                <constraint firstItem="wQB-2z-5h8" firstAttribute="top" secondItem="GOf-zs-mhE" secondAttribute="top" constant="8" id="az8-10-Cet"/>
                                                 <constraint firstAttribute="trailing" secondItem="wQB-2z-5h8" secondAttribute="trailing" constant="16" id="b1H-oo-QVN"/>
-                                                <constraint firstAttribute="bottom" secondItem="wQB-2z-5h8" secondAttribute="bottom" constant="4" id="dpt-cR-s1x"/>
+                                                <constraint firstAttribute="bottom" secondItem="wQB-2z-5h8" secondAttribute="bottom" constant="8" id="dpt-cR-s1x"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -81,7 +81,7 @@
                                             <frame key="frameInset" width="375" height="110"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Add Item" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="aow-7k-eef">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Add" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="aow-7k-eef">
                                                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done" enablesReturnKeyAutomatically="YES"/>
@@ -105,7 +105,7 @@
                                                         <constraint firstItem="qTl-kc-CeI" firstAttribute="height" secondItem="UvR-Kj-mjB" secondAttribute="height" id="cZB-tb-yZH"/>
                                                         <constraint firstItem="cbK-Gg-gli" firstAttribute="centerX" secondItem="UvR-Kj-mjB" secondAttribute="centerX" id="cgK-AS-CAq"/>
                                                         <constraint firstAttribute="width" secondItem="UvR-Kj-mjB" secondAttribute="height" multiplier="1:1" id="sXi-6h-tWV"/>
-                                                        <constraint firstAttribute="width" constant="48" id="ssU-BJ-c3z"/>
+                                                        <constraint firstAttribute="width" constant="32" id="ssU-BJ-c3z"/>
                                                         <constraint firstItem="cbK-Gg-gli" firstAttribute="centerY" secondItem="UvR-Kj-mjB" secondAttribute="centerY" id="vrC-NT-X8K"/>
                                                     </constraints>
                                                 </view>

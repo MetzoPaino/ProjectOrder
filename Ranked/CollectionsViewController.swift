@@ -67,6 +67,7 @@ class CollectionsViewController: UIViewController, Injectable {
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.isTranslucent = false
         navigationController?.view.backgroundColor = UIColor.white()
+
         navigationController?.navigationBar.tintColor = .primaryColor()
     }
     
@@ -306,6 +307,8 @@ extension TableViewDataSource: UITableViewDataSource {
                 } else {
                     cell.titleLabel.textColor = .headingColor()
                     cell.descriptionLabel.textColor = .subHeadingColor()
+                    cell.descriptionLabel.textColor = .primaryColor()
+
                 }
                 
                 if let image = collection.image {

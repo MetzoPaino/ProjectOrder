@@ -51,7 +51,7 @@ class SettingsViewController: UIViewController {
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 88
         tableView.tableFooterView = UIView()
-        tableView.separatorInset = UIEdgeInsetsZero
+        //tableView.separatorInset = UIEdgeInsetsZero
         tableView.separatorColor = .backgroundColor()
         tableView.backgroundColor = .white()
     }
@@ -97,8 +97,7 @@ extension SettingsViewController: UITableViewDelegate {
             tableView.reloadData()
         }
 
-
-        tableView.deselectRow(at: indexPath, animated: true)
+        tableView.deselectRow(at: indexPath, animated: false)
     }
     
     func tableView(_ tableView: UITableView, didHighlightRowAt indexPath: IndexPath) {
