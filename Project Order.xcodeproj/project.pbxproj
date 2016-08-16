@@ -28,6 +28,7 @@
 		0A7B50811CE74BA30083CCCF /* AddListsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7B50801CE74BA30083CCCF /* AddListsViewController.swift */; };
 		0A98C1471CB15D9B00BF7252 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A98C1451CB15D9B00BF7252 /* Settings.storyboard */; };
 		0A9A16811C5CDD260000E436 /* TournamentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9A16801C5CDD260000E436 /* TournamentManager.swift */; };
+		0ABB02E51D624079000E7246 /* Flags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABB02E41D624079000E7246 /* Flags.swift */; };
 		0ADF5C0E1CBA9D7400BC74AA /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADF5C0D1CBA9D7400BC74AA /* Helpers.swift */; };
 		0AE0C83C1CC2AD960085FE30 /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE0C83B1CC2AD960085FE30 /* LaunchViewController.swift */; };
 		0AE9C1351D05A6060069CDF3 /* Tarantino.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE9C1341D05A6060069CDF3 /* Tarantino.swift */; };
@@ -64,6 +65,7 @@
 		0A7B50801CE74BA30083CCCF /* AddListsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AddListsViewController.swift; path = Settings/AddListsViewController.swift; sourceTree = "<group>"; };
 		0A98C1461CB15D9B00BF7252 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Settings.storyboard; sourceTree = "<group>"; };
 		0A9A16801C5CDD260000E436 /* TournamentManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TournamentManager.swift; sourceTree = "<group>"; };
+		0ABB02E41D624079000E7246 /* Flags.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Flags.swift; path = PremadeCollections/Flags.swift; sourceTree = "<group>"; };
 		0ADF5C0D1CBA9D7400BC74AA /* Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Helpers.swift; path = Helpers/Helpers.swift; sourceTree = "<group>"; };
 		0AE0C83B1CC2AD960085FE30 /* LaunchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
 		0AE9C1341D05A6060069CDF3 /* Tarantino.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Tarantino.swift; path = PremadeCollections/Tarantino.swift; sourceTree = "<group>"; };
@@ -107,6 +109,7 @@
 				0A22D63A1CF1C626005B82EC /* FinalFantasy.swift */,
 				0AE9C1341D05A6060069CDF3 /* Tarantino.swift */,
 				0A4EC11C1D15BDAC00D6A6EF /* StarWars.swift */,
+				0ABB02E41D624079000E7246 /* Flags.swift */,
 			);
 			name = Managers;
 			sourceTree = "<group>";
@@ -296,6 +299,7 @@
 				0A04E6AB1CB9455B006A80E5 /* DataManager.swift in Sources */,
 				0A9A16811C5CDD260000E436 /* TournamentManager.swift in Sources */,
 				0AF64FB31C4A8294003F8519 /* CollectionsViewController.swift in Sources */,
+				0ABB02E51D624079000E7246 /* Flags.swift in Sources */,
 				0A2535861C52BFF100579102 /* SortingViewController.swift in Sources */,
 				0A4EC11A1D158DAF00D6A6EF /* CloudKitRecordMaker.swift in Sources */,
 				0A47D52A1C6642F200DC7296 /* ItemsViewController.swift in Sources */,
@@ -469,7 +473,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Ranked/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = me.williamrobinson.greaterthan;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -487,7 +491,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = Ranked/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = me.williamrobinson.greaterthan;
 				PRODUCT_NAME = "$(TARGET_NAME)";

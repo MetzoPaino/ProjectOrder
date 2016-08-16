@@ -278,7 +278,7 @@ extension TableViewDataSource: UITableViewDataSource {
         } else {
             
             showGetStartedView = false
-            //toggleGetStarted()
+            toggleGetStarted()
         }
         return dataManager.collections.count
     }
@@ -531,6 +531,7 @@ extension CollectionsViewController: GetStartedViewControllerDelegate {
         }
         
         showGetStartedView = false
+        showingGetStartedView = false
         toggleGetStarted()
         
         let lastRow = tableView.numberOfRows(inSection: 0)

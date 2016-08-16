@@ -129,7 +129,11 @@ class AboutViewController: UIViewController {
         }
         
         if UIApplication.shared().canOpenURL(url) {
-            UIApplication.shared().open(url, options: [:], completionHandler: nil)
+            if #available(iOS 10.0, *) {
+                UIApplication.shared().open(url, options: [:], completionHandler: nil)
+            } else {
+                // Fallback on earlier versions
+            }
         } else {
             
             if sender.tag == 0 {
@@ -142,7 +146,11 @@ class AboutViewController: UIViewController {
                 // Robyn
                 url = URL(string: "https://www.twitter.com/greenseaweed")!
             }
-            UIApplication.shared().open(url, options: [:], completionHandler: nil)
+            if #available(iOS 10.0, *) {
+                UIApplication.shared().open(url, options: [:], completionHandler: nil)
+            } else {
+                // Fallback on earlier versions
+            }
         }
     }
 }

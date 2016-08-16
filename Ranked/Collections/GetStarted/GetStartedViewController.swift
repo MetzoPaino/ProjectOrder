@@ -107,7 +107,7 @@ class GetStartedViewController: UIViewController {
             
             view.layer.cornerRadius = 12
             view.layer.masksToBounds = true
-            view.backgroundColor = .blockNeutralColor()
+            view.backgroundColor = .secondaryColor()
 
             view.layer.shadowColor = UIColor.black().cgColor;
             view.layer.shadowOpacity = 0.25
@@ -187,7 +187,7 @@ class GetStartedViewController: UIViewController {
             
             UIView.animate(withDuration: 0.25, animations: { 
                 
-                self.doneButton.backgroundColor = .secondaryColor()
+                self.doneButton.backgroundColor = .primaryColor()
                 self.doneButton.isUserInteractionEnabled = true
                 self.doneButton.tintColor = .white()
             })
@@ -241,9 +241,9 @@ class GetStartedViewController: UIViewController {
             self.pickOptions()
             self.updateOptions()
             
-            self.option1View.backgroundColor = .blockNeutralColor()
-            self.option2View.backgroundColor = .blockNeutralColor()
-            self.option3View.backgroundColor = .blockNeutralColor()
+            self.option1View.backgroundColor = .secondaryColor()
+            self.option2View.backgroundColor = .secondaryColor()
+            self.option3View.backgroundColor = .secondaryColor()
             
             self.option1CenterConstraint.constant = 0
             self.option2CenterConstraint.constant = 0
@@ -266,7 +266,7 @@ class GetStartedViewController: UIViewController {
         doneButtonBottomConstraint.constant = 16
         refreshButtonBottomConstraint.constant = 16
         
-        UIView.animate(withDuration: 0.5, delay: 2.5, usingSpringWithDamping: 0.75, initialSpringVelocity: 1.0, options: UIViewAnimationOptions(), animations: { () -> Void in
+        UIView.animate(withDuration: 0.5, delay: 0.5, usingSpringWithDamping: 0.75, initialSpringVelocity: 1.0, options: UIViewAnimationOptions(), animations: { () -> Void in
             
             self.infoLabel.alpha = 1
             self.view.layoutIfNeeded()
@@ -299,7 +299,7 @@ class GetStartedViewController: UIViewController {
         
         UIView.animate(withDuration: 0.25, delay: 0.0, options: UIViewAnimationOptions.curveLinear, animations: {
             
-            selectedView.backgroundColor = .blockPreferredColor()
+            selectedView.backgroundColor = .primaryColor()
             
         }, completion: nil)
         
@@ -333,9 +333,9 @@ class GetStartedViewController: UIViewController {
                 self.pickOptions()
                 self.updateOptions()
                 
-                self.option1View.backgroundColor = .blockNeutralColor()
-                self.option2View.backgroundColor = .blockNeutralColor()
-                self.option3View.backgroundColor = .blockNeutralColor()
+                self.option1View.backgroundColor = .secondaryColor()
+                self.option2View.backgroundColor = .secondaryColor()
+                self.option3View.backgroundColor = .secondaryColor()
                 
                 self.option1CenterConstraint.constant = 0
                 self.option2CenterConstraint.constant = 0
