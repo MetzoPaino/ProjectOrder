@@ -148,11 +148,11 @@ extension UIColor {
     
     public class func sortingNeutralBackgroundColor() -> UIColor {
         
-        return .white()
+        return .white
     }
     
     public class func sortingPreferredBackgroundColor() -> UIColor {
-        return .white()
+        return .white
 
 //        return UIColor(red: 230/255, green: 252/255, blue: 252/255, alpha: 1.0)
     }
@@ -183,7 +183,7 @@ extension UIColor {
 
         } else {
             
-            return .white()
+            return .white
         }
     }
 }

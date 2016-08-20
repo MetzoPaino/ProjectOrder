@@ -76,12 +76,19 @@ class LaunchViewController: UIViewController, CAAnimationDelegate, Injectable {
     
     // MARK: - Navigation
 
-    override func prepare(for segue: UIStoryboardSegue, sender: AnyObject?) {
-        
-        if let navigationController = segue.destinationViewController as? UINavigationController {
-    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let navigationController = segue.destination as? UINavigationController {
+            
             let controller = navigationController.topViewController as! CollectionsViewController
-                controller.inject(dataManager)
-            }
+            controller.inject(dataManager)
+        }
     }
+//    func prepare(for segue: UIStoryboardSegue, sender: AnyObject?) {
+//        
+//        if let navigationController = segue.destination as? UINavigationController {
+//    
+//            let controller = navigationController.topViewController as! CollectionsViewController
+//                controller.inject(dataManager)
+//            }
+//    }
 }

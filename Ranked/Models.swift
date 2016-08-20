@@ -149,10 +149,10 @@ class CollectionModel: NSObject, NSCoding {
         
         switch sortType {
         case .date:
-            self.items = self.items.sorted(isOrderedBefore: { $0.dateCreated < $1.dateCreated })
+            self.items = self.items.sorted(by: { $0.dateCreated < $1.dateCreated })
             break
         case .score:
-            self.items = self.items.sorted(isOrderedBefore: { $0.score > $1.score })
+            self.items = self.items.sorted(by: { $0.score! > $1.score! })
             break
         }
     }

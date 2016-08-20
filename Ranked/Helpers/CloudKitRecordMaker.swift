@@ -29,8 +29,8 @@ extension CloudKitManager {
         }
         
         if let asset = record["Image"] as? CKAsset,
-            data = try? Data(contentsOf: asset.fileURL),
-            image = UIImage(data: data) {
+            let data = try? Data(contentsOf: asset.fileURL),
+            let image = UIImage(data: data) {
             item.image = image
         }
         
@@ -40,8 +40,8 @@ extension CloudKitManager {
     func createRecordFromItemInCollection(item: ItemModel, collection: CollectionModel) -> (CKRecord) {
         
         let record = item.record
-        record.setObject(item.text, forKey: "Name")
-        record.setObject(item.dateCreated, forKey: "DateCreated")
+        record.setObject(item.text as CKRecordValue?, forKey: "Name")
+        record.setObject(item.dateCreated as CKRecordValue?, forKey: "DateCreated")
         
         if let image = item.image {
             
@@ -60,7 +60,7 @@ extension CloudKitManager {
         }
         
         if let score = item.score {
-            record.setObject(score, forKey: "Score")
+            record.setObject(score as CKRecordValue?, forKey: "Score")
         }
         
         let reference = CKReference(record: collection.record, action: .deleteSelf)

@@ -35,7 +35,7 @@ class AboutViewController: UIViewController {
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.isTranslucent = false
-        navigationController?.view.backgroundColor = UIColor.white()
+        navigationController?.view.backgroundColor = UIColor.white
         navigationController?.navigationBar.tintColor = .primaryColor()
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.primaryColor()]
     }
@@ -56,15 +56,15 @@ class AboutViewController: UIViewController {
         
         let nameAttributes = [NSForegroundColorAttributeName: UIColor.headingColor(), NSFontAttributeName: UIFont.systemFont(ofSize: 22, weight: UIFontWeightRegular)]
         let linkAttributes = [NSForegroundColorAttributeName: UIColor.primaryColor(), NSFontAttributeName: UIFont.systemFont(ofSize: 16, weight: UIFontWeightLight)]
-        let breakString = AttributedString(string: "\n")
+        let breakString = NSAttributedString(string: "\n")
 
         switch order {
         case 0:
             
-            let topNameString = AttributedString(string: williamString, attributes: nameAttributes)
-            let bottomNameString = AttributedString(string: robynString, attributes: nameAttributes)
-            let topLinkString = AttributedString(string: williamLink, attributes: linkAttributes)
-            let bottomLinkString = AttributedString(string: robynLink, attributes: linkAttributes)
+            let topNameString = NSAttributedString(string: williamString, attributes: nameAttributes)
+            let bottomNameString = NSAttributedString(string: robynString, attributes: nameAttributes)
+            let topLinkString = NSAttributedString(string: williamLink, attributes: linkAttributes)
+            let bottomLinkString = NSAttributedString(string: robynLink, attributes: linkAttributes)
             
             let topString = NSMutableAttributedString(attributedString: topNameString)
             topString.append(breakString)
@@ -85,10 +85,10 @@ class AboutViewController: UIViewController {
 
         default:
             
-            let topNameString = AttributedString(string: robynString, attributes: nameAttributes)
-            let bottomNameString = AttributedString(string: williamString, attributes: nameAttributes)
-            let topLinkString = AttributedString(string: robynLink, attributes: linkAttributes)
-            let bottomLinkString = AttributedString(string: williamLink, attributes: linkAttributes)
+            let topNameString = NSAttributedString(string: robynString, attributes: nameAttributes)
+            let bottomNameString = NSAttributedString(string: williamString, attributes: nameAttributes)
+            let topLinkString = NSAttributedString(string: robynLink, attributes: linkAttributes)
+            let bottomLinkString = NSAttributedString(string: williamLink, attributes: linkAttributes)
             
             let topString = NSMutableAttributedString(attributedString: topNameString)
             topString.append(breakString)
@@ -128,9 +128,9 @@ class AboutViewController: UIViewController {
             url = URL(string: "twitter://user?screen_name=greenseaweed")!
         }
         
-        if UIApplication.shared().canOpenURL(url) {
+        if UIApplication.shared.canOpenURL(url) {
             if #available(iOS 10.0, *) {
-                UIApplication.shared().open(url, options: [:], completionHandler: nil)
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
             } else {
                 // Fallback on earlier versions
             }
@@ -147,7 +147,7 @@ class AboutViewController: UIViewController {
                 url = URL(string: "https://www.twitter.com/greenseaweed")!
             }
             if #available(iOS 10.0, *) {
-                UIApplication.shared().open(url, options: [:], completionHandler: nil)
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
             } else {
                 // Fallback on earlier versions
             }

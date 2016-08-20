@@ -139,13 +139,13 @@ class ItemsViewController: UIViewController, Injectable {
         
         navigationItem.backBarButtonItem?.tintColor = .primaryColor()
         
-        sortButton.tintColor = .white()
+        sortButton.tintColor = .white
         sortButton.layer.cornerRadius = self.sortButtonHeightConstraint.constant / 2
         sortButton.setImage(UIImage(named: "GreaterThan")?.withRenderingMode(.alwaysTemplate), for: UIControlState())
 //        sortButton.imageEdgeInsets = UIEdgeInsetsMake(0, 4, 0, 0)
         sortButton.backgroundColor = .primaryColor()
         
-        sortButton.layer.shadowColor = UIColor.black().cgColor;
+        sortButton.layer.shadowColor = UIColor.black.cgColor;
         sortButton.layer.shadowOpacity = 0.25
         sortButton.layer.shadowRadius = 2
         sortButton.layer.shadowOffset = CGSize(width: 0.0, height: 2.0)
@@ -166,8 +166,8 @@ class ItemsViewController: UIViewController, Injectable {
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 112
         tableView.tableFooterView = UIView()
-        tableView.backgroundColor = .white()
-        tableView.separatorColor = .backgroundColor()
+        tableView.backgroundColor = .white
+        tableView.separatorColor = UIColor.backgroundColor()
         
     }
     
@@ -223,7 +223,7 @@ class ItemsViewController: UIViewController, Injectable {
     
     @IBAction func shareButtonPressed(_ sender: UIBarButtonItem) {
         
-        tableView.backgroundColor = UIColor.white()
+        tableView.backgroundColor = UIColor.white
         
         let fullFrame = CGRect(x: tableView.frame.origin.x, y: tableView.frame.origin.y, width: tableView.frame.size.width, height: tableView.contentSize.height)
         tableView.frame = fullFrame
@@ -239,7 +239,7 @@ class ItemsViewController: UIViewController, Injectable {
         let image:UIImage = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext();
         
-        tableView.backgroundColor = .clear()
+        tableView.backgroundColor = .clear
         
         let activityViewController = UIActivityViewController(activityItems: [image], applicationActivities: nil)
         navigationController?.present(activityViewController, animated: true) {
@@ -300,11 +300,11 @@ class ItemsViewController: UIViewController, Injectable {
     
     // MARK: - Navigation
     
-    override func prepare(for segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         view.endEditing(true)
         
-        if let controller = segue.destinationViewController as? DescriptionViewController {
+        if let controller = segue.destination as? DescriptionViewController {
             
             controller.delegate = self
 
@@ -344,13 +344,13 @@ class ItemsViewController: UIViewController, Injectable {
             backItem.title = ""
             navigationItem.backBarButtonItem = backItem
             
-        } else if let navigationController = segue.destinationViewController as? UINavigationController, let controller = navigationController.topViewController as? SortingViewController {
+        } else if let navigationController = segue.destination as? UINavigationController, let controller = navigationController.topViewController as? SortingViewController {
             
             navigationController.navigationBar.setBackgroundImage(nil, for: UIBarMetrics.default)
             navigationController.navigationBar.shadowImage = nil
             navigationController.navigationBar.isTranslucent = false
-            navigationController.view.backgroundColor = UIColor.white()
-            navigationController.navigationBar.tintColor = .black()
+            navigationController.view.backgroundColor = UIColor.white
+            navigationController.navigationBar.tintColor = .black
         
             if let image = collection.image {
                 controller.image = image
@@ -507,7 +507,7 @@ extension ItemsViewController: SortingViewControllerDelegate {
 //            
 //            item.sorted = true
 //        }
-        collection.items = items.sorted(isOrderedBefore: { $0.score > $1.score })
+        collection.items = items.sorted(by: { $0.score! > $1.score! })
         
         tableView.reloadData()
         self.delegate?.sortingFinished(collection: collection)
@@ -560,11 +560,11 @@ extension TableViewDelegate: UITableViewDelegate {
         
         if let cell = tableView.cellForRow(at: indexPath) as? TitleCell {
             
-            cell.label.textColor = .white()
+            cell.label.textColor = .white
             
         } else if let cell = tableView.cellForRow(at: indexPath) as? DescriptionCell {
             
-            cell.label.textColor = .white()
+            cell.label.textColor = .white
         }
     }
     
@@ -808,7 +808,7 @@ extension TableViewDataSource: UITableViewDataSource {
 
         cell.numberLabel.text = "\((indexPath as NSIndexPath).row + 1)"
         cell.numberLabel.isHidden = false
-        cell.numberLabel.textColor = .white()
+        cell.numberLabel.textColor = .white
         
         // Circle image
         
@@ -960,8 +960,8 @@ extension TableViewDataSource: UITableViewDataSource {
         
         cell.addButton.isHidden = false
         cell.addButton.imageView!.image = UIImage(named: "PlusButton" )!.withRenderingMode(.alwaysTemplate)
-        cell.addButton.imageView!.tintColor = .white()
-        cell.addButton.tintColor = .white()
+        cell.addButton.imageView!.tintColor = .white
+        cell.addButton.tintColor = .white
         cell.addButton.tag = indexPath.row
                 
         return cell
@@ -984,7 +984,7 @@ extension ItemsViewController {
             
             cell.button.isHidden = false
             cell.button.imageView!.image = UIImage(named: "PlusButton" )?.withRenderingMode(.alwaysTemplate)
-            cell.button.imageView!.tintColor = .white()
+            cell.button.imageView!.tintColor = .white
         } else {
             cell.button.isHidden = true
         }
@@ -1019,7 +1019,7 @@ extension ItemsViewController {
             cell.label.text = "Title"
             
             if cell.isHighlighted {
-                cell.label.textColor = .white()
+                cell.label.textColor = .white
                 
             } else {
                 cell.label.textColor = .backgroundColor()
@@ -1082,12 +1082,12 @@ extension ItemsViewController {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "AddItemCell", for: indexPath) as! AddItemTableViewCell
         cell.delegate = self
-        cell.button.imageView!.tintColor = .white()
+        cell.button.imageView!.tintColor = .white
         cell.button.isUserInteractionEnabled = false
         cell.configureCell()
         
         cell.addImageView.image = UIImage(named: "PlusButton")?.withRenderingMode(.alwaysTemplate)
-        cell.addImageView.tintColor = .white()
+        cell.addImageView.tintColor = .white
         
         cell.selectionStyle = .none
         cell.layoutMargins = UIEdgeInsetsMake(0, 64, 0, 0);

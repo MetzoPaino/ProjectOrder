@@ -25,7 +25,7 @@ class CollectionsViewController: UIViewController, Injectable {
     var showingGetStartedView = false
     
     typealias AssociatedObject = DataManager
-    private var dataManager: DataManager!
+    var dataManager: DataManager!
     
     // MARK: - Setup
     
@@ -51,7 +51,7 @@ class CollectionsViewController: UIViewController, Injectable {
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.isTranslucent = false
-        self.navigationController?.view.backgroundColor = UIColor.white()
+        self.navigationController?.view.backgroundColor = UIColor.white
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -66,7 +66,7 @@ class CollectionsViewController: UIViewController, Injectable {
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.isTranslucent = false
-        navigationController?.view.backgroundColor = UIColor.white()
+        navigationController?.view.backgroundColor = UIColor.white
 
         navigationController?.navigationBar.tintColor = .primaryColor()
     }
@@ -85,9 +85,9 @@ class CollectionsViewController: UIViewController, Injectable {
         addButton.backgroundColor = .primaryColor()
         addButton.layer.cornerRadius = self.addButtonHeightConstraint.constant / 2
         addButton.setImage(UIImage(named: "PlusButton" )?.withRenderingMode(.alwaysTemplate), for: UIControlState())
-        addButton.tintColor = .white()
+        addButton.tintColor = .white
 
-        addButton.layer.shadowColor = UIColor.black().cgColor;
+        addButton.layer.shadowColor = UIColor.black.cgColor
         addButton.layer.shadowOpacity = 0.25
         addButton.layer.shadowRadius = 2
         addButton.layer.shadowOffset = CGSize(width: 0.0, height: 2.0)
@@ -103,7 +103,7 @@ class CollectionsViewController: UIViewController, Injectable {
         //tableView.separatorInset = UIEdgeInsetsZero
         tableView.separatorColor = .backgroundColor()
         tableView.backgroundColor = .backgroundColor()
-        tableView.backgroundColor = .white()
+        tableView.backgroundColor = .white
     }
     
     func toggleGetStarted() {
@@ -128,9 +128,9 @@ class CollectionsViewController: UIViewController, Injectable {
 private typealias Navigation = CollectionsViewController
 extension Navigation {
     
-    override func prepare(for segue: UIStoryboardSegue, sender: AnyObject?) {
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        if let controller = segue.destinationViewController as? ItemsViewController {
+        if let controller = segue.destination as? ItemsViewController {
             
             if segue.identifier == "CreateCollection" {
                 
@@ -170,13 +170,13 @@ extension Navigation {
         
         if segue.identifier == "EmbedGetStarted" {
             
-            getStartedViewController = segue.destinationViewController as! GetStartedViewController
+            getStartedViewController = segue.destination as! GetStartedViewController
             getStartedViewController.delegate = self
         }
         
         if segue.identifier == "PresentSettings" {
             
-            let navCon = segue.destinationViewController as! UINavigationController
+            let navCon = segue.destination as! UINavigationController
             let controller = navCon.viewControllers[0] as! SettingsViewController
             controller.delegate = self
             controller.collections = dataManager.collections
@@ -194,10 +194,10 @@ extension TableViewDelegate: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didHighlightRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath) as! CollectionTableViewCell
-        cell.titleLabel.textColor = .white()
+        cell.titleLabel.textColor = .white
         
         if cell.descriptionLabel != nil {
-            cell.descriptionLabel.textColor = .white()
+            cell.descriptionLabel.textColor = .white
         }
 
     }
@@ -293,16 +293,16 @@ extension TableViewDataSource: UITableViewDataSource {
                 
                 let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! CollectionTableViewCell
                 cell.titleLabel.text = collection.name
-                cell.titleLabel.textColor = .white()
+                cell.titleLabel.textColor = .white
                 cell.descriptionLabel.textColor = UIColor.subHeadingColor()
                 //cell.layoutMargins = UIEdgeInsetsZero;
 
-                collection.items = collection.items.sorted(isOrderedBefore: { $0.score > $1.score })
-                cell.descriptionLabel.text = "1. " + collection.items.first!.text
+//                collection.items = collection.items.sorted(by: { $0.score! > $1.score! })
+//                cell.descriptionLabel.text = "1. " + collection.items.first!.text
                 
                 if cell.isHighlighted {
-                    cell.titleLabel.textColor = .white()
-                    cell.descriptionLabel.textColor = .white()
+                    cell.titleLabel.textColor = .white
+                    cell.descriptionLabel.textColor = .white
 
                 } else {
                     cell.titleLabel.textColor = .headingColor()
@@ -335,7 +335,7 @@ extension TableViewDataSource: UITableViewDataSource {
                 //cell.layoutMargins = UIEdgeInsetsMake(0, 64, 0, 0);
                 
                 if cell.isHighlighted {
-                    cell.titleLabel.textColor = .white()
+                    cell.titleLabel.textColor = .white
 
                 } else {
                     cell.titleLabel.textColor = .headingColor()
@@ -491,6 +491,9 @@ extension CollectionsViewController: DataManagerDelegate {
                 self.navigationController?.dismiss(animated: true, completion: {
                 })
             }
+            
+            self.tableView.reloadData()
+
         })
     }
     
@@ -514,6 +517,8 @@ extension CollectionsViewController: DataManagerDelegate {
                 self.navigationController?.dismiss(animated: true, completion: {
                 })
             }
+            
+            self.tableView.reloadData()
         })
     }
 }

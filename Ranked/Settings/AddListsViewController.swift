@@ -32,7 +32,7 @@ class AddListsViewController: UIViewController {
         
         usedRecordNames = createArrayOfUsedPremadeCollectionRecordNames()
         
-        premadeCollections.sort( isOrderedBefore: { $0.name < $1.name })
+        premadeCollections.sort( by: { $0.name < $1.name })
         
         for _ in premadeCollections {
             selectedArray.append(false)
@@ -43,7 +43,7 @@ class AddListsViewController: UIViewController {
         
         doneButton.layer.cornerRadius = 48 / 2
         
-        doneButton.layer.shadowColor = UIColor.black().cgColor;
+        doneButton.layer.shadowColor = UIColor.black.cgColor
         doneButton.layer.shadowOpacity = 0.25
         doneButton.layer.shadowRadius = 2
         doneButton.layer.shadowOffset = CGSize(width: 0.0, height: 2.0)
@@ -59,9 +59,9 @@ class AddListsViewController: UIViewController {
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 88
         tableView.tableFooterView = UIView()
-        tableView.separatorInset = UIEdgeInsetsZero
+        tableView.separatorInset = UIEdgeInsets.zero
         tableView.separatorColor = .backgroundColor()
-        tableView.backgroundColor = .white()
+        tableView.backgroundColor = .white
     }
     
     func createArrayOfUsedPremadeCollectionRecordNames() -> [String] {
@@ -109,7 +109,7 @@ extension AddListsViewController: UITableViewDelegate {
                 
                 self.doneButton.backgroundColor = .primaryColor()
                 self.doneButton.isUserInteractionEnabled = true
-                self.doneButton.tintColor = .white()
+                self.doneButton.tintColor = .white
             })
         } else {
             
@@ -148,10 +148,10 @@ extension AddListsViewController: UITableViewDataSource {
 
         if cell.isSelected {
             cell.backgroundColor = .secondaryColor()
-            cell.titleLabel.textColor = .white()
+            cell.titleLabel.textColor = .white
         } else {
-            cell.backgroundColor = .white()
-            cell.titleLabel.textColor = .black()
+            cell.backgroundColor = .white
+            cell.titleLabel.textColor = .black
         }
         
         cell.isUserInteractionEnabled = true;
@@ -161,7 +161,7 @@ extension AddListsViewController: UITableViewDataSource {
             if string.contains(premadeCollections[(indexPath as NSIndexPath).row].name.trim()) {
                 cell.backgroundColor = .disabledColor()
                 cell.isUserInteractionEnabled = false;
-                cell.titleLabel.textColor = .lightGray()
+                cell.titleLabel.textColor = .lightGray
                 cell.circleImageView.alpha = 0.5
                 break
             }

@@ -12,8 +12,8 @@ class Helper {
     
     static func largestDeviceSide() -> CGFloat {
     
-        let height = UIScreen.main().bounds.height
-        let width = UIScreen.main().bounds.width
+        let height = UIScreen.main.bounds.height
+        let width = UIScreen.main.bounds.width
     
         if height > width {
             return height

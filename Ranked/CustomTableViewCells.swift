@@ -17,7 +17,7 @@ class LabelCell: UITableViewCell {
     
     func configureCell(_ hasImage:Bool) {
         
-        layoutMargins = UIEdgeInsetsZero;
+        layoutMargins = UIEdgeInsets.zero;
         selectionStyle = .none
         
         if hasImage {
@@ -66,7 +66,7 @@ class TitleCell: UITableViewCell {
     @IBOutlet weak var summaryImageView: UIImageView!
     @IBOutlet weak var summaryImageViewHeightConstraint: NSLayoutConstraint!
 
-    let textViewValues = (color: UIColor.black(), placeholderColor: UIColor.lightGray(), placeholderText: "Title")
+    let textViewValues = (color: UIColor.black, placeholderColor: UIColor.lightGray, placeholderText: "Title")
     
     func configureCell() {
         summaryImageView.layer.cornerRadius = 64 / 2
@@ -126,7 +126,7 @@ class UnsortedItemTableViewCell: UITableViewCell {
         //layoutMargins = UIEdgeInsetsZero;
         selectionStyle = .none
         
-        numberLabel.textColor = .white()
+        numberLabel.textColor = .white
         titleLabel.textColor = .titleColor()
 
         if sorted {
@@ -166,14 +166,14 @@ class AddItemTableViewCell: UITableViewCell {
     func configureCell() {
         
         textField.delegate = self
-        textField.attributedPlaceholder = AttributedString(string: textField.placeholder!, attributes: [NSForegroundColorAttributeName: UIColor.backgroundColor()])
+        textField.attributedPlaceholder = NSAttributedString(string: textField.placeholder!, attributes: [NSForegroundColorAttributeName: UIColor.backgroundColor()])
         
         circleView.backgroundColor = .primaryColor()
         circleView.layer.cornerRadius = circleViewWidthConstraint.constant / 2
         circleView.clipsToBounds = true
         
         button.imageView!.image = UIImage(named: "PlusButton" )?.withRenderingMode(.alwaysTemplate)
-        button.imageView!.tintColor = .white()
+        button.imageView!.tintColor = .white
     }
 }
 
@@ -223,7 +223,7 @@ class SettingsTableViewCell: UITableViewCell {
     func configureCell() {
         
         if isHighlighted {
-            titleLabel.textColor = .white()
+            titleLabel.textColor = .white
             
         } else {
             titleLabel.textColor = .headingColor()

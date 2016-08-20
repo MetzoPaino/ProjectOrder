@@ -28,8 +28,8 @@ class SettingsViewController: UIViewController {
         
         styleNavBar()
         styleTableView()
-
-        NotificationCenter.default.addObserver(self, selector: #selector(SettingsViewController.receivedNotification(notification:)), name: "iCloudSyncFinished" as NSNotification.Name, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(SettingsViewController.receivedNotification(notification:)), name: NSNotification.Name(rawValue: "iCloudSyncFinished"), object: nil)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -42,7 +42,7 @@ class SettingsViewController: UIViewController {
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.isTranslucent = false
-        navigationController?.view.backgroundColor = UIColor.white()
+        navigationController?.view.backgroundColor = UIColor.white
         navigationController?.navigationBar.tintColor = .primaryColor()
         navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.primaryColor()]
     }
@@ -53,12 +53,12 @@ class SettingsViewController: UIViewController {
         tableView.tableFooterView = UIView()
         //tableView.separatorInset = UIEdgeInsetsZero
         tableView.separatorColor = .backgroundColor()
-        tableView.backgroundColor = .white()
+        tableView.backgroundColor = .white
     }
     
     func receivedNotification(notification: NSNotification) {
         
-        if notification.name == "iCloudSyncFinished" as NSNotification.Name {
+        if notification.name == NSNotification.Name(rawValue: "iCloudSyncFinished") {
             appIsSyncing = false
             tableView.reloadData()
         }
@@ -66,13 +66,13 @@ class SettingsViewController: UIViewController {
     
     // MARK: - Navigation
 
-    override func prepare(for segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         let backItem = UIBarButtonItem()
         backItem.title = ""
         navigationItem.backBarButtonItem = backItem
         
-        if let controller = segue.destinationViewController as? AddListsViewController {
+        if let controller = segue.destination as? AddListsViewController {
             
             controller.delegate = self
             controller.userCollections = collections
@@ -116,13 +116,13 @@ extension SettingsViewController: UITableViewDelegate {
             default:
                 imageName = ""
             }
-            cell.titleLabel.textColor = .white()
+            cell.titleLabel.textColor = .white
             cell.descriptionImageView.image = UIImage(named:imageName)?.withRenderingMode(.alwaysTemplate)
-            cell.descriptionImageView.tintColor = .white()
+            cell.descriptionImageView.tintColor = .white
             
             if cell.accessoryImageView != nil {
                 cell.accessoryImageView.image = UIImage(named:"ForwardArrow")?.withRenderingMode(.alwaysTemplate)
-                cell.accessoryImageView.tintColor = .white()
+                cell.accessoryImageView.tintColor = .white
             }
 
         }

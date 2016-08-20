@@ -40,9 +40,9 @@ class DescriptionViewController: UIViewController {
         textView.text = providedDescription
         
         if context == .title {
-            textView.font = UIFont.preferredFont(forTextStyle: UIFontTextStyleTitle1)
+            textView.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.title1)
         } else {
-            textView.font = UIFont.preferredFont(forTextStyle: UIFontTextStyleBody)
+            textView.font = UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)
         }
     }
     
@@ -60,7 +60,7 @@ class DescriptionViewController: UIViewController {
         super.viewWillDisappear(animated)
         NotificationCenter.default.removeObserver(self)
         
-        if isMovingFromParentViewController() {
+        if isMovingFromParentViewController {
             
             if context == .title {
                 self.delegate?.newTitle(textView.text)
@@ -76,11 +76,11 @@ class DescriptionViewController: UIViewController {
     
     func receivedKeyboardNotification(_ notification: Notification) {
         
-        let info = (notification as NSNotification).userInfo! as Dictionary
-        
         if notification.name == NSNotification.Name.UIKeyboardDidShow {
             
-            if let keyboardSize = info[UIKeyboardFrameEndUserInfoKey]?.cgRectValue.size {
+            let info = (notification as NSNotification).userInfo! as Dictionary
+
+            if let keyboardSize = (info[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
                 
                 textView.contentInset = UIEdgeInsetsMake(0, 0, keyboardSize.height, 0)
                 textView.scrollIndicatorInsets = textView.contentInset
@@ -89,7 +89,7 @@ class DescriptionViewController: UIViewController {
             
         } else if notification.name == NSNotification.Name.UIKeyboardDidHide {
             
-            textView.contentInset = UIEdgeInsetsZero
+            textView.contentInset = UIEdgeInsets.zero
             textView.scrollIndicatorInsets = textView.contentInset
         }
     }

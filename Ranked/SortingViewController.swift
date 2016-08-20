@@ -189,8 +189,8 @@ class SortingViewController: UIViewController {
         topView.backgroundColor = blockColor
         bottomView.backgroundColor = blockColor
 
-        topLabel.textColor = .white()
-        bottomLabel.textColor = .white()
+        topLabel.textColor = .white
+        bottomLabel.textColor = .white
         
         topImageView.layer.cornerRadius = 64 / 2
         bottomImageView.layer.cornerRadius = 64 / 2
@@ -198,29 +198,29 @@ class SortingViewController: UIViewController {
         topImageView.layer.masksToBounds = true
         bottomImageView.layer.masksToBounds = true
 
-        topView.layer.shadowColor = UIColor.black().cgColor;
+        topView.layer.shadowColor = UIColor.black.cgColor;
         topView.layer.shadowOpacity = 0.25
         topView.layer.shadowRadius = 2
         topView.layer.shadowOffset = CGSize(width: 0.0, height: 2.0)
         topView.layer.masksToBounds = false
         
-        bottomView.layer.shadowColor = UIColor.black().cgColor;
+        bottomView.layer.shadowColor = UIColor.black.cgColor;
         bottomView.layer.shadowOpacity = 0.25
         bottomView.layer.shadowRadius = 2
         bottomView.layer.shadowOffset = CGSize(width: 0.0, height: 2.0)
         bottomView.layer.masksToBounds = false
         
         decideLaterImage = UIImageView(image: UIImage(named: "ChooseLaterAnimation_0"))
-        decideLaterImage.tintColor = .green()
+        decideLaterImage.tintColor = .green
         decideLaterImage.animationImages = chooseLaterAnimationArray
         
         let button = UIButton(type: .custom)
         button.bounds = decideLaterImage.bounds
         button.addTarget(self, action: #selector(SortingViewController.decideLaterButtonPressed(_:)), for: .touchUpInside)
         button.addSubview(decideLaterImage)
-        button.tintColor = .green()
+        button.tintColor = .green
         decideLaterBarButton.customView = button
-        decideLaterBarButton.tintColor = .green()
+        decideLaterBarButton.tintColor = .green
 
     }
     

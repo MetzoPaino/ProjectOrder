@@ -79,11 +79,12 @@ class CloudKitManager: NSObject, NSCoding {
     func saveCollectionToCloudKit(_ collection: CollectionModel) {
         
         let record = CKRecord(recordType: "Collection", recordID: collection.record.recordID)
-        record.setObject(collection.name, forKey: "Name")
-        record.setObject(collection.descriptionString, forKey: "Description")
-        record.setObject(collection.dateCreated, forKey: "DateCreated")
-        record.setObject(collection.premade.hashValue, forKey: "Premade")
-        
+        record.setObject(collection.name as CKRecordValue?, forKey: "Name")
+        record.setObject(collection.descriptionString as CKRecordValue?, forKey: "Description")
+        record.setObject(collection.dateCreated as CKRecordValue?, forKey: "DateCreated")
+        record.setObject(collection.premade.hashValue as CKRecordValue?, forKey: "Premade")
+        record.setObject(collection.sorted.hashValue as CKRecordValue?, forKey: "Sorted")
+
         if let image = collection.image {
             
             do {
@@ -117,18 +118,20 @@ class CloudKitManager: NSObject, NSCoding {
                     return
                 }
                 
-                if self.isRetryableCKError(error) {
-                    let userInfo : NSDictionary = error!.userInfo
+                if self.isRetryableCKError(error as NSError!) {
+        
+                    let nserror = error as! NSError
+                    let userInfo = nserror.userInfo as NSDictionary
                     
                     if let retryAfter = userInfo[CKErrorRetryAfterKey] as? NSNumber {
                         
                         let delay = retryAfter.doubleValue * Double(NSEC_PER_SEC)
                         let time = DispatchTime.now() + Double(Int64(delay)) / Double(NSEC_PER_SEC)
                         
-                        DispatchQueue.main.after(when: time) {
-                            
+                        DispatchQueue.main.asyncAfter(deadline: time, execute: {
                             self.saveCollectionToCloudKit(collection)
-                        }
+                        })
+
                         return
                     }
                 }
@@ -145,10 +148,16 @@ class CloudKitManager: NSObject, NSCoding {
                 return
             }
             
-            fetchedCollection["Name"] = collection.name
-            fetchedCollection["Description"] = collection.descriptionString
-            fetchedCollection["DateCreated"] = collection.dateCreated
-            fetchedCollection["Premade"] = collection.premade
+            fetchedCollection.setObject(collection.name as CKRecordValue?, forKey: "Name")
+            fetchedCollection.setObject(collection.descriptionString as CKRecordValue?, forKey: "Description")
+            fetchedCollection.setObject(collection.dateCreated as CKRecordValue?, forKey: "DateCreated")
+            fetchedCollection.setObject(collection.premade as CKRecordValue?, forKey: "Premade")
+            fetchedCollection.setObject(collection.sorted as CKRecordValue?, forKey: "Sorted")
+
+//            fetchedCollection["Name"] = collection.name!
+//            fetchedCollection["Description"] = collection.descriptionString
+//            fetchedCollection["DateCreated"] = collection.dateCreated
+//            fetchedCollection["Premade"] = collection.premade
 
             if let image = collection.image {
                 
@@ -181,15 +190,19 @@ class CloudKitManager: NSObject, NSCoding {
                         return
                     }
                     
-                    if self.isRetryableCKError(error) {
-                        let userInfo : NSDictionary = error!.userInfo
+                    if self.isRetryableCKError(error as NSError?) {
+                        
+                        let nserror = error as! NSError
+                        let userInfo = nserror.userInfo as NSDictionary
+
+                        //let userInfo : NSDictionary = error!.userInfo
                         
                         if let retryAfter = userInfo[CKErrorRetryAfterKey] as? NSNumber {
                             
                             let delay = retryAfter.doubleValue * Double(NSEC_PER_SEC)
-                            
-                            DispatchQueue.main.after(when: .now() + delay, execute: {
-                                
+                            let time = DispatchTime.now() + Double(Int64(delay)) / Double(NSEC_PER_SEC)
+
+                            DispatchQueue.main.asyncAfter(deadline: time, execute: {
                                 self.editCollectionInCloudKit(collection)
                             })
                             return
@@ -226,18 +239,21 @@ class CloudKitManager: NSObject, NSCoding {
                     return
                 }
                 
-                if self.isRetryableCKError(error) {
-                    let userInfo : NSDictionary = error!.userInfo
+                if self.isRetryableCKError(error as NSError?) {
+                    
+                    let nserror = error as! NSError
+                    let userInfo = nserror.userInfo as NSDictionary
+
+                    //let userInfo : NSDictionary = error!.userInfo
                     
                     if let retryAfter = userInfo[CKErrorRetryAfterKey] as? NSNumber {
                         
                         let delay = retryAfter.doubleValue * Double(NSEC_PER_SEC)
                         let time = DispatchTime.now() + Double(Int64(delay)) / Double(NSEC_PER_SEC)
                         
-                        DispatchQueue.main.after(when: time) {
-                            
+                        DispatchQueue.main.asyncAfter(deadline: time, execute: {
                             self.saveItemsToCloudKit(collection)
-                        }
+                            })
                         return
                     }
                 }
@@ -271,17 +287,21 @@ class CloudKitManager: NSObject, NSCoding {
                     return
                 }
                 
-                if self.isRetryableCKError(error) {
-                    let userInfo : NSDictionary = error!.userInfo
+                if self.isRetryableCKError(error as NSError?) {
+                    
+                    let nserror = error as! NSError
+                    let userInfo = nserror.userInfo as NSDictionary
+
+                    //let userInfo : NSDictionary = error!.userInfo
                     
                     if let retryAfter = userInfo[CKErrorRetryAfterKey] as? NSNumber {
                         
                         let delay = retryAfter.doubleValue * Double(NSEC_PER_SEC)
-                        
-                        DispatchQueue.main.after(when: .now() + delay, execute: {
-                            
+                        let time = DispatchTime.now() + Double(Int64(delay)) / Double(NSEC_PER_SEC)
+
+                        DispatchQueue.main.asyncAfter(deadline: time, execute: {
                             self.deleteFromCloudKit(recordID)
-                        })
+                            })
                         
                         return
                     }
@@ -294,7 +314,7 @@ class CloudKitManager: NSObject, NSCoding {
     
     func fetchAllFromDatabase(_ usePublicDatabase: Bool) {
         
-        let predicate = Predicate(value: true)
+        let predicate = NSPredicate(value: true)
         let query = CKQuery(recordType: "Collection", predicate: predicate)
         
         var database: CKDatabase
@@ -309,7 +329,7 @@ class CloudKitManager: NSObject, NSCoding {
         database.perform(query, inZoneWith: nil) { (records, error) in
             
             //Let spinners know we are done
-            NotificationCenter.default.post(name: "iCloudSyncFinished" as NSNotification.Name, object: self)
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "iCloudSyncFinished") as NSNotification.Name, object: self)
             
             if let records = records {
                 
@@ -339,9 +359,13 @@ class CloudKitManager: NSObject, NSCoding {
                             collection.premade = premade
                         }
                         
+                        if let sorted = record["Sorted"] as? Bool {
+                            collection.sorted = sorted
+                        }
+                        
                         if let asset = record["Image"] as? CKAsset,
-                            data = try? Data(contentsOf: asset.fileURL),
-                            image = UIImage(data: data) {
+                            let data = try? Data(contentsOf: asset.fileURL),
+                            let image = UIImage(data: data) {
                             collection.image = image
                         }
                         
@@ -412,9 +436,13 @@ class CloudKitManager: NSObject, NSCoding {
                     collection.premade = premade
                 }
                 
+                if let sorted = fetchedCollection["Sorted"] as? Bool {
+                    collection.sorted = sorted
+                }
+                
                 if let asset = fetchedCollection["Image"] as? CKAsset,
-                    data = NSData.init(contentsOf: asset.fileURL),
-                    image = UIImage(data: data as Data) {
+                    let data = NSData.init(contentsOf: asset.fileURL),
+                    let image = UIImage(data: data as Data) {
                     collection.image = image
                 }
                 
@@ -456,9 +484,13 @@ class CloudKitManager: NSObject, NSCoding {
                     collection.premade = premade
                 }
                 
+                if let sorted = fetchedCollection["Sorted"] as? Bool {
+                    collection.sorted = sorted
+                }
+                
                 if let asset = fetchedCollection["Image"] as? CKAsset,
-                    data = NSData.init(contentsOf: asset.fileURL),
-                    image = UIImage(data: data as Data) {
+                    let data = NSData.init(contentsOf: asset.fileURL),
+                    let image = UIImage(data: data as Data) {
                     collection.image = image
                 }
                 
@@ -510,8 +542,8 @@ class CloudKitManager: NSObject, NSCoding {
                 let item = ItemModel(string: name, dateCreated: dateCreated)
                 
                 if let asset = fetchedItem["Image"] as? CKAsset,
-                    data = NSData.init(contentsOf: asset.fileURL),
-                    image = UIImage(data: data as Data) {
+                    let data = NSData.init(contentsOf: asset.fileURL),
+                    let image = UIImage(data: data as Data) {
                     item.image = image
                 }
                 
@@ -531,7 +563,7 @@ class CloudKitManager: NSObject, NSCoding {
             return
         }
         
-        let predicate = Predicate(value: true)
+        let predicate = NSPredicate(value: true)
             
         let options: CKSubscriptionOptions = [.firesOnRecordDeletion, .firesOnRecordUpdate, .firesOnRecordCreation]
 
@@ -548,7 +580,9 @@ class CloudKitManager: NSObject, NSCoding {
                 
                 // Error code 15 means already subscribed
                 
-                if error?.code == 15 {
+                let nserror = error as! NSError
+
+                if nserror.code == 15 {
                     
                     self.subscribedToCollections = true
                 }
@@ -567,8 +601,9 @@ class CloudKitManager: NSObject, NSCoding {
                         print(error!.localizedDescription)
                         
                         // Error code 15 means already subscribed
+                        let nserror = error as! NSError
                         
-                        if error?.code == 15 {
+                        if nserror.code == 15 {
                             
                             self.subscribedToCollections = true
                         }
@@ -649,12 +684,18 @@ class CloudKitManager: NSObject, NSCoding {
 
         if let err = error {
             
+            
+            //let ckError = error as! CKError
+
+            let serviceUnavailable = CKError.Code.serviceUnavailable.rawValue
+            let requestRateLimited = CKError.Code.requestRateLimited.rawValue
+
             let errorCode: Int = err.code
             
-            let isUnavailable = CKErrorCode.serviceUnavailable.rawValue
-            let isRateLimited = CKErrorCode.requestRateLimited.rawValue
+//            let isUnavailable = ckError.code.serviceUnavailable as! Bool
+//            let isRateLimited = errorCode.requestRateLimited.rawValue
             
-            if errorCode == isUnavailable || errorCode == isRateLimited {
+            if errorCode == serviceUnavailable || errorCode == requestRateLimited {
                 
                 isRetryable = true
             }

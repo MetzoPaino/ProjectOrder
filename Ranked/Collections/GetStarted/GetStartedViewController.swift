@@ -109,7 +109,7 @@ class GetStartedViewController: UIViewController {
             view.layer.masksToBounds = true
             view.backgroundColor = .secondaryColor()
 
-            view.layer.shadowColor = UIColor.black().cgColor;
+            view.layer.shadowColor = UIColor.black.cgColor;
             view.layer.shadowOpacity = 0.25
             view.layer.shadowRadius = 2
             view.layer.shadowOffset = CGSize(width: 0.0, height: 2.0)
@@ -118,15 +118,15 @@ class GetStartedViewController: UIViewController {
         
         for label in optionLabelCollection {
             
-            label.textColor = .white()
+            label.textColor = .white
         }
         
         for button in buttonCollection {
             
             button.layer.cornerRadius = 64 / 2
-            button.tintColor = .white()
+            button.tintColor = .white
             
-            button.layer.shadowColor = UIColor.black().cgColor;
+            button.layer.shadowColor = UIColor.black.cgColor;
             button.layer.shadowOpacity = 0.25
             button.layer.shadowRadius = 2
             button.layer.shadowOffset = CGSize(width: 0.0, height: 2.0)
@@ -189,7 +189,7 @@ class GetStartedViewController: UIViewController {
                 
                 self.doneButton.backgroundColor = .primaryColor()
                 self.doneButton.isUserInteractionEnabled = true
-                self.doneButton.tintColor = .white()
+                self.doneButton.tintColor = .white
             })
         }
     }

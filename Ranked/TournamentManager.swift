@@ -25,7 +25,7 @@ class Battle {
     }
 }
 
-enum PickBattleError: ErrorProtocol {
+enum PickBattleError: Error{
     
     case alreadyTakenPlace
 }

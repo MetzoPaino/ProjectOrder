@@ -17,24 +17,37 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     //let cloudKitManager = CloudKitManager()
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
         UserDefaults.standard.setValue(true, forKey: "_UIConstraintBasedLayoutLogUnsatisfiable")
-
-        if let controller = window!.rootViewController as? LaunchViewController {
         
+        if let controller = window!.rootViewController as? LaunchViewController {
+            
             controller.inject(dataManager)
         }
-        application.registerForRemoteNotifications()        
+        application.registerForRemoteNotifications()
+        return true
+
         
-//        if let navigationController = window!.rootViewController as? UINavigationController {
-//            
-//            let controller = navigationController.topViewController as! CollectionsViewController
+    }
+    
+//    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+//        
+//        UserDefaults.standard.setValue(true, forKey: "_UIConstraintBasedLayoutLogUnsatisfiable")
+//
+//        if let controller = window!.rootViewController as? LaunchViewController {
+//        
 //            controller.inject(dataManager)
 //        }
-        
-        return true
-    }
+//        application.registerForRemoteNotifications()        
+//        
+////        if let navigationController = window!.rootViewController as? UINavigationController {
+////            
+////            let controller = navigationController.topViewController as! CollectionsViewController
+////            controller.inject(dataManager)
+////        }
+//        
+//        return true
+//    }
 
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
