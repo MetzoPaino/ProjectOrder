@@ -113,7 +113,6 @@ class CollectionsViewController: UIViewController, Injectable {
             if showingGetStartedView == false {
                 showingGetStartedView = true
                 getStartedViewController.reset()
-
             }
             
             view.insertSubview(getStartedContainerView, belowSubview: addButton)
@@ -125,6 +124,7 @@ class CollectionsViewController: UIViewController, Injectable {
 }
 
 // MARK: - Navigation
+
 private typealias Navigation = CollectionsViewController
 extension Navigation {
     
@@ -294,12 +294,24 @@ extension TableViewDataSource: UITableViewDataSource {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! CollectionTableViewCell
                 cell.titleLabel.text = collection.name
                 cell.titleLabel.textColor = .white
-                cell.descriptionLabel.textColor = UIColor.subHeadingColor()
                 //cell.layoutMargins = UIEdgeInsetsZero;
-
-//                collection.items = collection.items.sorted(by: { $0.score! > $1.score! })
-//                cell.descriptionLabel.text = "1. " + collection.items.first!.text
                 
+                if collection.items.count > 0 && (collection.items.first!.score != nil) {
+                    
+                    //collection.items = collection.items.sorted(by: { $0.score! > $1.score! })
+                    cell.descriptionLabel.text = "1. " + collection.items.first!.text
+                    cell.descriptionLabel.textColor = UIColor.subHeadingColor()
+                    
+                } else {
+                    
+                    // This is incase we've not downloaded every item inside yet, but we need a better solution
+                    cell.descriptionLabel.textColor = .clear
+                    cell.descriptionLabel.text = ""
+                    cell.descriptionLabel.text = "BOB"
+
+                }
+
+               
                 if cell.isHighlighted {
                     cell.titleLabel.textColor = .white
                     cell.descriptionLabel.textColor = .white
@@ -518,6 +530,9 @@ extension CollectionsViewController: DataManagerDelegate {
                 })
             }
             
+            if collection.items.count > 1 {
+                collection.sortCollection()
+            }
             self.tableView.reloadData()
         })
     }
@@ -567,6 +582,6 @@ extension CollectionsViewController: SettingsViewControllerDelegate {
     }
     
     func performFulliCloudSync() {
-        dataManager.cloudKitManager.fetchAllFromDatabase(true)
+        dataManager.cloudKitManager.fetchAllFromDatabase()
     }
 }

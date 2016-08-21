@@ -621,6 +621,12 @@ extension TableViewDelegate: UITableViewDelegate {
                     
                     self.delegate?.deleteItemFromCloudKit(recordID: self.collection.items[(indexPath as NSIndexPath).row].record.recordID)
                     self.collection.items.remove(at: (indexPath as NSIndexPath).row)
+                    
+                    if self.collection.items.count == 0 {
+                        self.collection.sorted = false
+                        self.delegate?.collectionUpdated(self.collection, new: false)
+                    }
+                    
                     tableView.deleteRows(at: [indexPath], with: .automatic)
                     tableView.reloadData()
                 }

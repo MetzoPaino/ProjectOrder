@@ -312,24 +312,16 @@ class CloudKitManager: NSObject, NSCoding {
     
     //MARK: - From Cloud
     
-    func fetchAllFromDatabase(_ usePublicDatabase: Bool) {
+    func fetchAllFromDatabase() {
         
         let predicate = NSPredicate(value: true)
         let query = CKQuery(recordType: "Collection", predicate: predicate)
         
-        var database: CKDatabase
-        
-        if usePublicDatabase {
-            
-            database = publicDatabase
-        } else {
-            database = privateDatabase
-        }
-        
+        let database = privateDatabase
         database.perform(query, inZoneWith: nil) { (records, error) in
             
             //Let spinners know we are done
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "iCloudSyncFinished") as NSNotification.Name, object: self)
+            NotificationCenter.default.post(name: cloudSyncFinishedNotification as NSNotification.Name, object: self)
             
             if let records = records {
                 
@@ -545,6 +537,11 @@ class CloudKitManager: NSObject, NSCoding {
                     let data = NSData.init(contentsOf: asset.fileURL),
                     let image = UIImage(data: data as Data) {
                     item.image = image
+                }
+                
+                if let score = fetchedItem["Score"] as? Int {
+                    
+                    item.score = score
                 }
                 
                 item.record = fetchedItem

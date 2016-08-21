@@ -89,6 +89,10 @@ class SortingViewController: UIViewController {
             originalSortedItems = itemArray
         }
         
+        for item in itemArray {
+            item.score = nil
+        }
+        
         tournamentManager.delegate = self
         tournamentManager.createTournament(itemArray)
 

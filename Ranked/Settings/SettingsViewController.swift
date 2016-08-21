@@ -13,6 +13,8 @@ protocol SettingsViewControllerDelegate: class {
     func performFulliCloudSync()
 }
 
+// MARK: - UIViewController
+
 class SettingsViewController: UIViewController {
 
     @IBOutlet weak var closeBarButton: UIBarButtonItem!
@@ -23,13 +25,14 @@ class SettingsViewController: UIViewController {
     var collections: [CollectionModel]!
     var appIsSyncing = false
     
+    // MARK: - Setup
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         styleNavBar()
         styleTableView()
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(SettingsViewController.receivedNotification(notification:)), name: NSNotification.Name(rawValue: "iCloudSyncFinished"), object: nil)
+        addNotifications()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -37,6 +40,8 @@ class SettingsViewController: UIViewController {
         super.viewWillDisappear(animated)
         NotificationCenter.default.removeObserver(self)
     }
+    
+    // MARK: - Style
 
     func styleNavBar() {
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
@@ -56,11 +61,20 @@ class SettingsViewController: UIViewController {
         tableView.backgroundColor = .white
     }
     
+    // MARK: - Notifications
+    
+    func addNotifications() {
+        NotificationCenter.default.addObserver(self, selector: #selector(SettingsViewController.receivedNotification(notification:)), name: cloudSyncFinishedNotification, object: nil)
+    }
+
     func receivedNotification(notification: NSNotification) {
         
-        if notification.name == NSNotification.Name(rawValue: "iCloudSyncFinished") {
-            appIsSyncing = false
-            tableView.reloadData()
+        if notification.name == cloudSyncFinishedNotification {
+            
+            DispatchQueue.main.async {
+                self.appIsSyncing = false
+                self.tableView.reloadData()
+            }
         }
     }
     
@@ -86,6 +100,8 @@ class SettingsViewController: UIViewController {
         self.navigationController?.dismiss(animated: true, completion: nil)
     }
 }
+
+// MARK: - UITableViewDelegate
 
 extension SettingsViewController: UITableViewDelegate {
     
@@ -126,12 +142,6 @@ extension SettingsViewController: UITableViewDelegate {
             }
 
         }
-        
-//        let cell = tableView.cellForRow(at: indexPath)
-//        cell?.backgroundColor = .secondaryColor()
-//        cell?.contentView.backgroundColor = .secondaryColor()
-//        cell?.accessoryView?.tintColor = .white()
-//        cell?.tintColor = .white()
     }
     
     func tableView(_ tableView: UITableView, didUnhighlightRowAt indexPath: IndexPath) {
@@ -161,6 +171,8 @@ extension SettingsViewController: UITableViewDelegate {
         }
     }
 }
+
+// MARK: - UITableViewDataSource
 
 extension SettingsViewController: UITableViewDataSource {
     

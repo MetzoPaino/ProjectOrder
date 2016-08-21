@@ -81,10 +81,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
         //print("Got notification \(userInfo)")
         
-        if let pushInfo = userInfo as? [String: NSObject] {
-            let notification = CKQueryNotification(fromRemoteNotificationDictionary: pushInfo)
-            dataManager.cloudKitManager.handleNotification(notification)
-        }
+//        if let pushInfo = userInfo as? [String: NSObject] {
+//            let notification = CKQueryNotification(fromRemoteNotificationDictionary: pushInfo)
+//            dataManager.cloudKitManager.handleNotification(notification)
+//        }
     }
 
     func saveData() {

@@ -156,6 +156,15 @@ class CollectionModel: NSObject, NSCoding {
             break
         }
     }
+    
+    func sortCollection() {
+        
+        if sorted {
+            self.items = self.items.sorted(by: { $0.score! > $1.score! })
+        } else {
+            self.items = self.items.sorted(by: { $0.dateCreated < $1.dateCreated })
+        }
+    }
 }
 
 class ItemModel: NSObject, NSCoding {
