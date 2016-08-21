@@ -41,7 +41,7 @@ class AddListsViewController: UIViewController {
     
     func styleView() {
         
-        doneButton.layer.cornerRadius = 48 / 2
+        doneButton.layer.cornerRadius = 64 / 2
         
         doneButton.layer.shadowColor = UIColor.black.cgColor
         doneButton.layer.shadowOpacity = 0.25

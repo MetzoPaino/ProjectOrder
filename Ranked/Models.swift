@@ -152,7 +152,7 @@ class CollectionModel: NSObject, NSCoding {
             self.items = self.items.sorted(by: { $0.dateCreated < $1.dateCreated })
             break
         case .score:
-            self.items = self.items.sorted(by: { $0.score! > $1.score! })
+            sortCollection()
             break
         }
     }
@@ -160,7 +160,18 @@ class CollectionModel: NSObject, NSCoding {
     func sortCollection() {
         
         if sorted {
-            self.items = self.items.sorted(by: { $0.score! > $1.score! })
+                        
+            self.items = self.items.sorted(by: {
+                
+                if $0.score != nil && $1.score != nil {
+                    
+                    return $0.score! > $1.score!
+                } else {
+                    
+                    return $0.dateCreated < $1.dateCreated
+                }
+            })
+                //$0.score! > $1.score! })
         } else {
             self.items = self.items.sorted(by: { $0.dateCreated < $1.dateCreated })
         }

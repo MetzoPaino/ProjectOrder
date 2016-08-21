@@ -15,7 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     let dataManager = DataManager()
 
-    //let cloudKitManager = CloudKitManager()
+    let cloudKitManager = CloudKitManager()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
         UserDefaults.standard.setValue(true, forKey: "_UIConstraintBasedLayoutLogUnsatisfiable")
@@ -29,25 +29,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         
     }
-    
-//    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-//        
-//        UserDefaults.standard.setValue(true, forKey: "_UIConstraintBasedLayoutLogUnsatisfiable")
-//
-//        if let controller = window!.rootViewController as? LaunchViewController {
-//        
-//            controller.inject(dataManager)
-//        }
-//        application.registerForRemoteNotifications()        
-//        
-////        if let navigationController = window!.rootViewController as? UINavigationController {
-////            
-////            let controller = navigationController.topViewController as! CollectionsViewController
-////            controller.inject(dataManager)
-////        }
-//        
-//        return true
-//    }
 
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -71,21 +52,41 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-        //print("Registered for Push notifications with token: \(deviceToken)")
+        print("Registered for Push notifications with token: \(deviceToken)")
     }
     
-    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: NSError) {
-        //print("Push subscription failed: \(error)")
+    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
+        print("Push subscription failed: \(error)")
     }
     
-    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
-        //print("Got notification \(userInfo)")
-        
-//        if let pushInfo = userInfo as? [String: NSObject] {
+//    func application(_ application: UIApplication, didReceive notification: UILocalNotification) {
+//        <#code#>
+//    }
+    
+//    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
+//        
+//        
+//    }
+    
+    
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
+
+//        if let pushInfo = userInfo as? NSDictionary {
+//        //if let pushInfo = userInfo as? [String: NSObject] {
 //            let notification = CKQueryNotification(fromRemoteNotificationDictionary: pushInfo)
 //            dataManager.cloudKitManager.handleNotification(notification)
 //        }
+        let pushInfo = userInfo as NSDictionary
+        let notification = CKQueryNotification(fromRemoteNotificationDictionary: pushInfo as! [String : NSObject] )
+        dataManager.cloudKitManager.handleNotification(notification)
     }
+    
+    
+//    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
+//        //print("Got notification \(userInfo)")
+//        
+//
+//    }
 
     func saveData() {
         dataManager.saveData()

@@ -306,11 +306,8 @@ extension TableViewDataSource: UITableViewDataSource {
                     
                     // This is incase we've not downloaded every item inside yet, but we need a better solution
                     cell.descriptionLabel.textColor = .clear
-                    cell.descriptionLabel.text = ""
-                    cell.descriptionLabel.text = "BOB"
-
+                    cell.descriptionLabel.text = "Syncing"
                 }
-
                
                 if cell.isHighlighted {
                     cell.titleLabel.textColor = .white
@@ -320,7 +317,6 @@ extension TableViewDataSource: UITableViewDataSource {
                     cell.titleLabel.textColor = .headingColor()
                     cell.descriptionLabel.textColor = .subHeadingColor()
                     cell.descriptionLabel.textColor = .primaryColor()
-
                 }
                 
                 if let image = collection.image {
@@ -419,7 +415,9 @@ extension CollectionsViewController: DataManagerDelegate {
     func newCollection() {
         
         DispatchQueue.main.async(execute: {
+            
             self.tableView.reloadData()
+            self.dataManager.saveData()
         })
     }
     
@@ -437,6 +435,7 @@ extension CollectionsViewController: DataManagerDelegate {
                 _ = self.navigationController?.popToRootViewController(animated: true)
                 self.tableView.reloadData()
             }
+            self.dataManager.saveData()
         })
     }
     
@@ -463,6 +462,7 @@ extension CollectionsViewController: DataManagerDelegate {
                 self.navigationController?.dismiss(animated: true, completion: {
                 })
             }
+            self.dataManager.saveData()
         })
     }
     
@@ -480,6 +480,7 @@ extension CollectionsViewController: DataManagerDelegate {
                     itemsViewController.tableView.reloadData()
                 }
             }
+            self.dataManager.saveData()
         })
     }
     
@@ -505,7 +506,7 @@ extension CollectionsViewController: DataManagerDelegate {
             }
             
             self.tableView.reloadData()
-
+            self.dataManager.saveData()
         })
     }
     
@@ -530,10 +531,19 @@ extension CollectionsViewController: DataManagerDelegate {
                 })
             }
             
-            if collection.items.count > 1 {
+            for (index, oldItem) in collection.items.enumerated() {
+                
+                if oldItem.record.recordID.recordName == item.record.recordID.recordName {
+                    
+                    collection.items[index] = item
+                }
+            }
+            
+            if collection.items.count > 1 && collection.sorted == true {
                 collection.sortCollection()
             }
             self.tableView.reloadData()
+            self.dataManager.saveData()
         })
     }
 }

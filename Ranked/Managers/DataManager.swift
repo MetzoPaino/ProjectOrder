@@ -23,7 +23,7 @@ class DataManager {
     
     weak var delegate: DataManagerDelegate?
     
-    //let cloudKitManager: CloudKitManager
+    let cloudKitManager: CloudKitManager
     var collections: [CollectionModel]
     var lostItems: [(ItemModel)]
 
@@ -57,20 +57,20 @@ class DataManager {
                     lostItems = [ItemModel]()
                 }
 
-//                if let decodedCloudKitManager = unarchiver.decodeObject(forKey: "CloudKitManager") as? CloudKitManager {
-//                    
-//                    cloudKitManager = decodedCloudKitManager
-//                    
-//                } else {
-//                    
-//                    cloudKitManager = CloudKitManager()
-//                }
+                if let decodedCloudKitManager = unarchiver.decodeObject(forKey: "CloudKitManager") as? CloudKitManager {
+                    
+                    cloudKitManager = decodedCloudKitManager
+                    
+                } else {
+                    
+                    cloudKitManager = CloudKitManager()
+                }
                 
                 for collection in collections {
                     collection.sortCollection()
                 }
                 
-                //cloudKitManager.fetchAllFromDatabase()
+                cloudKitManager.fetchAllFromDatabase()
                 
                 unarchiver.finishDecoding()
         
@@ -79,7 +79,7 @@ class DataManager {
                 // I don't know how i'd end up here, so should figure that out
                 collections = [CollectionModel]()
                 lostItems = [ItemModel]()
-                //cloudKitManager = CloudKitManager()
+                cloudKitManager = CloudKitManager()
             }
             
             firstLaunch = false
@@ -89,12 +89,12 @@ class DataManager {
             // Probably a first launch
             collections = [CollectionModel]()
             lostItems = [ItemModel]()
-//            cloudKitManager = CloudKitManager()
-//            cloudKitManager.fetchAllFromDatabase()
+            cloudKitManager = CloudKitManager()
+            cloudKitManager.fetchAllFromDatabase()
         }
         
         // Need to hook up the delegate every time        
-//        cloudKitManager.delegate = self
+        cloudKitManager.delegate = self
 
     }
     
@@ -172,25 +172,25 @@ class DataManager {
         return paths[0]
     }
     
-//    func deleteCollectionFromCloudKit(recordID: CKRecordID) {
-//        print("Delete Collection from CloudKit")
-//        cloudKitManager.deleteFromCloudKit(recordID)
-//    }
-//    
-//    func deleteItemFromCloudKit(recordID: CKRecordID) {
-//        print("Delete Item from CloudKit")
-//        cloudKitManager.deleteFromCloudKit(recordID)
-//    }
-//    
-//    func saveCollectionToCloudKit(collection: CollectionModel) {
-//        print("Here 3")
-//        cloudKitManager.saveCollectionToCloudKit(collection)
-//    }
-//    
-//    func editCollectionToCloudKit(collection: CollectionModel) {
-//        print("Here 4")
-//        cloudKitManager.editCollectionInCloudKit(collection)
-//    }
+    func deleteCollectionFromCloudKit(recordID: CKRecordID) {
+        print("Delete Collection from CloudKit")
+        cloudKitManager.deleteFromCloudKit(recordID)
+    }
+    
+    func deleteItemFromCloudKit(recordID: CKRecordID) {
+        print("Delete Item from CloudKit")
+        cloudKitManager.deleteFromCloudKit(recordID)
+    }
+    
+    func saveCollectionToCloudKit(collection: CollectionModel) {
+        print("Here 3")
+        cloudKitManager.saveCollectionToCloudKit(collection)
+    }
+    
+    func editCollectionToCloudKit(collection: CollectionModel) {
+        print("Here 4")
+        cloudKitManager.editCollectionInCloudKit(collection)
+    }
 }
 
 extension DataManager: CloudKitManagerDelegate {

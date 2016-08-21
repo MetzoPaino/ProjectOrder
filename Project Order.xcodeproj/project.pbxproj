@@ -33,7 +33,7 @@
 		0AE0C83C1CC2AD960085FE30 /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE0C83B1CC2AD960085FE30 /* LaunchViewController.swift */; };
 		0AE9C1351D05A6060069CDF3 /* Tarantino.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE9C1341D05A6060069CDF3 /* Tarantino.swift */; };
 		0AF64FA11C4A8129003F8519 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF64FA01C4A8129003F8519 /* AppDelegate.swift */; };
-		0AF64FA61C4A812A003F8519 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0AF64FA41C4A812A003F8519 /* Main.storyboard */; };
+		0AF64FA61C4A812A003F8519 /* Collections.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0AF64FA41C4A812A003F8519 /* Collections.storyboard */; };
 		0AF64FA81C4A812A003F8519 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0AF64FA71C4A812A003F8519 /* Assets.xcassets */; };
 		0AF64FAB1C4A812A003F8519 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0AF64FA91C4A812A003F8519 /* LaunchScreen.storyboard */; };
 		0AF64FB31C4A8294003F8519 /* CollectionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF64FB21C4A8294003F8519 /* CollectionsViewController.swift */; };
@@ -73,7 +73,7 @@
 		0AE9C1341D05A6060069CDF3 /* Tarantino.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Tarantino.swift; path = PremadeCollections/Tarantino.swift; sourceTree = "<group>"; };
 		0AF64F9D1C4A8129003F8519 /* >.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ">.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0AF64FA01C4A8129003F8519 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		0AF64FA51C4A812A003F8519 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		0AF64FA51C4A812A003F8519 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Collections.storyboard; sourceTree = "<group>"; };
 		0AF64FA71C4A812A003F8519 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0AF64FAA1C4A812A003F8519 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0AF64FAC1C4A812A003F8519 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -161,7 +161,7 @@
 			isa = PBXGroup;
 			children = (
 				0AF64FA91C4A812A003F8519 /* LaunchScreen.storyboard */,
-				0AF64FA41C4A812A003F8519 /* Main.storyboard */,
+				0AF64FA41C4A812A003F8519 /* Collections.storyboard */,
 				0A1FF5C71CE8800B007A7069 /* Items.storyboard */,
 				0A3D6EF91CD4F650003F5C42 /* GetStarted.storyboard */,
 				0A3D6EF61CD4EFDA003F5C42 /* Tutorial.storyboard */,
@@ -292,7 +292,7 @@
 				0A1FF5C91CE8800B007A7069 /* Items.storyboard in Resources */,
 				0A71708B1CB80316005126B4 /* Sorting.storyboard in Resources */,
 				0AF64FA81C4A812A003F8519 /* Assets.xcassets in Resources */,
-				0AF64FA61C4A812A003F8519 /* Main.storyboard in Resources */,
+				0AF64FA61C4A812A003F8519 /* Collections.storyboard in Resources */,
 				0A3D6EFB1CD4F650003F5C42 /* GetStarted.storyboard in Resources */,
 				0A3D6EF81CD4EFDA003F5C42 /* Tutorial.storyboard in Resources */,
 				0A98C1471CB15D9B00BF7252 /* Settings.storyboard in Resources */,
@@ -379,12 +379,12 @@
 			name = Settings.storyboard;
 			sourceTree = "<group>";
 		};
-		0AF64FA41C4A812A003F8519 /* Main.storyboard */ = {
+		0AF64FA41C4A812A003F8519 /* Collections.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				0AF64FA51C4A812A003F8519 /* Base */,
 			);
-			name = Main.storyboard;
+			name = Collections.storyboard;
 			sourceTree = "<group>";
 		};
 		0AF64FA91C4A812A003F8519 /* LaunchScreen.storyboard */ = {
