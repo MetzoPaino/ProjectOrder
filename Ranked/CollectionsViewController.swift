@@ -85,7 +85,16 @@ class CollectionsViewController: UIViewController, Injectable {
         addButton.backgroundColor = .primaryColor()
         addButton.layer.cornerRadius = self.addButtonHeightConstraint.constant / 2
         addButton.setImage(UIImage(named: "PlusButton" )?.withRenderingMode(.alwaysTemplate), for: UIControlState())
+
+        let imageView = UIImageView(image: UIImage(named: "PlusButton" )?.withRenderingMode(.alwaysTemplate))
+        imageView.tintColor = .blue
+        
+        addButton.setImage(imageView.image, for: .highlighted)
+
         addButton.tintColor = .white
+        
+        let highlightedImage = UIImage(named: "PlusButton" )?.withRenderingMode(.alwaysTemplate).imageWithColor(color: .primaryColor())
+        addButton.setImage(highlightedImage!, for: UIControlState.highlighted)
 
         addButton.layer.shadowColor = UIColor.black.cgColor
         addButton.layer.shadowOpacity = 0.25
@@ -180,6 +189,7 @@ extension Navigation {
             let controller = navCon.viewControllers[0] as! SettingsViewController
             controller.delegate = self
             controller.collections = dataManager.collections
+            controller.showCloudKit = dataManager.useCloudKit
         }
     }
 }
@@ -592,6 +602,7 @@ extension CollectionsViewController: SettingsViewControllerDelegate {
     }
     
     func performFulliCloudSync() {
-        dataManager.cloudKitManager.fetchAllFromDatabase()
+        //dataManager.cloudKitManager.fetchAllFromDatabase()
+        dataManager.cloudKitManager.performCloudSync(collections: dataManager.collections)
     }
 }

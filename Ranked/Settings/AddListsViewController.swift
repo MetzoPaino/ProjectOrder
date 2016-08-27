@@ -52,6 +52,9 @@ class AddListsViewController: UIViewController {
         doneButton.backgroundColor = .disabledColor()
         doneButton.isUserInteractionEnabled = false
         doneButton.setImage(UIImage(named: "Tick")?.withRenderingMode(.alwaysTemplate), for: UIControlState())
+        let highlightedImage = UIImage(named: "Tick" )?.withRenderingMode(.alwaysTemplate).imageWithColor(color: .primaryColor())
+        doneButton.setImage(highlightedImage!, for: UIControlState.highlighted)
+        
         doneButton.tintColor = .backgroundColor()
     }
 

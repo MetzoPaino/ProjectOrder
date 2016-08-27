@@ -26,8 +26,10 @@ class DataManager {
     let cloudKitManager: CloudKitManager
     var collections: [CollectionModel]
     var lostItems: [(ItemModel)]
-
+    var serverChangeToken: CKServerChangeToken?
     var firstLaunch = true
+    
+    var useCloudKit = false
     
     required init() {
         
@@ -70,8 +72,16 @@ class DataManager {
                     collection.sortCollection()
                 }
                 
-                cloudKitManager.fetchAllFromDatabase()
+                if let decodedServerChangeToken = unarchiver.decodeObject(forKey: "ServerChangeToken") as? CKServerChangeToken {
+                    
+                    serverChangeToken = decodedServerChangeToken
+                }
                 
+                if useCloudKit == true {
+                    
+                    cloudKitManager.fetchAllFromDatabase()
+                }
+                                
                 unarchiver.finishDecoding()
         
             } else {
@@ -89,13 +99,21 @@ class DataManager {
             // Probably a first launch
             collections = [CollectionModel]()
             lostItems = [ItemModel]()
+            
             cloudKitManager = CloudKitManager()
-            cloudKitManager.fetchAllFromDatabase()
+            
+            if useCloudKit == true {
+                
+                cloudKitManager.fetchAllFromDatabase()
+            }
+            
         }
         
-        // Need to hook up the delegate every time        
-        cloudKitManager.delegate = self
+        if useCloudKit == true {
+            // Need to hook up the delegate every time
+            cloudKitManager.delegate = self
 
+        }
     }
     
     // MARK: - Save & Load
@@ -108,6 +126,8 @@ class DataManager {
         let archiver = NSKeyedArchiver(forWritingWith: data)
         archiver.encode(collections, forKey: "Collections")
         archiver.encode(lostItems, forKey: "LostItems")
+        archiver.encode(serverChangeToken, forKey: "ServerChangeToken")
+
         //archiver.encode(cloudKitManager, forKey: "CloudKitManager")
         
         
@@ -174,22 +194,31 @@ class DataManager {
     
     func deleteCollectionFromCloudKit(recordID: CKRecordID) {
         print("Delete Collection from CloudKit")
-        cloudKitManager.deleteFromCloudKit(recordID)
+        
+        if useCloudKit == true {
+            cloudKitManager.deleteFromCloudKit(recordID)
+        }
     }
     
     func deleteItemFromCloudKit(recordID: CKRecordID) {
         print("Delete Item from CloudKit")
-        cloudKitManager.deleteFromCloudKit(recordID)
+        if useCloudKit == true {
+            cloudKitManager.deleteFromCloudKit(recordID)
+        }
     }
     
     func saveCollectionToCloudKit(collection: CollectionModel) {
         print("Here 3")
-        cloudKitManager.saveCollectionToCloudKit(collection)
+        if useCloudKit == true {
+            cloudKitManager.saveCollectionToCloudKit(collection)
+        }
     }
     
     func editCollectionToCloudKit(collection: CollectionModel) {
         print("Here 4")
-        cloudKitManager.editCollectionInCloudKit(collection)
+        if useCloudKit == true {
+            cloudKitManager.editCollectionInCloudKit(collection)
+        }
     }
 }
 

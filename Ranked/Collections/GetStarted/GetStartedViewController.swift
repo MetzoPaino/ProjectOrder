@@ -136,11 +136,16 @@ class GetStartedViewController: UIViewController {
         doneButton.backgroundColor = .disabledColor()
         doneButton.isUserInteractionEnabled = false
         doneButton.setImage(UIImage(named: "Tick")?.withRenderingMode(.alwaysTemplate), for: UIControlState())
+        let highlightedImage = UIImage(named: "Tick" )?.withRenderingMode(.alwaysTemplate).imageWithColor(color: .primaryColor())
+        doneButton.setImage(highlightedImage!, for: UIControlState.highlighted)
+        
         doneButton.tintColor = .backgroundColor()
 
         refreshButton.backgroundColor = .primaryColor()
         refreshButton.setImage(UIImage(named: "Refresh")?.withRenderingMode(.alwaysTemplate), for: UIControlState())
-
+        let refreshHighlightedImage = UIImage(named: "Refresh" )?.withRenderingMode(.alwaysTemplate).imageWithColor(color: .primaryColor())
+        refreshButton.setImage(refreshHighlightedImage!, for: UIControlState.highlighted)
+        
         infoLabel.textColor = .subHeadingColor()
     }
 

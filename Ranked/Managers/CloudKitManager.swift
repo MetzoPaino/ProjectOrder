@@ -28,7 +28,7 @@ class CloudKitManager: NSObject, NSCoding {
     weak var delegate: CloudKitManagerDelegate?
 
     private let publicDatabase = CKContainer.default().publicCloudDatabase
-    private let privateDatabase = CKContainer.default().privateCloudDatabase
+    let privateDatabase = CKContainer.default().privateCloudDatabase
 
     var subscribedToCollections = false
     var subscribedToItems = false
@@ -39,6 +39,9 @@ class CloudKitManager: NSObject, NSCoding {
     var deleteFromCloudKitCounter = 0
     
     let retryLimit = 10
+    
+    
+    var serverChangeToken: CKServerChangeToken?
 
     enum recordType {
         case collections
@@ -49,7 +52,7 @@ class CloudKitManager: NSObject, NSCoding {
         
         super.init()
         // Init CloudKitManager
-       // subscribeToCollectionUpdates()
+        subscribeToCollectionUpdates()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -314,6 +317,80 @@ class CloudKitManager: NSObject, NSCoding {
     
     func fetchAllFromDatabase() {
         
+        
+        
+        
+        
+        
+        
+        
+        let changesOperation = CKFetchDatabaseChangesOperation(previousServerChangeToken: serverChangeToken)
+        
+        changesOperation.fetchAllChanges = true
+        changesOperation.recordZoneWithIDChangedBlock = { (zoneID: CKRecordZoneID) in
+            
+            print("recordZoneWithIDChangedBlock")
+        }
+        changesOperation.recordZoneWithIDWasDeletedBlock = { (zoneID: CKRecordZoneID) in
+            print("recordZoneWithIDWasDeletedBlock")
+            
+        }
+        changesOperation.changeTokenUpdatedBlock = { (serverChangeToken: CKServerChangeToken) in
+            print("changeTokenUpdatedBlock")
+        }
+        
+        changesOperation.fetchDatabaseChangesCompletionBlock = { (newToken: CKServerChangeToken?, more: Bool, error: Error?) -> Void in
+            
+            if error != nil {
+                print(error!.localizedDescription)
+            }
+            
+            self.serverChangeToken = newToken
+            
+        }
+        
+        privateDatabase.add(changesOperation)
+        
+        let fetchOp = CKFetchRecordZoneChangesOperation(recordZoneIDs: [], optionsByRecordZoneID: [:])
+        
+        fetchOp.recordZoneFetchCompletionBlock = { (recordZoneID: CKRecordZoneID, serverChangeToken: CKServerChangeToken?, data: Data?, more: Bool, error: Error?) ->
+            Void in
+            
+            print("Add the things")
+        
+        }
+        privateDatabase.add(fetchOp)
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         let predicate = NSPredicate(value: true)
         let query = CKQuery(recordType: "Collection", predicate: predicate)
         
@@ -394,6 +471,15 @@ class CloudKitManager: NSObject, NSCoding {
                 
                 // Then need to get all items, dump the dupes
             }
+        }
+    }
+    
+    func performCloudSync(collections: [CollectionModel]) {
+        
+        for collection in collections {
+            
+            saveCollectionToCloudKit(collection)
+            fetchAllFromDatabase()
         }
     }
     
@@ -564,53 +650,88 @@ class CloudKitManager: NSObject, NSCoding {
             
         let options: CKSubscriptionOptions = [.firesOnRecordDeletion, .firesOnRecordUpdate, .firesOnRecordCreation]
 
-        let subscription = CKSubscription(recordType: "Collection", predicate: predicate, options: options)
+        //let subscription = CKSubscription(recordType: "Collection", predicate: predicate, options: options)
         
+        let subscription = CKDatabaseSubscription(subscriptionID:"AllChanges")
+        let notificationInfo = CKNotificationInfo()
+        notificationInfo.shouldSendContentAvailable = true
+        subscription.notificationInfo = notificationInfo
         
-        let notification = CKNotificationInfo()
-        notification.alertBody = "Collection"
-        subscription.notificationInfo = notification
-        
-        privateDatabase.save(subscription) { (subscription, error) in
+        subscription.recordType = "ProjectOrder"
+
+        let operation = CKModifySubscriptionsOperation(subscriptionsToSave: [subscription], subscriptionIDsToDelete: [])
+        operation.modifySubscriptionsCompletionBlock =  {
+            (modifiedSubscriptions: [CKSubscription]?, deletedSubscriptionIDs: [String]?, error: Error?) -> Void in
+            
             if error != nil {
                 print(error!.localizedDescription)
-                
-                // Error code 15 means already subscribed
-                
-                let nserror = error as! NSError
-
-                if nserror.code == 15 {
-                    
-                    self.subscribedToCollections = true
-                }
             } else {
                 
-                self.subscribedToCollections = true
+                print("Success!")
+                
+                self.privateDatabase.fetchAllSubscriptions { (subscription: [CKSubscription]?, error: Error?) in
+                    
+                    print("Error = \(error)")
+                    print("Subs = \(subscription)")
 
-                let itemSubscription = CKSubscription(recordType: "Item", predicate: predicate, options: options)
-                
-                let itemNotification = CKNotificationInfo()
-                itemNotification.alertBody = "Item"
-                itemSubscription.notificationInfo = itemNotification
-                
-                self.privateDatabase.save(itemSubscription) { (itemSubscription, error) in
-                    if error != nil {
-                        print(error!.localizedDescription)
-                        
-                        // Error code 15 means already subscribed
-                        let nserror = error as! NSError
-                        
-                        if nserror.code == 15 {
-                            
-                            self.subscribedToCollections = true
-                        }
-                    } else {
-                        
-                        self.subscribedToCollections = true
-                    }
+                    print("Hello!")
                 }
             }
         }
+        
+        operation.subscriptionsToSave = [subscription]
+        operation.qualityOfService = .utility
+        privateDatabase.add(operation)
+        
+        
+        
+
+        
+//        let subscription2 = CKSubscription(recordType: "ProjectOrder", predicate: predicate, options: options)
+//        let notification = CKNotificationInfo()
+//        notification.alertBody = "ProjectOrder"
+//        subscription2.notificationInfo = notification
+//        
+//        privateDatabase.save(subscription2) { (subscription, error) in
+//            if error != nil {
+//                print(error!.localizedDescription)
+//                
+//                // Error code 15 means already subscribed
+//                
+//                let nserror = error as! NSError
+//
+//                if nserror.code == 15 {
+//                    
+//                    self.subscribedToCollections = true
+//                }
+//            } else {
+//                
+//                self.subscribedToCollections = true
+//
+//                let itemSubscription = CKSubscription(recordType: "Item", predicate: predicate, options: options)
+//                
+//                let itemNotification = CKNotificationInfo()
+//                itemNotification.alertBody = "Item"
+//                itemSubscription.notificationInfo = itemNotification
+//                
+//                self.privateDatabase.save(itemSubscription) { (itemSubscription, error) in
+//                    if error != nil {
+//                        print(error!.localizedDescription)
+//                        
+//                        // Error code 15 means already subscribed
+//                        let nserror = error as! NSError
+//                        
+//                        if nserror.code == 15 {
+//                            
+//                            self.subscribedToCollections = true
+//                        }
+//                    } else {
+//                        
+//                        self.subscribedToCollections = true
+//                    }
+//                }
+//            }
+//        }
     }
     
     //MARK: - Notifications

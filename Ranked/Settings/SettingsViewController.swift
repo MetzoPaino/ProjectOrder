@@ -13,6 +13,13 @@ protocol SettingsViewControllerDelegate: class {
     func performFulliCloudSync()
 }
 
+enum SettingsCellType {
+    
+    case sync
+    case about
+    case addPremade
+}
+
 // MARK: - UIViewController
 
 class SettingsViewController: UIViewController {
@@ -24,15 +31,24 @@ class SettingsViewController: UIViewController {
     
     var collections: [CollectionModel]!
     var appIsSyncing = false
+    var showCloudKit = false
+    
+    var cellOrder = [SettingsCellType.sync, SettingsCellType.addPremade, SettingsCellType.about]
     
     // MARK: - Setup
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if showCloudKit == false {
+            cellOrder = [SettingsCellType.addPremade, SettingsCellType.about]
+
+        }
         styleNavBar()
         styleTableView()
         addNotifications()
+        
+        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -140,7 +156,6 @@ extension SettingsViewController: UITableViewDelegate {
                 cell.accessoryImageView.image = UIImage(named:"ForwardArrow")?.withRenderingMode(.alwaysTemplate)
                 cell.accessoryImageView.tintColor = .white
             }
-
         }
     }
     
@@ -178,24 +193,24 @@ extension SettingsViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        return 3
+        return cellOrder.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        if (indexPath as NSIndexPath).row == 0 {
+        if cellOrder[(indexPath as NSIndexPath).row] == SettingsCellType.sync {
             let cell = tableView.dequeueReusableCell(withIdentifier: "iCloudCell", for: indexPath) as! SyncingTableViewCell
             cell.configureCell()
             cell.configureCell(syncing: appIsSyncing)
             cell.tag = 1
-
             return cell
-        } else if (indexPath as NSIndexPath).row == 1 {
+
+        } else if cellOrder[(indexPath as NSIndexPath).row] == SettingsCellType.addPremade {
             let cell = tableView.dequeueReusableCell(withIdentifier: "AddListsCell", for: indexPath) as! SettingsTableViewCell
             cell.configureCell()
             cell.tag = 2
-
             return cell
+            
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "AboutCell", for: indexPath) as! SettingsTableViewCell
             cell.configureCell()
