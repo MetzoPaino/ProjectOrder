@@ -29,10 +29,10 @@ func createRecordOfTypeWithUniqueIdentifier(_ type:String, uniqueIdentifier: Str
 
 func createDavidBowieCollection() -> CollectionModel {
     
-    let collection = CollectionModel(name: "David Bowie Discography", description: "From Glam to Jazztronica, few have had so many hits in so many different genres. Take an out of this world trip from 1967 to 2016.", dateCreated: Date())
+    let collection = CollectionModel(name: "David Bowie Albums", description: "From Glam to Jazztronica, few have had so many hits in so many different genres. Take an out of this world trip from 1967 to 2016.", dateCreated: Date())
     collection.record = createRecordOfTypeWithUniqueIdentifier(collectionRecordType, uniqueIdentifier: collection.name.trim())
     collection.premade = true
-    collection.image = UIImage(named: "DavidBowie")
+    //collection.image = UIImage(named: "DavidBowie")
 
     let davidBowie1967 = ItemModel(string: "David Bowie (1967)", dateCreated: Date())
     davidBowie1967.record = createRecordOfTypeWithUniqueIdentifier(itemRecordType, uniqueIdentifier: "DavidBowie(1967)")

@@ -39,7 +39,7 @@ class CloudKitManager: NSObject, NSCoding {
     var deleteFromCloudKitCounter = 0
     
     let retryLimit = 10
-    
+    var initialise = false
     
     var serverChangeToken: CKServerChangeToken?
 
@@ -52,7 +52,9 @@ class CloudKitManager: NSObject, NSCoding {
         
         super.init()
         // Init CloudKitManager
-        subscribeToCollectionUpdates()
+        if initialise == true {
+            subscribeToCollectionUpdates()
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -65,8 +67,9 @@ class CloudKitManager: NSObject, NSCoding {
             
         }
         
-        
-        subscribeToCollectionUpdates()
+        if initialise == true {
+            subscribeToCollectionUpdates()
+        }
     }
     
     func encode(with aCoder: NSCoder) {

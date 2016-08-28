@@ -123,7 +123,9 @@ extension SettingsViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        if indexPath.row == 0 {
+        
+        if cellOrder[(indexPath as NSIndexPath).row] == SettingsCellType.sync {
+            
             self.delegate?.performFulliCloudSync()
             appIsSyncing = true
             tableView.reloadData()

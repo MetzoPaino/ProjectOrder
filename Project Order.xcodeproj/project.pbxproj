@@ -114,12 +114,7 @@
 				0A04E6A81CB93894006A80E5 /* ProtocolManager.swift */,
 				0ADF5C0D1CBA9D7400BC74AA /* Helpers.swift */,
 				0AF64FB81C4A859B003F8519 /* CollectionCreator.swift */,
-				0A22D63A1CF1C626005B82EC /* FinalFantasy.swift */,
-				0AE9C1341D05A6060069CDF3 /* Tarantino.swift */,
-				0A4EC11C1D15BDAC00D6A6EF /* StarWars.swift */,
-				0ABB02E41D624079000E7246 /* Flags.swift */,
-				0A31D4CC1D705B9D0006AA64 /* Pokemon.swift */,
-				0A31D4CE1D7084C70006AA64 /* Seasons.swift */,
+				0A9FB24E1D7308140013A83A /* Lists */,
 				0AFD72F41D69C82700D77C0C /* Helpers */,
 			);
 			name = Managers;
@@ -175,6 +170,19 @@
 				0A98C1451CB15D9B00BF7252 /* Settings.storyboard */,
 			);
 			name = Storyboards;
+			sourceTree = "<group>";
+		};
+		0A9FB24E1D7308140013A83A /* Lists */ = {
+			isa = PBXGroup;
+			children = (
+				0A22D63A1CF1C626005B82EC /* FinalFantasy.swift */,
+				0AE9C1341D05A6060069CDF3 /* Tarantino.swift */,
+				0A4EC11C1D15BDAC00D6A6EF /* StarWars.swift */,
+				0ABB02E41D624079000E7246 /* Flags.swift */,
+				0A31D4CC1D705B9D0006AA64 /* Pokemon.swift */,
+				0A31D4CE1D7084C70006AA64 /* Seasons.swift */,
+			);
+			name = Lists;
 			sourceTree = "<group>";
 		};
 		0AF64F941C4A8129003F8519 = {

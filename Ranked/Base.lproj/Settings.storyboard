@@ -202,7 +202,7 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="SortingAnimation_100" translatesAutoresizingMaskIntoConstraints="NO" id="ytx-2x-k7G">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AppIconLarge" translatesAutoresizingMaskIntoConstraints="NO" id="ytx-2x-k7G">
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="9zQ-0p-BwH"/>
                                     <constraint firstAttribute="width" secondItem="ytx-2x-k7G" secondAttribute="height" multiplier="1:1" id="i1h-Kh-O0y"/>
@@ -423,8 +423,8 @@
     <resources>
         <image name="About" width="48" height="48"/>
         <image name="AddPremade" width="48" height="48"/>
+        <image name="AppIconLarge" width="100" height="100"/>
         <image name="ForwardArrow" width="48" height="48"/>
-        <image name="SortingAnimation_100" width="68" height="68"/>
         <image name="Sync" width="48" height="48"/>
     </resources>
     <color key="tintColor" red="1" green="0.1019607843" blue="0.45098039220000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

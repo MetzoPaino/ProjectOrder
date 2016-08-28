@@ -77,6 +77,8 @@ class DataManager {
                     serverChangeToken = decodedServerChangeToken
                 }
                 
+                cloudKitManager.initialise = useCloudKit
+                
                 if useCloudKit == true {
                     
                     cloudKitManager.fetchAllFromDatabase()
@@ -90,6 +92,7 @@ class DataManager {
                 collections = [CollectionModel]()
                 lostItems = [ItemModel]()
                 cloudKitManager = CloudKitManager()
+                cloudKitManager.initialise = useCloudKit
             }
             
             firstLaunch = false
@@ -101,7 +104,8 @@ class DataManager {
             lostItems = [ItemModel]()
             
             cloudKitManager = CloudKitManager()
-            
+            cloudKitManager.initialise = useCloudKit
+
             if useCloudKit == true {
                 
                 cloudKitManager.fetchAllFromDatabase()
@@ -193,30 +197,30 @@ class DataManager {
     }
     
     func deleteCollectionFromCloudKit(recordID: CKRecordID) {
-        print("Delete Collection from CloudKit")
         
         if useCloudKit == true {
+            print("Delete Collection from CloudKit")
             cloudKitManager.deleteFromCloudKit(recordID)
         }
     }
     
     func deleteItemFromCloudKit(recordID: CKRecordID) {
-        print("Delete Item from CloudKit")
         if useCloudKit == true {
+            print("Delete Item from CloudKit")
             cloudKitManager.deleteFromCloudKit(recordID)
         }
     }
     
     func saveCollectionToCloudKit(collection: CollectionModel) {
-        print("Here 3")
         if useCloudKit == true {
+            print("Here 3")
             cloudKitManager.saveCollectionToCloudKit(collection)
         }
     }
     
     func editCollectionToCloudKit(collection: CollectionModel) {
-        print("Here 4")
         if useCloudKit == true {
+            print("Here 4")
             cloudKitManager.editCollectionInCloudKit(collection)
         }
     }

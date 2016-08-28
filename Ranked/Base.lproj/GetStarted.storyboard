@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11173.2" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Y3H-tk-ixc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11198.2" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Y3H-tk-ixc">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11143.2"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -20,11 +20,21 @@
                         <rect key="frame" x="0.0" y="44" width="375" height="623"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Can't think of your own lists? Here are some I made earlier" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="n1S-36-mGb">
-                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <view contentMode="scaleToFill" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="cEd-5f-5Oe">
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Can't think of your own lists? Here are some I made earlier" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="n1S-36-mGb">
+                                        <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="n1S-36-mGb" firstAttribute="width" secondItem="cEd-5f-5Oe" secondAttribute="width" id="4Bl-Pk-5PI"/>
+                                    <constraint firstItem="n1S-36-mGb" firstAttribute="centerY" secondItem="cEd-5f-5Oe" secondAttribute="centerY" id="8SX-eD-KAG"/>
+                                    <constraint firstItem="n1S-36-mGb" firstAttribute="height" secondItem="cEd-5f-5Oe" secondAttribute="height" id="GlM-at-8mm"/>
+                                    <constraint firstItem="n1S-36-mGb" firstAttribute="centerX" secondItem="cEd-5f-5Oe" secondAttribute="centerX" id="Je6-hl-XcX"/>
+                                </constraints>
+                            </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qaV-7w-egv">
                                 <color key="backgroundColor" red="0.75686274509999996" green="0.1764705882" blue="0.4431372549" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
@@ -54,7 +64,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0ei-Lo-FFx">
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="8GO-KL-qK2">
-                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="28"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -80,7 +90,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NOy-5N-eqi">
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="EeE-aq-Qrx">
-                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="28"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -106,7 +116,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gkz-Bg-yf7">
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="uDG-kE-fmU">
-                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="28"/>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -136,17 +146,17 @@
                             <constraint firstItem="qaV-7w-egv" firstAttribute="centerX" secondItem="K3y-Uy-HHe" secondAttribute="centerX" id="7Ca-wf-ObH"/>
                             <constraint firstItem="gkz-Bg-yf7" firstAttribute="top" secondItem="NOy-5N-eqi" secondAttribute="bottom" constant="32" id="7mH-Z5-Vg0"/>
                             <constraint firstItem="gkz-Bg-yf7" firstAttribute="width" secondItem="NOy-5N-eqi" secondAttribute="width" id="7oD-Io-6mD"/>
-                            <constraint firstItem="n1S-36-mGb" firstAttribute="top" secondItem="K3y-Uy-HHe" secondAttribute="topMargin" constant="32" id="BpD-OS-yWE"/>
                             <constraint firstItem="XAU-cO-1tx" firstAttribute="top" secondItem="QLF-Hr-RVF" secondAttribute="bottom" constant="16" id="E3k-yt-ouF"/>
                             <constraint firstItem="gkz-Bg-yf7" firstAttribute="centerX" secondItem="K3y-Uy-HHe" secondAttribute="centerX" id="ImS-ue-t1F"/>
+                            <constraint firstAttribute="trailing" secondItem="cEd-5f-5Oe" secondAttribute="trailing" constant="16" id="QWh-fF-HWe"/>
                             <constraint firstItem="0ei-Lo-FFx" firstAttribute="width" secondItem="K3y-Uy-HHe" secondAttribute="width" constant="-64" id="QZH-ux-Ahp"/>
-                            <constraint firstItem="0ei-Lo-FFx" firstAttribute="top" secondItem="n1S-36-mGb" secondAttribute="bottom" constant="32" id="Tlz-gQ-2f6"/>
                             <constraint firstAttribute="bottomMargin" secondItem="QLF-Hr-RVF" secondAttribute="bottom" constant="16" id="bPm-4D-YDp"/>
-                            <constraint firstItem="n1S-36-mGb" firstAttribute="top" secondItem="4ZI-Qg-zuA" secondAttribute="bottom" constant="32" id="ckH-sJ-quv"/>
                             <constraint firstItem="NOy-5N-eqi" firstAttribute="width" secondItem="0ei-Lo-FFx" secondAttribute="width" id="clE-Gq-QQV"/>
                             <constraint firstItem="0ei-Lo-FFx" firstAttribute="bottom" secondItem="NOy-5N-eqi" secondAttribute="top" constant="-32" id="gfk-Kj-DPq"/>
-                            <constraint firstItem="n1S-36-mGb" firstAttribute="centerX" secondItem="K3y-Uy-HHe" secondAttribute="centerX" id="vHr-3x-4SX"/>
+                            <constraint firstItem="cEd-5f-5Oe" firstAttribute="leading" secondItem="K3y-Uy-HHe" secondAttribute="leading" constant="16" id="rWi-fB-P9k"/>
+                            <constraint firstItem="0ei-Lo-FFx" firstAttribute="top" secondItem="cEd-5f-5Oe" secondAttribute="bottom" constant="8" id="skd-z0-EIv"/>
                             <constraint firstItem="XAU-cO-1tx" firstAttribute="top" secondItem="qaV-7w-egv" secondAttribute="bottom" constant="16" id="vtU-ID-Ox3"/>
+                            <constraint firstItem="cEd-5f-5Oe" firstAttribute="top" secondItem="4ZI-Qg-zuA" secondAttribute="bottom" constant="8" id="wAn-Zf-Ggv"/>
                             <constraint firstItem="0ei-Lo-FFx" firstAttribute="centerX" secondItem="K3y-Uy-HHe" secondAttribute="centerX" id="wHW-uy-im2"/>
                             <constraint firstItem="NOy-5N-eqi" firstAttribute="centerY" secondItem="K3y-Uy-HHe" secondAttribute="centerY" id="wlU-2d-dO2"/>
                             <constraint firstItem="QLF-Hr-RVF" firstAttribute="leading" secondItem="K3y-Uy-HHe" secondAttribute="leading" constant="16" id="xOh-1X-OWO"/>
@@ -154,11 +164,9 @@
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="QZH-ux-Ahp"/>
-                                <exclude reference="Tlz-gQ-2f6"/>
                                 <exclude reference="clE-Gq-QQV"/>
-                                <exclude reference="bPm-4D-YDp"/>
                                 <exclude reference="7oD-Io-6mD"/>
-                                <exclude reference="BpD-OS-yWE"/>
+                                <exclude reference="bPm-4D-YDp"/>
                             </mask>
                         </variation>
                     </view>
@@ -169,7 +177,6 @@
                         <outlet property="doneButton" destination="qaV-7w-egv" id="HK1-FH-CSX"/>
                         <outlet property="doneButtonBottomConstraint" destination="vtU-ID-Ox3" id="jqY-cc-NjF"/>
                         <outlet property="infoLabel" destination="n1S-36-mGb" id="1Un-fE-MiD"/>
-                        <outlet property="infoLabelTopConstraint" destination="ckH-sJ-quv" id="ifX-cH-BHW"/>
                         <outlet property="option1Button" destination="7iY-fJ-TK1" id="vv2-ST-fAK"/>
                         <outlet property="option1CenterConstraint" destination="wHW-uy-im2" id="tSH-ih-Ryc"/>
                         <outlet property="option1Label" destination="8GO-KL-qK2" id="32K-N6-uJK"/>
