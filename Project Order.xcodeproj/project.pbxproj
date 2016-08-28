@@ -30,6 +30,7 @@
 		0A7B50811CE74BA30083CCCF /* AddListsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A7B50801CE74BA30083CCCF /* AddListsViewController.swift */; };
 		0A98C1471CB15D9B00BF7252 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A98C1451CB15D9B00BF7252 /* Settings.storyboard */; };
 		0A9A16811C5CDD260000E436 /* TournamentManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9A16801C5CDD260000E436 /* TournamentManager.swift */; };
+		0A9FB2501D73099B0013A83A /* Ghibli.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A9FB24F1D73099B0013A83A /* Ghibli.swift */; };
 		0ABB02E51D624079000E7246 /* Flags.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABB02E41D624079000E7246 /* Flags.swift */; };
 		0ADF5C0E1CBA9D7400BC74AA /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ADF5C0D1CBA9D7400BC74AA /* Helpers.swift */; };
 		0AE0C83C1CC2AD960085FE30 /* LaunchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE0C83B1CC2AD960085FE30 /* LaunchViewController.swift */; };
@@ -71,6 +72,7 @@
 		0A7B50801CE74BA30083CCCF /* AddListsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AddListsViewController.swift; path = Settings/AddListsViewController.swift; sourceTree = "<group>"; };
 		0A98C1461CB15D9B00BF7252 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Settings.storyboard; sourceTree = "<group>"; };
 		0A9A16801C5CDD260000E436 /* TournamentManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TournamentManager.swift; sourceTree = "<group>"; };
+		0A9FB24F1D73099B0013A83A /* Ghibli.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Ghibli.swift; path = PremadeCollections/Ghibli.swift; sourceTree = "<group>"; };
 		0ABB02E41D624079000E7246 /* Flags.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Flags.swift; path = PremadeCollections/Flags.swift; sourceTree = "<group>"; };
 		0ADF5C0D1CBA9D7400BC74AA /* Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Helpers.swift; path = Helpers/Helpers.swift; sourceTree = "<group>"; };
 		0AE0C83B1CC2AD960085FE30 /* LaunchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchViewController.swift; sourceTree = "<group>"; };
@@ -181,6 +183,7 @@
 				0ABB02E41D624079000E7246 /* Flags.swift */,
 				0A31D4CC1D705B9D0006AA64 /* Pokemon.swift */,
 				0A31D4CE1D7084C70006AA64 /* Seasons.swift */,
+				0A9FB24F1D73099B0013A83A /* Ghibli.swift */,
 			);
 			name = Lists;
 			sourceTree = "<group>";
@@ -340,6 +343,7 @@
 				0A77D7DA1C67900C00792403 /* DescriptionViewController.swift in Sources */,
 				0AF64FA11C4A8129003F8519 /* AppDelegate.swift in Sources */,
 				0AF64FB51C4A830B003F8519 /* Models.swift in Sources */,
+				0A9FB2501D73099B0013A83A /* Ghibli.swift in Sources */,
 				0A4EC11D1D15BDAC00D6A6EF /* StarWars.swift in Sources */,
 				0ADF5C0E1CBA9D7400BC74AA /* Helpers.swift in Sources */,
 				0A31D4CD1D705B9D0006AA64 /* Pokemon.swift in Sources */,
