@@ -61,7 +61,8 @@ class SortingViewController: UIViewController {
     var decideLaterImage: UIImageView!
 
     var blockColor = UIColor.secondaryColor()
- 
+    let losingBlockColor = UIColor(red:196/255, green:241/255, blue:236/255, alpha:1.0)
+    
     var originalSortedItems = [ItemModel]()
     var originallySorted = false
     
@@ -436,7 +437,7 @@ class SortingViewController: UIViewController {
                     
                     holdingView.backgroundColor = UIColor.colorFromPercentageInRange(Float(percentage), startColor: .sortingNeutralBackgroundColor(), endColor: .sortingPreferredBackgroundColor())
                     
-                    bottomView.backgroundColor = UIColor.colorFromPercentageInRange(Float(percentage), startColor: self.blockColor, endColor: UIColor(red:0.16, green:0.71, blue:0.63, alpha:1.0))
+                    bottomView.backgroundColor = UIColor.colorFromPercentageInRange(Float(percentage), startColor: self.blockColor, endColor: self.losingBlockColor)
                     
                     topView.backgroundColor = UIColor.colorFromPercentageInRange(Float(percentage), startColor: self.blockColor, endColor: .blockPreferredColor())
                     
@@ -467,7 +468,7 @@ class SortingViewController: UIViewController {
                     let animationPercentage = (bottomViewBottomConstraint.constant / (fullAlpha - 70)) * 100
                     var animationIndex = animationArray.count * Int(animationPercentage) / 100
                     
-                    topView.backgroundColor = UIColor.colorFromPercentageInRange(Float(percentage), startColor: self.blockColor, endColor: UIColor(red:0.16, green:0.71, blue:0.63, alpha:1.0))
+                    topView.backgroundColor = UIColor.colorFromPercentageInRange(Float(percentage), startColor: self.blockColor, endColor: self.losingBlockColor)
                     
                     bottomView.backgroundColor = UIColor.colorFromPercentageInRange(Float(percentage), startColor: self.blockColor, endColor: .blockPreferredColor())
                     

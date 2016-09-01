@@ -649,9 +649,9 @@ class CloudKitManager: NSObject, NSCoding {
             return
         }
         
-        let predicate = NSPredicate(value: true)
-            
-        let options: CKSubscriptionOptions = [.firesOnRecordDeletion, .firesOnRecordUpdate, .firesOnRecordCreation]
+//        let predicate = NSPredicate(value: true)
+//            
+//        let options: CKSubscriptionOptions = [.firesOnRecordDeletion, .firesOnRecordUpdate, .firesOnRecordCreation]
 
         //let subscription = CKSubscription(recordType: "Collection", predicate: predicate, options: options)
         
@@ -666,10 +666,13 @@ class CloudKitManager: NSObject, NSCoding {
         operation.modifySubscriptionsCompletionBlock =  {
             (modifiedSubscriptions: [CKSubscription]?, deletedSubscriptionIDs: [String]?, error: Error?) -> Void in
             
+            
+            
             if error != nil {
                 print(error!.localizedDescription)
             } else {
                 
+                print(modifiedSubscriptions)
                 print("Success!")
                 
                 self.privateDatabase.fetchAllSubscriptions { (subscription: [CKSubscription]?, error: Error?) in

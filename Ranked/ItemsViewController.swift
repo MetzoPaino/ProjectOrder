@@ -228,6 +228,9 @@ class ItemsViewController: UIViewController, Injectable {
         
         tableView.backgroundColor = UIColor.white
         
+        let contentSize = tableView.contentSize
+        let originalFrame = tableView.frame
+        
         let fullFrame = CGRect(x: tableView.frame.origin.x, y: tableView.frame.origin.y, width: tableView.frame.size.width, height: tableView.contentSize.height)
         tableView.frame = fullFrame
         tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: UITableViewScrollPosition.top, animated: false)
@@ -245,11 +248,31 @@ class ItemsViewController: UIViewController, Injectable {
         tableView.backgroundColor = .clear
         
         let activityViewController = UIActivityViewController(activityItems: [image], applicationActivities: nil)
-        navigationController?.present(activityViewController, animated: true) {
-            // ...
+        
+        activityViewController.completionWithItemsHandler = {
+            (activity, success, items, error) in
+            self.tableView.frame = originalFrame
+            self.tableView.contentSize = contentSize
+            self.tableView.layoutIfNeeded()
         }
+        
+        
+        navigationController?.present(activityViewController, animated: true) {
+            
+        }
+        
         tableView.layoutIfNeeded()
     }
+    
+//    func doneSharingHandler(activityType: String!, completed: Bool, returnedItems: [AnyObject]!, error: NSError!) {
+//        // Return if cancelled
+//        if (!completed) {
+//            return
+//        }
+//        
+//        // If here, log which activity occurred
+//        print("Shared video activity: \(activityType)")
+//    }
     
     @IBAction func editButtonPressed(_ sender: UIBarButtonItem) {
         
@@ -538,7 +561,7 @@ extension AddItemDelegate: AddItemTableViewCellDelegate {
         collection.items.insert(item, at: 0)
         tableView.reloadData()
         
-        let addItemIndex = IndexPath(row: 3, section: 0)
+        let addItemIndex = IndexPath(row: 2, section: 0)
         if let cell = tableView.cellForRow(at: addItemIndex) as? AddItemTableViewCell {
             cell.textField.becomeFirstResponder()
         }
@@ -814,11 +837,12 @@ extension TableViewDataSource: UITableViewDataSource {
         
         cell.titleLabel.textColor = .titleColor()
         cell.titleLabel.text = item.text
+        cell.titleLabelLeadingConstraint.constant = 8
 
         cell.numberLabel.text = "\((indexPath as NSIndexPath).row + 1)"
         cell.numberLabel.isHidden = false
         cell.numberLabel.textColor = .white
-        
+
         // Circle image
         
 //        if let image = item.image {
