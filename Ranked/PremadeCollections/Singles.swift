@@ -17,7 +17,8 @@ func createSinglesCollection() -> CollectionModel {
     collection.record = createRecordOfTypeWithUniqueIdentifier(collectionRecordType, uniqueIdentifier: collection.name.trim())
     collection.descriptionString = "Number 1 singles from the Billboard chart"
     collection.premade = true
-    
+    collection.id = "Singles"
+
     let item1 = ItemModel(name: "Tik Tok - Kesha", image: nil)
     
     let item2 = ItemModel(name: "Imma Be - The Black Eyed Peas", image: nil)

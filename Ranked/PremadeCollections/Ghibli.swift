@@ -13,10 +13,11 @@ private let itemRecordType = "Item"
 
 func createGhibliCollection() -> CollectionModel {
     
-    let collection = CollectionModel(name: "Ghibli Films", description: "", dateCreated: Date())
+    let collection = CollectionModel(name: "Ghibli Films", description: "It doesn't matter if you prefer subs or dubs, it's going to be hard enough picking the greatest out of these masterpieces.", dateCreated: Date())
     collection.record = createRecordOfTypeWithUniqueIdentifier(collectionRecordType, uniqueIdentifier: collection.name.trim())
     collection.premade = true
-    
+    collection.id = "Ghibli"
+
     let item1 = ItemModel(name: "Castle in the Sky", image: nil)
     
     let item2 = ItemModel(name: "Grave of the Fireflies", image: nil)

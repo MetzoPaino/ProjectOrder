@@ -14,11 +14,12 @@ private let itemRecordType = "Item"
 
 func createStarWarsCollection() -> CollectionModel {
     
-    let collection = CollectionModel(name: "Star Wars", description: "Star Wars is an American epic space opera franchise, centered on a film series created by George Lucas. It depicts the adventures of various characters \"a long time ago in a galaxy far, far away\"", dateCreated: Date())
+    let collection = CollectionModel(name: "Star Wars", description: "A long time ago in a galaxy far, far away there was a series of movies more divisive than you can possibly imagine.", dateCreated: Date())
     collection.record = createRecordOfTypeWithUniqueIdentifier(collectionRecordType, uniqueIdentifier: collection.name.trim())
     collection.premade = true
-    collection.image = UIImage(named: "StarWars")
-    
+    //collection.image = UIImage(named: "StarWars")
+    collection.id = "Star Wars"
+
     let item1 = ItemModel(name: "The Phantom Menace", image: nil)
     
     let item2 = ItemModel(name: "The Clone Wars", image: nil)

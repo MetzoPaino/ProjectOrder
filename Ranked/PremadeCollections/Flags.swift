@@ -16,7 +16,8 @@ func createFlagsCollection() -> CollectionModel {
     let collection = CollectionModel(name: "Flags", description: "", dateCreated: Date())
     collection.record = createRecordOfTypeWithUniqueIdentifier(collectionRecordType, uniqueIdentifier: collection.name.trim())
     collection.premade = true
-    
+    collection.id = "Flags"
+
     let item1 = ItemModel(name: "🇦🇨 Ascension Island", image: nil) // Ascension Island
     
     let item2 = ItemModel(name: "🇦🇩 Andorra", image: nil) // Andorra

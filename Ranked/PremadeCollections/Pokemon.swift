@@ -13,10 +13,11 @@ private let itemRecordType = "Item"
 
 func createPokémonCollection() -> CollectionModel {
     
-    let collection = CollectionModel(name: "Pokémon", description: "", dateCreated: Date())
+    let collection = CollectionModel(name: "Pokémon", description: "Gotta catch 'em all, but which Pokemon would you choose to be your buddy?", dateCreated: Date())
     collection.record = createRecordOfTypeWithUniqueIdentifier(collectionRecordType, uniqueIdentifier: collection.name.trim())
     collection.premade = true
-    
+    collection.id = "Pokemon"
+
     let item1 = ItemModel(name: "Bulbasaur", image: nil)
     
     let item2 = ItemModel(name: "Ivysaur", image: nil)

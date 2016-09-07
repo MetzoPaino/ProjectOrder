@@ -24,6 +24,7 @@ class CollectionModel: NSObject, NSCoding {
     private var recordKey = "record"
     private var premadeKey = "premade"
     private var imageKey = "image"
+    private var iDKey = "id"
 
     var record = CKRecord(recordType: "Collection")
     
@@ -33,7 +34,8 @@ class CollectionModel: NSObject, NSCoding {
     var dateCreated: Date
     var image: UIImage?
     var premade = false
-    
+    var id: String?
+
     var items = [ItemModel]()
     
     private let uuid = UUID().uuidString
@@ -103,6 +105,11 @@ class CollectionModel: NSObject, NSCoding {
             image = decodedImage
         }
         
+        if let decodedID = aDecoder.decodeObject(forKey: iDKey) as? String {
+            
+            id = decodedID
+        }
+        
         super.init()
     }
     
@@ -119,6 +126,7 @@ class CollectionModel: NSObject, NSCoding {
         aCoder.encode(image, forKey: imageKey)
         aCoder.encode(premadeNumber, forKey: premadeKey)
         aCoder.encode(sortedNumber, forKey: sortedKey)
+        aCoder.encode(id, forKey: iDKey)
     }
     
     func returnArrayOfItems(sorted: Bool) -> [ItemModel] {

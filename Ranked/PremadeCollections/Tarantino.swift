@@ -14,10 +14,10 @@ private let itemRecordType = "Item"
 
 func createTarantinoCollection() -> CollectionModel {
     
-    let collection = CollectionModel(name: "Tarantino", description: "From Pulp Fiction to The Hateful Eight because it's so much fun Jan!", dateCreated: Date())
+    let collection = CollectionModel(name: "Tarantino", description: "From Pulp Fiction to The Hateful Eight, the master of nonlinear storytelling and killer soundtracks has never made a bad film, but everyone has their favorite...", dateCreated: Date())
     collection.record = CKRecord(recordType: "Collection", recordID: CKRecordID(recordName: collection.name.trim()))
     collection.premade = true
-    //collection.image = UIImage(named: "")
+    collection.id = "Tarantino"
     
     let item1 = ItemModel(name: "Reservoir Dogs", image: nil)
     

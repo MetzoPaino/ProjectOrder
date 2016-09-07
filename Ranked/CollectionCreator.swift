@@ -9,11 +9,9 @@
 import UIKit
 import CloudKit
 
-//let preMadeCollectionsArray = [createDavidBowieCollection(), createStarWarsCollection(), createHarryPotterCollection(),createInternetBrowserCollection(), createDesktopOSCollection(), createMobileOSCollection(), createMarioCharactersCollection(), createHottestHobbitsCollection()]
-
 func createPreMadeCollectionsArray() -> [CollectionModel] {
     
-    return [createDavidBowieCollection(), createStarWarsCollection(), createHarryPotterCollection(), createMarioCharactersCollection(), createHottestHobbitsCollection(), createTarantinoCollection(), createFlagsCollection(), createSeasonsCollection(), createPokémonCollection(), createGhibliCollection(), createSinglesCollection()]
+    return [createDavidBowieCollection(), createStarWarsCollection(), createHarryPotterCollection(), createMarioCharactersCollection(), createHottestHobbitsCollection(), createTarantinoCollection(), createFlagsCollection(), createSeasonsCollection(), createPokémonCollection(), createGhibliCollection()]
 }
 
 //createFinalFantasyCollection()
@@ -33,6 +31,7 @@ func createDavidBowieCollection() -> CollectionModel {
     collection.record = createRecordOfTypeWithUniqueIdentifier(collectionRecordType, uniqueIdentifier: collection.name.trim())
     collection.premade = true
     //collection.image = UIImage(named: "DavidBowie")
+    collection.id = "DavidBowieAlbums"
 
     let davidBowie1967 = ItemModel(string: "David Bowie (1967)", dateCreated: Date())
     davidBowie1967.record = createRecordOfTypeWithUniqueIdentifier(itemRecordType, uniqueIdentifier: "DavidBowie(1967)")
@@ -116,10 +115,10 @@ func createDavidBowieCollection() -> CollectionModel {
 
 func createHarryPotterCollection() -> CollectionModel {
     
-    let collection = CollectionModel(name: "Harry Potter", description: "Harry Potter is a series of seven fantasy novels written by British author J. K. Rowling. The series chronicles the life of a young wizard, Harry Potter, and his friends Hermione Granger and Ron Weasley, all of whom are students at Hogwarts School of Witchcraft and Wizardry.", dateCreated: Date())
+    let collection = CollectionModel(name: "Harry Potter", description: "\"He Who Must Not Be Named\" wasn't a fan of Harry Potter, but he probably never read the books", dateCreated: Date())
     collection.record = createRecordOfTypeWithUniqueIdentifier(collectionRecordType, uniqueIdentifier: collection.name.trim())
     collection.premade = true
-    
+    collection.id = "HarryPotter"
 
     let stone = ItemModel(string: "Philosopher's Stone", dateCreated: Date())
     stone.record = createRecordOfTypeWithUniqueIdentifier(itemRecordType, uniqueIdentifier: "PhilosophersStone")
@@ -245,10 +244,11 @@ func createDoctorWhoCollection() -> CollectionModel {
 
 func createMarioCharactersCollection() -> CollectionModel {
     
-    let collection = CollectionModel(name: "Mario Characters", description: "The Mario series has an extensive cast of recurring characters. Among the most frequently recurring and significant ones are protagonist Mario, his antagonist Bowser, his brother Luigi, the Princess of the Mushroom Kingdom Peach, his sidekick and mount Yoshi, and his antihero doppelganger Wario.", dateCreated: Date())
+    let collection = CollectionModel(name: "Mario Characters", description: "You're trapped in a castle, who would you want to come save you?", dateCreated: Date())
     collection.record = createRecordOfTypeWithUniqueIdentifier(collectionRecordType, uniqueIdentifier: collection.name.trim())
     collection.premade = true
-    
+    collection.id = "MarioCharacters"
+
     let mario = ItemModel(string: "Mario", dateCreated: Date())
     mario.record = createRecordOfTypeWithUniqueIdentifier(itemRecordType, uniqueIdentifier: "Mario")
 
@@ -271,34 +271,35 @@ func createMarioCharactersCollection() -> CollectionModel {
 
 func createHottestHobbitsCollection() -> CollectionModel {
     
-    let collection = CollectionModel(name: "Hottest Hobbits", description: "Get down with The Shire", dateCreated: Date())
+    let collection = CollectionModel(name: "Hottest Hobbits", description: "Hairy feet and 11 meals a day, who wouldn't want to get down with the Shire?", dateCreated: Date())
     collection.record = createRecordOfTypeWithUniqueIdentifier(collectionRecordType, uniqueIdentifier: collection.name.trim())
     collection.premade = true
-    collection.image = UIImage(named: "Hobbits")
+    //collection.image = UIImage(named: "Hobbits")
+    collection.id = "HottestHobbits"
 
     let frodo = ItemModel(string: "Frodo", dateCreated: Date())
     frodo.record = createRecordOfTypeWithUniqueIdentifier(itemRecordType, uniqueIdentifier: "Frodo")
-    frodo.image = UIImage(named: "Frodo")
+    //frodo.image = UIImage(named: "Frodo")
 
     let sam = ItemModel(string: "Sam", dateCreated: Date())
     sam.record = createRecordOfTypeWithUniqueIdentifier(itemRecordType, uniqueIdentifier: "Sam")
-    sam.image = UIImage(named: "Sam")
+    //sam.image = UIImage(named: "Sam")
     
     let merry = ItemModel(string: "Merry", dateCreated: Date())
     merry.record = createRecordOfTypeWithUniqueIdentifier(itemRecordType, uniqueIdentifier: "Merry")
-    merry.image = UIImage(named: "Merry")
+    //merry.image = UIImage(named: "Merry")
     
     let pippin = ItemModel(string: "Pippin", dateCreated: Date())
     pippin.record = createRecordOfTypeWithUniqueIdentifier(itemRecordType, uniqueIdentifier: "Pippin")
-    pippin.image = UIImage(named: "Pippin")
+    //pippin.image = UIImage(named: "Pippin")
     
     let bilboYoung = ItemModel(string: "Bilbo (Young)", dateCreated: Date())
     bilboYoung.record = createRecordOfTypeWithUniqueIdentifier(itemRecordType, uniqueIdentifier: "BilboYoung")
-    bilboYoung.image = UIImage(named: "BilboYoung")
+    //bilboYoung.image = UIImage(named: "BilboYoung")
     
     let bilboOld = ItemModel(string: "Bilbo (Old)", dateCreated: Date())
     bilboOld.record = createRecordOfTypeWithUniqueIdentifier(itemRecordType, uniqueIdentifier: "BilboOld")
-    bilboOld.image = UIImage(named: "BilboOld")
+    //bilboOld.image = UIImage(named: "BilboOld")
     
     collection.items = [frodo, sam, merry, pippin, bilboYoung, bilboOld]
     
